@@ -213,6 +213,63 @@ select.input{appearance:auto}
   body{background:#fff;color:#000}.card,.stat{border:1px solid #ccc;background:#fff}
   .page{display:block!important;page-break-after:always}
 }
+
+/* Command Palette */
+.cmd-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:flex-start;justify-content:center;padding-top:min(20vh,160px);opacity:0;pointer-events:none;transition:opacity .12s}
+.cmd-bg.show{opacity:1;pointer-events:auto}
+.cmd-box{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);width:92%;max-width:580px;overflow:hidden;transform:scale(.96) translateY(-8px);transition:transform .12s;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.cmd-bg.show .cmd-box{transform:scale(1) translateY(0)}
+.cmd-input-wrap{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border)}
+.cmd-input-wrap svg{color:var(--dim);flex-shrink:0}
+.cmd-input{flex:1;background:none;border:none;color:var(--tx);font-size:15px;outline:none;font-family:inherit}
+.cmd-input::placeholder{color:var(--dim2)}
+.cmd-hint{font-size:10px;color:var(--dim2);padding:0 4px}
+.cmd-results{max-height:340px;overflow-y:auto;padding:6px}
+.cmd-results:empty::after{content:'Type to search notes, papers, entries...';display:block;padding:20px;text-align:center;color:var(--dim);font-size:12px}
+.cmd-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--rs);cursor:pointer;transition:background .08s}
+.cmd-item:hover,.cmd-item.sel{background:var(--accent-g)}
+.cmd-item .ci-icon{font-size:16px;flex-shrink:0;width:24px;text-align:center}
+.cmd-item .ci-text{flex:1;min-width:0}
+.cmd-item .ci-title{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmd-item .ci-sub{font-size:10px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmd-item .ci-badge{font-size:9px;flex-shrink:0}
+.cmd-footer{display:flex;gap:12px;padding:8px 14px;border-top:1px solid var(--border);font-size:10px;color:var(--dim2)}
+.cmd-footer kbd{background:var(--s3);padding:1px 5px;border-radius:3px;font-family:inherit;font-size:9px}
+
+/* Focus Timer */
+.timer-card{background:var(--s1);border:2px solid var(--border);border-radius:var(--r);padding:20px;text-align:center;transition:border-color .3s}
+.timer-card.running{border-color:var(--accent);box-shadow:0 0 20px var(--accent-g)}
+.timer-card.done{border-color:var(--green);animation:timerPulse 1s ease infinite}
+@keyframes timerPulse{0%,100%{box-shadow:0 0 0 0 var(--green-g)}50%{box-shadow:0 0 20px 4px var(--green-g)}}
+.timer-display{font-size:48px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:8px 0}
+.timer-label{font-size:11px;color:var(--dim);margin-bottom:12px}
+.timer-presets{display:flex;gap:4px;justify-content:center;margin-bottom:12px}
+.timer-preset{padding:4px 10px;border-radius:16px;border:1px solid var(--border);background:none;color:var(--dim);font-size:11px;transition:all .12s}
+.timer-preset:hover,.timer-preset.active{border-color:var(--accent);color:var(--accent);background:var(--accent-g)}
+.timer-controls{display:flex;gap:6px;justify-content:center}
+.timer-btn{padding:8px 20px;border-radius:var(--rs);border:none;font-size:12px;font-weight:600;transition:all .12s}
+.timer-btn:hover{opacity:.85}
+.timer-start{background:var(--accent);color:#fff}
+.timer-pause{background:var(--yellow);color:#000}
+.timer-reset{background:none;border:1px solid var(--border);color:var(--dim)}
+.timer-log-row{display:flex;gap:6px;justify-content:center;margin-top:10px}
+
+/* Floating Quick Capture */
+.fab{position:fixed;bottom:24px;right:24px;z-index:150;width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(107,138,255,.4);transition:all .15s}
+.fab:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(107,138,255,.5)}
+.fab:active{transform:scale(.95)}
+.fab-menu{position:fixed;bottom:84px;right:24px;z-index:150;display:flex;flex-direction:column;gap:6px;opacity:0;pointer-events:none;transform:translateY(8px);transition:all .15s}
+.fab-menu.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.fab-opt{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--s1);border:1px solid var(--border);border-radius:var(--rs);font-size:12px;font-weight:500;color:var(--tx);white-space:nowrap;cursor:pointer;transition:all .1s;margin-left:auto}
+.fab-opt:hover{border-color:var(--accent);background:var(--accent-g)}
+
+/* Backup Warning */
+.backup-bar{background:var(--yellow-g);border:1px solid rgba(251,191,36,.3);border-radius:var(--rs);padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--yellow)}
+.backup-bar button{background:var(--yellow);color:#000;border:none;padding:5px 12px;border-radius:var(--r2);font-size:11px;font-weight:600;cursor:pointer}
+
+/* Kbd hints in nav */
+.nav-tab .kbd-hint{display:none;font-size:9px;color:var(--dim2);margin-left:4px}
+@media(min-width:769px){.nav-tab .kbd-hint{display:inline}}
 </style>
 </head>
 <body>
@@ -221,13 +278,13 @@ select.input{appearance:auto}
 <div class="nav-brand">The System <span>v2.0</span></div>
 <button class="hamburger" onclick="document.querySelector('.nav-tabs').classList.toggle('open')" aria-label="Menu">☰</button>
 <div class="nav-tabs">
-<button class="nav-tab active" data-page="dashboard">Dashboard</button>
-<button class="nav-tab" data-page="inbox">Capture</button>
-<button class="nav-tab" data-page="exercise">Exercise</button>
-<button class="nav-tab" data-page="cs">CS Journal</button>
-<button class="nav-tab" data-page="phd">PhD Tracker</button>
-<button class="nav-tab" data-page="brain">Second Brain</button>
-<button class="nav-tab" data-page="review">Weekly Review</button>
+<button class="nav-tab active" data-page="dashboard">Dashboard <span class="kbd-hint">1</span></button>
+<button class="nav-tab" data-page="inbox">Capture <span class="kbd-hint">2</span></button>
+<button class="nav-tab" data-page="exercise">Exercise <span class="kbd-hint">3</span></button>
+<button class="nav-tab" data-page="cs">CS Journal <span class="kbd-hint">4</span></button>
+<button class="nav-tab" data-page="phd">PhD Tracker <span class="kbd-hint">5</span></button>
+<button class="nav-tab" data-page="brain">Second Brain <span class="kbd-hint">6</span></button>
+<button class="nav-tab" data-page="review">Weekly Review <span class="kbd-hint">7</span></button>
 </div>
 <div class="nav-right"><div class="nav-date" id="navDate"></div></div>
 </div></nav>
@@ -254,10 +311,38 @@ select.input{appearance:auto}
 <div id="todayBlocks" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px"></div>
 </div>
 
+<!-- Focus Timer -->
+<div class="g2" style="margin-bottom:14px">
+<div class="timer-card" id="timerCard">
+  <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--dim)" id="timerTitle">Focus Timer</div>
+  <div class="timer-display" id="timerDisplay">25:00</div>
+  <div class="timer-label" id="timerStatus">Ready — pick a duration and start</div>
+  <div class="timer-presets">
+    <button class="timer-preset active" onclick="setTimer(25)">25m</button>
+    <button class="timer-preset" onclick="setTimer(50)">50m</button>
+    <button class="timer-preset" onclick="setTimer(45)">45m</button>
+    <button class="timer-preset" onclick="setTimer(15)">15m</button>
+  </div>
+  <div class="timer-controls">
+    <button class="timer-btn timer-start" id="timerStartBtn" onclick="toggleTimer()">Start</button>
+    <button class="timer-btn timer-reset" onclick="resetTimer()">Reset</button>
+  </div>
+  <div class="timer-log-row" id="timerLogRow" style="display:none">
+    <select class="input" id="timerLogTrack" style="font-size:11px;padding:4px 8px">
+      <option value="cs_morning">CS Morning</option>
+      <option value="cs_evening">CS Evening</option>
+      <option value="cs_deep">CS Deep</option>
+      <option value="phd">PhD Prep</option>
+      <option value="youtube">YouTube</option>
+    </select>
+    <button class="btn btn-p btn-sm" onclick="logTimerSession()">Log Time</button>
+  </div>
+</div>
 <!-- Habit Chains -->
-<div class="card">
+<div class="card" style="margin:0">
 <div class="card-header"><h3 style="margin:0">Habit Chains</h3><span style="font-size:10px;color:var(--dim)">30-day view</span></div>
 <div id="habitChains"></div>
+</div>
 </div>
 
 <div class="g6" style="margin-bottom:14px">
@@ -535,6 +620,42 @@ select.input{appearance:auto}
 Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 <span style="margin-top:4px;display:inline-block">Henry Fan · <span id="footerYear"></span></span>
 </div>
+
+<!-- Backup Warning -->
+<div id="backupBar" class="backup-bar" style="display:none;max-width:1280px;margin:14px auto 0">
+  <span style="font-size:16px">⚠️</span>
+  <span style="flex:1">It's been over 7 days since your last export. Back up your data!</span>
+  <button onclick="exportData();this.parentElement.style.display='none'">Export Now</button>
+  <button onclick="this.parentElement.style.display='none'" style="background:none;border:1px solid rgba(251,191,36,.3);color:var(--yellow)">Dismiss</button>
+</div>
+
+<!-- Command Palette -->
+<div class="cmd-bg" id="cmdPalette">
+<div class="cmd-box">
+  <div class="cmd-input-wrap">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input class="cmd-input" id="cmdInput" placeholder="Search everything or type a command..." autocomplete="off" spellcheck="false">
+    <span class="cmd-hint">esc</span>
+  </div>
+  <div class="cmd-results" id="cmdResults"></div>
+  <div class="cmd-footer">
+    <span><kbd>↑↓</kbd> navigate</span>
+    <span><kbd>↵</kbd> select</span>
+    <span><kbd>esc</kbd> close</span>
+    <span style="margin-left:auto"><kbd>⌘K</kbd> anytime</span>
+  </div>
+</div>
+</div>
+
+<!-- Floating Quick Capture -->
+<div class="fab-menu" id="fabMenu">
+  <button class="fab-opt" onclick="fabAction('task')">☐ Task</button>
+  <button class="fab-opt" onclick="fabAction('idea')">💡 Idea</button>
+  <button class="fab-opt" onclick="fabAction('note')">📝 Note</button>
+  <button class="fab-opt" onclick="fabAction('exercise')">💪 Exercise</button>
+  <button class="fab-opt" onclick="fabAction('cs')">🖥 CS Entry</button>
+</div>
+<button class="fab" id="fabBtn" onclick="toggleFab()" title="Quick capture (c)">+</button>
 
 <div class="toast" id="toast"></div>
 
@@ -1027,7 +1148,241 @@ function renderDash(){
   $('dLastUpdated').textContent=S.lastUpdated?'Last updated: '+new Date(S.lastUpdated).toLocaleString():'';$('footerYear').textContent=new Date().getFullYear()}
 function toggleMs(k){S.milestones[k]=!S.milestones[k];save();renderAll()}
 
-function renderAll(){renderDash();renderTodayBlocks();renderHabitChains();renderInbox();renderStartup();renderExercise();renderCS();renderYouTube();renderPhD();renderBrain();renderReview()}
+function renderAll(){renderDash();renderTodayBlocks();renderHabitChains();renderInbox();renderStartup();renderExercise();renderCS();renderYouTube();renderPhD();renderBrain();renderReview();checkBackup()}
+
+// ===== COMMAND PALETTE =====
+let cmdSel=0;
+function openCmd(){$('cmdPalette').classList.add('show');$('cmdInput').value='';$('cmdInput').focus();cmdSel=0;renderCmd()}
+function closeCmd(){$('cmdPalette').classList.remove('show')}
+$('cmdPalette').addEventListener('click',e=>{if(e.target===$('cmdPalette'))closeCmd()});
+
+function getSearchItems(){
+  const items=[];
+  // Navigation
+  const pages=[{p:'dashboard',l:'Dashboard',i:'📊'},{p:'inbox',l:'Capture',i:'📥'},{p:'exercise',l:'Exercise',i:'💪'},{p:'cs',l:'CS Journal',i:'🖥'},{p:'phd',l:'PhD Tracker',i:'🎓'},{p:'brain',l:'Second Brain',i:'🧠'},{p:'review',l:'Weekly Review',i:'📋'}];
+  pages.forEach(pg=>items.push({type:'nav',icon:pg.i,title:'Go to '+pg.l,sub:'Navigation',action:()=>{goPage(pg.p);closeCmd()}}));
+  // Actions
+  items.push({type:'action',icon:'➕',title:'New capture',sub:'Quick action',action:()=>{closeCmd();fabAction('task')}});
+  items.push({type:'action',icon:'💪',title:'Log workout',sub:'Quick action',action:()=>{closeCmd();showModal('exModal')}});
+  items.push({type:'action',icon:'🖥',title:'Log CS entry',sub:'Quick action',action:()=>{closeCmd();showModal('csModal')}});
+  items.push({type:'action',icon:'📄',title:'Add paper',sub:'Quick action',action:()=>{closeCmd();showModal('paperModal')}});
+  items.push({type:'action',icon:'📝',title:'New knowledge note',sub:'Quick action',action:()=>{closeCmd();showModal('noteModal')}});
+  items.push({type:'action',icon:'🎬',title:'Log YouTube session',sub:'Quick action',action:()=>{closeCmd();showModal('ytModal')}});
+  items.push({type:'action',icon:'💾',title:'Export data backup',sub:'Quick action',action:()=>{closeCmd();exportData()}});
+  items.push({type:'action',icon:'⏱',title:'Start focus timer',sub:'Quick action',action:()=>{closeCmd();goPage('dashboard');if(!timerRunning)toggleTimer()}});
+  // Data: notes
+  S.notes.forEach(n=>items.push({type:'note',icon:'📝',title:n.title||'Untitled',sub:`${n.area} · ${n.code} · ${n.source||''}`,action:()=>{closeCmd();goPage('brain')}}));
+  // Data: papers
+  S.papers.forEach(p=>items.push({type:'paper',icon:'📄',title:p.title||'Untitled',sub:`${p.venue} · ${p.authors||''} (${p.year||''})`,action:()=>{closeCmd();goPage('phd')}}));
+  // Data: CS entries
+  S.cs.slice(0,30).forEach(e=>items.push({type:'cs',icon:'🖥',title:`${e.project||'CS'}: ${e.milestone||'session'}`,sub:`${e.date} · ${e.hours}h · ${e.session}`,action:()=>{closeCmd();goPage('cs')}}));
+  // Data: inbox
+  S.inbox.forEach(i=>items.push({type:'inbox',icon:'📥',title:i.text,sub:`${i.type} · inbox`,action:()=>{closeCmd();goPage('inbox')}}));
+  // Data: outreach
+  S.outreach.forEach(o=>items.push({type:'outreach',icon:'✉️',title:`${o.name} — ${o.institution}`,sub:`${o.status} · ${o.date}`,action:()=>{closeCmd();goPage('phd')}}));
+  // Data: programs
+  S.programs.forEach(p=>items.push({type:'program',icon:'🏫',title:`${p.school} — ${p.dept}`,sub:`Fit: ${p.fit}/5 · ${p.status}`,action:()=>{closeCmd();goPage('phd')}}));
+  return items;
+}
+
+function renderCmd(){
+  const q=$('cmdInput').value.trim().toLowerCase();
+  const items=getSearchItems();
+  let filtered=items;
+  if(q){
+    filtered=items.filter(i=>(i.title+' '+i.sub).toLowerCase().includes(q));
+  }else{
+    filtered=items.filter(i=>i.type==='nav'||i.type==='action');
+  }
+  filtered=filtered.slice(0,12);
+  cmdSel=Math.min(cmdSel,Math.max(filtered.length-1,0));
+  $('cmdResults').innerHTML=filtered.map((it,i)=>`<div class="cmd-item${i===cmdSel?' sel':''}" data-idx="${i}" onmouseenter="cmdSel=${i};renderCmd()" onclick="cmdExec(${i})">
+    <span class="ci-icon">${it.icon}</span>
+    <div class="ci-text"><div class="ci-title">${esc(it.title)}</div><div class="ci-sub">${esc(it.sub)}</div></div>
+    <span class="badge ci-badge ${it.type==='nav'?'b-accent':it.type==='action'?'b-green':'b-yellow'}">${it.type}</span>
+  </div>`).join('');
+  window._cmdFiltered=filtered;
+}
+function cmdExec(i){const f=window._cmdFiltered;if(f&&f[i])f[i].action()}
+$('cmdInput').addEventListener('input',()=>{cmdSel=0;renderCmd()});
+$('cmdInput').addEventListener('keydown',e=>{
+  const f=window._cmdFiltered||[];
+  if(e.key==='ArrowDown'){e.preventDefault();cmdSel=Math.min(cmdSel+1,f.length-1);renderCmd()}
+  else if(e.key==='ArrowUp'){e.preventDefault();cmdSel=Math.max(cmdSel-1,0);renderCmd()}
+  else if(e.key==='Enter'){e.preventDefault();cmdExec(cmdSel)}
+  else if(e.key==='Escape'){closeCmd()}
+});
+
+function goPage(p){
+  document.querySelectorAll('.nav-tab').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));
+  const tab=document.querySelector(`.nav-tab[data-page="${p}"]`);
+  if(tab)tab.classList.add('active');
+  $('page-'+p).classList.add('active');
+  document.querySelector('.nav-tabs').classList.remove('open');
+  renderAll();
+}
+
+// ===== FOCUS TIMER =====
+let timerRunning=false,timerPaused=false,timerSec=25*60,timerTotal=25*60,timerInterval=null;
+
+function setTimer(min){
+  if(timerRunning)return;
+  timerSec=min*60;timerTotal=min*60;
+  document.querySelectorAll('.timer-preset').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderTimer();
+}
+function toggleTimer(){
+  if(!timerRunning&&!timerPaused){
+    timerRunning=true;timerPaused=false;
+    $('timerStartBtn').textContent='Pause';$('timerStartBtn').className='timer-btn timer-pause';
+    $('timerCard').classList.add('running');$('timerCard').classList.remove('done');
+    $('timerLogRow').style.display='none';
+    timerInterval=setInterval(()=>{
+      timerSec--;
+      if(timerSec<=0){
+        clearInterval(timerInterval);timerRunning=false;timerSec=0;
+        $('timerStartBtn').textContent='Start';$('timerStartBtn').className='timer-btn timer-start';
+        $('timerCard').classList.remove('running');$('timerCard').classList.add('done');
+        $('timerStatus').textContent='Session complete! Log it below.';
+        $('timerLogRow').style.display='flex';
+        timerDing();
+      }
+      renderTimer();
+    },1000);
+  }else if(timerRunning&&!timerPaused){
+    timerPaused=true;timerRunning=false;
+    clearInterval(timerInterval);
+    $('timerStartBtn').textContent='Resume';$('timerStartBtn').className='timer-btn timer-start';
+    $('timerCard').classList.remove('running');
+    $('timerStatus').textContent='Paused';
+  }else if(timerPaused){
+    timerPaused=false;timerRunning=true;
+    $('timerStartBtn').textContent='Pause';$('timerStartBtn').className='timer-btn timer-pause';
+    $('timerCard').classList.add('running');
+    timerInterval=setInterval(()=>{
+      timerSec--;
+      if(timerSec<=0){
+        clearInterval(timerInterval);timerRunning=false;timerSec=0;
+        $('timerStartBtn').textContent='Start';$('timerStartBtn').className='timer-btn timer-start';
+        $('timerCard').classList.remove('running');$('timerCard').classList.add('done');
+        $('timerStatus').textContent='Session complete! Log it below.';
+        $('timerLogRow').style.display='flex';
+        timerDing();
+      }
+      renderTimer();
+    },1000);
+  }
+}
+function resetTimer(){
+  clearInterval(timerInterval);timerRunning=false;timerPaused=false;
+  timerSec=timerTotal;
+  $('timerStartBtn').textContent='Start';$('timerStartBtn').className='timer-btn timer-start';
+  $('timerCard').classList.remove('running','done');
+  $('timerStatus').textContent='Ready — pick a duration and start';
+  $('timerLogRow').style.display='none';
+  renderTimer();
+}
+function renderTimer(){
+  const m=Math.floor(timerSec/60),s=timerSec%60;
+  $('timerDisplay').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  if(timerRunning){
+    const elapsed=timerTotal-timerSec;
+    $('timerStatus').textContent=Math.round(elapsed/60)+'m elapsed of '+Math.round(timerTotal/60)+'m';
+    $('timerTitle').textContent='Focusing...';
+  }else if(!timerPaused&&timerSec===timerTotal){
+    $('timerTitle').textContent='Focus Timer';
+  }
+}
+function timerDing(){
+  try{const ac=new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=880;o.type='sine';g.gain.value=0.3;o.start();g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.8);o.stop(ac.currentTime+0.8)}catch(e){}
+}
+function logTimerSession(){
+  const track=$('timerLogTrack').value;
+  const hrs=Math.round(timerTotal/60)/60;
+  const dateKey=td();
+  if(track.startsWith('cs')){
+    const sess=track==='cs_morning'?'morning':track==='cs_evening'?'evening':'weekend';
+    S.cs.push({id:uid(),date:dateKey,session:sess,type:'build',project:'',milestone:'Focus timer ('+Math.round(timerTotal/60)+'m)',hours:parseFloat(hrs.toFixed(2)),reflection:'',link:''});
+    S.cs.sort((a,b)=>b.date.localeCompare(a.date));
+  }else if(track==='phd'){
+    // Just track via today block
+    if(!S.today[dateKey])S.today[dateKey]={};
+    S.today[dateKey].phd=true;
+  }else if(track==='youtube'){
+    S.youtube.push({id:uid(),date:dateKey,hours:parseFloat(hrs.toFixed(2)),topic:'Focus timer session',notes:'',link:''});
+    S.youtube.sort((a,b)=>b.date.localeCompare(a.date));
+  }
+  save();resetTimer();renderAll();toast('Logged '+Math.round(timerTotal/60)+'m!');
+}
+
+// ===== FLOATING QUICK CAPTURE =====
+let fabOpen=false;
+function toggleFab(){fabOpen=!fabOpen;$('fabMenu').classList.toggle('show',fabOpen);$('fabBtn').textContent=fabOpen?'×':'+';$('fabBtn').style.transform=fabOpen?'rotate(45deg)':''}
+function closeFab(){fabOpen=false;$('fabMenu').classList.remove('show');$('fabBtn').textContent='+';$('fabBtn').style.transform=''}
+function fabAction(type){
+  closeFab();
+  if(type==='exercise'){showModal('exModal');return}
+  if(type==='cs'){showModal('csModal');return}
+  // For task/idea/note, open a quick prompt
+  const text=prompt(type==='task'?'Quick task:':type==='idea'?'Quick idea:':'Quick note:');
+  if(text&&text.trim()){
+    S.inbox.push({id:uid(),text:text.trim(),type:type,created:new Date().toISOString()});
+    save();renderAll();toast('Captured!');
+  }
+}
+document.addEventListener('click',e=>{if(fabOpen&&!e.target.closest('.fab')&&!e.target.closest('.fab-menu'))closeFab()});
+
+// ===== KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown',e=>{
+  // Don't fire shortcuts when typing in inputs
+  const tag=document.activeElement.tagName;
+  const inInput=tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT';
+
+  // Cmd+K / Ctrl+K — command palette (always works)
+  if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();if($('cmdPalette').classList.contains('show'))closeCmd();else openCmd();return}
+
+  if(inInput)return;
+
+  // Number keys 1-7 for tab navigation
+  const num=parseInt(e.key);
+  if(num>=1&&num<=7&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
+    const pages=['dashboard','inbox','exercise','cs','phd','brain','review'];
+    goPage(pages[num-1]);return;
+  }
+  // 'c' for quick capture
+  if(e.key==='c'&&!e.metaKey&&!e.ctrlKey){
+    e.preventDefault();
+    const text=prompt('Quick capture:');
+    if(text&&text.trim()){S.inbox.push({id:uid(),text:text.trim(),type:'task',created:new Date().toISOString()});save();renderAll();toast('Captured!')}
+    return;
+  }
+  // 's' for start/pause timer
+  if(e.key==='s'&&!e.metaKey&&!e.ctrlKey){toggleTimer();return}
+  // '/' for command palette
+  if(e.key==='/'){e.preventDefault();openCmd();return}
+});
+
+// ===== BACKUP REMINDER =====
+function checkBackup(){
+  const last=S.lastUpdated;
+  if(!last){$('backupBar').style.display='';return}
+  const daysSince=Math.floor((Date.now()-new Date(last).getTime())/864e5);
+  // Check if there's data worth backing up and last save > 7 days
+  const hasData=S.exercise.length+S.cs.length+S.papers.length+S.notes.length>0;
+  // Check localStorage for last export
+  const lastExport=localStorage.getItem('systemv2_lastExport');
+  if(hasData&&(!lastExport||Date.now()-parseInt(lastExport)>7*864e5)){
+    $('backupBar').style.display='flex';
+  }else{
+    $('backupBar').style.display='none';
+  }
+}
+// Patch export to track last export time
+const _origExport=exportData;
+exportData=function(){_origExport();localStorage.setItem('systemv2_lastExport',Date.now().toString())};
+
 init();renderAll();
 </script>
 </body>
