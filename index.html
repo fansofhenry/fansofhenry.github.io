@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henry Fan — The System v2.0</title>
+<meta name="description" content="A GTD-based daily operating system for Henry Fan. Track exercise, CS learning, and PhD prep.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<style>
+:root{
+  --bg:#0d1017;--s1:#151923;--s2:#1c2231;--s3:#242c3d;
+  --border:#2a3348;--tx:#e2e5ef;--dim:#7a8299;--dim2:#555d73;
+  --accent:#6b8aff;--accent-g:rgba(107,138,255,.12);
+  --green:#34d399;--green-g:rgba(52,211,153,.1);
+  --yellow:#fbbf24;--yellow-g:rgba(251,191,36,.1);
+  --red:#f87171;--red-g:rgba(248,113,113,.1);
+  --purple:#a78bfa;--purple-g:rgba(167,139,250,.1);
+  --r:12px;--rs:8px;--r2:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;min-height:100vh;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+button{cursor:pointer;font-family:inherit}
+::selection{background:var(--accent);color:#fff}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,16,23,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;height:52px;gap:16px}
+.nav-brand{font-weight:700;font-size:17px;letter-spacing:-.02em;white-space:nowrap}
+.nav-brand span{color:var(--accent)}
+.nav-tabs{display:flex;gap:2px;flex:1;justify-content:center}
+.nav-tab{padding:6px 14px;border-radius:var(--rs);font-size:13px;font-weight:500;color:var(--dim);background:none;border:none;transition:all .15s;white-space:nowrap}
+.nav-tab:hover{color:var(--tx);background:var(--s2)}
+.nav-tab.active{color:var(--accent);background:var(--accent-g)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-date{font-size:12px;color:var(--dim);white-space:nowrap}
+.hamburger{display:none;background:none;border:none;color:var(--tx);font-size:22px;padding:4px}
+
+@media(max-width:768px){
+  .nav-tabs{display:none;position:absolute;top:52px;left:0;right:0;background:var(--s1);border-bottom:1px solid var(--border);flex-direction:column;padding:8px;gap:2px;z-index:101}
+  .nav-tabs.open{display:flex}
+  .hamburger{display:block}
+  .nav-date{display:none}
+}
+
+/* LAYOUT */
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.page{display:none;animation:fadeIn .2s ease}.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:14px;transition:border-color .15s}
+.card:hover{border-color:var(--s3)}
+.card h3{font-size:15px;font-weight:600;margin-bottom:12px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* STAT */
+.stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:border-color .15s}
+.stat:hover{border-color:var(--accent)}
+.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:4px}
+.stat-val{font-size:26px;font-weight:700;letter-spacing:-.02em}
+.stat-sub{font-size:12px;color:var(--dim);margin-top:2px}
+
+/* BADGE */
+.badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:16px;display:inline-block}
+.b-green{background:var(--green-g);color:var(--green)}.b-yellow{background:var(--yellow-g);color:var(--yellow)}
+.b-red{background:var(--red-g);color:var(--red)}.b-purple{background:var(--purple-g);color:var(--purple)}
+.b-accent{background:var(--accent-g);color:var(--accent)}
+
+/* PROGRESS */
+.prog-bg{width:100%;height:7px;background:var(--s3);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.prog-label{font-size:13px;min-width:90px;color:var(--dim)}
+.prog-pct{font-size:13px;font-weight:600;min-width:36px;text-align:right}
+
+/* FORMS */
+.input{padding:9px 13px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s2);color:var(--tx);font-size:13px;outline:none;font-family:inherit;transition:border-color .15s}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+.input::placeholder{color:var(--dim2)}
+textarea.input{resize:vertical;min-height:60px}
+select.input{appearance:auto}
+.btn{padding:8px 16px;border-radius:var(--rs);border:none;font-size:13px;font-weight:600;transition:all .15s}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-p{background:var(--accent);color:#fff}
+.btn-o{background:none;border:1px solid var(--border);color:var(--tx)}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-danger{background:var(--red-g);color:var(--red)}
+.btn-green{background:var(--green-g);color:var(--green)}
+.form-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
+
+/* SCHEDULE */
+.sched{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:var(--rs);margin-bottom:6px;border-left:4px solid;transition:transform .1s}
+.sched:hover{transform:translateX(2px)}
+.sched-time{font-size:12px;font-weight:600;min-width:100px;color:var(--dim)}
+.sched-name{font-size:13px;font-weight:600}
+.sched-dur{font-size:11px;color:var(--dim);margin-left:auto}
+.sched.now{box-shadow:0 0 0 2px var(--accent);position:relative}
+.sched.now::after{content:'NOW';position:absolute;right:8px;top:-8px;font-size:9px;font-weight:700;background:var(--accent);color:#fff;padding:1px 6px;border-radius:8px}
+
+/* HEATMAP */
+.heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.heatmap-day{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--dim2);cursor:pointer;transition:all .15s}
+.heatmap-day.rest{background:var(--s3)}
+.heatmap-day.done{background:var(--green);color:#fff}
+.heatmap-day.missed{background:var(--red-g);border:1px solid rgba(248,113,113,.3)}
+.heatmap-day.future{background:var(--s2);opacity:.3;pointer-events:none}
+.heatmap-day:hover:not(.future){outline:2px solid var(--accent);outline-offset:1px}
+.hm-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px}
+.hm-labels span{text-align:center;font-size:10px;color:var(--dim2)}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);padding:8px 10px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--s1)}
+.tbl td{padding:10px;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--s2)}
+.tbl-wrap{max-height:500px;overflow-y:auto;border-radius:var(--rs)}
+
+/* TASK */
+.task{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.task:last-child{border-bottom:none}
+.task-chk{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);background:none;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.task-chk:hover{border-color:var(--accent);background:var(--accent-g)}
+.task-chk.done{background:var(--green);border-color:var(--green)}
+.task-chk.done::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
+.task-txt{flex:1;font-size:13px}.task-txt.done{text-decoration:line-through;color:var(--dim)}
+.task-del{background:none;border:none;color:var(--dim);font-size:14px;padding:0 3px;opacity:0;transition:opacity .12s}
+.task:hover .task-del{opacity:1}.task-del:hover{color:var(--red)}
+
+/* TABS */
+.sub-tabs{display:flex;gap:4px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sub-tab{padding:6px 14px;border-radius:var(--rs);font-size:12px;font-weight:500;color:var(--dim);background:none;border:1px solid transparent;transition:all .12s;white-space:nowrap;flex-shrink:0}
+.sub-tab:hover{color:var(--tx);background:var(--s2)}
+.sub-tab.active{color:var(--accent);background:var(--accent-g);border-color:rgba(107,138,255,.3)}
+
+/* MODAL */
+.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .15s}
+.modal-bg.show{opacity:1;pointer-events:auto}
+.modal{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;width:90%;max-width:480px;max-height:90vh;overflow-y:auto;transform:scale(.96);transition:transform .15s}
+.modal-bg.show .modal{transform:scale(1)}
+.modal h3{margin-bottom:16px;font-size:17px}
+
+/* STATUS DOT */
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;flex-shrink:0}
+.dot-on{background:var(--green)}.dot-behind{background:var(--yellow)}.dot-off{background:var(--red)}
+
+/* CHART */
+.mini-chart{height:120px;display:flex;align-items:flex-end;gap:3px;padding-top:8px}
+.mini-bar{flex:1;border-radius:3px 3px 0 0;min-height:4px;transition:height .4s ease}
+
+/* PHASE */
+.phase-bar{display:flex;gap:3px;margin:12px 0}
+.phase-seg{flex:1;height:32px;border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;transition:all .2s}
+.phase-seg.current{background:var(--accent);color:#fff;box-shadow:0 0 12px var(--accent-g)}
+.phase-seg.done{background:var(--green);color:#fff}
+.phase-seg.upcoming{background:var(--s3);color:var(--dim)}
+
+/* EXPAND */
+.expand-row{cursor:pointer}.expand-row:hover td{background:var(--accent-g)!important}
+.expand-detail{display:none;animation:fadeIn .15s ease}
+.expand-detail.show{display:table-row}
+
+/* INBOX */
+.inbox-item{display:flex;align-items:center;gap:10px;padding:12px;background:var(--s2);border-radius:var(--rs);margin-bottom:6px;border:1px solid var(--border);transition:border-color .12s}
+.inbox-item:hover{border-color:var(--accent)}
+.inbox-actions{display:flex;gap:4px;margin-left:auto;flex-shrink:0}
+.inbox-actions button{padding:3px 8px;font-size:10px}
+
+/* 90-DAY */
+.milestone{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.milestone:last-child{border-bottom:none}
+.milestone-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:all .15s}
+.milestone-dot.done{background:var(--green);border-color:var(--green)}
+.milestone-dot.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+.milestone-line{position:relative;padding-left:20px}
+.milestone-line::before{content:'';position:absolute;left:5px;top:0;bottom:0;width:2px;background:var(--border)}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;padding:10px 20px;border-radius:var(--rs);font-size:13px;font-weight:600;z-index:300;opacity:0;transform:translateY(10px);transition:all .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* FOOTER */
+.footer{text-align:center;padding:40px 20px;color:var(--dim2);font-size:12px;border-top:1px solid var(--border);margin-top:40px}
+
+/* PRINT */
+@media print{
+  .nav,.btn,.task-del,.form-row,.modal-bg,.hamburger,.inbox-actions,.footer,.toast,.sub-tabs{display:none!important}
+  body{background:#fff;color:#000}.card,.stat{border:1px solid #ccc;background:#fff}
+  .page{display:block!important;page-break-after:always}
+  .sched{border:1px solid #ccc}.badge{border:1px solid currentColor}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+<div class="nav-inner">
+<div class="nav-brand">The System <span>v2.0</span></div>
+<button class="hamburger" onclick="document.querySelector('.nav-tabs').classList.toggle('open')" aria-label="Menu">☰</button>
+<div class="nav-tabs">
+<button class="nav-tab active" data-page="dashboard">Dashboard</button>
+<button class="nav-tab" data-page="inbox">Inbox</button>
+<button class="nav-tab" data-page="exercise">Exercise</button>
+<button class="nav-tab" data-page="cs">CS Journal</button>
+<button class="nav-tab" data-page="phd">PhD Tracker</button>
+<button class="nav-tab" data-page="review">Weekly Review</button>
+</div>
+<div class="nav-right">
+<div class="nav-date" id="navDate"></div>
+</div>
+</div>
+</nav>
+
+<div class="container">
+
+<!-- ========== DASHBOARD ========== -->
+<div class="page active" id="page-dashboard">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+<div>
+<h1 style="font-size:26px;font-weight:700;margin-bottom:2px" id="dashGreet">Good morning, Henry</h1>
+<p style="color:var(--dim);font-size:13px" id="dashSub"></p>
+</div>
+<div style="display:flex;gap:6px">
+<button class="btn btn-o btn-sm" onclick="exportData()" title="Backup your data">Export Data</button>
+<label class="btn btn-o btn-sm" style="margin:0" title="Restore from backup">Import<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
+</div>
+</div>
+
+<div class="g4" style="margin-bottom:14px">
+<div class="stat"><div class="stat-label">Exercise Streak</div><div class="stat-val" id="dExStreak">0</div><div class="stat-sub">consecutive days</div></div>
+<div class="stat"><div class="stat-label">CS Hours This Week</div><div class="stat-val" id="dCsHrs">0</div><div class="stat-sub">of 12.25 hr target</div></div>
+<div class="stat"><div class="stat-label">Papers Read</div><div class="stat-val" id="dPapers">0</div><div class="stat-sub" id="dPapersSub">this month: 0</div></div>
+<div class="stat"><div class="stat-label">Week Completion</div><div class="stat-val" id="dWeekPct">—</div><div class="stat-sub" id="dWeekSub"></div></div>
+</div>
+
+<div class="g2">
+<div class="card">
+<h3>One Big Thing — This Week</h3>
+<div id="dOBT"><p style="color:var(--dim);font-size:13px">Set in Weekly Review tab.</p></div>
+</div>
+<div class="card">
+<h3>Track Status</h3>
+<div id="dStatus"></div>
+</div>
+</div>
+
+<div class="g2" style="margin-top:0">
+<div class="card">
+<h3>Today's Schedule</h3>
+<div id="dSchedule"></div>
+</div>
+<div class="card">
+<h3>CS Hours This Week</h3>
+<div class="mini-chart" id="dCsChart"></div>
+<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--dim2);margin-top:4px"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3 style="margin:0">First 90 Days at CVC OEI Exchange</h3><span class="badge b-accent" id="d90Badge">Pre-Start</span></div>
+<div id="d90Progress"></div>
+<div id="d90Milestones"></div>
+</div>
+
+<div style="text-align:right;font-size:11px;color:var(--dim2);margin-top:4px" id="dLastUpdated"></div>
+</div>
+
+<!-- ========== INBOX ========== -->
+<div class="page" id="page-inbox">
+<h1 style="font-size:24px;font-weight:700;margin-bottom:2px">Inbox</h1>
+<p style="color:var(--dim);font-size:13px;margin-bottom:16px">Capture everything here. Clarify and organize during your daily review. Process to zero.</p>
+
+<div style="display:flex;gap:8px;margin-bottom:16px">
+<input class="input" id="inboxInput" style="flex:1" placeholder="Capture a thought, task, idea, or commitment..." autofocus>
+<button class="btn btn-p" onclick="addInbox()">Capture</button>
+</div>
+
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Unprocessed</h3><span class="badge b-yellow" id="inboxCount">0</span></div>
+<div id="inboxList"></div>
+<div id="inboxEmpty" style="text-align:center;padding:30px;color:var(--dim)">
+<div style="font-size:32px;margin-bottom:8px">✓</div>
+<div style="font-size:14px;font-weight:600">Inbox zero</div>
+<div style="font-size:12px;margin-top:4px">Your mind is clear. Get to work.</div>
+</div>
+</div>
+</div>
+
+<!-- ========== EXERCISE ========== -->
+<div class="page" id="page-exercise">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+<div><h1 style="font-size:24px;font-weight:700">Exercise Log</h1>
+<p style="color:var(--dim);font-size:13px">1 hr/day · 6:00–7:00 AM · The foundation. The gym replaces the commute.</p></div>
+<button class="btn btn-p" onclick="showModal('exModal')">+ Log Workout</button>
+</div>
+
+<div class="g3" style="margin-bottom:14px">
+<div class="stat"><div class="stat-label">This Week</div><div class="stat-val" id="exWeek">0</div><div class="stat-sub">of 6 workouts</div></div>
+<div class="stat"><div class="stat-label">This Month</div><div class="stat-val" id="exMonth">0</div><div class="stat-sub">workouts</div></div>
+<div class="stat"><div class="stat-label">Current Streak</div><div class="stat-val" id="exStreak">0</div><div class="stat-sub">days</div></div>
+</div>
+
+<div class="card">
+<h3>Calendar (8 Weeks)</h3>
+<div class="hm-labels"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+<div class="heatmap" id="exHeatmap"></div>
+<div style="display:flex;gap:14px;margin-top:10px;font-size:11px;color:var(--dim)">
+<span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--green);vertical-align:middle"></span> Done</span>
+<span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--s3);vertical-align:middle"></span> Rest</span>
+</div>
+</div>
+
+<div class="card">
+<h3>Monthly Trend</h3>
+<div class="mini-chart" id="exTrend" style="height:80px"></div>
+<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--dim2);margin-top:4px" id="exTrendLabels"></div>
+</div>
+
+<div class="card">
+<h3>Recent Workouts</h3>
+<div class="tbl-wrap">
+<table class="tbl"><thead><tr><th>Date</th><th>Type</th><th>Duration</th><th>Notes</th><th></th></tr></thead>
+<tbody id="exTable"></tbody></table>
+</div>
+<div id="exEmpty" style="text-align:center;padding:24px;color:var(--dim);font-size:13px">No workouts logged yet. The gym replaces the commute.</div>
+</div>
+</div>
+
+<!-- ========== CS JOURNAL ========== -->
+<div class="page" id="page-cs">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+<div><h1 style="font-size:24px;font-weight:700">CS Learning Journal</h1>
+<p style="color:var(--dim);font-size:13px">1h45m/day · Morning theory (7:15–8:00) + Evening building (5:15–6:15)</p></div>
+<button class="btn btn-p" onclick="showModal('csModal')">+ Log Entry</button>
+</div>
+
+<div class="g4" style="margin-bottom:14px">
+<div class="stat"><div class="stat-label">Total Hours</div><div class="stat-val" id="csTotal">0</div><div class="stat-sub">cumulative</div></div>
+<div class="stat"><div class="stat-label">This Week</div><div class="stat-val" id="csWeekH">0</div><div class="stat-sub">of 12.25 hrs</div></div>
+<div class="stat"><div class="stat-label">Entries</div><div class="stat-val" id="csEntries">0</div><div class="stat-sub">total logged</div></div>
+<div class="stat"><div class="stat-label">Current Phase</div><div class="stat-val" id="csPhase">1</div><div class="stat-sub">of 5</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Phase Progress</h3>
+<button class="btn btn-o btn-sm" onclick="cyclePhase()">Advance Phase</button></div>
+<div class="phase-bar" id="csPhaseBar"></div>
+<div style="font-size:12px;color:var(--dim);margin-top:4px" id="csPhaseLabel"></div>
+</div>
+
+<div class="sub-tabs">
+<button class="sub-tab active" data-cstab="log">Build Log</button>
+<button class="sub-tab" data-cstab="reading">Reading Log</button>
+<button class="sub-tab" data-cstab="reflect">Reflections</button>
+</div>
+
+<div class="card" id="csLogView">
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Project</th><th>Milestone</th><th>Hours</th><th>Links</th><th></th></tr></thead>
+<tbody id="csLogTable"></tbody></table></div>
+<div id="csLogEmpty" style="text-align:center;padding:24px;color:var(--dim);font-size:13px">No build entries yet. Start with the Ben Eater clock module.</div>
+</div>
+<div class="card" id="csReadView" style="display:none">
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Title / Chapter</th><th>Notes</th><th></th></tr></thead>
+<tbody id="csReadTable"></tbody></table></div>
+<div id="csReadEmpty" style="text-align:center;padding:24px;color:var(--dim);font-size:13px">No reading entries yet. Morning session: pure comprehension.</div>
+</div>
+<div class="card" id="csReflectView" style="display:none">
+<div id="csReflectList"></div>
+<div id="csReflectEmpty" style="text-align:center;padding:24px;color:var(--dim);font-size:13px">End each session with 5–10 min reflection. What did you learn? What confused you?</div>
+</div>
+</div>
+
+<!-- ========== PHD TRACKER ========== -->
+<div class="page" id="page-phd">
+<div style="margin-bottom:16px"><h1 style="font-size:24px;font-weight:700">PhD Prep Tracker</h1>
+<p style="color:var(--dim);font-size:13px">30 min/day · 6:15–6:45 PM · Training yourself to think like a researcher.</p></div>
+
+<div class="g3" style="margin-bottom:14px">
+<div class="stat"><div class="stat-label">Papers Read</div><div class="stat-val" id="phdPapers">0</div><div class="stat-sub" id="phdPapersSub">this week: 0</div></div>
+<div class="stat"><div class="stat-label">Outreach Sent</div><div class="stat-val" id="phdOutreach">0</div><div class="stat-sub">emails to faculty</div></div>
+<div class="stat"><div class="stat-label">Programs Tracked</div><div class="stat-val" id="phdPrograms">0</div><div class="stat-sub">in pipeline</div></div>
+</div>
+
+<div class="sub-tabs">
+<button class="sub-tab active" data-phdtab="papers">Paper Database</button>
+<button class="sub-tab" data-phdtab="rq">Research Question</button>
+<button class="sub-tab" data-phdtab="outreach">Faculty Outreach</button>
+<button class="sub-tab" data-phdtab="programs">Program List</button>
+</div>
+
+<div class="card" id="phdPapersView">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="margin:0">Paper Reading Database</h3>
+<button class="btn btn-p btn-sm" onclick="showModal('paperModal')">+ Add Paper</button></div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Title</th><th>Venue</th><th>Key Finding</th><th></th></tr></thead>
+<tbody id="paperTable"></tbody></table></div>
+<div id="paperEmpty" style="text-align:center;padding:24px;color:var(--dim);font-size:13px">No papers yet. Target: 1–2 per week. Click a row to expand full details.</div>
+</div>
+
+<div class="card" id="phdRqView" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="margin:0">Research Question Evolution</h3>
+<button class="btn btn-p btn-sm" onclick="showModal('rqModal')">+ Add Version</button></div>
+<div id="rqList"></div>
+<div id="rqEmpty" style="text-align:center;padding:24px;color:var(--dim)">
+<div style="font-size:14px;font-weight:500;margin-bottom:4px">Track how your RQ sharpens over time</div>
+<div style="font-size:12px">Move from "hands-on equity-centered CS education" to something precise and researchable.</div>
+</div>
+</div>
+
+<div class="card" id="phdOutreachView" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="margin:0">Faculty Outreach Log</h3>
+<button class="btn btn-p btn-sm" onclick="showModal('outreachModal')">+ Log Outreach</button></div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Faculty</th><th>Institution</th><th>Status</th><th>Notes</th><th></th></tr></thead>
+<tbody id="outreachTable"></tbody></table></div>
+<div id="outreachEmpty" style="text-align:center;padding:24px;color:var(--dim);font-size:13px">Target: 1 email per week to a potential advisor.</div>
+</div>
+
+<div class="card" id="phdProgramsView" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="margin:0">Program List</h3>
+<button class="btn btn-p btn-sm" onclick="showModal('progModal')">+ Add Program</button></div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>School</th><th>Dept</th><th>Faculty</th><th>Deadline</th><th>Fit</th><th>Status</th><th></th></tr></thead>
+<tbody id="progTable"></tbody></table></div>
+<div id="progEmpty" style="text-align:center;padding:24px;color:var(--dim);font-size:13px">CS Education, Learning Sciences, or HCI with CS Ed focus.</div>
+</div>
+</div>
+
+<!-- ========== WEEKLY REVIEW ========== -->
+<div class="page" id="page-review">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+<div><h1 style="font-size:24px;font-weight:700">Weekly Review</h1>
+<p style="color:var(--dim);font-size:13px">Sunday evening · 30 minutes · The ritual that makes the system work.</p></div>
+<button class="btn btn-o" onclick="window.print()">Print / PDF</button>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+<button class="btn btn-o btn-sm" onclick="changeRvWk(-1)">&larr;</button>
+<span style="font-size:14px;font-weight:600" id="rvWeekLabel"></span>
+<button class="btn btn-o btn-sm" onclick="changeRvWk(1)">&rarr;</button>
+</div>
+
+<div class="g2">
+<div>
+<div class="card">
+<h3>Review Checklist</h3>
+<div id="rvChecklist"></div>
+</div>
+<div class="card">
+<h3>One Big Thing</h3>
+<div class="form-group" style="margin-bottom:10px"><label>💼 CVC Work</label><input class="input" id="obtCvc" style="width:100%" placeholder='e.g. "Close 3 oldest tickets"'></div>
+<div class="form-group" style="margin-bottom:10px"><label>💪 Exercise</label><input class="input" id="obtEx" style="width:100%" placeholder='e.g. "Gym 5 mornings in a row"'></div>
+<div class="form-group" style="margin-bottom:10px"><label>🖥 CS Learning</label><input class="input" id="obtCs" style="width:100%" placeholder='e.g. "Finish the clock module"'></div>
+<div class="form-group" style="margin-bottom:10px"><label>🎓 PhD Prep</label><input class="input" id="obtPhd" style="width:100%" placeholder='e.g. "Read 2 papers"'></div>
+<button class="btn btn-p" onclick="saveOBT()">Save</button>
+</div>
+</div>
+<div>
+<div class="card">
+<h3>Wins & Lessons</h3>
+<div class="form-group" style="margin-bottom:10px"><label>Wins This Week</label><textarea class="input" id="rvWins" style="width:100%" placeholder="What went well? What did you ship?"></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>Lessons Learned</label><textarea class="input" id="rvLessons" style="width:100%" placeholder="What needs adjustment?"></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>CVC Work Reflection</label><textarea class="input" id="rvWork" style="width:100%" placeholder="What did you ship at work? What did you learn?"></textarea></div>
+<button class="btn btn-p" onclick="saveReview()">Save Reflection</button>
+</div>
+<div class="card">
+<h3>Completion Trend (8 Weeks)</h3>
+<div class="mini-chart" id="rvChart" style="height:100px"></div>
+<div style="font-size:10px;color:var(--dim2);text-align:center;margin-top:4px">Weekly review checklist completion %</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="margin-top:0">
+<h3>Review Archive</h3>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Week</th><th>Exercise</th><th>CS Hrs</th><th>Papers</th><th>OBT: CVC</th><th>OBT: Exercise</th><th>OBT: CS</th><th>OBT: PhD</th></tr></thead>
+<tbody id="rvArchive"></tbody></table></div>
+<div id="rvArchiveEmpty" style="text-align:center;padding:16px;color:var(--dim);font-size:13px">Complete weekly reviews to build your archive.</div>
+</div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+<strong>The System v2.0</strong> — Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
+<span style="margin-top:4px;display:inline-block">Built by Henry Fan · <span id="footerYear">2026</span></span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ===== MODALS ===== -->
+<div class="modal-bg" id="exModal"><div class="modal">
+<h3>Log Workout</h3>
+<div class="form-group" style="margin-bottom:10px"><label>Date</label><input class="input" type="date" id="exDate" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Type</label><select class="input" id="exType" style="width:100%"><option>Strength</option><option>Cardio</option><option>Recovery</option><option>Yoga</option><option>Other</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Duration (min)</label><input class="input" type="number" id="exDur" value="60" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Notes (optional)</label><input class="input" id="exNotes" style="width:100%" placeholder="How did it feel?"></div>
+<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('exModal')">Cancel</button><button class="btn btn-p" onclick="saveExercise()">Save</button></div>
+</div></div>
+
+<div class="modal-bg" id="csModal"><div class="modal">
+<h3>Log CS Entry</h3>
+<div class="form-group" style="margin-bottom:10px"><label>Date</label><input class="input" type="date" id="csDate" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Session</label><select class="input" id="csSession" style="width:100%"><option value="morning">Morning — Theory/Reading (7:15–8:00)</option><option value="evening">Evening — Building/Hands-on (5:15–6:15)</option><option value="weekend">Weekend — Deep Work</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Type</label><select class="input" id="csType" style="width:100%"><option value="build">Build / Project</option><option value="reading">Reading</option><option value="reflection">Reflection</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Project</label><select class="input" id="csProject" style="width:100%"><option>Ben Eater 8-Bit</option><option>Nand2Tetris I</option><option>Nand2Tetris II</option><option>Code (Petzold)</option><option>Arduino</option><option>Raspberry Pi</option><option>CS Unplugged</option><option>Dashboard Build</option><option>Other</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Milestone / Chapter / Topic</label><input class="input" id="csMilestone" style="width:100%" placeholder="e.g. Clock module oscillating"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Hours</label><input class="input" type="number" id="csHours" value="0.75" step="0.25" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Reflection / Notes</label><textarea class="input" id="csReflect" style="width:100%" placeholder="What did you learn? What confused you?"></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>Link (optional)</label><input class="input" id="csLink" style="width:100%" placeholder="GitHub, blog, photo URL"></div>
+<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('csModal')">Cancel</button><button class="btn btn-p" onclick="saveCS()">Save</button></div>
+</div></div>
+
+<div class="modal-bg" id="paperModal"><div class="modal">
+<h3>Add Paper</h3>
+<div class="form-group" style="margin-bottom:10px"><label>Date Read</label><input class="input" type="date" id="ppDate" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Title</label><input class="input" id="ppTitle" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Authors</label><input class="input" id="ppAuthors" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Year</label><input class="input" type="number" id="ppYear" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Venue</label><select class="input" id="ppVenue" style="width:100%"><option>SIGCSE</option><option>ICER</option><option>RESPECT</option><option>L@S</option><option>CHI</option><option>TOCE</option><option>CSE</option><option>Other</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Research Question</label><textarea class="input" id="ppRQ" style="width:100%" placeholder="What question does this paper ask?"></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>Method</label><input class="input" id="ppMethod" style="width:100%" placeholder="e.g. Mixed methods, N=120 intro CS students"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Key Finding</label><textarea class="input" id="ppFinding" style="width:100%" placeholder="The main takeaway in 1–2 sentences"></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>My Critique</label><textarea class="input" id="ppCritique" style="width:100%" placeholder="Strengths, weaknesses, implications for your work"></textarea></div>
+<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('paperModal')">Cancel</button><button class="btn btn-p" onclick="savePaper()">Save</button></div>
+</div></div>
+
+<div class="modal-bg" id="rqModal"><div class="modal">
+<h3>Research Question Version</h3>
+<div class="form-group" style="margin-bottom:10px"><label>Date</label><input class="input" type="date" id="rqDate" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Research Question</label><textarea class="input" id="rqText" style="width:100%;min-height:80px" placeholder="Your current research question..."></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>What changed and why?</label><textarea class="input" id="rqWhy" style="width:100%" placeholder="What reading or insight prompted this revision?"></textarea></div>
+<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('rqModal')">Cancel</button><button class="btn btn-p" onclick="saveRQ()">Save</button></div>
+</div></div>
+
+<div class="modal-bg" id="outreachModal"><div class="modal">
+<h3>Log Faculty Outreach</h3>
+<div class="form-group" style="margin-bottom:10px"><label>Date</label><input class="input" type="date" id="orDate" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Faculty Name</label><input class="input" id="orName" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Institution</label><input class="input" id="orInst" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Status</label><select class="input" id="orStatus" style="width:100%"><option>Drafted</option><option>Sent</option><option>Replied</option><option>Meeting Scheduled</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Notes</label><textarea class="input" id="orNotes" style="width:100%" placeholder="What did you ask? Any specific question?"></textarea></div>
+<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('outreachModal')">Cancel</button><button class="btn btn-p" onclick="saveOutreach()">Save</button></div>
+</div></div>
+
+<div class="modal-bg" id="progModal"><div class="modal">
+<h3>Add Program</h3>
+<div class="form-group" style="margin-bottom:10px"><label>School</label><input class="input" id="pgSchool" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Department</label><input class="input" id="pgDept" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Faculty of Interest</label><input class="input" id="pgFac" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Deadline</label><input class="input" type="date" id="pgDeadline" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Fit Score (1–5)</label><select class="input" id="pgFit" style="width:100%"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Status</label><select class="input" id="pgStatus" style="width:100%"><option>Researching</option><option>Contacted Faculty</option><option>Preparing App</option><option>Submitted</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Notes</label><textarea class="input" id="pgNotes" style="width:100%"></textarea></div>
+<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('progModal')">Cancel</button><button class="btn btn-p" onclick="saveProgram()">Save</button></div>
+</div></div>
+
+<script>
+// ===== CORE =====
+const K='systemv2_gtd',START=new Date('2026-04-20');
+let S;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const td=()=>new Date().toISOString().slice(0,10);
+const esc=s=>{if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML};
+const $=id=>document.getElementById(id);
+
+function init(){
+  try{S=JSON.parse(localStorage.getItem(K));}catch(e){S=null}
+  if(!S)S={};
+  ['exercise','cs','papers','rq','outreach','programs','inbox'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[]});
+  if(!S.reviews)S.reviews={};
+  if(!S.phase)S.phase=1;
+  if(!S.milestones)S.milestones={};
+}
+function save(){S.lastUpdated=new Date().toISOString();localStorage.setItem(K,JSON.stringify(S))}
+
+// Toast
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+
+// Nav
+document.querySelectorAll('.nav-tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.nav-tab').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  t.classList.add('active');$('page-'+t.dataset.page).classList.add('active');
+  document.querySelector('.nav-tabs').classList.remove('open');
+  renderAll();
+}));
+
+// Modal
+function showModal(id){$(id).classList.add('show');$(id).querySelectorAll('input[type=date]').forEach(i=>{if(!i.value)i.value=td()})}
+function hideModal(id){$(id).classList.remove('show')}
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-bg.show').forEach(m=>m.classList.remove('show'))});
+
+// Week helpers
+function wkMon(o=0){const d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)+(o*7));return d.toISOString().slice(0,10)}
+function wkLabel(o=0){const d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)+(o*7));const e=new Date(d);e.setDate(e.getDate()+6);const f={month:'short',day:'numeric'};return d.toLocaleDateString('en-US',f)+' – '+e.toLocaleDateString('en-US',f)+', '+e.getFullYear()}
+function inWk(ds,o=0){const m=wkMon(o),s=new Date(m),e=new Date(s);e.setDate(e.getDate()+7);const d=new Date(ds);return d>=s&&d<e}
+function inMo(ds){const d=new Date(ds),n=new Date();return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear()}
+function inWkOf(ds,mon){const s=new Date(mon),e=new Date(s);e.setDate(e.getDate()+7);const d=new Date(ds);return d>=s&&d<e}
+
+// Export/Import
+function exportData(){
+  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='gtd-backup-'+td()+'.json';a.click();toast('Data exported!')
+}
+function importData(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=ev=>{
+    try{S=JSON.parse(ev.target.result);save();renderAll();toast('Data imported!')}
+    catch(err){toast('Invalid file')}
+  };r.readAsText(f);
+}
+
+// ===== INBOX =====
+function addInbox(){
+  const inp=$('inboxInput'),t=inp.value.trim();if(!t)return;
+  S.inbox.push({id:uid(),text:t,created:new Date().toISOString()});
+  inp.value='';save();renderAll();
+}
+$('inboxInput').addEventListener('keydown',e=>{if(e.key==='Enter')addInbox()});
+function delInbox(id){S.inbox=S.inbox.filter(i=>i.id!==id);save();renderAll()}
+function moveInbox(id,dest){
+  const idx=S.inbox.findIndex(i=>i.id===id);if(idx===-1)return;
+  const item=S.inbox.splice(idx,1)[0];
+  if(dest==='trash'){save();renderAll();toast('Trashed');return}
+  // For exercise, cs, phd — create a note
+  if(dest==='exercise')S.exercise.push({id:uid(),date:td(),type:'Other',duration:0,notes:'[From inbox] '+item.text});
+  else if(dest==='cs')S.cs.push({id:uid(),date:td(),type:'build',session:'morning',project:'Other',milestone:item.text,hours:0,reflection:'',link:''});
+  else if(dest==='phd'){/* just clear from inbox, user will handle */}
+  save();renderAll();toast('Moved to '+dest);
+}
+function renderInbox(){
+  $('inboxCount').textContent=S.inbox.length;
+  const empty=$('inboxEmpty'),list=$('inboxList');
+  if(!S.inbox.length){list.innerHTML='';empty.style.display='';return}
+  empty.style.display='none';
+  list.innerHTML=S.inbox.map(i=>`<div class="inbox-item">
+    <span style="flex:1;font-size:13px">${esc(i.text)}</span>
+    <div class="inbox-actions">
+      <button class="btn btn-green btn-sm" onclick="moveInbox('${i.id}','exercise')">Exercise</button>
+      <button class="btn b-accent btn-sm" style="border:none" onclick="moveInbox('${i.id}','cs')">CS</button>
+      <button class="btn b-purple btn-sm" style="border:none" onclick="moveInbox('${i.id}','phd')">PhD</button>
+      <button class="btn btn-danger btn-sm" onclick="moveInbox('${i.id}','trash')">×</button>
+    </div>
+  </div>`).join('');
+}
+
+// ===== EXERCISE =====
+function saveExercise(){
+  S.exercise.push({id:uid(),date:$('exDate').value,type:$('exType').value,duration:parseInt($('exDur').value)||60,notes:$('exNotes').value});
+  S.exercise.sort((a,b)=>b.date.localeCompare(a.date));
+  save();hideModal('exModal');$('exNotes').value='';renderAll();toast('Workout logged!');
+}
+function delEx(id){S.exercise=S.exercise.filter(e=>e.id!==id);save();renderAll()}
+
+function exStreak(){
+  let s=0;const d=new Date();
+  while(S.exercise.some(e=>e.date===d.toISOString().slice(0,10))){s++;d.setDate(d.getDate()-1)}
+  return s;
+}
+
+function renderExercise(){
+  const wk=S.exercise.filter(e=>inWk(e.date)).length;
+  const mo=S.exercise.filter(e=>inMo(e.date)).length;
+  const streak=exStreak();
+  $('exWeek').textContent=wk;$('exMonth').textContent=mo;$('exStreak').textContent=streak;$('dExStreak').textContent=streak;
+
+  // Heatmap 8wk
+  const hm=$('exHeatmap'),now=new Date();
+  const start=new Date(now);start.setDate(start.getDate()-((start.getDay()+6)%7)-49);
+  let h='';for(let i=0;i<56;i++){
+    const dd=new Date(start);dd.setDate(dd.getDate()+i);
+    const k=dd.toISOString().slice(0,10),done=S.exercise.some(e=>e.date===k),fut=dd>now;
+    h+=`<div class="heatmap-day ${fut?'future':done?'done':'rest'}">${dd.getDate()}</div>`;
+  }
+  hm.innerHTML=h;
+
+  // Monthly trend (last 6 months)
+  const trend=$('exTrend'),labels=$('exTrendLabels');
+  let thtml='',lhtml='';
+  for(let i=5;i>=0;i--){
+    const d=new Date();d.setMonth(d.getMonth()-i);
+    const m=d.getMonth(),y=d.getFullYear();
+    const cnt=S.exercise.filter(e=>{const ed=new Date(e.date);return ed.getMonth()===m&&ed.getFullYear()===y}).length;
+    const pct=Math.min(cnt/25*100,100);
+    thtml+=`<div class="mini-bar" style="height:${Math.max(pct,4)}%;background:${cnt>15?'var(--green)':cnt>8?'var(--yellow)':'var(--s3)'}"></div>`;
+    lhtml+=`<span>${d.toLocaleDateString('en-US',{month:'short'})}</span>`;
+  }
+  trend.innerHTML=thtml;labels.innerHTML=lhtml;
+
+  // Table
+  const tb=$('exTable'),empty=$('exEmpty');
+  if(!S.exercise.length){tb.innerHTML='';empty.style.display='';return}
+  empty.style.display='none';
+  const typeBadge=t=>t==='Strength'?'b-accent':t==='Cardio'?'b-green':t==='Recovery'?'b-purple':'b-yellow';
+  tb.innerHTML=S.exercise.slice(0,30).map(e=>`<tr>
+    <td>${e.date}</td><td><span class="badge ${typeBadge(e.type)}">${esc(e.type)}</span></td>
+    <td>${e.duration} min</td><td style="color:var(--dim);font-size:12px">${esc(e.notes||'—')}</td>
+    <td><button class="btn btn-danger btn-sm" onclick="delEx('${e.id}')">×</button></td></tr>`).join('');
+}
+
+// ===== CS =====
+function saveCS(){
+  S.cs.push({id:uid(),date:$('csDate').value,session:$('csSession').value,type:$('csType').value,project:$('csProject').value,milestone:$('csMilestone').value,hours:parseFloat($('csHours').value)||0,reflection:$('csReflect').value,link:$('csLink').value});
+  S.cs.sort((a,b)=>b.date.localeCompare(a.date));
+  save();hideModal('csModal');['csMilestone','csReflect','csLink'].forEach(i=>$(i).value='');renderAll();toast('CS entry logged!');
+}
+function delCS(id){S.cs=S.cs.filter(e=>e.id!==id);save();renderAll()}
+function cyclePhase(){if(S.phase<5)S.phase++;else S.phase=1;save();renderAll();toast('Phase '+S.phase)}
+
+document.querySelectorAll('[data-cstab]').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('[data-cstab]').forEach(n=>n.classList.remove('active'));t.classList.add('active');
+  $('csLogView').style.display=t.dataset.cstab==='log'?'':'none';
+  $('csReadView').style.display=t.dataset.cstab==='reading'?'':'none';
+  $('csReflectView').style.display=t.dataset.cstab==='reflect'?'':'none';
+}));
+
+function renderCS(){
+  const tot=S.cs.reduce((s,e)=>s+e.hours,0);
+  const wkH=S.cs.filter(e=>inWk(e.date)).reduce((s,e)=>s+e.hours,0);
+  $('csTotal').textContent=tot.toFixed(1);$('csWeekH').textContent=wkH.toFixed(1);
+  $('dCsHrs').textContent=wkH.toFixed(1);$('csPhase').textContent=S.phase;
+  $('csEntries').textContent=S.cs.length;
+
+  const phases=['Ben Eater + N2T I + Petzold','N2T II + Pedagogy','Arduino + RPi + Unplugged','AI + Claude Code + Curriculum','Pilot + Data + Apps'];
+  $('csPhaseBar').innerHTML=phases.map((p,i)=>`<div class="phase-seg ${i+1<S.phase?'done':i+1===S.phase?'current':'upcoming'}" title="${p}">${i+1}</div>`).join('');
+  $('csPhaseLabel').textContent='Phase '+S.phase+': '+phases[S.phase-1];
+
+  const builds=S.cs.filter(e=>e.type==='build'),reads=S.cs.filter(e=>e.type==='reading');
+  const reflects=S.cs.filter(e=>e.reflection&&e.reflection.trim());
+
+  $('csLogEmpty').style.display=builds.length?'none':'';
+  $('csLogTable').innerHTML=builds.map(e=>`<tr>
+    <td>${e.date}<br><span class="badge ${e.session==='morning'?'b-accent':e.session==='evening'?'b-yellow':'b-green'}" style="margin-top:2px">${e.session||'—'}</span></td>
+    <td>${esc(e.project)}</td><td>${esc(e.milestone)}</td><td>${e.hours}h</td>
+    <td>${e.link?`<a href="${esc(e.link)}" target="_blank" rel="noopener">Link ↗</a>`:'—'}</td>
+    <td><button class="btn btn-danger btn-sm" onclick="delCS('${e.id}')">×</button></td></tr>`).join('');
+
+  $('csReadEmpty').style.display=reads.length?'none':'';
+  $('csReadTable').innerHTML=reads.map(e=>`<tr>
+    <td>${e.date}</td><td>${esc(e.project)}: ${esc(e.milestone)}</td>
+    <td style="color:var(--dim);font-size:12px">${esc(e.reflection||'—')}</td>
+    <td><button class="btn btn-danger btn-sm" onclick="delCS('${e.id}')">×</button></td></tr>`).join('');
+
+  $('csReflectEmpty').style.display=reflects.length?'none':'';
+  $('csReflectList').innerHTML=reflects.map(e=>`<div style="border-bottom:1px solid var(--border);padding:14px 0">
+    <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--dim)">${e.date}</span>
+    <span class="badge ${e.session==='morning'?'b-accent':'b-yellow'}">${e.session||'—'}</span>
+    <span style="font-size:12px;color:var(--dim)">${esc(e.project)}</span></div>
+    <div style="font-size:13px;margin-top:6px;line-height:1.5">${esc(e.reflection)}</div></div>`).join('');
+
+  // Chart
+  const chart=$('dCsChart'),mon=wkMon(0);
+  let bars='';for(let i=0;i<7;i++){
+    const d=new Date(mon);d.setDate(d.getDate()+i);const k=d.toISOString().slice(0,10);
+    const hrs=S.cs.filter(e=>e.date===k).reduce((s,e)=>s+e.hours,0);
+    const pct=Math.min(hrs/3*100,100);
+    bars+=`<div class="mini-bar" style="height:${Math.max(pct,4)}%;background:${hrs>0?'var(--accent)':'var(--s3)'}"></div>`;
+  }chart.innerHTML=bars;
+}
+
+// ===== PHD =====
+document.querySelectorAll('[data-phdtab]').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('[data-phdtab]').forEach(n=>n.classList.remove('active'));t.classList.add('active');
+  ['phdPapersView','phdRqView','phdOutreachView','phdProgramsView'].forEach(v=>$(v).style.display='none');
+  $({papers:'phdPapersView',rq:'phdRqView',outreach:'phdOutreachView',programs:'phdProgramsView'}[t.dataset.phdtab]).style.display='';
+}));
+
+function savePaper(){
+  S.papers.push({id:uid(),date:$('ppDate').value,title:$('ppTitle').value,authors:$('ppAuthors').value,year:$('ppYear').value,venue:$('ppVenue').value,rq:$('ppRQ').value,method:$('ppMethod').value,finding:$('ppFinding').value,critique:$('ppCritique').value});
+  S.papers.sort((a,b)=>b.date.localeCompare(a.date));
+  save();hideModal('paperModal');['ppTitle','ppAuthors','ppYear','ppRQ','ppMethod','ppFinding','ppCritique'].forEach(i=>$(i).value='');renderAll();toast('Paper added!');
+}
+function delPaper(id){S.papers=S.papers.filter(p=>p.id!==id);save();renderAll()}
+function togglePaper(id){const row=$('pd-'+id);if(row)row.classList.toggle('show')}
+
+function saveRQ(){
+  S.rq.push({id:uid(),date:$('rqDate').value,text:$('rqText').value,why:$('rqWhy').value});
+  S.rq.sort((a,b)=>b.date.localeCompare(a.date));save();hideModal('rqModal');['rqText','rqWhy'].forEach(i=>$(i).value='');renderAll();toast('RQ version saved!');
+}
+function saveOutreach(){
+  S.outreach.push({id:uid(),date:$('orDate').value,name:$('orName').value,institution:$('orInst').value,status:$('orStatus').value,notes:$('orNotes').value});
+  S.outreach.sort((a,b)=>b.date.localeCompare(a.date));save();hideModal('outreachModal');['orName','orInst','orNotes'].forEach(i=>$(i).value='');renderAll();toast('Outreach logged!');
+}
+function delOutreach(id){S.outreach=S.outreach.filter(o=>o.id!==id);save();renderAll()}
+function saveProgram(){
+  S.programs.push({id:uid(),school:$('pgSchool').value,dept:$('pgDept').value,faculty:$('pgFac').value,deadline:$('pgDeadline').value,fit:$('pgFit').value,status:$('pgStatus').value,notes:$('pgNotes').value});
+  save();hideModal('progModal');['pgSchool','pgDept','pgFac','pgNotes'].forEach(i=>$(i).value='');renderAll();toast('Program added!');
+}
+function delProg(id){S.programs=S.programs.filter(p=>p.id!==id);save();renderAll()}
+
+function renderPhD(){
+  const wkP=S.papers.filter(p=>inWk(p.date)).length;
+  $('phdPapers').textContent=S.papers.length;$('dPapers').textContent=S.papers.length;
+  $('phdPapersSub').textContent='this week: '+wkP;
+  $('dPapersSub').textContent='this month: '+S.papers.filter(p=>inMo(p.date)).length;
+  $('phdOutreach').textContent=S.outreach.length;
+  $('phdPrograms').textContent=S.programs.length;
+
+  // Papers with expandable detail
+  $('paperEmpty').style.display=S.papers.length?'none':'';
+  $('paperTable').innerHTML=S.papers.map(p=>`
+    <tr class="expand-row" onclick="togglePaper('${p.id}')">
+      <td>${p.date}</td>
+      <td><strong>${esc(p.title)}</strong><br><span style="color:var(--dim);font-size:11px">${esc(p.authors)} (${p.year})</span></td>
+      <td><span class="badge b-accent">${esc(p.venue)}</span></td>
+      <td style="font-size:12px">${esc(p.finding).slice(0,80)}${p.finding&&p.finding.length>80?'...':''}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();delPaper('${p.id}')">×</button></td>
+    </tr>
+    <tr class="expand-detail" id="pd-${p.id}">
+      <td colspan="5" style="background:var(--s2);padding:16px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px">
+          <div><strong style="color:var(--dim)">Research Question:</strong><br>${esc(p.rq||'—')}</div>
+          <div><strong style="color:var(--dim)">Method:</strong><br>${esc(p.method||'—')}</div>
+          <div><strong style="color:var(--dim)">Key Finding:</strong><br>${esc(p.finding||'—')}</div>
+          <div><strong style="color:var(--dim)">My Critique:</strong><br>${esc(p.critique||'—')}</div>
+        </div>
+      </td>
+    </tr>`).join('');
+
+  // RQ
+  $('rqEmpty').style.display=S.rq.length?'none':'';
+  $('rqList').innerHTML=S.rq.map((r,i)=>`<div style="border-left:3px solid ${i===0?'var(--accent)':'var(--border)'};padding:14px 18px;margin-bottom:8px;border-radius:0 var(--rs) var(--rs) 0;background:${i===0?'var(--accent-g)':'var(--s2)'}">
+    <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--dim)">${r.date}</span>${i===0?'<span class="badge b-accent">Current</span>':''}<span style="font-size:11px;color:var(--dim)">v${S.rq.length-i}</span></div>
+    <div style="font-size:15px;margin-top:8px;font-style:italic;line-height:1.5">"${esc(r.text)}"</div>
+    ${r.why?`<div style="font-size:12px;color:var(--dim);margin-top:6px"><strong>Why:</strong> ${esc(r.why)}</div>`:''}</div>`).join('');
+
+  // Outreach
+  const stBadge=s=>s==='Drafted'?'b-yellow':s==='Sent'?'b-accent':s==='Replied'?'b-green':'b-purple';
+  $('outreachEmpty').style.display=S.outreach.length?'none':'';
+  $('outreachTable').innerHTML=S.outreach.map(o=>`<tr>
+    <td>${o.date}</td><td>${esc(o.name)}</td><td>${esc(o.institution)}</td>
+    <td><span class="badge ${stBadge(o.status)}">${esc(o.status)}</span></td>
+    <td style="color:var(--dim);font-size:12px">${esc(o.notes||'—')}</td>
+    <td><button class="btn btn-danger btn-sm" onclick="delOutreach('${o.id}')">×</button></td></tr>`).join('');
+
+  // Programs
+  const fitC=f=>f>=4?'b-green':f>=3?'b-yellow':'b-red';
+  $('progEmpty').style.display=S.programs.length?'none':'';
+  $('progTable').innerHTML=S.programs.map(p=>`<tr>
+    <td><strong>${esc(p.school)}</strong></td><td>${esc(p.dept)}</td><td>${esc(p.faculty)}</td>
+    <td>${p.deadline||'—'}</td><td><span class="badge ${fitC(p.fit)}">${p.fit}/5</span></td>
+    <td><span class="badge b-accent">${esc(p.status)}</span></td>
+    <td><button class="btn btn-danger btn-sm" onclick="delProg('${p.id}')">×</button></td></tr>`).join('');
+}
+
+// ===== WEEKLY REVIEW =====
+let rvOff=0;
+function changeRvWk(d){rvOff+=d;renderReview()}
+const CHK=['Process inbox to zero','Review CVC work: What did I ship? Carry-overs? Monday priorities?','Review Exercise: Did I hit 5–6 workouts?','Review CS Learning: What did I build/read? Next module?','Review PhD Prep: Papers read? Outreach sent? RQ sharper?','Check calendar for coming week','Identify One Big Thing for each track','Clear workspace: file papers, close tabs'];
+
+function renderReview(){
+  const wk=wkMon(rvOff);$('rvWeekLabel').textContent=wkLabel(rvOff);
+  if(!S.reviews[wk])S.reviews[wk]={checklist:{},obt:{},wins:'',lessons:'',work:''};
+  const rv=S.reviews[wk];
+
+  $('rvChecklist').innerHTML=CHK.map((c,i)=>`<div class="task">
+    <button class="task-chk ${rv.checklist[i]?'done':''}" onclick="toggleRvChk(${i})"></button>
+    <span class="task-txt ${rv.checklist[i]?'done':''}">${c}</span></div>`).join('');
+
+  $('obtCvc').value=rv.obt.cvc||'';$('obtEx').value=rv.obt.exercise||'';
+  $('obtCs').value=rv.obt.cs||'';$('obtPhd').value=rv.obt.phd||'';
+  $('rvWins').value=rv.wins||'';$('rvLessons').value=rv.lessons||'';$('rvWork').value=rv.work||'';
+
+  // Archive
+  const weeks=Object.keys(S.reviews).sort().reverse();
+  $('rvArchiveEmpty').style.display=weeks.length?'none':'';
+  $('rvArchive').innerHTML=weeks.slice(0,20).map(w=>{
+    const r=S.reviews[w];
+    const ex=S.exercise.filter(e=>inWkOf(e.date,w)).length;
+    const cs=S.cs.filter(e=>inWkOf(e.date,w)).reduce((s,e)=>s+e.hours,0);
+    const pp=S.papers.filter(e=>inWkOf(e.date,w)).length;
+    return `<tr><td style="white-space:nowrap">${w}</td><td>${ex}</td><td>${cs.toFixed(1)}h</td><td>${pp}</td>
+    <td style="font-size:11px">${esc(r.obt.cvc||'—')}</td><td style="font-size:11px">${esc(r.obt.exercise||'—')}</td>
+    <td style="font-size:11px">${esc(r.obt.cs||'—')}</td><td style="font-size:11px">${esc(r.obt.phd||'—')}</td></tr>`;
+  }).join('');
+
+  // Chart
+  const chart=$('rvChart');let bars='';
+  for(let i=7;i>=0;i--){
+    const m=wkMon(-i),r=S.reviews[m];
+    const done=r?Object.values(r.checklist).filter(Boolean).length:0;
+    const pct=Math.round(done/CHK.length*100);
+    bars+=`<div class="mini-bar" style="height:${Math.max(pct,4)}%;background:${pct>70?'var(--green)':pct>40?'var(--yellow)':'var(--s3)'}"></div>`;
+  }chart.innerHTML=bars;
+}
+
+function toggleRvChk(i){const wk=wkMon(rvOff);S.reviews[wk].checklist[i]=!S.reviews[wk].checklist[i];save();renderReview()}
+function saveOBT(){const wk=wkMon(rvOff);if(!S.reviews[wk])S.reviews[wk]={checklist:{},obt:{},wins:'',lessons:'',work:''};
+  S.reviews[wk].obt={cvc:$('obtCvc').value,exercise:$('obtEx').value,cs:$('obtCs').value,phd:$('obtPhd').value};save();renderAll();toast('Saved!')}
+function saveReview(){const wk=wkMon(rvOff);if(!S.reviews[wk])S.reviews[wk]={checklist:{},obt:{},wins:'',lessons:'',work:''};
+  S.reviews[wk].wins=$('rvWins').value;S.reviews[wk].lessons=$('rvLessons').value;S.reviews[wk].work=$('rvWork').value;save();toast('Reflection saved!')}
+
+// ===== DASHBOARD =====
+function renderDash(){
+  const now=new Date(),h=now.getHours();
+  $('dashGreet').textContent=(h<12?'Good morning':h<17?'Good afternoon':'Good evening')+', Henry';
+  $('navDate').textContent=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+
+  // Countdown / day tracker
+  const diff=Math.ceil((START-now)/864e5);
+  if(diff>0)$('dashSub').textContent=diff+' days until CVC OEI Exchange. Prepare to deliver excellence.';
+  else if(diff===0)$('dashSub').textContent='Day 1 at CVC OEI Exchange. Let\'s go.';
+  else $('dashSub').textContent='Day '+(Math.abs(diff)+1)+' at CVC OEI Exchange. Deliver excellence at work. Build mastery on the margins.';
+
+  // Week completion
+  const exW=S.exercise.filter(e=>inWk(e.date)).length;
+  const csW=S.cs.filter(e=>inWk(e.date)).length;
+  const ppW=S.papers.filter(p=>inWk(p.date)).length;
+  const done=exW+csW+ppW,target=18;
+  $('dWeekPct').textContent=target?Math.min(Math.round(done/target*100),100)+'%':'—';
+  $('dWeekSub').textContent=done+' of ~'+target+' actions';
+
+  // OBT
+  const wk=wkMon(0),rv=S.reviews[wk],obtEl=$('dOBT');
+  if(rv&&rv.obt&&(rv.obt.cvc||rv.obt.exercise||rv.obt.cs||rv.obt.phd)){
+    obtEl.innerHTML=[
+      rv.obt.cvc?`<div style="padding:7px 0;font-size:13px;border-bottom:1px solid var(--border)">💼 ${esc(rv.obt.cvc)}</div>`:'',
+      rv.obt.exercise?`<div style="padding:7px 0;font-size:13px;border-bottom:1px solid var(--border)">💪 ${esc(rv.obt.exercise)}</div>`:'',
+      rv.obt.cs?`<div style="padding:7px 0;font-size:13px;border-bottom:1px solid var(--border)">🖥 ${esc(rv.obt.cs)}</div>`:'',
+      rv.obt.phd?`<div style="padding:7px 0;font-size:13px">🎓 ${esc(rv.obt.phd)}</div>`:''
+    ].join('');
+  } else obtEl.innerHTML='<p style="color:var(--dim);font-size:13px">Set in Weekly Review tab.</p>';
+
+  // Status
+  const csHrs=S.cs.filter(e=>inWk(e.date)).reduce((s,e)=>s+e.hours,0);
+  const items=[
+    {l:'Exercise',v:`${exW}/6 workouts`,s:exW>=5?'on':exW>=3?'behind':'off'},
+    {l:'CS Learning',v:`${csHrs.toFixed(1)}/12.25 hrs`,s:csHrs>=10?'on':csHrs>=5?'behind':'off'},
+    {l:'PhD Prep',v:`${ppW}/2 papers`,s:ppW>=2?'on':ppW>=1?'behind':'off'}
+  ];
+  $('dStatus').innerHTML=items.map(i=>`<div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--border)">
+    <span class="dot dot-${i.s}"></span><span style="font-size:13px;font-weight:500;flex:1">${i.l}</span>
+    <span style="font-size:12px;color:var(--dim)">${i.v}</span>
+    <span class="badge ${i.s==='on'?'b-green':i.s==='behind'?'b-yellow':'b-red'}">${i.s==='on'?'On Track':i.s==='behind'?'Behind':'Off Track'}</span></div>`).join('');
+
+  // Schedule
+  const dow=now.getDay(),isWE=dow===0||dow===6;
+  const hour=now.getHours()+now.getMinutes()/60;
+  function mk(t,n,d,bg,bc,h1,h2){
+    const isNow=!isWE&&h1!==undefined&&hour>=h1&&hour<h2;
+    return `<div class="sched${isNow?' now':''}" style="background:${bg};border-color:${bc}"><span class="sched-time">${t}</span><span class="sched-name">${n}</span><span class="sched-dur">${d}</span></div>`;
+  }
+  if(isWE){
+    $('dSchedule').innerHTML=
+      mk('7:00–8:00','💪 Exercise','1 hr','var(--green-g)','var(--green)',7,8)+
+      mk('8:15–11:15','🖥 CS Deep Work','3 hrs','var(--accent-g)','var(--accent)',8.25,11.25)+
+      mk('11:30–12:30','🎓 PhD Prep','1 hr','var(--purple-g)','var(--purple)',11.5,12.5)+
+      mk('12:30+','🌙 Free','Rest','var(--s2)','var(--green)');
+  } else {
+    $('dSchedule').innerHTML=
+      mk('6:00–7:00','💪 Exercise','1 hr','var(--green-g)','var(--green)',6,7)+
+      mk('7:15–8:00','🖥 CS Theory','45 min','var(--accent-g)','var(--accent)',7.25,8)+
+      mk('8:00–5:00','💼 CVC OEI','9 hrs','var(--yellow-g)','var(--yellow)',8,17)+
+      mk('5:15–6:15','🖥 CS Build','1 hr','var(--accent-g)','var(--accent)',17.25,18.25)+
+      mk('6:15–6:45','🎓 PhD Prep','30 min','var(--purple-g)','var(--purple)',18.25,18.75)+
+      mk('6:45+','🌙 Rest','Evening','var(--s2)','var(--green)');
+  }
+
+  // 90-day tracker
+  const dayNum=diff<=0?Math.abs(diff)+1:0;
+  const phase90=dayNum===0?'Pre-Start':dayNum<=30?'Learning (Days 1–30)':dayNum<=60?'Contributing (Days 31–60)':dayNum<=90?'Impact (Days 61–90)':'Established';
+  $('d90Badge').textContent=phase90;
+  $('d90Badge').className='badge '+(dayNum===0?'b-accent':dayNum<=30?'b-yellow':dayNum<=60?'b-accent':dayNum<=90?'b-green':'b-green');
+
+  const pct90=dayNum===0?0:Math.min(Math.round(dayNum/90*100),100);
+  $('d90Progress').innerHTML=`<div class="prog-row"><span class="prog-label">${dayNum>0?'Day '+dayNum:'Not started'}</span>
+    <div class="prog-bg" style="flex:1"><div class="prog-fill" style="width:${pct90}%;background:var(--accent)"></div></div>
+    <span class="prog-pct">${pct90}%</span></div>`;
+
+  const ms=[
+    {d:1,t:'Day 1: Complete onboarding',k:'m1'},
+    {d:14,t:'Week 2: 1-on-1s with key colleagues',k:'m14'},
+    {d:30,t:'Day 30: Self-assessment — what do I know?',k:'m30'},
+    {d:45,t:'Day 45: Knowledge base of common issues built',k:'m45'},
+    {d:60,t:'Day 60: Propose one process improvement',k:'m60'},
+    {d:90,t:'Day 90: Deliver accomplishment summary to manager',k:'m90'}
+  ];
+  $('d90Milestones').innerHTML=ms.map(m=>{
+    const done=S.milestones[m.k]||dayNum>m.d;
+    const active=!done&&dayNum>=m.d-7&&dayNum<=m.d;
+    return `<div class="milestone">
+      <button class="milestone-dot ${done?'done':active?'active':''}" onclick="toggleMs('${m.k}')"></button>
+      <span style="font-size:13px;${done?'color:var(--dim);text-decoration:line-through':''}">${m.t}</span></div>`;
+  }).join('');
+
+  // Last updated
+  $('dLastUpdated').textContent=S.lastUpdated?'Last updated: '+new Date(S.lastUpdated).toLocaleString():'';
+  $('footerYear').textContent=new Date().getFullYear();
+}
+
+function toggleMs(k){S.milestones[k]=!S.milestones[k];save();renderAll()}
+
+// ===== RENDER =====
+function renderAll(){renderDash();renderInbox();renderExercise();renderCS();renderPhD();renderReview()}
+
+// ===== INIT =====
+init();renderAll();
+</script>
+</body>
+</html>
