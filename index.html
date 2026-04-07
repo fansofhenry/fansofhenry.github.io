@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Henry Fan — The System v2.0</title>
-<meta name="description" content="A GTD + PARA + Second Brain operating system for Henry Fan. Track exercise, CS learning, and PhD prep.">
+<meta name="description" content="A GTD + PARA + Second Brain operating system for Henry Fan. Track exercise, CS learning, PhD prep, and YouTube.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <style>
 :root{
@@ -54,8 +54,9 @@ button{cursor:pointer;font-family:inherit}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .g5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-@media(max-width:900px){.g2,.g3,.g4,.g5{grid-template-columns:1fr}}
-@media(min-width:901px) and (max-width:1100px){.g4,.g5{grid-template-columns:repeat(2,1fr)}}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+@media(max-width:900px){.g2,.g3,.g4,.g5,.g6{grid-template-columns:1fr}}
+@media(min-width:901px) and (max-width:1100px){.g4,.g5,.g6{grid-template-columns:repeat(2,1fr)}}
 
 .stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .15s}
 .stat:hover{border-color:var(--accent)}
@@ -188,6 +189,25 @@ select.input{appearance:auto}
 
 .footer{text-align:center;padding:32px 20px;color:var(--dim2);font-size:11px;border-top:1px solid var(--border);margin-top:40px}
 
+/* Today's Blocks */
+.today-block{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--s2);border:2px solid var(--border);border-radius:var(--rs);cursor:pointer;transition:all .15s;user-select:none;-webkit-user-select:none}
+.today-block:hover{border-color:var(--accent);transform:translateY(-1px)}
+.today-block.checked{border-color:var(--green);background:var(--green-g)}
+.today-block .block-icon{font-size:22px;flex-shrink:0}
+.today-block .block-info{flex:1}
+.today-block .block-name{font-size:13px;font-weight:600}
+.today-block .block-time{font-size:10px;color:var(--dim)}
+.today-block .block-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.today-block.checked .block-check{background:var(--green);border-color:var(--green);color:#fff}
+
+/* Habit Chains */
+.chain-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.chain-label{font-size:11px;font-weight:600;min-width:70px}
+.chain-days{display:flex;gap:2px;flex:1}
+.chain-day{width:8px;height:8px;border-radius:2px;background:var(--s3);flex-shrink:0}
+.chain-day.active{background:var(--green)}
+.chain-streak{font-size:11px;font-weight:700;color:var(--green);min-width:30px;text-align:right}
+
 @media print{
   .nav,.btn,.task-del,.form-row,.modal-bg,.hamburger,.inbox-actions,.footer,.toast,.sub-tabs,.code-pipeline{display:none!important}
   body{background:#fff;color:#000}.card,.stat{border:1px solid #ccc;background:#fff}
@@ -227,11 +247,25 @@ select.input{appearance:auto}
 </div>
 </div>
 
-<div class="g5" style="margin-bottom:14px">
-<div class="stat"><div class="stat-label">Exercise Streak</div><div class="stat-val" id="dExStreak">0</div><div class="stat-sub">consecutive days</div></div>
+<!-- Today's Blocks Hero -->
+<div class="card" style="border-color:var(--accent);border-width:2px">
+<div class="card-header"><h3 style="margin:0;font-size:18px">Today's Blocks</h3><span id="todayPct" style="font-size:13px;font-weight:700;color:var(--green)"></span></div>
+<p id="todayMsg" style="font-size:12px;color:var(--dim);margin-bottom:14px"></p>
+<div id="todayBlocks" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px"></div>
+</div>
+
+<!-- Habit Chains -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Habit Chains</h3><span style="font-size:10px;color:var(--dim)">30-day view</span></div>
+<div id="habitChains"></div>
+</div>
+
+<div class="g6" style="margin-bottom:14px">
+<div class="stat"><div class="stat-label">Weakest Streak</div><div class="stat-val" id="dMinStreak">0</div><div class="stat-sub" id="dMinStreakSub">all tracks</div></div>
 <div class="stat"><div class="stat-label">CS Hours/Week</div><div class="stat-val" id="dCsHrs">0</div><div class="stat-sub">of 12.25 target</div></div>
 <div class="stat"><div class="stat-label">Papers Read</div><div class="stat-val" id="dPapers">0</div><div class="stat-sub" id="dPapersSub">this month: 0</div></div>
 <div class="stat"><div class="stat-label">Second Brain</div><div class="stat-val" id="dNotes">0</div><div class="stat-sub">knowledge notes</div></div>
+<div class="stat"><div class="stat-label">YouTube/Week</div><div class="stat-val" id="dYtHrs">0</div><div class="stat-sub">hours logged</div></div>
 <div class="stat"><div class="stat-label">Week Progress</div><div class="stat-val" id="dWeekPct">—</div><div class="stat-sub" id="dWeekSub"></div></div>
 </div>
 
@@ -388,6 +422,14 @@ select.input{appearance:auto}
 <div class="card" id="csLogView"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Project</th><th>Milestone</th><th>Hours</th><th>Links</th><th></th></tr></thead><tbody id="csLogTable"></tbody></table></div><div id="csLogEmpty" style="text-align:center;padding:20px;color:var(--dim);font-size:12px">No build entries yet.</div></div>
 <div class="card" id="csReadView" style="display:none"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Title / Chapter</th><th>Notes</th><th></th></tr></thead><tbody id="csReadTable"></tbody></table></div><div id="csReadEmpty" style="text-align:center;padding:20px;color:var(--dim);font-size:12px">Morning session: pure comprehension.</div></div>
 <div class="card" id="csReflectView" style="display:none"><div id="csReflectList"></div><div id="csReflectEmpty" style="text-align:center;padding:20px;color:var(--dim);font-size:12px">End each session with 5–10 min reflection.</div></div>
+
+<!-- YouTube Section -->
+<div class="card" style="margin-top:14px">
+<div class="card-header"><h3 style="margin:0">YouTube — CS Ed Channel</h3><button class="btn btn-p btn-sm" onclick="showModal('ytModal')">+ Log YouTube</button></div>
+<p style="font-size:11px;color:var(--dim);margin-bottom:10px">Conquering College content for community college CS students. Weekly 30 min sessions.</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Hours</th><th>Topic</th><th>Notes</th><th>Link</th><th></th></tr></thead><tbody id="ytTable"></tbody></table></div>
+<div id="ytEmpty" style="text-align:center;padding:20px;color:var(--dim);font-size:12px">Log your first YouTube session.</div>
+</div>
 </div>
 
 <!-- ==================== PHD TRACKER ==================== -->
@@ -465,6 +507,7 @@ select.input{appearance:auto}
 <div class="form-group" style="margin-bottom:8px"><label>💪 Exercise</label><input class="input" id="obtEx" style="width:100%" placeholder='Gym 5 mornings'></div>
 <div class="form-group" style="margin-bottom:8px"><label>🖥 CS Learning</label><input class="input" id="obtCs" style="width:100%" placeholder='Finish clock module'></div>
 <div class="form-group" style="margin-bottom:8px"><label>🎓 PhD Prep</label><input class="input" id="obtPhd" style="width:100%" placeholder='Read 2 papers'></div>
+<div class="form-group" style="margin-bottom:8px"><label>🎬 YouTube</label><input class="input" id="obtYt" style="width:100%" placeholder='Script + record 1 video'></div>
 <button class="btn btn-p" onclick="saveOBT()">Save</button>
 </div>
 </div>
@@ -482,13 +525,13 @@ select.input{appearance:auto}
 <div style="font-size:9px;color:var(--dim2);text-align:center;margin-top:4px">Weekly review completion %</div></div>
 </div>
 </div>
-<div class="card"><h3>Archive</h3><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Week</th><th>Exercise</th><th>CS Hrs</th><th>Papers</th><th>Notes</th><th>OBT</th></tr></thead><tbody id="rvArchive"></tbody></table></div><div id="rvArchiveEmpty" style="text-align:center;padding:14px;color:var(--dim);font-size:11px">Build your archive.</div></div>
+<div class="card"><h3>Archive</h3><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Week</th><th>Exercise</th><th>CS Hrs</th><th>Papers</th><th>Notes</th><th>YT Hrs</th><th>OBT</th></tr></thead><tbody id="rvArchive"></tbody></table></div><div id="rvArchiveEmpty" style="text-align:center;padding:14px;color:var(--dim);font-size:11px">Build your archive.</div></div>
 </div>
 
 </div>
 
 <div class="footer">
-<strong>The System v2.0</strong> — GTD + PARA + CODE + Conquering College<br>
+<strong>The System v2.0</strong> — GTD + PARA + CODE + Conquering College · CS Ed YouTube for Community College<br>
 Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 <span style="margin-top:4px;display:inline-block">Henry Fan · <span id="footerYear"></span></span>
 </div>
@@ -507,7 +550,7 @@ Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 <div class="form-group" style="margin-bottom:10px"><label>Date</label><input class="input" type="date" id="csDate" style="width:100%"></div>
 <div class="form-group" style="margin-bottom:10px"><label>Session</label><select class="input" id="csSession" style="width:100%"><option value="morning">Morning Theory (7:15–8:00)</option><option value="evening">Evening Build (5:15–6:15)</option><option value="weekend">Weekend Deep</option></select></div>
 <div class="form-group" style="margin-bottom:10px"><label>Type</label><select class="input" id="csType" style="width:100%"><option value="build">Build/Project</option><option value="reading">Reading</option><option value="reflection">Reflection</option></select></div>
-<div class="form-group" style="margin-bottom:10px"><label>Project</label><select class="input" id="csProject" style="width:100%"><option>Ben Eater 8-Bit</option><option>Nand2Tetris I</option><option>Nand2Tetris II</option><option>Code (Petzold)</option><option>Arduino</option><option>Raspberry Pi</option><option>CS Unplugged</option><option>Dashboard Build</option><option>Other</option></select></div>
+<div class="form-group" style="margin-bottom:10px"><label>Project</label><select class="input" id="csProject" style="width:100%"><option>Ben Eater 8-Bit</option><option>Nand2Tetris I</option><option>Nand2Tetris II</option><option>Code (Petzold)</option><option>Arduino</option><option>Raspberry Pi</option><option>CS Unplugged</option><option>Dashboard Build</option><option>YouTube</option><option>Other</option></select></div>
 <div class="form-group" style="margin-bottom:10px"><label>Milestone</label><input class="input" id="csMilestone" style="width:100%" placeholder="e.g. Clock module oscillating"></div>
 <div class="form-group" style="margin-bottom:10px"><label>Hours</label><input class="input" type="number" id="csHours" value="0.75" step="0.25" style="width:100%"></div>
 <div class="form-group" style="margin-bottom:10px"><label>Reflection</label><textarea class="input" id="csReflect" style="width:100%" placeholder="Experience → Reflect → Conceptualize → Experiment"></textarea></div>
@@ -560,7 +603,7 @@ Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 <option value="resources">Resource — reference material</option>
 <option value="archives">Archive — inactive</option></select></div>
 <div class="form-group" style="margin-bottom:10px"><label>Area/Project</label><select class="input" id="ntArea" style="width:100%">
-<option value="cs">CS Learning</option><option value="phd">PhD Prep</option><option value="work">CVC OEI Work</option><option value="exercise">Exercise</option><option value="other">Other</option></select></div>
+<option value="cs">CS Learning</option><option value="phd">PhD Prep</option><option value="work">CVC OEI Work</option><option value="exercise">Exercise</option><option value="youtube">YouTube</option><option value="other">Other</option></select></div>
 <div class="form-group" style="margin-bottom:10px"><label>CODE Stage</label><select class="input" id="ntCode" style="width:100%">
 <option value="captured">Captured — raw, unprocessed</option>
 <option value="organized">Organized — filed in PARA</option>
@@ -570,6 +613,15 @@ Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 <div class="form-group" style="margin-bottom:10px"><label>Tags</label><input class="input" id="ntTags" style="width:100%" placeholder="Comma-separated: pedagogy, physical-computing, equity"></div>
 <div class="form-group" style="margin-bottom:10px"><label>Is this an Intermediate Packet?</label><select class="input" id="ntIP" style="width:100%"><option value="no">No</option><option value="yes">Yes — reusable building block</option></select></div>
 <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('noteModal')">Cancel</button><button class="btn btn-p" onclick="saveNote()">Save</button></div></div></div>
+
+<!-- YouTube Modal -->
+<div class="modal-bg" id="ytModal"><div class="modal"><h3>Log YouTube Session</h3>
+<div class="form-group" style="margin-bottom:10px"><label>Date</label><input class="input" type="date" id="ytDate" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Hours</label><input class="input" type="number" id="ytHours" value="0.5" step="0.25" style="width:100%"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Topic</label><input class="input" id="ytTopic" style="width:100%" placeholder="e.g. Binary number systems for CC students"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Notes</label><textarea class="input" id="ytNotes" style="width:100%" placeholder="What did you work on? Script, record, edit?"></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>Link (optional)</label><input class="input" id="ytLink" style="width:100%" placeholder="YouTube URL, Google Docs, etc."></div>
+<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('ytModal')">Cancel</button><button class="btn btn-p" onclick="saveYouTube()">Save</button></div></div></div>
 
 <script>
 const K='systemv2_gtd',START=new Date('2026-04-20');
@@ -582,10 +634,11 @@ const $=id=>document.getElementById(id);
 function init(){
   try{S=JSON.parse(localStorage.getItem(K))}catch(e){S=null}
   if(!S)S={};
-  ['exercise','cs','papers','rq','outreach','programs','inbox','notes'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[]});
+  ['exercise','cs','papers','rq','outreach','programs','inbox','notes','youtube'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[]});
   if(!S.reviews)S.reviews={};if(!S.phase)S.phase=1;if(!S.milestones)S.milestones={};
   if(!S.dimensions)S.dimensions={caring:3,metacognition:3,foundational:3,application:3,integration:3,human:3};
   if(!S.startup)S.startup={};
+  if(!S.today)S.today={};
 }
 function save(){S.lastUpdated=new Date().toISOString();localStorage.setItem(K,JSON.stringify(S))}
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
@@ -614,6 +667,139 @@ function inWkOf(ds,mon){const s=new Date(mon),e=new Date(s);e.setDate(e.getDate(
 // Export/Import
 function exportData(){const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='system-v2-backup-'+td()+'.json';a.click();toast('Exported!')}
 function importData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{S=JSON.parse(ev.target.result);save();renderAll();toast('Imported!')}catch(err){toast('Invalid file')}};r.readAsText(f)}
+
+// ===== TODAY'S BLOCKS =====
+function getTodayBlocks(){
+  const now=new Date(),dow=now.getDay(),isWE=dow===0||dow===6;
+  if(isWE){
+    return [
+      {key:'exercise',icon:'💪',name:'Exercise',time:'7:00–8:00',dur:60},
+      {key:'cs_deep',icon:'🖥',name:'CS Deep Work',time:'8:15–11:15',dur:180},
+      {key:'phd',icon:'🎓',name:'PhD Prep',time:'11:30–12:30',dur:60},
+      {key:'youtube',icon:'🎬',name:'YouTube',time:'12:30–1:00',dur:30}
+    ];
+  }
+  return [
+    {key:'exercise',icon:'💪',name:'Exercise',time:'6:00–7:00',dur:60},
+    {key:'cs_morning',icon:'🖥',name:'Morning CS',time:'7:15–8:00',dur:45},
+    {key:'work',icon:'💼',name:'CVC Work',time:'8:00–5:00',dur:540},
+    {key:'cs_evening',icon:'🖥',name:'Evening CS',time:'5:15–6:15',dur:60},
+    {key:'phd',icon:'🎓',name:'PhD Prep',time:'6:15–6:45',dur:30},
+    {key:'youtube',icon:'🎬',name:'YouTube',time:'weekly — 30 min',dur:30}
+  ];
+}
+
+function toggleTodayBlock(key){
+  const dateKey=td();
+  if(!S.today[dateKey])S.today[dateKey]={};
+  S.today[dateKey][key]=!S.today[dateKey][key];
+
+  // Quick-log: auto-create entries when toggling ON
+  if(S.today[dateKey][key]){
+    quickLog(key,dateKey);
+  }
+
+  save();renderAll();
+}
+
+function quickLog(key,dateKey){
+  if(key==='exercise'){
+    if(!S.exercise.some(e=>e.date===dateKey)){
+      S.exercise.push({id:uid(),date:dateKey,type:'Workout',duration:60,notes:'Quick log'});
+      S.exercise.sort((a,b)=>b.date.localeCompare(a.date));
+    }
+  } else if(key==='cs_morning'){
+    if(!S.cs.some(e=>e.date===dateKey&&e.session==='morning')){
+      S.cs.push({id:uid(),date:dateKey,session:'morning',type:'reading',project:'',milestone:'Quick log',hours:0.75,reflection:'',link:''});
+      S.cs.sort((a,b)=>b.date.localeCompare(a.date));
+    }
+  } else if(key==='cs_evening'){
+    if(!S.cs.some(e=>e.date===dateKey&&e.session==='evening')){
+      S.cs.push({id:uid(),date:dateKey,session:'evening',type:'build',project:'',milestone:'Quick log',hours:1,reflection:'',link:''});
+      S.cs.sort((a,b)=>b.date.localeCompare(a.date));
+    }
+  } else if(key==='cs_deep'){
+    if(!S.cs.some(e=>e.date===dateKey&&e.session==='weekend')){
+      S.cs.push({id:uid(),date:dateKey,session:'weekend',type:'build',project:'',milestone:'Quick log',hours:3,reflection:'',link:''});
+      S.cs.sort((a,b)=>b.date.localeCompare(a.date));
+    }
+  } else if(key==='phd'){
+    // Mark PhD day — add a quick paper placeholder if none exists
+    // No auto-create needed, just tracked via today blocks
+  } else if(key==='youtube'){
+    if(!S.youtube.some(e=>e.date===dateKey)){
+      S.youtube.push({id:uid(),date:dateKey,hours:0.5,topic:'Quick log',notes:'',link:''});
+      S.youtube.sort((a,b)=>b.date.localeCompare(a.date));
+    }
+  }
+}
+
+function renderTodayBlocks(){
+  const dateKey=td();
+  if(!S.today[dateKey])S.today[dateKey]={};
+  const blocks=getTodayBlocks();
+  const state=S.today[dateKey];
+  const done=blocks.filter(b=>state[b.key]).length;
+  const total=blocks.length;
+  const pct=Math.round(done/total*100);
+  $('todayPct').textContent=pct+'%';
+  let msg='';
+  if(done===0)msg='New day, fresh start. Check off your first block.';
+  else if(done===total)msg='All blocks complete! 🔥';
+  else msg=done+'/'+total+' blocks done — keep going!';
+  $('todayMsg').textContent=msg;
+  $('todayBlocks').innerHTML=blocks.map(b=>{
+    const checked=state[b.key]?'checked':'';
+    return `<div class="today-block ${checked}" onclick="toggleTodayBlock('${b.key}')">
+      <span class="block-icon">${b.icon}</span>
+      <div class="block-info"><div class="block-name">${b.name}</div><div class="block-time">${b.time}</div></div>
+      <div class="block-check">${state[b.key]?'✓':''}</div>
+    </div>`;
+  }).join('');
+}
+
+// ===== HABIT CHAINS =====
+function calcStreak(hasDataFn){
+  let s=0;const d=new Date();
+  // Check today first
+  if(!hasDataFn(d.toISOString().slice(0,10))){return s}
+  while(hasDataFn(d.toISOString().slice(0,10))){s++;d.setDate(d.getDate()-1)}
+  return s;
+}
+
+function renderHabitChains(){
+  const today=new Date();
+  const tracks=[
+    {label:'Exercise',icon:'💪',check:d=>S.exercise.some(e=>e.date===d)},
+    {label:'CS',icon:'🖥',check:d=>S.cs.some(e=>e.date===d)},
+    {label:'PhD',icon:'🎓',check:d=>S.papers.some(p=>p.date===d)||(S.today[d]&&S.today[d].phd)},
+    {label:'YouTube',icon:'🎬',check:d=>S.youtube.some(e=>e.date===d)}
+  ];
+  let streaks=[];
+  let html='';
+  tracks.forEach(t=>{
+    const streak=calcStreak(t.check);
+    streaks.push(streak);
+    let days='';
+    for(let i=29;i>=0;i--){
+      const dd=new Date(today);dd.setDate(dd.getDate()-i);
+      const k=dd.toISOString().slice(0,10);
+      days+=`<div class="chain-day ${t.check(k)?'active':''}" title="${k}"></div>`;
+    }
+    html+=`<div class="chain-row">
+      <span class="chain-label">${t.icon} ${t.label}</span>
+      <div class="chain-days">${days}</div>
+      <span class="chain-streak">${streak}d</span>
+    </div>`;
+  });
+  $('habitChains').innerHTML=html;
+
+  // Weakest streak
+  const minStreak=Math.min(...streaks);
+  const minIdx=streaks.indexOf(minStreak);
+  $('dMinStreak').textContent=minStreak;
+  $('dMinStreakSub').textContent=tracks[minIdx].label+' (weakest)';
+}
 
 // ===== INBOX / CAPTURE =====
 function addInbox(){const inp=$('inboxInput'),t=inp.value.trim();if(!t)return;
@@ -654,7 +840,7 @@ function delEx(id){S.exercise=S.exercise.filter(e=>e.id!==id);save();renderAll()
 function exStreak(){let s=0;const d=new Date();while(S.exercise.some(e=>e.date===d.toISOString().slice(0,10))){s++;d.setDate(d.getDate()-1)}return s}
 function renderExercise(){
   const wk=S.exercise.filter(e=>inWk(e.date)).length,mo=S.exercise.filter(e=>inMo(e.date)).length,streak=exStreak();
-  $('exWeek').textContent=wk;$('exMonth').textContent=mo;$('exStreak').textContent=streak;$('dExStreak').textContent=streak;
+  $('exWeek').textContent=wk;$('exMonth').textContent=mo;$('exStreak').textContent=streak;
   // Heatmap
   const now=new Date(),start=new Date(now);start.setDate(start.getDate()-((start.getDay()+6)%7)-49);
   let h='';for(let i=0;i<56;i++){const dd=new Date(start);dd.setDate(dd.getDate()+i);const k=dd.toISOString().slice(0,10);h+=`<div class="heatmap-day ${dd>now?'future':S.exercise.some(e=>e.date===k)?'done':'rest'}">${dd.getDate()}</div>`}
@@ -690,6 +876,17 @@ function renderCS(){
   $('csReflectEmpty').style.display=reflects.length?'none':'';
   $('csReflectList').innerHTML=reflects.map(e=>`<div style="border-bottom:1px solid var(--border);padding:12px 0"><div style="display:flex;gap:6px;align-items:center"><span style="font-size:10px;color:var(--dim)">${e.date}</span><span class="badge ${e.session==='morning'?'b-accent':'b-yellow'}">${e.session||''}</span><span style="font-size:11px;color:var(--dim)">${esc(e.project)}</span></div><div style="font-size:12px;margin-top:6px;line-height:1.5">${esc(e.reflection)}</div></div>`).join('');
   const chart=$('dCsChart'),mon=wkMon(0);let bars='';for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(d.getDate()+i);const k=d.toISOString().slice(0,10);const hrs=S.cs.filter(e=>e.date===k).reduce((s,e)=>s+e.hours,0);bars+=`<div class="mini-bar" style="height:${Math.max(Math.min(hrs/3*100,100),4)}%;background:${hrs>0?'var(--accent)':'var(--s3)'}"></div>`}chart.innerHTML=bars}
+
+// ===== YOUTUBE =====
+function saveYouTube(){S.youtube.push({id:uid(),date:$('ytDate').value,hours:parseFloat($('ytHours').value)||0.5,topic:$('ytTopic').value,notes:$('ytNotes').value,link:$('ytLink').value});S.youtube.sort((a,b)=>b.date.localeCompare(a.date));save();hideModal('ytModal');['ytTopic','ytNotes','ytLink'].forEach(i=>$(i).value='');renderAll();toast('YouTube logged!')}
+function delYT(id){S.youtube=S.youtube.filter(e=>e.id!==id);save();renderAll()}
+function renderYouTube(){
+  const ytWk=S.youtube.filter(e=>inWk(e.date)).reduce((s,e)=>s+e.hours,0);
+  $('dYtHrs').textContent=ytWk.toFixed(1);
+  if(!S.youtube.length){$('ytTable').innerHTML='';$('ytEmpty').style.display='';return}
+  $('ytEmpty').style.display='none';
+  $('ytTable').innerHTML=S.youtube.slice(0,20).map(e=>`<tr><td>${e.date}</td><td>${e.hours}h</td><td>${esc(e.topic||'—')}</td><td style="color:var(--dim)">${esc(e.notes||'—')}</td><td>${e.link?`<a href="${esc(e.link)}" target="_blank" rel="noopener">↗</a>`:'—'}</td><td><button class="btn btn-danger btn-sm" onclick="delYT('${e.id}')">×</button></td></tr>`).join('');
+}
 
 // ===== PHD =====
 document.querySelectorAll('[data-phdtab]').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('[data-phdtab]').forEach(n=>n.classList.remove('active'));t.classList.add('active');['phdPapersView','phdRqView','phdOutreachView','phdProgramsView'].forEach(v=>$(v).style.display='none');$({papers:'phdPapersView',rq:'phdRqView',outreach:'phdOutreachView',programs:'phdProgramsView'}[t.dataset.phdtab]).style.display=''}));
@@ -737,7 +934,7 @@ function renderBrain(){
   // Filter by PARA
   const filtered=S.notes.filter(n=>n.para===activePara).sort((a,b)=>b.created.localeCompare(a.created));
   const codeColor={captured:'b-yellow',organized:'b-accent',distilled:'b-purple',expressed:'b-green'};
-  const areaIcon={cs:'🖥',phd:'🎓',work:'💼',exercise:'💪',other:'📌'};
+  const areaIcon={cs:'🖥',phd:'🎓',work:'💼',exercise:'💪',youtube:'🎬',other:'📌'};
   const codeLayers={captured:1,organized:2,distilled:3,expressed:4};
 
   $('brainContent').innerHTML=filtered.length?filtered.map(n=>`<div class="note-card">
@@ -757,7 +954,7 @@ function renderBrain(){
     </div>
     ${n.content?`<div class="note-body">${esc(n.content).slice(0,200)}${n.content.length>200?'…':''}</div>`:''}
     <div class="note-layers" title="Progressive Summarization depth">${[1,2,3,4].map(l=>`<div class="note-layer ${l<=codeLayers[n.code]?'filled':''}"></div>`).join('')}</div>
-  </div>`).join(''):'<div style="text-align:center;padding:30px;color:var(--dim)"><div style="font-size:13px;font-weight:500">No notes in ${activePara}</div><div style="font-size:11px;margin-top:4px">Add notes and file them into PARA categories.</div></div>';
+  </div>`).join(''):'<div style="text-align:center;padding:30px;color:var(--dim)"><div style="font-size:13px;font-weight:500">No notes in '+activePara+'</div><div style="font-size:11px;margin-top:4px">Add notes and file them into PARA categories.</div></div>';
 
   // Intermediate Packets
   const ips=S.notes.filter(n=>n.ip==='yes').sort((a,b)=>b.created.localeCompare(a.created));
@@ -769,22 +966,22 @@ function renderBrain(){
 
 // ===== WEEKLY REVIEW =====
 let rvOff=0;function changeRvWk(d){rvOff+=d;renderReview()}
-const CHK=['Process inbox to zero (GTD)','Review PARA: move completed Projects to Archives','Review CVC work: shipped? carry-overs? Monday priorities?','Review Exercise: 5–6 workouts this week?','Review CS Learning: build/read? update next actions','Review PhD Prep: papers? outreach? RQ sharper?','Advance CODE pipeline: any notes ready to distill or express?','Check calendar for coming week','Identify One Big Thing for each track','Clear workspace: file papers, close tabs','Rate yourself on 6 Dimensions of Learning'];
+const CHK=['Process inbox to zero (GTD)','Review PARA: move completed Projects to Archives','Review CVC work: shipped? carry-overs? Monday priorities?','Review Exercise: 5–6 workouts this week?','Review CS Learning: build/read? update next actions','Review PhD Prep: papers? outreach? RQ sharper?','Review YouTube: content planned? video recorded/edited?','Advance CODE pipeline: any notes ready to distill or express?','Check calendar for coming week','Identify One Big Thing for each track','Clear workspace: file papers, close tabs','Rate yourself on 6 Dimensions of Learning'];
 
 function renderReview(){
   const wk=wkMon(rvOff);$('rvWeekLabel').textContent=wkLabel(rvOff);
   if(!S.reviews[wk])S.reviews[wk]={checklist:{},obt:{},wins:'',lessons:'',work:'',dims:''};
   const rv=S.reviews[wk];
   $('rvChecklist').innerHTML=CHK.map((c,i)=>`<div class="task"><button class="task-chk ${rv.checklist[i]?'done':''}" onclick="toggleRvChk(${i})"></button><span class="task-txt ${rv.checklist[i]?'done':''}" style="font-size:12px">${c}</span></div>`).join('');
-  $('obtCvc').value=rv.obt.cvc||'';$('obtEx').value=rv.obt.exercise||'';$('obtCs').value=rv.obt.cs||'';$('obtPhd').value=rv.obt.phd||'';
+  $('obtCvc').value=rv.obt.cvc||'';$('obtEx').value=rv.obt.exercise||'';$('obtCs').value=rv.obt.cs||'';$('obtPhd').value=rv.obt.phd||'';$('obtYt').value=rv.obt.youtube||'';
   $('rvWins').value=rv.wins||'';$('rvLessons').value=rv.lessons||'';$('rvWork').value=rv.work||'';$('rvDims').value=rv.dims||'';
   // Archive
   const weeks=Object.keys(S.reviews).sort().reverse();$('rvArchiveEmpty').style.display=weeks.length?'none':'';
-  $('rvArchive').innerHTML=weeks.slice(0,20).map(w=>{const r=S.reviews[w];return `<tr><td style="white-space:nowrap">${w}</td><td>${S.exercise.filter(e=>inWkOf(e.date,w)).length}</td><td>${S.cs.filter(e=>inWkOf(e.date,w)).reduce((s,e)=>s+e.hours,0).toFixed(1)}h</td><td>${S.papers.filter(e=>inWkOf(e.date,w)).length}</td><td>${S.notes.filter(n=>inWkOf(n.created.slice(0,10),w)).length}</td><td style="font-size:10px">${[r.obt.cvc,r.obt.exercise,r.obt.cs,r.obt.phd].filter(Boolean).map(esc).join(' · ')||'—'}</td></tr>`}).join('');
+  $('rvArchive').innerHTML=weeks.slice(0,20).map(w=>{const r=S.reviews[w];return `<tr><td style="white-space:nowrap">${w}</td><td>${S.exercise.filter(e=>inWkOf(e.date,w)).length}</td><td>${S.cs.filter(e=>inWkOf(e.date,w)).reduce((s,e)=>s+e.hours,0).toFixed(1)}h</td><td>${S.papers.filter(e=>inWkOf(e.date,w)).length}</td><td>${S.notes.filter(n=>inWkOf(n.created.slice(0,10),w)).length}</td><td>${S.youtube.filter(e=>inWkOf(e.date,w)).reduce((s,e)=>s+e.hours,0).toFixed(1)}h</td><td style="font-size:10px">${[r.obt.cvc,r.obt.exercise,r.obt.cs,r.obt.phd,r.obt.youtube].filter(Boolean).map(esc).join(' · ')||'—'}</td></tr>`}).join('');
   // Chart
   let bars='';for(let i=7;i>=0;i--){const m=wkMon(-i),r=S.reviews[m];const d=r?Object.values(r.checklist).filter(Boolean).length:0;const p=Math.round(d/CHK.length*100);bars+=`<div class="mini-bar" style="height:${Math.max(p,4)}%;background:${p>70?'var(--green)':p>40?'var(--yellow)':'var(--s3)'}"></div>`}$('rvChart').innerHTML=bars}
 function toggleRvChk(i){const wk=wkMon(rvOff);S.reviews[wk].checklist[i]=!S.reviews[wk].checklist[i];save();renderReview()}
-function saveOBT(){const wk=wkMon(rvOff);if(!S.reviews[wk])S.reviews[wk]={checklist:{},obt:{},wins:'',lessons:'',work:'',dims:''};S.reviews[wk].obt={cvc:$('obtCvc').value,exercise:$('obtEx').value,cs:$('obtCs').value,phd:$('obtPhd').value};save();renderAll();toast('Saved!')}
+function saveOBT(){const wk=wkMon(rvOff);if(!S.reviews[wk])S.reviews[wk]={checklist:{},obt:{},wins:'',lessons:'',work:'',dims:''};S.reviews[wk].obt={cvc:$('obtCvc').value,exercise:$('obtEx').value,cs:$('obtCs').value,phd:$('obtPhd').value,youtube:$('obtYt').value};save();renderAll();toast('Saved!')}
 function saveReview(){const wk=wkMon(rvOff);if(!S.reviews[wk])S.reviews[wk]={checklist:{},obt:{},wins:'',lessons:'',work:'',dims:''};S.reviews[wk].wins=$('rvWins').value;S.reviews[wk].lessons=$('rvLessons').value;S.reviews[wk].work=$('rvWork').value;S.reviews[wk].dims=$('rvDims').value;save();toast('Saved!')}
 
 // ===== DASHBOARD =====
@@ -802,18 +999,19 @@ function renderDash(){
   $('dWeekPct').textContent=Math.min(Math.round(done/target*100),100)+'%';$('dWeekSub').textContent=done+'/~'+target+' actions';
   // OBT
   const wk=wkMon(0),rv=S.reviews[wk];
-  if(rv&&rv.obt&&(rv.obt.cvc||rv.obt.exercise||rv.obt.cs||rv.obt.phd)){
-    $('dOBT').innerHTML=[rv.obt.cvc?`<div style="padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)">💼 ${esc(rv.obt.cvc)}</div>`:'',rv.obt.exercise?`<div style="padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)">💪 ${esc(rv.obt.exercise)}</div>`:'',rv.obt.cs?`<div style="padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)">🖥 ${esc(rv.obt.cs)}</div>`:'',rv.obt.phd?`<div style="padding:5px 0;font-size:12px">🎓 ${esc(rv.obt.phd)}</div>`:'' ].join('')}
+  if(rv&&rv.obt&&(rv.obt.cvc||rv.obt.exercise||rv.obt.cs||rv.obt.phd||rv.obt.youtube)){
+    $('dOBT').innerHTML=[rv.obt.cvc?`<div style="padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)">💼 ${esc(rv.obt.cvc)}</div>`:'',rv.obt.exercise?`<div style="padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)">💪 ${esc(rv.obt.exercise)}</div>`:'',rv.obt.cs?`<div style="padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)">🖥 ${esc(rv.obt.cs)}</div>`:'',rv.obt.phd?`<div style="padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)">🎓 ${esc(rv.obt.phd)}</div>`:'',rv.obt.youtube?`<div style="padding:5px 0;font-size:12px">🎬 ${esc(rv.obt.youtube)}</div>`:'' ].join('')}
   else $('dOBT').innerHTML='<p style="color:var(--dim);font-size:12px">Set in Weekly Review.</p>';
   // Status
-  const items=[{l:'Exercise',v:`${exW}/6`,s:exW>=5?'on':exW>=3?'behind':'off'},{l:'CS Learning',v:`${csHrs.toFixed(1)}/12.25h`,s:csHrs>=10?'on':csHrs>=5?'behind':'off'},{l:'PhD Prep',v:`${ppW}/2 papers`,s:ppW>=2?'on':ppW>=1?'behind':'off'},{l:'Second Brain',v:`${S.notes.length} notes`,s:S.notes.length>0?'on':'off'}];
+  const ytWkH=S.youtube.filter(e=>inWk(e.date)).reduce((s,e)=>s+e.hours,0);
+  const items=[{l:'Exercise',v:`${exW}/6`,s:exW>=5?'on':exW>=3?'behind':'off'},{l:'CS Learning',v:`${csHrs.toFixed(1)}/12.25h`,s:csHrs>=10?'on':csHrs>=5?'behind':'off'},{l:'PhD Prep',v:`${ppW}/2 papers`,s:ppW>=2?'on':ppW>=1?'behind':'off'},{l:'YouTube',v:`${ytWkH.toFixed(1)}h`,s:ytWkH>=0.5?'on':'off'},{l:'Second Brain',v:`${S.notes.length} notes`,s:S.notes.length>0?'on':'off'}];
   $('dStatus').innerHTML=items.map(i=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)"><span class="dot dot-${i.s}"></span><span style="font-size:12px;font-weight:500;flex:1">${i.l}</span><span style="font-size:11px;color:var(--dim)">${i.v}</span><span class="badge ${i.s==='on'?'b-green':i.s==='behind'?'b-yellow':'b-red'}">${i.s==='on'?'On Track':i.s==='behind'?'Behind':'Start'}</span></div>`).join('');
   // Schedule
   const dow=now.getDay(),isWE=dow===0||dow===6,hour=now.getHours()+now.getMinutes()/60;
   function mk(t,n,d,bg,bc,h1,h2){const isN=!isWE&&h1!==undefined&&hour>=h1&&hour<h2;return `<div class="sched${isN?' now':''}" style="background:${bg};border-color:${bc}"><span class="sched-time">${t}</span><span class="sched-name">${n}</span><span class="sched-dur">${d}</span></div>`}
   $('dSchedTitle').textContent=isWE?'Weekend Schedule':'Today\'s Schedule';
   $('dSchedule').innerHTML=isWE?
-    mk('7:00–8:00','💪 Exercise','1h','var(--green-g)','var(--green)')+mk('8:15–11:15','🖥 CS Deep','3h','var(--accent-g)','var(--accent)')+mk('11:30–12:30','🎓 PhD','1h','var(--purple-g)','var(--purple)')+mk('12:30+','🌙 Rest','Free','var(--s2)','var(--green)'):
+    mk('7:00–8:00','💪 Exercise','1h','var(--green-g)','var(--green)')+mk('8:15–11:15','🖥 CS Deep','3h','var(--accent-g)','var(--accent)')+mk('11:30–12:30','🎓 PhD','1h','var(--purple-g)','var(--purple)')+mk('12:30–1:00','🎬 YouTube','30m','var(--orange-g)','var(--orange)')+mk('1:00+','🌙 Rest','Free','var(--s2)','var(--green)'):
     mk('6:00–7:00','💪 Exercise','1h','var(--green-g)','var(--green)',6,7)+mk('7:15–8:00','🖥 CS Theory','45m','var(--accent-g)','var(--accent)',7.25,8)+mk('8:00–5:00','💼 CVC OEI','9h','var(--yellow-g)','var(--yellow)',8,17)+mk('5:15–6:15','🖥 CS Build','1h','var(--accent-g)','var(--accent)',17.25,18.25)+mk('6:15–6:45','🎓 PhD Prep','30m','var(--purple-g)','var(--purple)',18.25,18.75)+mk('6:45+','🌙 Rest','Eve','var(--s2)','var(--green)');
   // 6 Dimensions
   const dims=[{k:'caring',i:'❤️',l:'Caring',s:'Why does this matter to me?'},{k:'metacognition',i:'🧠',l:'Metacognition',s:'Am I aware of how I learn?'},{k:'foundational',i:'📚',l:'Foundational',s:'Do I know the core concepts?'},{k:'application',i:'🔧',l:'Application',s:'Can I use what I know?'},{k:'integration',i:'🔗',l:'Integration',s:'Can I connect across domains?'},{k:'human',i:'🤝',l:'Human',s:'Am I building relationships?'}];
@@ -829,7 +1027,7 @@ function renderDash(){
   $('dLastUpdated').textContent=S.lastUpdated?'Last updated: '+new Date(S.lastUpdated).toLocaleString():'';$('footerYear').textContent=new Date().getFullYear()}
 function toggleMs(k){S.milestones[k]=!S.milestones[k];save();renderAll()}
 
-function renderAll(){renderDash();renderInbox();renderStartup();renderExercise();renderCS();renderPhD();renderBrain();renderReview()}
+function renderAll(){renderDash();renderTodayBlocks();renderHabitChains();renderInbox();renderStartup();renderExercise();renderCS();renderYouTube();renderPhD();renderBrain();renderReview()}
 init();renderAll();
 </script>
 </body>
