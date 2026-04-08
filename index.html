@@ -558,10 +558,6 @@ html{scroll-behavior:smooth}
 <p class="dash-sub" id="dashSub"></p>
 <p class="dash-motiv" id="dashMotiv"></p>
 </div>
-<div style="display:flex;gap:6px">
-<button class="btn btn-o btn-sm" onclick="exportData()">Export</button>
-<label class="btn btn-o btn-sm" style="margin:0">Import<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
-</div>
 </div>
 </div>
 
@@ -574,6 +570,7 @@ html{scroll-behavior:smooth}
 <div class="card-header">
   <h3 style="margin:0;font-size:18px">Today's Blocks</h3>
   <div style="display:flex;align-items:center;gap:12px">
+    <button class="btn btn-o btn-sm" onclick="resetTodayBlocks()" style="font-size:10px;padding:3px 8px;color:var(--dim)">Reset</button>
     <span id="todayMsg" style="font-size:12px;color:var(--dim)"></span>
     <div class="progress-ring-wrap" id="todayRing">
       <svg class="progress-ring" width="56" height="56" viewBox="0 0 56 56">
@@ -1083,6 +1080,15 @@ function init(){
   if(!S.dimensions)S.dimensions={caring:3,metacognition:3,foundational:3,application:3,integration:3,human:3};
   if(!S.startup)S.startup={};
   if(!S.today)S.today={};
+  // One-time fix: old td() used UTC, so blocks checked yesterday evening
+  // were stored under today's local date key. Clear that stale data.
+  if(!S._utcFixed){
+    const localToday=td();
+    if(S.today[localToday])delete S.today[localToday];
+    if(S.startup[localToday])delete S.startup[localToday];
+    S._utcFixed=true;
+    try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}
+  }
 }
 function save(){S.lastUpdated=new Date().toISOString();localStorage.setItem(K,JSON.stringify(S))}
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
@@ -1217,6 +1223,13 @@ function renderTodayBlocks(){
       <div class="block-check">${state[b.key]?'✓':''}</div>
     </div>`;
   }).join('');
+}
+
+function resetTodayBlocks(){
+  const dateKey=td();
+  S.today[dateKey]={};
+  save();renderAll();
+  toast('Today\'s blocks reset');
 }
 
 // ===== HABIT CHAINS =====
