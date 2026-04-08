@@ -474,9 +474,57 @@ html{scroll-behavior:smooth}
 .fab{transition:all .2s;background:linear-gradient(135deg,var(--accent),#818cf8)}
 .fab:hover{box-shadow:0 8px 32px rgba(107,138,255,.45)}
 </style>
+<style>
+/* Password Gate */
+.pw-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .3s}
+.pw-gate.hidden{opacity:0;pointer-events:none}
+.pw-box{text-align:center;max-width:340px;padding:40px 32px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 24px 80px rgba(0,0,0,.3)}
+.pw-box h2{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.pw-box .pw-sub{font-size:12px;color:var(--dim);margin-bottom:20px}
+.pw-box input{width:100%;padding:12px 16px;border-radius:var(--rs);border:2px solid var(--border);background:var(--s2);color:var(--tx);font-size:16px;text-align:center;letter-spacing:.3em;outline:none;font-family:inherit;transition:border-color .15s}
+.pw-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+.pw-box input.pw-err{border-color:var(--red);animation:shake .4s ease}
+.pw-box .pw-msg{font-size:11px;color:var(--red);margin-top:8px;min-height:16px}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+</style>
 <script>(function(){try{if(localStorage.getItem('systemv2_theme')==='light')document.documentElement.classList.add('light')}catch(e){}}());</script>
 </head>
 <body>
+
+<!-- Password Gate -->
+<div class="pw-gate" id="pwGate">
+<div class="pw-box">
+<h2>The System v2.0</h2>
+<p class="pw-sub">Enter passcode to continue</p>
+<input type="password" id="pwInput" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" autofocus>
+<div class="pw-msg" id="pwMsg"></div>
+</div>
+</div>
+<script>
+(function(){
+  var gate=document.getElementById('pwGate');
+  var inp=document.getElementById('pwInput');
+  var msg=document.getElementById('pwMsg');
+  var CODE='5751';
+  // Check session
+  try{if(sessionStorage.getItem('sv2_auth')==='1'){gate.classList.add('hidden');setTimeout(function(){gate.remove()},400);}}catch(e){}
+  inp.addEventListener('input',function(){
+    msg.textContent='';inp.classList.remove('pw-err');
+    if(inp.value.length===4){
+      if(inp.value===CODE){
+        try{sessionStorage.setItem('sv2_auth','1')}catch(e){}
+        gate.classList.add('hidden');
+        setTimeout(function(){gate.remove()},400);
+      }else{
+        inp.classList.add('pw-err');
+        msg.textContent='Incorrect passcode';
+        setTimeout(function(){inp.value='';inp.classList.remove('pw-err');msg.textContent=''},1200);
+      }
+    }
+  });
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&inp.value.length<4){inp.classList.add('pw-err');msg.textContent='Enter 4 digits';setTimeout(function(){inp.classList.remove('pw-err')},400)}});
+})();
+</script>
 
 <nav class="nav"><div class="nav-inner">
 <div class="nav-brand">The System <span>v2.0</span></div>
@@ -1023,7 +1071,7 @@ Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 const K='systemv2_gtd',START=new Date('2026-04-20');
 let S;
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const td=()=>new Date().toISOString().slice(0,10);
+const td=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const esc=s=>{if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML};
 const $=id=>document.getElementById(id);
 
