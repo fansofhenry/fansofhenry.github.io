@@ -67,8 +67,9 @@ button{cursor:pointer;font-family:inherit}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .g5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 .g6{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-@media(max-width:900px){.g2,.g3,.g4,.g5,.g6{grid-template-columns:1fr}}
-@media(min-width:901px) and (max-width:1100px){.g4,.g5,.g6{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.g2,.g3,.g4,.g5{grid-template-columns:1fr}.g6{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:601px) and (max-width:900px){.g2{grid-template-columns:1fr}.g3,.g4,.g5,.g6{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:901px) and (max-width:1100px){.g4,.g5,.g6{grid-template-columns:repeat(3,1fr)}}
 
 .stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .15s}
 .stat:hover{border-color:var(--accent)}
@@ -903,13 +904,6 @@ Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 <span style="margin-top:4px;display:inline-block">Henry Fan · <span id="footerYear"></span></span>
 </div>
 
-<!-- Backup Warning -->
-<div id="backupBar" class="backup-bar" style="display:none;max-width:1280px;margin:14px auto 0">
-  <span style="font-size:16px">⚠️</span>
-  <span style="flex:1">It's been over 7 days since your last export. Back up your data!</span>
-  <button onclick="exportData();this.parentElement.style.display='none'">Export Now</button>
-  <button onclick="this.parentElement.style.display='none'" style="background:none;border:1px solid rgba(251,191,36,.3);color:var(--yellow)">Dismiss</button>
-</div>
 
 <!-- Command Palette -->
 <div class="cmd-bg" id="cmdPalette">
@@ -1069,6 +1063,7 @@ const K='systemv2_gtd',START=new Date('2026-04-20');
 let S;
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const td=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const dStr=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const esc=s=>{if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML};
 const $=id=>document.getElementById(id);
 
@@ -1114,7 +1109,7 @@ document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-bg.show').forEach(m=>m.classList.remove('show'))});
 
 // Week
-function wkMon(o=0){const d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)+(o*7));return d.toISOString().slice(0,10)}
+function wkMon(o=0){const d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)+(o*7));return dStr(d)}
 function wkLabel(o=0){const d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)+(o*7));const e=new Date(d);e.setDate(e.getDate()+6);const f={month:'short',day:'numeric'};return d.toLocaleDateString('en-US',f)+' – '+e.toLocaleDateString('en-US',f)+', '+e.getFullYear()}
 function inWk(ds,o=0){const m=wkMon(o),s=new Date(m),e=new Date(s);e.setDate(e.getDate()+7);const d=new Date(ds);return d>=s&&d<e}
 function inMo(ds){const d=new Date(ds),n=new Date();return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear()}
@@ -1238,8 +1233,8 @@ const dismissedStreakWarnings=new Set();
 function calcStreak(hasDataFn){
   let s=0;const d=new Date();
   // Check today first
-  if(!hasDataFn(d.toISOString().slice(0,10))){return s}
-  while(hasDataFn(d.toISOString().slice(0,10))){s++;d.setDate(d.getDate()-1)}
+  if(!hasDataFn(dStr(d))){return s}
+  while(hasDataFn(dStr(d))){s++;d.setDate(d.getDate()-1)}
   return s;
 }
 
@@ -1247,13 +1242,13 @@ function calcStreak(hasDataFn){
 function calcYesterdayStreak(hasDataFn){
   let s=0;const d=new Date();
   d.setDate(d.getDate()-1);
-  while(hasDataFn(d.toISOString().slice(0,10))){s++;d.setDate(d.getDate()-1)}
+  while(hasDataFn(dStr(d))){s++;d.setDate(d.getDate()-1)}
   return s;
 }
 
 function renderHabitChains(){
   const today=new Date();
-  const todayKey=today.toISOString().slice(0,10);
+  const todayKey=dStr(today);
   const tracks=[
     {label:'Exercise',icon:'💪',check:d=>S.exercise.some(e=>e.date===d),modal:'exModal'},
     {label:'CS',icon:'🖥',check:d=>S.cs.some(e=>e.date===d),modal:'csModal'},
@@ -1271,7 +1266,7 @@ function renderHabitChains(){
     let days='';
     for(let i=29;i>=0;i--){
       const dd=new Date(today);dd.setDate(dd.getDate()-i);
-      const k=dd.toISOString().slice(0,10);
+      const k=ddStr(d);
       days+=`<div class="chain-day ${t.check(k)?'active':''}" title="${k}"></div>`;
     }
     const riskBadge=atRisk?`<span class="at-risk-badge"><span class="at-risk-dot"></span>At risk!</span>`:'';
@@ -1292,7 +1287,7 @@ function renderHabitChains(){
 }
 
 function renderStreakWarnings(){
-  const todayKey=new Date().toISOString().slice(0,10);
+  const todayKey=td();
   const tracks=[
     {label:'Exercise',icon:'💪',check:d=>S.exercise.some(e=>e.date===d),modal:'exModal'},
     {label:'CS',icon:'🖥',check:d=>S.cs.some(e=>e.date===d),modal:'csModal'},
@@ -1359,13 +1354,13 @@ function toggleStartup(i){const key=td();if(!S.startup[key])S.startup[key]={};S.
 // ===== EXERCISE =====
 function saveExercise(){S.exercise.push({id:uid(),date:$('exDate').value,type:$('exType').value,duration:parseInt($('exDur').value)||60,notes:$('exNotes').value,keyExercise:$('exKeyExercise').value.trim(),weightReps:$('exWeightReps').value.trim()});S.exercise.sort((a,b)=>b.date.localeCompare(a.date));save();hideModal('exModal');$('exNotes').value='';$('exKeyExercise').value='';$('exWeightReps').value='';renderAll();toast('Logged!')}
 function delEx(id){S.exercise=S.exercise.filter(e=>e.id!==id);save();renderAll()}
-function exStreak(){let s=0;const d=new Date();while(S.exercise.some(e=>e.date===d.toISOString().slice(0,10))){s++;d.setDate(d.getDate()-1)}return s}
+function exStreak(){let s=0;const d=new Date();while(S.exercise.some(e=>e.date===dStr(d))){s++;d.setDate(d.getDate()-1)}return s}
 function renderExercise(){
   const wk=S.exercise.filter(e=>inWk(e.date)).length,mo=S.exercise.filter(e=>inMo(e.date)).length,streak=exStreak();
   $('exWeek').textContent=wk;$('exMonth').textContent=mo;$('exStreak').textContent=streak;
   // Heatmap
   const now=new Date(),start=new Date(now);start.setDate(start.getDate()-((start.getDay()+6)%7)-49);
-  let h='';for(let i=0;i<56;i++){const dd=new Date(start);dd.setDate(dd.getDate()+i);const k=dd.toISOString().slice(0,10);h+=`<div class="heatmap-day ${dd>now?'future':S.exercise.some(e=>e.date===k)?'done':'rest'}">${dd.getDate()}</div>`}
+  let h='';for(let i=0;i<56;i++){const dd=new Date(start);dd.setDate(dd.getDate()+i);const k=ddStr(d);h+=`<div class="heatmap-day ${dd>now?'future':S.exercise.some(e=>e.date===k)?'done':'rest'}">${dd.getDate()}</div>`}
   $('exHeatmap').innerHTML=h;
   // Trend
   let th='',lh='';for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);const m=d.getMonth(),y=d.getFullYear();const c=S.exercise.filter(e=>{const ed=new Date(e.date);return ed.getMonth()===m&&ed.getFullYear()===y}).length;th+=`<div class="mini-bar" style="height:${Math.max(c/25*100,4)}%;background:${c>15?'var(--green)':c>8?'var(--yellow)':'var(--s3)'}"></div>`;lh+=`<span>${d.toLocaleDateString('en-US',{month:'short'})}</span>`}
@@ -1401,7 +1396,7 @@ function renderCS(){
   $('csReadTable').innerHTML=reads.map(e=>`<tr><td>${e.date}</td><td>${esc(e.project)}: ${esc(e.milestone)}</td><td style="color:var(--dim)">${esc(e.reflection||'—')}</td><td><button class="btn btn-danger btn-sm" onclick="delCS('${e.id}')">×</button></td></tr>`).join('');
   $('csReflectEmpty').style.display=reflects.length?'none':'';
   $('csReflectList').innerHTML=reflects.map(e=>`<div style="border-bottom:1px solid var(--border);padding:12px 0"><div style="display:flex;gap:6px;align-items:center"><span style="font-size:10px;color:var(--dim)">${e.date}</span><span class="badge ${e.session==='morning'?'b-accent':'b-yellow'}">${e.session||''}</span><span style="font-size:11px;color:var(--dim)">${esc(e.project)}</span></div><div style="font-size:12px;margin-top:6px;line-height:1.5">${esc(e.reflection)}</div></div>`).join('');
-  const chart=$('dCsChart'),mon=wkMon(0);let bars='';for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(d.getDate()+i);const k=d.toISOString().slice(0,10);const hrs=S.cs.filter(e=>e.date===k).reduce((s,e)=>s+e.hours,0);bars+=`<div class="mini-bar" style="height:${Math.max(Math.min(hrs/3*100,100),4)}%;background:${hrs>0?'var(--accent)':'var(--s3)'}"></div>`}chart.innerHTML=bars}
+  const chart=$('dCsChart'),mon=wkMon(0);let bars='';for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(d.getDate()+i);const k=dStr(d);const hrs=S.cs.filter(e=>e.date===k).reduce((s,e)=>s+e.hours,0);bars+=`<div class="mini-bar" style="height:${Math.max(Math.min(hrs/3*100,100),4)}%;background:${hrs>0?'var(--accent)':'var(--s3)'}"></div>`}chart.innerHTML=bars}
 
 // ===== YOUTUBE =====
 function saveYouTube(){S.youtube.push({id:uid(),date:$('ytDate').value,hours:parseFloat($('ytHours').value)||0.5,topic:$('ytTopic').value,notes:$('ytNotes').value,link:$('ytLink').value});S.youtube.sort((a,b)=>b.date.localeCompare(a.date));save();hideModal('ytModal');['ytTopic','ytNotes','ytLink'].forEach(i=>$(i).value='');renderAll();toast('YouTube logged!')}
@@ -1866,24 +1861,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='/'){e.preventDefault();openCmd();return}
 });
 
-// ===== BACKUP REMINDER =====
-function checkBackup(){
-  const last=S.lastUpdated;
-  if(!last){$('backupBar').style.display='';return}
-  const daysSince=Math.floor((Date.now()-new Date(last).getTime())/864e5);
-  // Check if there's data worth backing up and last save > 7 days
-  const hasData=S.exercise.length+S.cs.length+S.papers.length+S.notes.length>0;
-  // Check localStorage for last export
-  const lastExport=localStorage.getItem('systemv2_lastExport');
-  if(hasData&&(!lastExport||Date.now()-parseInt(lastExport)>7*864e5)){
-    $('backupBar').style.display='flex';
-  }else{
-    $('backupBar').style.display='none';
-  }
-}
-// Patch export to track last export time
-const _origExport=exportData;
-exportData=function(){_origExport();localStorage.setItem('systemv2_lastExport',Date.now().toString())};
+function checkBackup(){}
 
 // ===== MOBILE BOTTOM NAV =====
 let bnMoreOpen=false;
@@ -1963,6 +1941,18 @@ const _origToggle=toggleTodayBlock;
 toggleTodayBlock=function(key){_origToggle(key);checkConfetti()};
 
 init();renderAll();
+
+// ===== MIDNIGHT AUTO-REFRESH =====
+// Check every 30 seconds if the date changed; if so, re-render everything
+let _lastDay=td();
+setInterval(function(){
+  const now=td();
+  if(now!==_lastDay){
+    _lastDay=now;
+    lastAllDone=false;
+    renderAll();
+  }
+},30000);
 </script>
 </body>
 </html>
