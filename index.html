@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Henry Fan — The System v2.0</title>
+<title>Henry Fan — The System v4.0</title>
 <meta name="description" content="A GTD + PARA + Second Brain operating system for Henry Fan. Track exercise, CS learning, PhD prep, and YouTube.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <style>
@@ -297,6 +297,117 @@ select.input{appearance:auto}
 .nav-tab .kbd-hint{display:none;font-size:9px;color:var(--dim2);margin-left:4px}
 @media(min-width:769px){.nav-tab .kbd-hint{display:inline}}
 
+/* ===== SCHEDULE PAGE ===== */
+#page-schedule{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased}
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+#page-schedule .sch-header{text-align:center;margin-bottom:32px}
+#page-schedule .sch-header h1{font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:800;letter-spacing:3px;margin-bottom:6px}
+#page-schedule .sch-header h1 span{color:var(--accent)}
+#page-schedule .sch-header .sub{font-size:.9rem;color:var(--dim);font-weight:300;letter-spacing:.5px}
+#page-schedule .sch-header .motto{font-size:.75rem;color:var(--dim2);margin-top:10px;font-style:italic;border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:inline-block;padding:5px 18px}
+#page-schedule .sch-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-bottom:20px;font-size:.78rem;color:var(--dim)}
+#page-schedule .sch-legend span{display:flex;align-items:center;gap:5px}
+#page-schedule .sch-legend .dot{width:9px;height:9px;border-radius:50%}
+#page-schedule .sch-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-bottom:24px}
+#page-schedule .sch-stat{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:4px 12px;border-radius:18px;border:1px solid var(--border);background:var(--s1);color:var(--dim)}
+#page-schedule .sch-stat strong{color:var(--tx)}
+#page-schedule .schedule-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border);background:var(--s1);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+#page-schedule table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:920px}
+#page-schedule thead th{background:var(--s2);color:var(--dim);padding:11px 6px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:.68rem;border-bottom:2px solid var(--border)}
+#page-schedule thead th:first-child{width:60px;border-right:2px solid var(--border)}
+#page-schedule td{border:1px solid var(--border);padding:0;vertical-align:top;height:52px;background:var(--s1)}
+#page-schedule td:first-child{background:var(--s2);text-align:center;vertical-align:middle;font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--dim2);font-weight:500;width:60px;border-right:2px solid var(--border)}
+#page-schedule .c{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:5px 8px;border-left:3px solid transparent;transition:box-shadow .15s}
+#page-schedule .c:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+#page-schedule .c .label{font-weight:600;font-size:.72rem;margin-bottom:1px}
+#page-schedule .c .time{font-size:.58rem;color:var(--dim2)}
+#page-schedule .c .detail{font-size:.55rem;color:var(--dim2);margin-top:2px}
+#page-schedule .c .science{font-size:.5rem;font-weight:600;letter-spacing:.4px;margin-top:2px}
+:root #page-schedule{--exercise:#34d399;--exercise-bg:rgba(52,211,153,.1);--theory:#6b8aff;--theory-bg:rgba(107,138,255,.1);--work:#fbbf24;--work-bg:rgba(251,191,36,.08);--build:#a78bfa;--build-bg:rgba(167,139,250,.1);--phd:#f472b6;--phd-bg:rgba(244,114,182,.1);--youtube:#fb923c;--youtube-bg:rgba(251,146,60,.1);--family:#fbbf24;--family-bg:rgba(251,191,36,.08);--rest:var(--dim);--rest-bg:var(--s2);--review:#2dd4bf;--review-bg:rgba(45,212,191,.1);--shutdown:#a78bfa;--shutdown-bg:rgba(167,139,250,.08);--warn:#fbbf24}
+:root.light #page-schedule{--exercise:#1a9a6e;--exercise-bg:#edf8f3;--theory:#2563eb;--theory-bg:#eef4ff;--work:#b8860b;--work-bg:#fdf8eb;--build:#7c3aed;--build-bg:#f3f0ff;--phd:#db2777;--phd-bg:#fdf0f6;--youtube:#dc4a2a;--youtube-bg:#fef0ed;--family:#c07c1a;--family-bg:#fef9ee;--rest:#78716c;--rest-bg:#f5f4f2;--review:#0f9488;--review-bg:#edfaf8;--shutdown:#5b4cdb;--shutdown-bg:#f3f1ff;--warn:#d97706}
+#page-schedule .c-exercise{background:var(--exercise-bg);border-left-color:var(--exercise)}
+#page-schedule .c-exercise .label,#page-schedule .c-exercise .science{color:var(--exercise)}
+#page-schedule .c-theory{background:var(--theory-bg);border-left-color:var(--theory)}
+#page-schedule .c-theory .label,#page-schedule .c-theory .science{color:var(--theory)}
+#page-schedule .c-work{background:var(--work-bg);border-left-color:var(--work)}
+#page-schedule .c-work .label{color:var(--work)}
+#page-schedule .c-build{background:var(--build-bg);border-left-color:var(--build)}
+#page-schedule .c-build .label,#page-schedule .c-build .science{color:var(--build)}
+#page-schedule .c-phd{background:var(--phd-bg);border-left-color:var(--phd)}
+#page-schedule .c-phd .label,#page-schedule .c-phd .science{color:var(--phd)}
+#page-schedule .c-youtube{background:var(--youtube-bg);border-left-color:var(--youtube)}
+#page-schedule .c-youtube .label,#page-schedule .c-youtube .science{color:var(--youtube)}
+#page-schedule .c-family{background:var(--family-bg);border-left-color:var(--family)}
+#page-schedule .c-family .label{color:var(--family)}
+#page-schedule .c-rest{background:var(--rest-bg);border-left-color:var(--rest)}
+#page-schedule .c-rest .label{color:var(--rest)}
+#page-schedule .c-review{background:var(--review-bg);border-left-color:var(--review)}
+#page-schedule .c-review .label,#page-schedule .c-review .science{color:var(--review)}
+#page-schedule .c-shutdown{background:var(--shutdown-bg);border-left-color:var(--shutdown)}
+#page-schedule .c-shutdown .label,#page-schedule .c-shutdown .science{color:var(--shutdown)}
+#page-schedule .c-sleep{background:var(--work-bg);border-left-color:var(--warn)}
+#page-schedule .c-sleep .label,#page-schedule .c-sleep .science{color:var(--warn)}
+#page-schedule .c-wind{background:var(--theory-bg);border-left-color:var(--theory)}
+#page-schedule .c-wind .label,#page-schedule .c-wind .science{color:var(--theory)}
+#page-schedule .h2{height:104px}#page-schedule .h3{height:156px}#page-schedule .h9{height:468px}#page-schedule .h10{height:520px}
+#page-schedule .sch-section-title{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;letter-spacing:1px;text-align:center;margin:40px 0 20px;color:var(--tx);display:flex;align-items:center;gap:14px;justify-content:center}
+#page-schedule .sch-section-title::before,#page-schedule .sch-section-title::after{content:'';flex:1;max-width:100px;height:1px;background:var(--border)}
+#page-schedule .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:32px}
+#page-schedule .pcard{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;transition:border-color .2s}
+#page-schedule .pcard:hover{border-color:var(--accent)}
+#page-schedule .pcard h4{font-size:.82rem;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+#page-schedule .pcard p{font-size:.78rem;line-height:1.6;color:var(--dim)}
+#page-schedule .pcard .source{font-size:.63rem;color:var(--dim2);margin-top:5px;font-style:italic}
+#page-schedule .pcard .delta{font-size:.73rem;color:var(--accent);font-weight:500;margin-top:7px;padding-top:7px;border-top:1px solid var(--border)}
+#page-schedule .tag{font-size:.56rem;font-weight:700;padding:2px 7px;border-radius:4px;color:#fff;letter-spacing:.5px}
+#page-schedule .tag-ret{background:#dc2626}#page-schedule .tag-spa{background:#2563eb}
+#page-schedule .tag-int{background:#7c3aed}#page-schedule .tag-deep{background:#1a9a6e}
+#page-schedule .tag-slp{background:#d97706}#page-schedule .tag-load{background:#0891b2}
+#page-schedule .tag-gen{background:#db2777}#page-schedule .tag-rit{background:#78716c}
+#page-schedule .tag-inc{background:#0d9488}#page-schedule .tag-wrt{background:#ea580c}
+#page-schedule .tag-pbl{background:#7c3aed}
+#page-schedule .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:32px}
+#page-schedule .phase-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+#page-schedule .phase-num{padding:11px 16px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.78rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+#page-schedule .phase-num .weeks{font-size:.63rem;font-weight:400;color:var(--dim2)}
+#page-schedule .phase-body{padding:14px 16px}
+#page-schedule .phase-body h3{font-size:.92rem;font-weight:700;margin-bottom:5px}
+#page-schedule .phase-body .desc{font-size:.78rem;color:var(--dim);line-height:1.5;margin-bottom:8px}
+#page-schedule .phase-body .algos{font-size:.7rem;color:var(--dim2);margin-bottom:8px}
+#page-schedule .phase-body .algos strong{color:var(--dim)}
+#page-schedule .phase-body .deliverables{font-size:.73rem;padding:9px 12px;background:var(--s2);border-radius:var(--rs)}
+#page-schedule .phase-body .deliverables strong{color:var(--tx)}
+#page-schedule .phase-body .deliverables li{margin-bottom:3px;color:var(--dim)}
+#page-schedule .phase-body .how{font-size:.7rem;color:var(--accent);font-weight:500;margin-top:8px;padding-top:7px;border-top:1px solid var(--border)}
+#page-schedule .ph-1 .phase-num{background:var(--theory-bg);color:var(--theory)}
+#page-schedule .ph-2 .phase-num{background:var(--build-bg);color:var(--build)}
+#page-schedule .ph-3 .phase-num{background:var(--phd-bg);color:var(--phd)}
+#page-schedule .ph-4 .phase-num{background:var(--youtube-bg);color:var(--youtube)}
+#page-schedule .ph-5 .phase-num{background:var(--exercise-bg);color:var(--exercise)}
+#page-schedule .track{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:16px}
+#page-schedule .track-head{padding:13px 20px;font-weight:700;font-size:.88rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:6px}
+#page-schedule .track-head .meta{font-size:.68rem;font-weight:400;color:var(--dim2)}
+#page-schedule .track-body{padding:18px 20px}
+#page-schedule .track-body h4{font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:600;margin:16px 0 6px;padding-bottom:3px;border-bottom:1px solid var(--border)}
+#page-schedule .track-body h4:first-child{margin-top:0}
+#page-schedule .track-body ul{padding-left:18px;margin:0}
+#page-schedule .track-body li{margin-bottom:5px;font-size:.8rem;line-height:1.6;color:var(--dim)}
+#page-schedule .track-body li strong{color:var(--tx)}
+#page-schedule .track-body li em{color:var(--dim2);font-size:.73rem}
+#page-schedule .callout{border-radius:var(--rs);padding:10px 14px;margin:10px 0;font-size:.76rem;line-height:1.55;color:var(--dim)}
+#page-schedule .callout strong{color:var(--tx)}
+#page-schedule .callout-science{background:var(--theory-bg);border-left:3px solid var(--theory)}
+#page-schedule .callout-milestone{background:var(--exercise-bg);border-left:3px solid var(--exercise)}
+#page-schedule .callout-warn{background:var(--work-bg);border-left:3px solid var(--warn)}
+#page-schedule .callout-new{background:rgba(52,211,153,.08);border-left:3px solid var(--exercise)}
+#page-schedule .callout-project{background:var(--build-bg);border-left:3px solid var(--build)}
+#page-schedule .p1{font-size:.58rem;font-weight:700;padding:2px 5px;border-radius:3px;background:#dc2626;color:#fff;margin-left:3px;vertical-align:middle}
+#page-schedule .new{font-size:.58rem;font-weight:700;padding:2px 5px;border-radius:3px;background:#16a34a;color:#fff;margin-left:3px;vertical-align:middle}
+#page-schedule .sch-changes{border-color:#16a34a}
+#page-schedule .sch-changes .track-head{background:rgba(52,211,153,.08);border-left:4px solid var(--exercise)}
+#page-schedule .sch-changes .track-head span:first-child{color:var(--exercise)}
+@media(max-width:768px){#page-schedule .pgrid,#page-schedule .phases{grid-template-columns:1fr}}
+
 /* Theme toggle */
 .theme-toggle{width:30px;height:30px;border-radius:var(--rs);border:1px solid var(--border);background:none;color:var(--dim);display:flex;align-items:center;justify-content:center;transition:all .15s;padding:0;flex-shrink:0}
 .theme-toggle:hover{color:var(--tx);background:var(--s2);border-color:var(--s3)}
@@ -585,6 +696,7 @@ html{scroll-behavior:smooth}
 <button class="nav-tab" data-page="brain">Second Brain <span class="kbd-hint">6</span></button>
 <button class="nav-tab" data-page="horizons">Dream Binder <span class="kbd-hint">7</span></button>
 <button class="nav-tab" data-page="review">Weekly Review <span class="kbd-hint">8</span></button>
+<button class="nav-tab" data-page="schedule">Schedule <span class="kbd-hint">9</span></button>
 </div>
 <div class="nav-right">
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode" title="Toggle theme">
@@ -1191,6 +1303,442 @@ html{scroll-behavior:smooth}
 
 </div>
 
+<!-- ===== SCHEDULE PAGE ===== -->
+<div class="page" id="page-schedule">
+
+<div class="sch-header">
+  <h1>THE SYSTEM <span>v4.0</span></h1>
+  <div class="sub">Project-Based Learning Science Edition — Redesigned for Consolidation & Transfer</div>
+  <div class="motto">Deliver excellence at work. Build mastery on the margins. Earn the PhD.</div>
+</div>
+
+<div class="sch-legend">
+  <span><div class="dot" style="background:var(--exercise)"></div> Exercise</span>
+  <span><div class="dot" style="background:var(--theory)"></div> CS Theory</span>
+  <span><div class="dot" style="background:var(--work)"></div> CVC Work</span>
+  <span><div class="dot" style="background:var(--build)"></div> CS Build</span>
+  <span><div class="dot" style="background:var(--phd)"></div> PhD Prep</span>
+  <span><div class="dot" style="background:var(--youtube)"></div> YouTube</span>
+  <span><div class="dot" style="background:var(--family)"></div> Family</span>
+  <span><div class="dot" style="background:var(--review)"></div> Reflect</span>
+</div>
+
+<div class="sch-stats">
+  <div class="sch-stat"><strong>7h</strong> Exercise</div>
+  <div class="sch-stat"><strong>8h</strong> CS Theory</div>
+  <div class="sch-stat"><strong>8h</strong> CS Build</div>
+  <div class="sch-stat"><strong>5.5h</strong> PhD Prep</div>
+  <div class="sch-stat"><strong>5h</strong> YouTube</div>
+  <div class="sch-stat"><strong>40h</strong> CVC Work</div>
+  <div class="sch-stat" style="border-color:var(--warn)"><strong>7h 50m</strong> Sleep/night</div>
+</div>
+
+<!-- v4 CHANGES -->
+<div class="sch-section-title">v3.1 → v4.0 CHANGES</div>
+
+<div class="track sch-changes">
+  <div class="track-head">
+    <span>7 Evidence-Based Upgrades</span>
+    <span class="meta">Net: +30 min sleep/night · +3.5h consolidation/wk · stronger transfer · PhD ↔ CS convergence</span>
+  </div>
+  <div class="track-body">
+    <ul>
+      <li><strong>5 phase capstone projects:</strong> Each CLRS phase produces a real tool — Sorting Visualizer → Mini Search Engine → Research Network Mapper → Document Similarity Detector → Portfolio. Phases 3–4 directly serve your PhD prep. <em>(Chi, 2009: elaboration through application creates richer, more transferable memory traces)</em></li>
+      <li><strong>+30 min sleep/night:</strong> YouTube moved to 8:30 PM. Screens off 9:15. Sleep at 10:00. = 7h 50m. Gains ~3.5h memory consolidation/week. <em>(Walker, 2017: each 90-min cycle lost costs ~20% of that cycle's consolidation)</em></li>
+      <li><strong>Within-session interleaving:</strong> Every CLRS session now touches 2+ chapters. Last 10 min of each session = exercises from a different chapter. Builds discriminative contrast, not just familiarity. <em>(Rohrer, 2015: d=0.35 over blocked practice)</em></li>
+      <li><strong>Incubation protocol:</strong> Evening sessions end with an unsolved question. Sleep processes it. Morning retrieval revisits. <em>(Wagner et al., 2004: 2.6x more likely to find insight after sleep)</em></li>
+      <li><strong>Daily PhD micro-writing:</strong> 10-min writes in weekday PhD slots. Sunday polishes. Compounds to 50+ min/wk of additional writing. <em>(Boice, 1990: daily writers published 9x more than binge writers)</em></li>
+      <li><strong>PhD papers → Anki:</strong> 3 cards per paper. Without spaced retrieval, you'll forget 80% of what you read within 2 weeks. Same tool, same habit, applied to both tracks.</li>
+      <li><strong>Sunday active recovery:</strong> Walk or yoga instead of gym. Parasympathetic dominance supports weekly nervous system recovery. <em>(Kellmann, 2010)</em></li>
+    </ul>
+  </div>
+</div>
+
+<!-- SCHEDULE TABLE -->
+<div class="schedule-wrap">
+<table>
+<thead>
+  <tr><th>Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+</thead>
+<tbody>
+  <tr>
+    <td>6 AM</td>
+    <td><div class="c c-exercise"><span class="label">🏋️ Exercise</span><span class="time">5:50 – 6:50</span><span class="science">BDNF ↑ CORTISOL ↓</span></div></td>
+    <td><div class="c c-exercise"><span class="label">🏋️ Exercise</span><span class="time">5:50 – 6:50</span></div></td>
+    <td><div class="c c-exercise"><span class="label">🏋️ Exercise</span><span class="time">5:50 – 6:50</span></div></td>
+    <td><div class="c c-exercise"><span class="label">🏋️ Exercise</span><span class="time">5:50 – 6:50</span></div></td>
+    <td><div class="c c-exercise"><span class="label">🏋️ Exercise</span><span class="time">5:50 – 6:50</span></div></td>
+    <td><div class="c c-exercise"><span class="label">🏋️ Exercise</span><span class="time">5:50 – 6:50</span></div></td>
+    <td><div class="c c-rest"><span class="label">🚶 Active Recovery</span><span class="time">5:50 – 6:50</span><span class="detail">Walk, yoga, or mobility</span><span class="science">PARASYMPATHETIC ↑</span></div></td>
+  </tr>
+  <tr>
+    <td>7 AM</td>
+    <td><div class="c c-theory"><span class="label">📖 CLRS Theory</span><span class="time">7:00 – 8:00</span><span class="detail">5′ retrieval → survey new ch → 10′ exercises from 2wk-ago ch</span><span class="science">GENERATION + INTERLEAVE</span></div></td>
+    <td><div class="c c-theory"><span class="label">📖 CLRS Theory</span><span class="time">7:00 – 8:00</span><span class="detail">5′ retrieval → close read → 10′ exercises from last wk ch</span><span class="science">SELF-EXPLAIN + INTERLEAVE</span></div></td>
+    <td><div class="c c-theory"><span class="label">📖 CLRS Theory</span><span class="time">7:00 – 8:00</span><span class="detail">5′ retrieval → hand-trace → 10′ Anki all due</span><span class="science">PROCEDURAL + SPACING</span></div></td>
+    <td><div class="c c-theory"><span class="label">📖 CLRS Theory</span><span class="time">7:00 – 8:00</span><span class="detail">5′ retrieval → exercises → 10′ random past ch</span><span class="science">TESTING + INTERLEAVE ★</span></div></td>
+    <td><div class="c c-theory"><span class="label">📖 CLRS Interleave</span><span class="time">7:00 – 8:00</span><span class="detail">3 chapters mixed, no topic labels</span><span class="science">FULL INTERLEAVING</span></div></td>
+    <td><div class="c c-theory"><span class="label">📖 Deep Read</span><span class="time">7:00 – 8:00</span><span class="detail">MIT 6.006 + Anki review</span><span class="science">DUAL CODING</span></div></td>
+    <td><div class="c c-phd"><span class="label">🎓 PhD Deep Write</span><span class="time">6:50 – 8:00</span><span class="detail">Expand week's micro-writes into polished prose</span><span class="science">PEAK COGNITION → HARDEST TASK</span></div></td>
+  </tr>
+  <tr>
+    <td>8 AM</td>
+    <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span><span class="detail">App Support Analyst</span></div></td>
+    <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span></div></td>
+    <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span></div></td>
+    <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span></div></td>
+    <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span></div></td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Project Build 1</span><span class="time">8:15 – 9:45</span><span class="detail">Phase capstone project</span><span class="science">90-MIN ULTRADIAN</span></div></td>
+    <td rowspan="10"><div class="c c-family h10"><span class="label">🏠 Family Day</span><span class="time">8 AM – 9 PM</span><span class="detail">Protected. Present.</span></div></td>
+  </tr>
+  <tr><td>9 AM</td></tr>
+  <tr>
+    <td>10 AM</td>
+    <td><div class="c c-rest"><span class="label">🚶 Break</span><span class="time">9:45 – 10:00</span><span class="detail">Walk. No screens.</span></div></td>
+  </tr>
+  <tr>
+    <td>11 AM</td>
+    <td rowspan="2"><div class="c c-theory h2"><span class="label">📖 Read Cycle 2</span><span class="time">10:00 – 11:30</span><span class="detail">5′ retrieval → CLRS + Anki</span><span class="science">90-MIN ULTRADIAN</span></div></td>
+  </tr>
+  <tr><td>12 PM</td></tr>
+  <tr>
+    <td>1 PM</td>
+    <td rowspan="2"><div class="c c-phd h2"><span class="label">🎓 PhD Deep</span><span class="time">12:00 – 1:30</span><span class="detail">Paper read → synthesis → 3 Anki cards</span><span class="science">ELABORATIVE INTERROGATION</span></div></td>
+  </tr>
+  <tr><td>2 PM</td></tr>
+  <tr>
+    <td>3 PM</td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Project Build 2</span><span class="time">2:00 – 3:30</span><span class="detail">Integrate week's algo into project</span><span class="science">TRANSFER</span></div></td>
+  </tr>
+  <tr><td>4 PM</td></tr>
+  <tr>
+    <td>5 PM</td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Build → 🎓 PhD</span><span class="time">5:15 – 6:45</span><span class="detail">50′ project code → 10′ micro-write → open question</span><span class="science">INCUBATION SETUP</span></div></td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Build → 🎓 PhD</span><span class="time">5:15 – 6:45</span><span class="detail">50′ breadboard → 10′ micro-write → open question</span><span class="science">INCUBATION SETUP</span></div></td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Build → 🎓 PhD</span><span class="time">5:15 – 6:45</span><span class="detail">50′ project code → 10′ outline → open question</span><span class="science">INCUBATION SETUP</span></div></td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Build → 🎓 PhD</span><span class="time">5:15 – 6:45</span><span class="detail">50′ breadboard → 10′ micro-write → open question</span><span class="science">INCUBATION SETUP</span></div></td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Build → 🎓 PhD</span><span class="time">5:15 – 6:45</span><span class="detail">50′ integrate → 10′ program research → open question</span><span class="science">INCUBATION SETUP</span></div></td>
+    <td rowspan="2"><div class="c c-youtube h2"><span class="label">🎬 YouTube Batch</span><span class="time">4:00 – 5:30</span><span class="detail">Script / record / edit</span><span class="science">CREATIVE (LOW LOAD)</span></div></td>
+  </tr>
+  <tr><td>6 PM</td></tr>
+  <tr>
+    <td>7 PM</td>
+    <td colspan="5"><div class="c c-shutdown"><span class="label">🛑 Shutdown 6:45 → Dinner · Family · Rest</span><span class="time">6:45 – 8:30</span><span class="detail">Log progress. Set tomorrow's action. "Shutdown complete." Then fully present with family.</span><span class="science">ATTENTION RESIDUE CLEARING</span></div></td>
+    <td><div class="c c-rest"><span class="label">🍽️ Rest / Family</span><span class="time">5:30 – 8:30</span></div></td>
+    <td rowspan="2"><div class="c c-family h2"><span class="label">🏠 Family Evening</span></div></td>
+  </tr>
+  <tr>
+    <td>9 PM</td>
+    <td colspan="5"><div class="c c-youtube"><span class="label">🎬 YouTube</span><span class="time">8:30 – 9:15</span><span class="detail">Mon script · Tue record · Wed edit · Thu publish · Fri plan</span><span class="science">LOW LOAD · SCREENS END 9:15</span></div></td>
+    <td><div class="c c-review"><span class="label">✅ GTD Review</span><span class="time">8:30 – 9:00</span><span class="science">METACOGNITION</span></div></td>
+  </tr>
+  <tr>
+    <td>10 PM</td>
+    <td colspan="5"><div class="c c-wind"><span class="label">🌙 Wind Down — No Screens</span><span class="time">9:15 – 10:00</span><span class="detail">Read fiction. Journal. Lights dim. Incubation questions percolating.</span><span class="science">MELATONIN ONSET PROTECTED</span></div></td>
+    <td><div class="c c-wind"><span class="label">🌙 Wind Down</span><span class="time">9:00 – 10:00</span></div></td>
+    <td><div class="c c-theory"><span class="label">📖 CLRS Retrieval</span><span class="time">9:00 – 9:30</span><span class="detail">Hardest problem, no notes → sleep</span><span class="science">INCUBATION ★</span></div></td>
+  </tr>
+  <tr>
+    <td>10 PM</td>
+    <td colspan="7"><div class="c c-sleep"><span class="label">😴 Sleep 10:00 PM → 5:50 AM = 7h 50m</span><span class="detail">5+ full sleep cycles. SWS replays today's learning. REM integrates with long-term memory.</span><span class="science">MEMORY CONSOLIDATION · INCUBATION ACTIVE</span></div></td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<!-- PHASE CAPSTONE PROJECTS -->
+<div class="sch-section-title">CLRS PHASE CAPSTONE PROJECTS</div>
+
+<div class="phases">
+<div class="phase-card ph-1">
+  <div class="phase-num">PHASE 1 <span class="weeks">Weeks 1–8 · Foundations</span></div>
+  <div class="phase-body">
+    <h3>🏎️ Sorting Benchmark Visualizer</h3>
+    <p class="desc">A Python tool (or web app) that visualizes and benchmarks every sorting algorithm side-by-side. Input an array size, watch them race, see O(n²) vs O(n log n) in real time.</p>
+    <p class="algos"><strong>Algorithms used:</strong> Insertion sort · Merge sort · Heapsort · Quicksort · Counting sort · Radix sort</p>
+    <div class="deliverables">
+      <strong>Deliverables:</strong>
+      <ul>
+        <li>Each Friday: add that week's sort to the benchmark</li>
+        <li>Week 6: timing comparison chart with n=100, 1K, 10K, 100K</li>
+        <li>Week 8: polished README + live demo link or animated GIF</li>
+      </ul>
+    </div>
+    <p class="how">→ When you implement merge sort inside a racing visualizer, you encode it with richer context than a standalone function. That's transfer.</p>
+  </div>
+</div>
+<div class="phase-card ph-2">
+  <div class="phase-num">PHASE 2 <span class="weeks">Weeks 9–16 · Data Structures</span></div>
+  <div class="phase-body">
+    <h3>🔍 Mini Search Engine</h3>
+    <p class="desc">A search engine built entirely from first-principles data structures — no libraries. Hash table for the inverted index, BST for ranked retrieval, DP for fuzzy matching (edit distance). Feed it your paper reading database or your own notes.</p>
+    <p class="algos"><strong>Algorithms used:</strong> Hash table (chaining) · BST insert/search · DP (edit distance / LCS) · Stack/queue for parsing</p>
+    <div class="deliverables">
+      <strong>Deliverables:</strong>
+      <ul>
+        <li>Week 10: hash-based inverted index that indexes a text corpus</li>
+        <li>Week 12: BST-ranked retrieval returning top-k results</li>
+        <li>Week 16: fuzzy search using edit distance DP</li>
+        <li>README: "Zero dependencies. Every data structure built from scratch."</li>
+      </ul>
+    </div>
+    <p class="how">→ DP isn't abstract when you need it to find "Dijkstra" when you typed "Dijstra." The application makes the algorithm stick.</p>
+  </div>
+</div>
+<div class="phase-card ph-3">
+  <div class="phase-num">PHASE 3 <span class="weeks">Weeks 17–22 · Graphs</span></div>
+  <div class="phase-body">
+    <h3>🕸️ Research Network Mapper</h3>
+    <p class="desc">Maps the citation network of your PhD paper database. Papers are nodes, citations are edges. BFS finds connection paths, Dijkstra finds "shortest intellectual distance" between topics, MSTs show the core skeleton of your field.</p>
+    <p class="algos"><strong>Algorithms used:</strong> BFS · DFS · Dijkstra · Bellman-Ford · Kruskal's MST · Topological sort</p>
+    <div class="deliverables">
+      <strong>Deliverables:</strong>
+      <ul>
+        <li>Week 18: BFS/DFS traversal of your paper citation graph</li>
+        <li>Week 21: Dijkstra pathfinding between any two papers</li>
+        <li>Week 22: MST visualization of your research field's core structure</li>
+        <li>Bonus: this tool IS your literature review infrastructure for PhD apps</li>
+      </ul>
+    </div>
+    <p class="how">→ Builds your PhD prep track and CS skills simultaneously. Every algorithm you learn directly improves a tool you actually use.</p>
+  </div>
+</div>
+<div class="phase-card ph-4">
+  <div class="phase-num">PHASE 4 <span class="weeks">Weeks 23–28 · Advanced</span></div>
+  <div class="phase-body">
+    <h3>📄 Document Similarity Detector</h3>
+    <p class="desc">A tool that fingerprints and compares your paper syntheses. Rabin-Karp for text fingerprinting, KMP for exact pattern matching, flow-based model for section matching. Finds thematic clusters across your research database.</p>
+    <p class="algos"><strong>Algorithms used:</strong> Rabin-Karp · KMP · Floyd-Warshall · Ford-Fulkerson (max flow) · Approximation algorithms</p>
+    <div class="deliverables">
+      <strong>Deliverables:</strong>
+      <ul>
+        <li>Week 25: Rabin-Karp fingerprinting of your paper syntheses</li>
+        <li>Week 28: similarity matrix + cluster visualization</li>
+        <li>README: architecture diagram showing which CLRS algorithm powers each component</li>
+      </ul>
+    </div>
+    <p class="how">→ String matching stops being abstract when you're using it to find patterns in your own 50+ paper database.</p>
+  </div>
+</div>
+<div class="phase-card ph-5">
+  <div class="phase-num">PHASE 5 <span class="weeks">Weeks 29–30 · Consolidation</span></div>
+  <div class="phase-body">
+    <h3>📦 Portfolio Integration</h3>
+    <p class="desc">Unify all four projects into a single GitHub portfolio with a master README. Each project documents which algorithms it uses, why you chose them, what you learned, and performance benchmarks. This is the artifact you cite in PhD applications.</p>
+    <div class="deliverables">
+      <strong>Deliverables:</strong>
+      <ul>
+        <li>Master README linking all 4 projects with architecture diagrams</li>
+        <li>2-page written reflection: what you know, what to study next</li>
+        <li>Blog post: "What I Learned Working Through CLRS in 30 Weeks"</li>
+        <li>Portfolio site update: fansofhenry.github.io</li>
+      </ul>
+    </div>
+    <p class="how">→ The portfolio IS the PhD application evidence. "I worked through CLRS and built 4 real systems using the algorithms."</p>
+  </div>
+</div>
+</div>
+
+<!-- DESIGN PRINCIPLES -->
+<div class="sch-section-title">DESIGN PRINCIPLES</div>
+
+<div class="pgrid">
+<div class="pcard">
+  <h4><span class="tag tag-pbl">PROJECT</span> Elaboration Through Application</h4>
+  <p>Implementing merge sort standalone encodes it one way. Implementing it as the sorting layer inside your search engine encodes it with rich contextual connections retrievable in more situations. Projects create elaborated memory traces that transfer to novel problems.</p>
+  <p class="source">Chi, 2009 (self-explanation) · Kolb cycle · Transfer-appropriate processing (Morris, 1977)</p>
+  <p class="delta">→ Every CLRS phase has a capstone project. Weekly implementations feed into it. Phases 3–4 directly serve PhD prep.</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-ret">RETRIEVAL</span> Testing Effect</h4>
+  <p>Retrieving from memory produces more durable learning than re-reading. Every session opens with 5 min: close the book, write what you remember.</p>
+  <p class="source">Karpicke & Blunt, 2011 · Agarwal, 2019 · Make It Stick</p>
+  <p class="delta">→ Added 5-min retrieval warm-up to every learning block</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-spa">SPACING</span> Distributed Practice</h4>
+  <p>Studying across spaced sessions beats massing. Anki automates optimal intervals for CLRS. Friday AM reviews chapters from 2 and 4 weeks ago.</p>
+  <p class="source">Carpenter, 2022 · Cepeda et al., 2006 · Bjork (Desirable Difficulties)</p>
+  <p class="delta">→ Anki deck + Friday interleaved review + Sunday retrieval test</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-int">INTERLEAVE</span> Within-Session Mixed Practice <span class="new">v4</span></h4>
+  <p>v3 interleaved across days. v4 interleaves within each session: the last 10 min always covers a different chapter than the first 45. This builds discriminative contrast — "which algorithm applies here?" — not just isolated familiarity.</p>
+  <p class="source">Rohrer, 2015 · Sana & Yan, 2022 (d=0.35) · Pan, 2025 · Kornell & Bjork, 2008</p>
+  <p class="delta">→ Every CLRS session touches 2+ chapters. Friday = fully interleaved, no topic labels.</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-deep">DEEP WORK</span> 90-Min Ultradian</h4>
+  <p>The brain focuses in ~90-min cycles. Your 5:15–6:45 PM block is one complete cycle. Saturday uses 4 cycles with real breaks between them.</p>
+  <p class="source">Newport, 2016 · Huberman Lab · Kleitman (ultradian rhythms)</p>
+  <p class="delta">→ 5:15–6:45 = single unbroken session. Saturday = 4 × 90 min</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-slp">SLEEP</span> Consolidation + Separation <span class="new">v4</span></h4>
+  <p>v3 had 7h 20m with screens until 10:15. v4 gains 30 min and separates screens from sleep by 45+ min. Each lost cycle costs ~20% of that period's consolidation. 30 min/night = 3.5h/week of learning protected.</p>
+  <p class="source">Walker, 2017 · Diekelmann & Born, 2010 · Chang et al., 2015 (screens + melatonin)</p>
+  <p class="delta">→ 7h 50m sleep. Screens off 9:15. YouTube moved to 8:30 PM. Wind-down ritual.</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-inc">INCUBATE</span> Sleep On It <span class="new">v4</span></h4>
+  <p>Struggling with a problem before sleep triggers unconscious restructuring during SWS. Participants who slept were 2.6× more likely to discover a hidden shortcut. End evening sessions with an open question — the brain continues working overnight.</p>
+  <p class="source">Wagner et al., 2004 · Sio & Ormerod, 2009 · Dijksterhuis, 2006</p>
+  <p class="delta">→ Evening blocks end with an unsolved question. Morning retrieval revisits it.</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-load">LOAD</span> Cognitive Matching</h4>
+  <p>Morning = peak cognition → hardest material (CLRS theory, PhD writing). Post-work = depleted → building at the edge + micro-writing. Evening = lowest → creative YouTube well before sleep.</p>
+  <p class="source">Sweller, 1988 · Chronotype research · Newport</p>
+  <p class="delta">→ PhD writing → Sunday AM. YouTube → 8:30 PM (no longer competes with sleep).</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-gen">GENERATION</span> Predict First</h4>
+  <p>Generating answers before seeing them = stronger memory. Before each chapter: predict the algorithm. Before each paper: predict the finding. Before each project session: predict the bug you'll hit.</p>
+  <p class="source">Slamecka & Graf, 1978 · Richland, 2009 · Chi, 2009</p>
+  <p class="delta">→ Prediction step before all reading and build sessions</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-wrt">WRITE</span> Daily Micro-Writing <span class="new">v4</span></h4>
+  <p>Boice tracked 27 new faculty for 2 years. Those who wrote in brief daily sessions published 9× more than binge writers. v4 adds 10-min PhD writes to weekday evenings. Sunday AM polishes the fragments into prose.</p>
+  <p class="source">Boice, 1990 · Silvia, 2007 ("How to Write a Lot") · Sword, 2012</p>
+  <p class="delta">→ 10-min micro-writes Mon–Thu. Sunday AM assembles and polishes.</p>
+</div>
+<div class="pcard">
+  <h4><span class="tag tag-rit">RITUAL</span> Transitions</h4>
+  <p>Context-switching costs ~23 min recovery. Entry/exit rituals clear attention residue: 2 min to confirm action, 2 min to log, set tomorrow's task, and note one incubation question.</p>
+  <p class="source">Mark, UCI · Leroy, 2009 · Gollwitzer, 1999</p>
+  <p class="delta">→ Entry + exit ritual per block. Shutdown ritual at 6:45 PM. Exit now includes incubation question.</p>
+</div>
+</div>
+
+<!-- ACTION ITEMS BY TRACK -->
+<div class="sch-section-title">ACTION ITEMS BY TRACK</div>
+
+<div class="track">
+  <div class="track-head" style="background:var(--theory-bg);border-left:4px solid var(--theory)">
+    <span style="color:var(--theory)">📖 CS Theory — CLRS + Projects + Interleaved Retrieval</span>
+    <span class="meta">~8 hrs/wk · 30 weeks · 5 phases</span>
+  </div>
+  <div class="track-body">
+    <h4>Session Protocol <span class="p1">P1</span></h4>
+    <ul>
+      <li><strong>Min 0–5:</strong> Retrieval warm-up. Close book, write what you remember. Revisit last night's incubation question. <em>(Testing effect + incubation)</em></li>
+      <li><strong>Min 5–7:</strong> Predict. "I think this algorithm does ___." + "It connects to the project because ___." <em>(Generation + elaboration)</em></li>
+      <li><strong>Min 7–45:</strong> Core work — follow the day's method (survey, read, trace, or exercises).</li>
+      <li><strong>Min 45–55:</strong> Interleaved switch — exercises or Anki from a DIFFERENT chapter. <span class="new">v4</span> <em>(Within-session interleaving)</em></li>
+      <li><strong>Min 55–60:</strong> Exit — "Today I learned ___. For the project, I can use this to ___." + 3 Anki cards, all due reviewed. <em>(Kolb reflection + elaboration)</em></li>
+    </ul>
+    <div class="callout callout-new"><strong>Why within-session interleaving (v4):</strong> Rohrer et al. showed interleaving during learning — not just during review — builds discriminative contrast. "Which algorithm fits this problem?" requires comparing, not just recognizing. The last 10 min of each session now always comes from a different chapter.</div>
+    <div class="callout callout-project"><strong>Project integration:</strong> The exit reflection now includes a project connection. This is elaboration — linking each algorithm to a concrete use case in your current capstone creates richer, more transferable memory traces.</div>
+    <h4>Weekly Cadence (Project-Integrated)</h4>
+    <ul>
+      <li><strong>Mon AM:</strong> Pass 1 survey + predict → ask: "How might this fit into the current project?" → <strong>10′ exercises from 2-wk-ago ch</strong> <span class="new">v4</span></li>
+      <li><strong>Tue AM:</strong> Pass 2 active read + self-explain. Note which project component this enables. → <strong>10′ exercises from last wk ch</strong> <span class="new">v4</span></li>
+      <li><strong>Wed AM:</strong> Hand-trace pseudocode. Sketch how the algorithm's I/O maps to project data. → <strong>10′ Anki all due</strong></li>
+      <li><strong>Thu AM:</strong> Pass 3 exercises. Use project data as test input where possible. → <strong>10′ random past ch exercise</strong> <span class="new">v4</span></li>
+      <li><strong>Fri AM:</strong> Full interleave — 3 chapters mixed, <strong>no topic labels</strong> <span class="new">v4</span> <em>(forces discrimination)</em></li>
+      <li><strong>M/W/F 5:15 PM:</strong> Implement algorithm → integrate into current phase project.</li>
+      <li><strong>T/Th 5:15 PM:</strong> Ben Eater breadboard / Nand2Tetris build.</li>
+      <li><strong>Sat AM:</strong> MIT 6.006 + extended Anki + deep project build session.</li>
+      <li><strong>Sun PM:</strong> 30 min — hardest exercise, book closed → sleep immediately after <em>(incubation)</em></li>
+    </ul>
+    <h4>This Week</h4>
+    <ul>
+      <li><strong>Install Anki.</strong> Create deck "CLRS Algorithms." Add first card today.</li>
+      <li><strong>Create repo:</strong> <code>github.com/fansofhenry/clrs-python</code> with <code>/projects/</code> subfolder for capstones.</li>
+      <li><strong>Get CLRS 4th ed.</strong> Accessible at 7 AM daily.</li>
+      <li><strong>Scaffold Phase 1 project:</strong> Create <code>sorting-benchmark/</code> folder with empty files for each sort.</li>
+      <li><strong>Print interleave template:</strong> When doing Friday problems, shuffle chapter labels — write just "Problem 1, 2, 3…" without topic headers. <span class="new">v4</span></li>
+    </ul>
+    <div class="callout callout-milestone"><strong>Week 8:</strong> Sorting Benchmark Visualizer complete. <strong>Week 16:</strong> Mini Search Engine. <strong>Week 22:</strong> Research Network Mapper. <strong>Week 28:</strong> Document Similarity Detector. <strong>Week 30:</strong> Portfolio unified on fansofhenry.github.io.</div>
+  </div>
+</div>
+
+<div class="track">
+  <div class="track-head" style="background:var(--build-bg);border-left:4px solid var(--build)">
+    <span style="color:var(--build)">🔧 CS Build — Deliberate Practice Projects</span>
+    <span class="meta">~8 hrs/wk · 18 months</span>
+  </div>
+  <div class="track-body">
+    <h4>Session Protocol <span class="p1">P1</span></h4>
+    <ul>
+      <li><strong>Entry (2 min):</strong> Read yesterday's exit note. Check incubation question — did sleep yield insight? <span class="new">v4</span> Timer on, phone gone.</li>
+      <li><strong>Build (50 min):</strong> Work at the edge of ability. If easy, increase difficulty. <em>(Deliberate practice)</em></li>
+      <li><strong>PhD micro-write (10 min):</strong> Free-write connecting today's build to research question. <span class="new">v4</span> <em>(Daily writing)</em></li>
+      <li><strong>Exit (2 min):</strong> Git commit. "Tomorrow I need to ___." + One unsolved question for tonight's incubation. <span class="new">v4</span></li>
+    </ul>
+    <div class="callout callout-science"><strong>Why alternate code (M/W/F) and breadboard (T/Th):</strong> Interleaving abstract + concrete representations encodes concepts through two modalities → stronger transfer. <em>(Dual coding + interleaving)</em></div>
+    <div class="callout callout-new"><strong>Why end with an open question (v4):</strong> Wagner et al. (2004) found that participants who struggled with a problem and then slept were 2.6× more likely to discover a hidden shortcut than those who stayed awake the same duration. Your brain doesn't stop working at shutdown — it starts a different kind of processing.</div>
+    <h4>Phase 1 — Months 1–3</h4>
+    <ul>
+      <li><strong>Ben Eater:</strong> Clock → registers → ALU → RAM. Photo-document "expected vs. actual."</li>
+      <li><strong>Nand2Tetris I:</strong> Projects 1–6. Explain each solution aloud. <em>(Self-explanation)</em></li>
+      <li><strong>CLRS Python:</strong> Translate literally → test → <code>timeit</code> → refactor.</li>
+    </ul>
+    <div class="callout callout-milestone"><strong>Month 6:</strong> Working 8-bit computer. Nand2Tetris I complete. 16 chapters implemented. All on GitHub.</div>
+  </div>
+</div>
+
+<div class="track">
+  <div class="track-head" style="background:var(--phd-bg);border-left:4px solid var(--phd)">
+    <span style="color:var(--phd)">🎓 PhD Prep — Research Identity Through Daily Writing</span>
+    <span class="meta">~5.5 hrs/wk · 18 months</span>
+  </div>
+  <div class="track-body">
+    <h4>Paper Reading Protocol <span class="p1">P1</span></h4>
+    <ul>
+      <li><strong>Before:</strong> Read title + abstract only. "I predict the finding is ___." <em>(Generation)</em></li>
+      <li><strong>During (20 min):</strong> Abstract → intro → results → conclusion. 3 highlights max.</li>
+      <li><strong>After (10 min):</strong> Close paper. Synthesize from memory. Then check. <em>(Retrieval)</em></li>
+      <li><strong>Anki (5 min):</strong> Create 3 cards: research question, method, key finding. <span class="new">v4</span> <em>(Spaced retrieval for papers)</em></li>
+      <li><strong>Target:</strong> 2 papers/wk → 50 in 6 months. 150+ paper Anki cards at 90% retention.</li>
+    </ul>
+    <div class="callout callout-new"><strong>Why PhD Anki cards (v4):</strong> Without spaced retrieval, you'll lose 80% of paper content within 2 weeks. At Month 6, you should be able to recall the RQ, method, and finding of any paper you've read — not just vaguely remember it. Same Anki app, same daily habit, second deck.</div>
+    <h4>Weekday Rotation (Load-Matched + Daily Writing) <span class="new">v4</span></h4>
+    <ul>
+      <li><strong>Mon:</strong> Read paper #1 — predict → read → synthesize → 3 Anki cards</li>
+      <li><strong>Tue:</strong> 10′ micro-write (reflect on paper #1, connect to your RQ) + Read paper #2 → predict → read</li>
+      <li><strong>Wed:</strong> Paper #2 synthesis from memory + outline a writing piece (bullets)</li>
+      <li><strong>Thu:</strong> 10′ micro-write (draft email or paragraph) + faculty outreach — 1 email</li>
+      <li><strong>Fri:</strong> Program research + retrieval: recall 3 paper findings from memory, then check <em>(testing effect for papers)</em></li>
+      <li><strong>Sat:</strong> 90-min deep paper session + elaborative interrogation</li>
+      <li><strong>Sun AM:</strong> 70-min deep write — assemble week's micro-writes into polished prose <span class="new">v4</span> <em>(peak cognition)</em></li>
+    </ul>
+    <div class="callout callout-warn"><strong>Why daily micro-writing beats Sunday binges:</strong> Boice (1990) tracked 27 new faculty over 2 years. Daily writers produced 9× more pages and reported less anxiety about writing. Your Sunday session now polishes fragments instead of generating from scratch — dramatically lower activation energy.</div>
+    <div class="callout callout-project"><strong>PhD ↔ Project synergy:</strong> Phase 3 (Research Network Mapper) directly uses your paper database. Phase 4 (Similarity Detector) finds thematic clusters in your syntheses. Your CS projects and PhD prep converge — the tools you build serve the research you're doing.</div>
+    <h4>This Week</h4>
+    <ul>
+      <li><strong>Create Anki deck:</strong> "PhD Papers" — separate from CLRS deck. <span class="new">v4</span></li>
+      <li><strong>Create spreadsheet:</strong> Title | Authors | Venue | RQ | Method | Finding | Critique | My RQ Connection</li>
+      <li><strong>Write one paragraph:</strong> "My research question is ___."</li>
+      <li><strong>Read one paper each</strong> from Leo Porter, Amy Ko, Mark Guzdial.</li>
+      <li><strong>Draft cold email template.</strong></li>
+    </ul>
+    <div class="callout callout-milestone"><strong>Month 18:</strong> 50+ syntheses · 150+ paper Anki cards · Research statement · 3–5 faculty relationships · 1 paper drafted · SoP per program.</div>
+  </div>
+</div>
+
+<div class="track">
+  <div class="track-head" style="background:var(--work-bg);border-left:4px solid var(--warn)">
+    <span style="color:var(--warn)">😴 Sleep — The Foundation</span>
+    <span class="meta">7h 50m/night</span>
+  </div>
+  <div class="track-body">
+    <ul>
+      <li><strong>Wake:</strong> 5:50 AM → <strong>Sleep by:</strong> 10:00 PM (5+ × 90-min cycles = 7h 50m) <span class="new">v4</span></li>
+      <li><strong>Screens off:</strong> 9:15 PM <span class="new">v4</span> → <strong>YouTube ends:</strong> 9:15 PM (moved from 10:15)</li>
+      <li><strong>Wind-down:</strong> 9:15 – 10:00 PM. Read fiction. Journal. Dim lights. <span class="new">v4</span></li>
+    </ul>
+    <div class="callout callout-warn"><strong>What v4 fixes:</strong> v3 had YouTube until 10:15 PM — screens suppressing melatonin onset right before sleep (Chang et al., 2015: screens delay melatonin by ~90 min). v4 separates screens from sleep by 45+ minutes and gains 30 min total sleep. Over a week: 3.5 more hours of consolidation.</div>
+    <div class="callout callout-science"><strong>The incubation bonus:</strong> The wind-down isn't wasted time. Open questions from the evening session are actively processed during stage 2 and SWS sleep. Wagner et al. (2004) found that insight problems showed a 2.6× solution rate after sleep vs. equivalent waking time. Your wind-down is the on-ramp to unconscious problem solving.</div>
+  </div>
+</div>
+
+</div>
+<!-- END SCHEDULE PAGE -->
+
+</div>
+
 <div class="footer">
 <strong>The System v2.0</strong> — GTD + PARA + CODE + Conquering College · CS Ed YouTube for Community College<br>
 Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
@@ -1262,6 +1810,9 @@ Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
   </button>
   <button class="bn-more-opt" data-page="review" onclick="bottomNavGo('review')">
     <span class="bn-opt-icon">📋</span>Weekly Review
+  </button>
+  <button class="bn-more-opt" data-page="schedule" onclick="bottomNavGo('schedule')">
+    <span class="bn-opt-icon">📅</span>Schedule
   </button>
 </div>
 
@@ -2220,7 +2771,7 @@ $('cmdPalette').addEventListener('click',e=>{if(e.target===$('cmdPalette'))close
 function getSearchItems(){
   const items=[];
   // Navigation
-  const pages=[{p:'dashboard',l:'Dashboard',i:'📊'},{p:'inbox',l:'Capture',i:'📥'},{p:'exercise',l:'Exercise',i:'💪'},{p:'cs',l:'CS Journal',i:'🖥'},{p:'phd',l:'PhD Tracker',i:'🎓'},{p:'brain',l:'Second Brain',i:'🧠'},{p:'review',l:'Weekly Review',i:'📋'}];
+  const pages=[{p:'dashboard',l:'Dashboard',i:'📊'},{p:'inbox',l:'Capture',i:'📥'},{p:'exercise',l:'Exercise',i:'💪'},{p:'cs',l:'CS Journal',i:'🖥'},{p:'phd',l:'PhD Tracker',i:'🎓'},{p:'brain',l:'Second Brain',i:'🧠'},{p:'horizons',l:'Dream Binder',i:'🌅'},{p:'review',l:'Weekly Review',i:'📋'},{p:'schedule',l:'Schedule',i:'📅'}];
   pages.forEach(pg=>items.push({type:'nav',icon:pg.i,title:'Go to '+pg.l,sub:'Navigation',content:'',action:()=>{goPage(pg.p);closeCmd()}}));
   // Actions
   items.push({type:'action',icon:'➕',title:'New capture',sub:'Quick action',content:'',action:()=>{closeCmd();fabAction('task')}});
@@ -2456,8 +3007,8 @@ document.addEventListener('keydown',e=>{
 
   // Number keys 1-7 for tab navigation
   const num=parseInt(e.key);
-  if(num>=1&&num<=8&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
-    const pages=['dashboard','inbox','exercise','cs','phd','brain','horizons','review'];
+  if(num>=1&&num<=9&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
+    const pages=['dashboard','inbox','exercise','cs','phd','brain','horizons','review','schedule'];
     goPage(pages[num-1]);return;
   }
   // 'c' for quick capture
@@ -2490,7 +3041,7 @@ function closeBnMore(){
   const activePage=document.querySelector('.page.active');
   if(activePage){
     const p=activePage.id.replace('page-','');
-    const morePages=['brain','horizons','review'];
+    const morePages=['brain','horizons','review','schedule'];
     $('bnMoreBtn').classList.toggle('active',morePages.includes(p));
   }
 }
@@ -2499,7 +3050,7 @@ function bottomNavGo(page){
   goPage(page);
 }
 function syncBottomNav(page){
-  const morePages=['brain','horizons','review'];
+  const morePages=['brain','horizons','review','schedule'];
   document.querySelectorAll('#bottomNav .bn-item').forEach(b=>{
     if(b.id==='bnMoreBtn'){
       b.classList.toggle('active',morePages.includes(page));
