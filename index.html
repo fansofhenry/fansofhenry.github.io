@@ -519,6 +519,12 @@ html{scroll-behavior:smooth}
 /* Better schedule cards */
 .sched{position:relative;transition:transform .15s,box-shadow .15s}
 .sched:hover{transform:translateX(4px);box-shadow:2px 0 12px rgba(0,0,0,.06)}
+.sched-science{font-size:9px;color:var(--dim2);font-style:italic;margin-top:2px;line-height:1.4}
+.sched-technique{display:inline-block;font-size:8px;font-weight:600;padding:1px 6px;border-radius:8px;background:var(--s3);color:var(--dim);margin-top:3px;margin-right:3px}
+.energy-curve{display:flex;align-items:flex-end;gap:1px;height:32px;margin:8px 0 4px}
+.energy-bar{flex:1;border-radius:2px 2px 0 0;transition:height .3s}
+.energy-label{display:flex;justify-content:space-between;font-size:8px;color:var(--dim2)}
+.sched-section-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin:10px 0 4px;padding-top:6px;border-top:1px dashed var(--border)}
 
 /* Improved timer with circular progress */
 .timer-ring-wrap{position:relative;width:160px;height:160px;margin:0 auto 8px}
@@ -813,15 +819,30 @@ html{scroll-behavior:smooth}
 </div>
 </div>
 
-<div class="g2" style="margin-top:0">
 <div class="card">
-<h3 id="dSchedTitle">Today's Schedule</h3>
-<div id="dSchedule"></div>
+<div class="card-header">
+<h3 style="margin:0" id="dSchedTitle">Today's Schedule</h3>
+<span style="font-size:9px;color:var(--dim)" id="dSchedSub"></span>
 </div>
+<!-- Energy Curve -->
+<div style="margin-bottom:12px">
+<div style="font-size:9px;color:var(--dim);margin-bottom:2px">Cognitive Energy (Circadian Rhythm)</div>
+<div class="energy-curve" id="dEnergyCurve"></div>
+<div class="energy-label"><span>6am</span><span>8am</span><span>10am</span><span>12pm</span><span>2pm</span><span>4pm</span><span>6pm</span><span>8pm</span></div>
+</div>
+<div id="dSchedule"></div>
+<div id="dSchedNotes" style="margin-top:10px;font-size:9px;color:var(--dim);line-height:1.5;padding:8px 10px;background:var(--s2);border-radius:var(--rs)"></div>
+</div>
+
+<div class="g2" style="margin-top:0">
 <div class="card">
 <h3>CS Hours This Week</h3>
 <div class="mini-chart" id="dCsChart"></div>
 <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--dim2);margin-top:4px"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+</div>
+<div class="card">
+<h3>Weekly Hour Budget</h3>
+<div id="dHourBudget"></div>
 </div>
 </div>
 
@@ -1976,13 +1997,16 @@ function importData(e){const f=e.target.files[0];if(!f)return;const r=new FileRe
 // ===== TODAY'S BLOCKS =====
 function getTodayBlocks(){
   const now=new Date(),dow=now.getDay(),isWE=dow===0||dow===6;
+  const isSun=dow===0;
   if(isWE){
-    return [
+    const blocks=[
       {key:'exercise',icon:'💪',name:'Exercise',time:'7:00–8:00',dur:60},
       {key:'cs_deep',icon:'🖥',name:'CS Deep Work',time:'8:15–11:15',dur:180},
       {key:'phd',icon:'🎓',name:'PhD Prep',time:'11:30–12:30',dur:60},
       {key:'youtube',icon:'🎬',name:'YouTube',time:'12:30–1:00',dur:30}
     ];
+    if(isSun) blocks.push({key:'ra_duties',icon:'🏠',name:'Property Mgmt / RA',time:'1:00–1:30',dur:30});
+    return blocks;
   }
   return [
     {key:'exercise',icon:'💪',name:'Exercise',time:'6:00–7:00',dur:60},
@@ -2438,13 +2462,107 @@ function renderDash(){
   const ytWkH=S.youtube.filter(e=>inWk(e.date)).reduce((s,e)=>s+e.hours,0);
   const items=[{l:'Exercise',v:`${exW}/6`,s:exW>=5?'on':exW>=3?'behind':'off'},{l:'CS Learning',v:`${csHrs.toFixed(1)}/12.25h`,s:csHrs>=10?'on':csHrs>=5?'behind':'off'},{l:'PhD Prep',v:`${ppW}/2 papers`,s:ppW>=2?'on':ppW>=1?'behind':'off'},{l:'YouTube',v:`${ytWkH.toFixed(1)}h`,s:ytWkH>=0.5?'on':'off'},{l:'Second Brain',v:`${S.notes.length} notes`,s:S.notes.length>0?'on':'off'}];
   $('dStatus').innerHTML=items.map(i=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)"><span class="dot dot-${i.s}"></span><span style="font-size:12px;font-weight:500;flex:1">${i.l}</span><span style="font-size:11px;color:var(--dim)">${i.v}</span><span class="badge ${i.s==='on'?'b-green':i.s==='behind'?'b-yellow':'b-red'}">${i.s==='on'?'On Track':i.s==='behind'?'Behind':'Start'}</span></div>`).join('');
-  // Schedule
-  const dow=now.getDay(),isWE=dow===0||dow===6,hour=now.getHours()+now.getMinutes()/60;
-  function mk(t,n,d,bg,bc,h1,h2){const isN=!isWE&&h1!==undefined&&hour>=h1&&hour<h2;return `<div class="sched${isN?' now':''}" style="background:${bg};border-color:${bc}"><span class="sched-time">${t}</span><span class="sched-name">${n}</span><span class="sched-dur">${d}</span></div>`}
-  $('dSchedTitle').textContent=isWE?'Weekend Schedule':'Today\'s Schedule';
-  $('dSchedule').innerHTML=isWE?
-    mk('7:00–8:00','💪 Exercise','1h','var(--green-g)','var(--green)')+mk('8:15–11:15','🖥 CS Deep','3h','var(--accent-g)','var(--accent)')+mk('11:30–12:30','🎓 PhD','1h','var(--purple-g)','var(--purple)')+mk('12:30–1:00','🎬 YouTube','30m','var(--orange-g)','var(--orange)')+mk('1:00+','🌙 Rest','Free','var(--s2)','var(--green)'):
-    mk('6:00–7:00','💪 Exercise','1h','var(--green-g)','var(--green)',6,7)+mk('7:15–8:00','🖥 CS Theory','45m','var(--accent-g)','var(--accent)',7.25,8)+mk('8:00–5:00','💼 CVC OEI','9h','var(--yellow-g)','var(--yellow)',8,17)+mk('5:15–6:15','🖥 CS Build','1h','var(--accent-g)','var(--accent)',17.25,18.25)+mk('6:15–6:45','🎓 PhD Prep','30m','var(--purple-g)','var(--purple)',18.25,18.75)+mk('6:45+','🌙 Rest','Eve','var(--s2)','var(--green)');
+  // Schedule — Research-Based Performance Design
+  const dow=now.getDay(),isWE=dow===0||dow===6,isSun=dow===0,hour=now.getHours()+now.getMinutes()/60;
+  function mk(t,n,d,bg,bc,sci,techs,h1,h2){
+    const isN=h1!==undefined&&hour>=h1&&hour<h2;
+    return `<div class="sched${isN?' now':''}" style="background:${bg};border-color:${bc}">
+      <span class="sched-time">${t}</span>
+      <div style="flex:1">
+        <span class="sched-name">${n}</span>
+        ${sci?`<div class="sched-science">${sci}</div>`:''}
+        ${techs?`<div>${techs.map(t=>`<span class="sched-technique">${t}</span>`).join('')}</div>`:''}
+      </div>
+      <span class="sched-dur">${d}</span>
+    </div>`}
+  $('dSchedTitle').textContent=isWE?(isSun?'Sunday Schedule':'Saturday Schedule'):'Today\'s Schedule';
+  $('dSchedSub').textContent=isWE?'Deep work + recovery day':'Optimized for circadian performance';
+
+  // Energy curve (circadian rhythm visualization)
+  // Based on Monk & Carrier (1997) circadian alertness data
+  const energyLevels=isWE?[30,40,70,95,100,90,75,55,40,30,20,15,10,10]:[30,60,95,100,85,70,55,50,55,65,75,60,40,20];
+  const energyColors=isWE?
+    ['var(--s3)','var(--green)','var(--green)','var(--accent)','var(--accent)','var(--accent)','var(--purple)','var(--orange)','var(--s3)','var(--s3)','var(--s3)','var(--s3)','var(--s3)','var(--s3)']:
+    ['var(--s3)','var(--green)','var(--accent)','var(--yellow)','var(--yellow)','var(--yellow)','var(--yellow)','var(--yellow)','var(--yellow)','var(--accent)','var(--purple)','var(--s3)','var(--s3)','var(--s3)'];
+  $('dEnergyCurve').innerHTML=energyLevels.map((e,i)=>`<div class="energy-bar" style="height:${e}%;background:${energyColors[i]};opacity:${hour>=6+i&&hour<7+i?'1':'0.5'}"></div>`).join('');
+
+  if(isWE){
+    let schedHtml='';
+    schedHtml+=`<div class="sched-section-label">🧬 Peak Cognition Window</div>`;
+    schedHtml+=mk('7:00–8:00','💪 Exercise','1h','var(--green-g)','var(--green)',
+      'Ratey (2008): Exercise ↑ BDNF 200-300%, priming hippocampus for deep learning. 90-min post-exercise = peak neuroplasticity.',
+      ['BDNF boost','Cortisol flush','Ultradian prime']);
+    schedHtml+=mk('8:15–11:15','🖥 CS Deep Work','3h','var(--accent-g)','var(--accent)',
+      'Newport (2016): 2-4 hrs post-wake = peak prefrontal cortex. Use 90-min ultradian cycles (Peretz Lavie). Break at 9:45.',
+      ['Pomodoro 90/15','Retrieval practice','Interleaving','Desirable difficulty'],7.25,11.25);
+    schedHtml+=`<div class="sched-section-label">🔬 Analytical Window</div>`;
+    schedHtml+=mk('11:30–12:30','🎓 PhD Prep','1h','var(--purple-g)','var(--purple)',
+      'Bjork (1994): Spacing effect — PhD reading after CS creates interleaving across domains. Analytical mind still warm.',
+      ['Spaced repetition','Progressive summarization','Active recall'],11.5,12.5);
+    schedHtml+=mk('12:30–1:00','🎬 YouTube','30m','var(--orange-g)','var(--orange)',
+      'Karpicke (2011): Teaching = strongest retrieval practice. Explaining to camera forces the generation effect.',
+      ['Generation effect','Feynman technique'],12.5,13);
+    if(isSun){
+      schedHtml+=`<div class="sched-section-label">🏠 Responsibilities</div>`;
+      schedHtml+=mk('1:00–1:30','🏠 Property Mgmt / RA','30m','var(--s2)','var(--dim)',
+        'Batch administrative tasks weekly (Allen, GTD). One focused session > scattered check-ins.',
+        ['Batch processing','Weekly review'],13,13.5);
+      schedHtml+=mk('1:30–2:00','📋 Weekly Review','30m','var(--s2)','var(--accent)',
+        'Allen (2001): The weekly review is the critical success factor. Process inbox → review all tracks → plan next week.',
+        ['GTD review','PARA audit','Horizon scan'],13.5,14);
+      schedHtml+=mk('2:00+','🌙 Rest & Recovery','Free','var(--s2)','var(--green)',
+        'Walker (2017): Sleep consolidates procedural + declarative memory. Protect 7-8 hrs. No screens 1 hr before bed.',
+        ['Sleep hygiene','Memory consolidation']);
+    } else {
+      schedHtml+=`<div class="sched-section-label">🔄 Recovery</div>`;
+      schedHtml+=mk('1:00+','🌙 Rest & Recovery','Free','var(--s2)','var(--green)',
+        'Loehr (2003): Oscillation between stress and recovery = sustained performance. Protect downtime fiercely.',
+        ['Strategic recovery','Full engagement']);
+    }
+    $('dSchedule').innerHTML=schedHtml;
+  } else {
+    let schedHtml='';
+    schedHtml+=`<div class="sched-section-label">🧬 Pre-Work Peak Performance</div>`;
+    schedHtml+=mk('6:00–7:00','💪 Exercise','1h','var(--green-g)','var(--green)',
+      'Ratey (2008): Morning exercise ↑ BDNF, ↓ cortisol, ↑ executive function for 4-6 hrs. Creates physical boundary for remote work.',
+      ['BDNF boost','Cortisol regulation','Work boundary'],6,7);
+    schedHtml+=mk('7:15–8:00','🖥 CS Theory','45m','var(--accent-g)','var(--accent)',
+      'Kahneman (2011): Peak System 2 thinking 2-3 hrs after waking. Reading + paper/pencil = deep encoding. No building — pure comprehension.',
+      ['Deep encoding','Elaborative rehearsal','No screens til read'],7.25,8);
+    schedHtml+=`<div class="sched-section-label">💼 Primary Obligation</div>`;
+    schedHtml+=mk('8:00–5:00','💼 CVC OEI Exchange','9h','var(--yellow-g)','var(--yellow)',
+      'Deliver excellence. First 90 days = earn trust. Use GTD @work contexts. Friday 10-min reflection.',
+      ['@urgent','@today','@waiting-for','@this-week'],8,17);
+    schedHtml+=`<div class="sched-section-label">🌅 Second Wind Window</div>`;
+    schedHtml+=mk('5:15–6:15','🖥 CS Build','1h','var(--accent-g)','var(--accent)',
+      'Wieth & Zacks (2011): Evening = ↑ insight problems & creative thinking. Hands-on building leverages this. End with 5-min reflection (Kolb).',
+      ['Hands-on building','Insight window','Kolb reflection'],17.25,18.25);
+    schedHtml+=mk('6:15–6:45','🎓 PhD Prep','30m','var(--purple-g)','var(--purple)',
+      'Cepeda (2006): Even 30 min/day of spaced practice compounds powerfully. Consistent > intense. Mon/Tue=read, Wed=write, Thu=outreach, Fri=programs.',
+      ['Spacing effect','Micro-habit','Consistency > intensity'],18.25,18.75);
+    schedHtml+=`<div class="sched-section-label">🔄 Recovery</div>`;
+    schedHtml+=mk('6:45+','🌙 Rest & Recovery','Eve','var(--s2)','var(--green)',
+      'Walker (2017): Sleep is when memories consolidate. The CS theory you read this morning gets wired during tonight\'s sleep. Protect 7-8 hrs.',
+      ['Sleep consolidation','No screens 1h pre-bed']);
+    $('dSchedule').innerHTML=schedHtml;
+  }
+
+  // Schedule science notes
+  const sciNotes=isWE?
+    (isSun?'<strong>Sunday rhythm:</strong> Deep work AM → responsibilities PM → weekly review → rest. Property mgmt batched per GTD (Allen, 2001).':
+    '<strong>Saturday rhythm:</strong> The Hui Cheng block. 3 uninterrupted hours when BDNF is highest. Use 90-min ultradian cycles with 15-min breaks (Lavie, 1985).')
+    :'<strong>Weekday rhythm:</strong> Exercise primes neuroplasticity (Ratey). Morning CS uses peak System 2 (Kahneman). Evening CS leverages insight window (Wieth & Zacks). PhD spacing effect compounds daily (Cepeda).';
+  $('dSchedNotes').innerHTML='📚 '+sciNotes;
+
+  // Weekly hour budget
+  $('dHourBudget').innerHTML=[
+    {l:'💼 Work',h:40,c:'var(--yellow)'},
+    {l:'🖥 CS',h:14.75,c:'var(--accent)'},
+    {l:'💪 Exercise',h:7,c:'var(--green)'},
+    {l:'🎓 PhD',h:4.5,c:'var(--purple)'},
+    {l:'🎬 YouTube',h:1,c:'var(--orange)'},
+    {l:'🏠 RA/Prop',h:0.5,c:'var(--dim)'}
+  ].map(i=>`<div class="prog-row"><span class="prog-label">${i.l}</span><div class="prog-bg" style="flex:1"><div class="prog-fill" style="width:${i.h/40*100}%;background:${i.c}"></div></div><span class="prog-pct">${i.h}h</span></div>`).join('');
   // 6 Dimensions
   const dims=[{k:'caring',i:'❤️',l:'Caring',s:'Why does this matter to me?'},{k:'metacognition',i:'🧠',l:'Metacognition',s:'Am I aware of how I learn?'},{k:'foundational',i:'📚',l:'Foundational',s:'Do I know the core concepts?'},{k:'application',i:'🔧',l:'Application',s:'Can I use what I know?'},{k:'integration',i:'🔗',l:'Integration',s:'Can I connect across domains?'},{k:'human',i:'🤝',l:'Human',s:'Am I building relationships?'}];
   $('dDimensions').innerHTML=dims.map(d=>`<div class="dim-card"><div class="dim-icon">${d.i}</div><div class="dim-label">${d.l}</div><div class="dim-sub">${d.s}</div></div>`).join('');
