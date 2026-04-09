@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henry Fan — Project Launchpad</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #0d1017; --s1: #151923; --s2: #1c2231; --s3: #242c3d;
+    --border: #2a3348; --tx: #e2e5ef; --dim: #7a8299; --dim2: #555d73;
+    --accent: #6b8aff; --accent-g: rgba(107,138,255,.12);
+    --green: #34d399; --green-g: rgba(52,211,153,.1);
+    --purple: #a78bfa; --purple-g: rgba(167,139,250,.1);
+    --yellow: #fbbf24; --yellow-g: rgba(251,191,36,.1);
+    --orange: #fb923c; --orange-g: rgba(251,146,60,.1);
+    --pink: #f472b6; --pink-g: rgba(244,114,182,.1);
+    --teal: #2dd4bf; --teal-g: rgba(45,212,191,.1);
+    --r: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--tx);
+    padding: 32px 24px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .header { text-align: center; margin-bottom: 40px; }
+  .header h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6rem; font-weight: 800; letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .header h1 span { color: var(--accent); }
+  .header .sub { font-size: .88rem; color: var(--dim); font-weight: 300; }
+  .header .back {
+    display: inline-block; margin-top: 14px; font-size: .75rem;
+    color: var(--accent); text-decoration: none; padding: 5px 14px;
+    border: 1px solid var(--border); border-radius: 20px;
+    transition: all .15s;
+  }
+  .header .back:hover { background: var(--accent-g); border-color: var(--accent); }
+
+  .stats {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    margin-bottom: 32px;
+  }
+  .stat-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem; padding: 4px 14px;
+    border-radius: 18px; border: 1px solid var(--border);
+    background: var(--s1); color: var(--dim);
+  }
+  .stat-pill strong { color: var(--tx); }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .85rem; font-weight: 700; letter-spacing: 1px;
+    margin: 36px 0 16px; color: var(--dim);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .section-title .badge {
+    font-size: .6rem; font-weight: 600; padding: 2px 8px;
+    border-radius: 10px; letter-spacing: .5px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    display: block;
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 16px 18px;
+    text-decoration: none;
+    color: var(--tx);
+    transition: all .18s;
+    border-left: 3px solid transparent;
+    position: relative;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    border-left-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(107,138,255,.08);
+  }
+  .card .name {
+    font-weight: 600; font-size: .88rem;
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 4px;
+  }
+  .card .name .icon { font-size: 1rem; }
+  .card .url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; color: var(--dim2);
+    word-break: break-all;
+  }
+  .card .desc {
+    font-size: .73rem; color: var(--dim); margin-top: 6px; line-height: 1.5;
+  }
+  .card .tag {
+    position: absolute; top: 12px; right: 14px;
+    font-size: .55rem; font-weight: 600; padding: 2px 7px;
+    border-radius: 4px; letter-spacing: .3px;
+  }
+
+  .tag-pages { background: var(--accent-g); color: var(--accent); }
+  .tag-vercel { background: var(--green-g); color: var(--green); }
+  .tag-netlify { background: var(--teal-g); color: var(--teal); }
+
+  .c-edu { border-left-color: var(--accent); }
+  .c-research { border-left-color: var(--pink); }
+  .c-tools { border-left-color: var(--green); }
+  .c-student { border-left-color: var(--yellow); }
+  .c-system { border-left-color: var(--purple); }
+  .c-other { border-left-color: var(--orange); }
+
+  .footer {
+    text-align: center; margin-top: 48px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: .68rem; color: var(--dim2); line-height: 1.8;
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 14px 40px; }
+    .header h1 { font-size: 1.2rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>PROJECT <span>LAUNCHPAD</span></h1>
+  <div class="sub">One-click access to every live site — Henry Fan's GitHub Pages &amp; deployments</div>
+  <a class="back" href="/">← Back to The System</a>
+</div>
+
+<div class="stats">
+  <div class="stat-pill"><strong>27</strong> GitHub Pages</div>
+  <div class="stat-pill"><strong>3</strong> External Deploys</div>
+  <div class="stat-pill"><strong>35</strong> Total Repos</div>
+</div>
+
+<!-- ── THE SYSTEM ── -->
+<div class="section-title">THE SYSTEM <span class="badge" style="background:var(--purple-g);color:var(--purple)">CORE</span></div>
+<div class="grid">
+  <a class="card c-system" href="https://fansofhenry.github.io/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">⚡</span> The System v4.0</div>
+    <div class="url">fansofhenry.github.io</div>
+    <div class="desc">Main dashboard — GTD + PARA + Second Brain operating system. Exercise, CS, PhD, YouTube tracking.</div>
+  </a>
+  <a class="card c-system" href="https://fansofhenry.github.io/home/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🏠</span> Home</div>
+    <div class="url">fansofhenry.github.io/home</div>
+  </a>
+  <a class="card c-system" href="https://fansofhenry.github.io/origin/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🌱</span> Origin</div>
+    <div class="url">fansofhenry.github.io/origin</div>
+  </a>
+</div>
+
+<!-- ── CS EDUCATION & CURRICULUM ── -->
+<div class="section-title">CS EDUCATION &amp; CURRICULUM <span class="badge" style="background:var(--accent-g);color:var(--accent)">TEACH</span></div>
+<div class="grid">
+  <a class="card c-edu" href="https://fansofhenry.github.io/cs-ed/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🎓</span> CS Ed</div>
+    <div class="url">fansofhenry.github.io/cs-ed</div>
+    <div class="desc">CS education resources and materials.</div>
+  </a>
+  <a class="card c-edu" href="https://fansofhenry.github.io/cs-curriculum/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">📚</span> CS Curriculum</div>
+    <div class="url">fansofhenry.github.io/cs-curriculum</div>
+  </a>
+  <a class="card c-edu" href="https://fansofhenry.github.io/dsa_curriculum/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🔢</span> DSA Curriculum</div>
+    <div class="url">fansofhenry.github.io/dsa_curriculum</div>
+    <div class="desc">Data structures and algorithms curriculum.</div>
+  </a>
+  <a class="card c-edu" href="https://fansofhenry.github.io/dsa_curriculum_codex/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">📖</span> DSA Curriculum Codex</div>
+    <div class="url">fansofhenry.github.io/dsa_curriculum_codex</div>
+  </a>
+  <a class="card c-edu" href="https://fansofhenry.github.io/teach_cs/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">👨‍🏫</span> Teach CS</div>
+    <div class="url">fansofhenry.github.io/teach_cs</div>
+  </a>
+  <a class="card c-edu" href="https://fansofhenry.github.io/conquer-college-app/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🏆</span> Conquer College App</div>
+    <div class="url">fansofhenry.github.io/conquer-college-app</div>
+  </a>
+  <a class="card c-edu" href="https://fansofhenry.github.io/peer-educator-training-cards/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🃏</span> Peer Educator Training Cards</div>
+    <div class="url">fansofhenry.github.io/peer-educator-training-cards</div>
+  </a>
+</div>
+
+<!-- ── RESEARCH & PHD ── -->
+<div class="section-title">RESEARCH &amp; PhD PREP <span class="badge" style="background:var(--pink-g);color:var(--pink)">RESEARCH</span></div>
+<div class="grid">
+  <a class="card c-research" href="https://fansofhenry.github.io/cs-ed-research/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🔬</span> CS Ed Research</div>
+    <div class="url">fansofhenry.github.io/cs-ed-research</div>
+    <div class="desc">CS education research materials and paper syntheses.</div>
+  </a>
+  <a class="card c-research" href="https://fansofhenry.github.io/henry-fan-research/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">📄</span> Henry Fan Research</div>
+    <div class="url">fansofhenry.github.io/henry-fan-research</div>
+  </a>
+</div>
+
+<!-- ── COURSES ── -->
+<div class="section-title">COURSE PROJECTS <span class="badge" style="background:var(--yellow-g);color:var(--yellow)">COURSES</span></div>
+<div class="grid">
+  <a class="card c-student" href="https://fansofhenry.github.io/CS210_DSA/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">📊</span> CS210 — Data Structures &amp; Algorithms</div>
+    <div class="url">fansofhenry.github.io/CS210_DSA</div>
+  </a>
+  <a class="card c-student" href="https://fansofhenry.github.io/CS185_introtoML/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🤖</span> CS185 — Intro to ML</div>
+    <div class="url">fansofhenry.github.io/CS185_introtoML</div>
+  </a>
+  <a class="card c-student" href="https://fansofhenry.github.io/Foothill_Student_Projects/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🎒</span> Foothill Student Projects</div>
+    <div class="url">fansofhenry.github.io/Foothill_Student_Projects</div>
+  </a>
+</div>
+
+<!-- ── TOOLS & APPS ── -->
+<div class="section-title">TOOLS &amp; APPS <span class="badge" style="background:var(--green-g);color:var(--green)">BUILD</span></div>
+<div class="grid">
+  <a class="card c-tools" href="https://fansofhenry.github.io/AppAnalyst/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">📱</span> AppAnalyst</div>
+    <div class="url">fansofhenry.github.io/AppAnalyst</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/client_system_tech/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🖥️</span> Client System Tech</div>
+    <div class="url">fansofhenry.github.io/client_system_tech</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/creator-launchpad/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🚀</span> Creator Launchpad</div>
+    <div class="url">fansofhenry.github.io/creator-launchpad</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/fhda-helpdesk-toolkit/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🛠️</span> FHDA Helpdesk Toolkit</div>
+    <div class="url">fansofhenry.github.io/fhda-helpdesk-toolkit</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/financial-aid/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">💰</span> Financial Aid</div>
+    <div class="url">fansofhenry.github.io/financial-aid</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/interview-ref/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">💼</span> Interview Reference</div>
+    <div class="url">fansofhenry.github.io/interview-ref</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/mscs-tools.html" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🧰</span> MSCS Tools</div>
+    <div class="url">fansofhenry.github.io/mscs-tools.html</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/Relief_Food_Service/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🍽️</span> Relief Food Service</div>
+    <div class="url">fansofhenry.github.io/Relief_Food_Service</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/pb/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">📋</span> PB</div>
+    <div class="url">fansofhenry.github.io/pb</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/foo/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🧪</span> Foo</div>
+    <div class="url">fansofhenry.github.io/foo</div>
+  </a>
+</div>
+
+<!-- ── STEM BRIDGE & PROJECT BRIDGE ── -->
+<div class="section-title">BRIDGE PROGRAMS <span class="badge" style="background:var(--teal-g);color:var(--teal)">BRIDGE</span></div>
+<div class="grid">
+  <a class="card c-tools" href="https://fansofhenry.github.io/stem-bridge/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🌉</span> STEM Bridge</div>
+    <div class="url">fansofhenry.github.io/stem-bridge</div>
+  </a>
+  <a class="card c-tools" href="https://stem-bridge-app.vercel.app" target="_blank">
+    <span class="tag tag-vercel">VERCEL</span>
+    <div class="name"><span class="icon">🌉</span> STEM Bridge App</div>
+    <div class="url">stem-bridge-app.vercel.app</div>
+  </a>
+  <a class="card c-tools" href="https://fansofhenry.github.io/projectbridge/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">🌁</span> Project Bridge (Pages)</div>
+    <div class="url">fansofhenry.github.io/projectbridge</div>
+  </a>
+  <a class="card c-tools" href="https://projectbridge-psi.vercel.app/" target="_blank">
+    <span class="tag tag-vercel">VERCEL</span>
+    <div class="name"><span class="icon">🌁</span> Project Bridge (Vercel)</div>
+    <div class="url">projectbridge-psi.vercel.app</div>
+  </a>
+  <a class="card c-tools" href="https://khan-math-input.netlify.app" target="_blank">
+    <span class="tag tag-netlify">NETLIFY</span>
+    <div class="name"><span class="icon">🔣</span> Math Input</div>
+    <div class="url">khan-math-input.netlify.app</div>
+  </a>
+</div>
+
+<!-- ── OTHER ── -->
+<div class="section-title">OTHER <span class="badge" style="background:var(--orange-g);color:var(--orange)">MISC</span></div>
+<div class="grid">
+  <a class="card c-other" href="https://fansofhenry.github.io/henryfan.github.io/" target="_blank">
+    <span class="tag tag-pages">PAGES</span>
+    <div class="name"><span class="icon">👤</span> henryfan.github.io</div>
+    <div class="url">fansofhenry.github.io/henryfan.github.io</div>
+  </a>
+</div>
+
+<div class="footer">
+  <strong>Henry Fan</strong> — Project Launchpad<br>
+  <a href="https://github.com/fansofhenry?tab=repositories">View all repos on GitHub</a> · <a href="/">Back to The System</a>
+</div>
+
+</body>
+</html>
