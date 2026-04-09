@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henry Fan — Dream Binder & Horizons of Focus</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  --ink: #1a1a2e;
+  --ink2: #3d3d5c;
+  --ink3: #6b6b8a;
+  --bg: #ffffff;
+  --bg2: #f8f7f4;
+  --bg3: #f0efe8;
+  --line: #e0dfd8;
+  --accent: #2d5bce;
+  --h5: #7c3aed; /* Purpose */
+  --h4: #2563eb; /* Vision */
+  --h3: #059669; /* Goals */
+  --h2: #d97706; /* Areas */
+  --h1: #dc2626; /* Projects */
+  --h0: #475569; /* Actions */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 11pt; }
+body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; }
+
+@page { size: letter; margin: 0.6in 0.7in; }
+@media print {
+  body { font-size: 10pt; }
+  .page-break { page-break-before: always; }
+  .no-print { display: none !important; }
+  .card { break-inside: avoid; }
+  .horizon-ring { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* COVER */
+.cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 40px; background: linear-gradient(145deg, #faf9f6 0%, #f0efe8 100%); }
+.cover h1 { font-family: 'Lora', serif; font-size: 42pt; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 8px; }
+.cover h2 { font-family: 'Lora', serif; font-size: 16pt; font-weight: 400; color: var(--ink3); font-style: italic; margin-bottom: 40px; }
+.cover-meta { font-size: 10pt; color: var(--ink3); line-height: 2; }
+.cover-line { width: 80px; height: 2px; background: var(--accent); margin: 24px auto; }
+.cover-quote { font-family: 'Lora', serif; font-style: italic; font-size: 12pt; color: var(--ink2); max-width: 500px; margin-top: 40px; line-height: 1.8; }
+
+/* SECTION HEADERS */
+.section { padding: 40px 0 20px; }
+.section-num { font-size: 9pt; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.section h2 { font-family: 'Lora', serif; font-size: 22pt; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.section-sub { font-size: 10pt; color: var(--ink3); max-width: 600px; }
+.section-rule { width: 100%; height: 1px; background: var(--line); margin-top: 16px; }
+
+/* CONTENT */
+.container { max-width: 800px; margin: 0 auto; padding: 0 40px; }
+
+/* CARDS */
+.card { background: var(--bg2); border: 1px solid var(--line); border-radius: 8px; padding: 20px 24px; margin-bottom: 16px; }
+.card-title { font-size: 11pt; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.card-body { font-size: 10pt; color: var(--ink2); line-height: 1.7; }
+
+/* HORIZONS */
+.horizons { display: flex; flex-direction: column; gap: 0; margin: 24px 0; }
+.horizon-ring { display: flex; align-items: stretch; border-radius: 8px; overflow: hidden; margin-bottom: 2px; }
+.horizon-label { width: 200px; padding: 16px 20px; color: white; display: flex; flex-direction: column; justify-content: center; flex-shrink: 0; }
+.horizon-label .h-level { font-size: 8pt; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
+.horizon-label .h-name { font-size: 12pt; font-weight: 700; margin-top: 2px; }
+.horizon-content { flex: 1; background: var(--bg2); padding: 16px 20px; border: 1px solid var(--line); border-left: none; }
+.horizon-content .h-q { font-size: 10pt; color: var(--ink3); font-style: italic; margin-bottom: 6px; }
+.horizon-content .h-fill { min-height: 36px; border-bottom: 1px dashed var(--line); margin-bottom: 4px; font-size: 10pt; color: var(--ink); padding: 4px 0; }
+
+/* WRITE LINES */
+.write-line { border-bottom: 1px solid var(--line); min-height: 28px; margin-bottom: 2px; padding: 4px 0; font-size: 10pt; }
+.write-block { min-height: 80px; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; font-size: 10pt; background: var(--bg); }
+.write-label { font-size: 9pt; font-weight: 600; color: var(--ink3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+
+/* ROADMAP TABLE */
+.roadmap-table { width: 100%; border-collapse: collapse; font-size: 9pt; margin: 16px 0; }
+.roadmap-table th { background: var(--ink); color: white; padding: 8px 10px; text-align: left; font-size: 8pt; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.roadmap-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.roadmap-table tr:nth-child(even) td { background: var(--bg2); }
+.phase-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 8pt; font-weight: 600; color: white; }
+
+/* BOOK LIST */
+.book-row { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); align-items: flex-start; }
+.book-icon { font-size: 16pt; flex-shrink: 0; width: 28px; text-align: center; }
+.book-info { flex: 1; }
+.book-title { font-size: 10pt; font-weight: 600; color: var(--ink); }
+.book-author { font-size: 9pt; color: var(--ink3); }
+.book-meta { display: flex; gap: 6px; margin-top: 3px; }
+.book-tag { font-size: 7pt; padding: 2px 6px; border-radius: 3px; background: var(--bg3); color: var(--ink3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* SCHEDULE */
+.sched-row { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 6px; margin-bottom: 4px; border-left: 4px solid; }
+.sched-time { font-size: 9pt; font-weight: 600; color: var(--ink3); min-width: 80px; font-variant-numeric: tabular-nums; }
+.sched-name { font-size: 10pt; font-weight: 600; }
+.sched-dur { font-size: 8pt; color: var(--ink3); margin-left: auto; }
+
+/* WEEKLY REVIEW */
+.checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 10pt; }
+.checklist-box { width: 14px; height: 14px; border: 2px solid var(--ink3); border-radius: 3px; flex-shrink: 0; margin-top: 3px; }
+
+/* GRID */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 600px) { .g2 { grid-template-columns: 1fr; } }
+@media print { .g2 { grid-template-columns: 1fr 1fr; } }
+
+.programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; }
+.program-card { padding: 12px; border-radius: 6px; border: 1px solid var(--line); text-align: center; }
+.program-name { font-size: 11pt; font-weight: 700; }
+.program-detail { font-size: 8pt; color: var(--ink3); margin-top: 2px; }
+
+.mantra { font-family: 'Lora', serif; font-size: 11pt; font-style: italic; text-align: center; color: var(--ink2); padding: 20px; margin: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+.footer { text-align: center; padding: 40px 20px; font-size: 8pt; color: var(--ink3); border-top: 1px solid var(--line); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<div class="cover">
+  <h1>Dream Binder</h1>
+  <h2>Horizons of Focus & Five-Year Plan</h2>
+  <div class="cover-line"></div>
+  <div class="cover-meta">
+    Henry Fan<br>
+    Application Support Analyst I · CVC OEI Exchange<br>
+    Aspiring MS CS · PhD in CS Education<br>
+    April 2026
+  </div>
+  <div class="cover-quote">
+    "Your mind is for having ideas, not holding them."<br>
+    — David Allen, <em>Getting Things Done</em>
+  </div>
+  <div style="margin-top:40px;font-size:9pt;color:var(--ink3)">
+    Built on: GTD · PARA · CODE · Conquering College Lab 4 · Second Brain
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== 1. HORIZONS OF FOCUS ===== -->
+<div class="section page-break">
+  <div class="section-num">Part I</div>
+  <h2>Horizons of Focus</h2>
+  <div class="section-sub">From David Allen's GTD, adapted via Jeff Anderson's Conquering College Lab 4. Think from purpose down to actions — each level gives meaning to the one below it.</div>
+  <div class="section-rule"></div>
+</div>
+
+<div class="horizons">
+  <div class="horizon-ring">
+    <div class="horizon-label" style="background:var(--h5)"><span class="h-level">Horizon 5 — 50,000 ft</span><span class="h-name">Purpose & Principles</span></div>
+    <div class="horizon-content">
+      <div class="h-q">Why do I exist? What do I stand for? What kind of world do I want to create?</div>
+      <div class="h-fill">To democratize CS education — making first-principles, hands-on computer science accessible to community college students who've been told this field isn't for them. To prove that deep understanding doesn't require elite institutions.</div>
+    </div>
+  </div>
+  <div class="horizon-ring">
+    <div class="horizon-label" style="background:var(--h4)"><span class="h-level">Horizon 4 — 40,000 ft</span><span class="h-name">3–5 Year Vision</span></div>
+    <div class="horizon-content">
+      <div class="h-q">Where do I see myself in 3–5 years? What does success look like?</div>
+      <div class="h-fill">Enrolled in or completing a PhD in CS Education (or Learning Sciences/HCI). Published researcher. MS CS knowledge equivalent. YouTube channel with a following of CC students learning CS from first principles. Financially stable. Physically strong.</div>
+    </div>
+  </div>
+  <div class="horizon-ring">
+    <div class="horizon-label" style="background:var(--h3)"><span class="h-level">Horizon 3 — 30,000 ft</span><span class="h-name">1–2 Year Goals</span></div>
+    <div class="horizon-content">
+      <div class="h-q">What do I want to achieve in the next 1–2 years?</div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+    </div>
+  </div>
+  <div class="horizon-ring">
+    <div class="horizon-label" style="background:var(--h2)"><span class="h-level">Horizon 2 — 20,000 ft</span><span class="h-name">Areas of Focus</span></div>
+    <div class="horizon-content">
+      <div class="h-q">What are my ongoing areas of responsibility? (PARA: Areas)</div>
+      <div class="h-fill">💼 Career — CVC OEI Exchange (Application Support Analyst I)</div>
+      <div class="h-fill">🖥 CS Mastery — Self-study toward MS CS equivalency</div>
+      <div class="h-fill">🎓 PhD Prep — Research identity, papers, faculty outreach, applications</div>
+      <div class="h-fill">💪 Health & Fitness — Daily exercise, energy management</div>
+      <div class="h-fill">🎬 YouTube — CS Ed curriculum channel for CC students</div>
+      <div class="h-fill"></div>
+    </div>
+  </div>
+  <div class="horizon-ring">
+    <div class="horizon-label" style="background:var(--h1)"><span class="h-level">Horizon 1 — 10,000 ft</span><span class="h-name">Current Projects</span></div>
+    <div class="horizon-content">
+      <div class="h-q">What projects have a clear outcome and deadline? (PARA: Projects)</div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+    </div>
+  </div>
+  <div class="horizon-ring">
+    <div class="horizon-label" style="background:var(--h0)"><span class="h-level">Ground Level — Runway</span><span class="h-name">Next Actions</span></div>
+    <div class="horizon-content">
+      <div class="h-q">What is the very next physical action I need to take for each project?</div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+      <div class="h-fill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. VISION, VALUES & PURPOSE ===== -->
+<div class="section page-break">
+  <div class="section-num">Part II</div>
+  <h2>Vision, Values & Purpose Statement</h2>
+  <div class="section-sub">Conquering College Lab 4: "Develop your purpose and find your reasons to work hard."</div>
+  <div class="section-rule"></div>
+</div>
+
+<div class="card">
+  <div class="card-title">My Core Values</div>
+  <div class="card-body">What principles guide every decision I make? List 5–7 values.</div>
+  <div class="write-line"></div>
+  <div class="write-line"></div>
+  <div class="write-line"></div>
+  <div class="write-line"></div>
+  <div class="write-line"></div>
+  <div class="write-line"></div>
+  <div class="write-line"></div>
+</div>
+
+<div class="card">
+  <div class="card-title">My Purpose Statement</div>
+  <div class="card-body">In one sentence, why am I doing all of this? (Revisit and refine monthly.)</div>
+  <div class="write-block"></div>
+</div>
+
+<div class="card">
+  <div class="card-title">My Vision Statement</div>
+  <div class="card-body">Describe your ideal life 5 years from now in vivid detail. Where do you live? What is your daily routine? What have you accomplished? How do you feel?</div>
+  <div class="write-block" style="min-height:140px"></div>
+</div>
+
+<div class="g2">
+  <div class="card">
+    <div class="card-title">What energizes me?</div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">What drains me?</div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+</div>
+
+<!-- ===== 3. FIVE-YEAR PLAN ===== -->
+<div class="section page-break">
+  <div class="section-num">Part III</div>
+  <h2>Five-Year Academic & Career Plan</h2>
+  <div class="section-sub">Per Jeff Anderson Lab 4: "Create, develop, and maintain a concrete plan for your work and beyond." Flexible, easy-to-edit, visually appealing.</div>
+  <div class="section-rule"></div>
+</div>
+
+<div class="card">
+  <div class="card-title">🎯 Target School & Degree</div>
+  <div class="g2">
+    <div><div class="write-label">School</div><div class="write-line"></div></div>
+    <div><div class="write-label">Degree Track</div><div class="write-line"></div></div>
+    <div><div class="write-label">Major / Department</div><div class="write-line"></div></div>
+    <div><div class="write-label">Expected Start</div><div class="write-line"></div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Target Programs</div>
+  <div class="programs-grid">
+    <div class="program-card"><div style="font-size:20px">🤘</div><div class="program-name">UT Austin</div><div class="program-detail">MSCS Online · ~$10K · 30 hrs</div></div>
+    <div class="program-card"><div style="font-size:20px">🐝</div><div class="program-name">Georgia Tech</div><div class="program-detail">OMSCS · ~$7K · 30 hrs</div></div>
+    <div class="program-card"><div style="font-size:20px">⚡</div><div class="program-name">SJSU</div><div class="program-detail">MSCS · ~$34K · 33 units</div></div>
+    <div class="program-card"><div style="font-size:20px">🔴</div><div class="program-name">Cornell</div><div class="program-detail">PhD CS Ed · Funded · 34 hrs</div></div>
+    <div class="program-card"><div style="font-size:20px">🦁</div><div class="program-name">Columbia</div><div class="program-detail">MSCS · ~$84K · 30 pts</div></div>
+    <div class="program-card"><div style="font-size:20px">🐯</div><div class="program-name">Princeton</div><div class="program-detail">PhD CS · Funded · 6 courses</div></div>
+  </div>
+</div>
+
+<!-- Year-by-Year Plan -->
+<div class="card">
+  <div class="card-title">Year 1 (Apr 2026 – Mar 2027)</div>
+  <div class="card-body" style="margin-bottom:8px">Job: CVC OEI Exchange. CS Phases 0–1. PhD prep: papers + outreach.</div>
+  <table class="roadmap-table">
+    <tr><th>Quarter</th><th>Work</th><th>CS Learning</th><th>PhD Prep</th><th>YouTube</th></tr>
+    <tr><td>Q1<br>Apr–Jun</td><td>First 90 days — earn trust, learn systems</td><td>Phase 0: Discrete Math, Data Structures, Python/C, Linear Algebra</td><td>Paper reading pipeline (2/wk). Draft RQ.</td><td>Plan channel. Script first 3 videos.</td></tr>
+    <tr><td>Q2<br>Jul–Sep</td><td>Contributing phase — ship improvements</td><td>Phase 0→1: Finish prereqs. Start CLRS.</td><td>Sharpen RQ. Faculty outreach (1/wk). Start SoP.</td><td>Publish first videos. Monthly cadence.</td></tr>
+    <tr><td>Q3<br>Oct–Dec</td><td>Impact — propose process improvement</td><td>Phase 1: CLRS, OS (Silberschatz), Sipser</td><td>SIGCSE 2027 deadline. Program research.</td><td>4–6 videos live. Iterate based on feedback.</td></tr>
+    <tr><td>Q4<br>Jan–Mar</td><td>Established at CVC</td><td>Phase 1: Complete OS + Theory of Computation</td><td>Submit PhD apps. Finalize SoP + materials.</td><td>Build audience. ~10 videos total.</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title">Year 2 (Apr 2027 – Mar 2028)</div>
+  <table class="roadmap-table">
+    <tr><th>Quarter</th><th>CS Learning</th><th>PhD / Research</th><th>YouTube</th></tr>
+    <tr><td>Q1</td><td>Phase 2: ML (Bishop), Deep Learning</td><td>Decisions from PhD apps. Start pilot study?</td><td>Bi-weekly videos. CS fundamentals series.</td></tr>
+    <tr><td>Q2</td><td>Phase 2: AI (AIMA), Databases</td><td>Summer research or thesis prep</td><td>Series on building computers from scratch</td></tr>
+    <tr><td>Q3</td><td>Phase 2→3: Start specializations</td><td>Draft SIGCSE/RESPECT paper</td><td>Breadboard computer series</td></tr>
+    <tr><td>Q4</td><td>Phase 3: NLP, RL, Bioinformatics</td><td>Submit paper. Refine research agenda.</td><td>~25 videos. Growing channel.</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title">Years 3–5 (2028 – 2031)</div>
+  <table class="roadmap-table">
+    <tr><th>Year</th><th>CS / Career</th><th>PhD / Research</th><th>YouTube / Teaching</th></tr>
+    <tr><td>Year 3</td><td>Phase 3–4: Specialization + capstone project</td><td>PhD coursework (if accepted) or continued independent research</td><td>Established channel. Curriculum for CC students.</td></tr>
+    <tr><td>Year 4</td><td>MS CS equivalent complete. Apply skills at work or transition.</td><td>PhD qualifying exams. Dissertation proposal.</td><td>Full curriculum library. Speaking at conferences.</td></tr>
+    <tr><td>Year 5</td><td>Senior technical role or full-time PhD</td><td>Dissertation research + writing. Defend.</td><td>Impact: CC students using your materials nationwide.</td></tr>
+  </table>
+</div>
+
+<!-- ===== 4. MS CS ROADMAP ===== -->
+<div class="section page-break">
+  <div class="section-num">Part IV</div>
+  <h2>MS CS Self-Study Roadmap</h2>
+  <div class="section-sub">5 phases, 30+ months. Synthesized from UT Austin, Georgia Tech, SJSU, Cornell, Columbia, Princeton curricula.</div>
+  <div class="section-rule"></div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="phase-badge" style="background:#6B7280">Phase 0</span> Prerequisites & Foundation (Months 1–3)</div>
+  <div class="card-body">
+    📐 Discrete Mathematics — Rosen 8th ed. or MIT 6.042J<br>
+    🌲 Data Structures & Algorithms — Sedgewick & Wayne; Princeton Coursera<br>
+    🐍 Python + C Fluency — Automate the Boring Stuff + K&R C<br>
+    🎲 Linear Algebra & Probability — Strang 6th ed. + Ross Probability
+  </div>
+  <div style="margin-top:8px;font-size:9pt;color:var(--ink3)"><strong>Milestones:</strong> 50 LeetCode problems · Proofs by induction · BST, hash table, graph in C · Matrix ops & Bayes fluent</div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="phase-badge" style="background:#1D4ED8">Phase 1</span> Core Graduate Foundations (Months 4–9)</div>
+  <div class="card-body">
+    ⚡ Graduate Algorithms — CLRS 4th ed. + Kleinberg & Tardos<br>
+    🖥 Operating Systems — Silberschatz 10th ed. + Bryant & O'Hallaron<br>
+    🔄 Theory of Computation — Sipser 3rd ed.
+  </div>
+  <div style="margin-top:8px;font-size:9pt;color:var(--ink3)"><strong>Milestones:</strong> CLRS ch 1–35 with exercises · Build shell + thread library in C · Understand P vs NP · Network flow problems</div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="phase-badge" style="background:#7C3AED">Phase 2</span> AI, ML & Data (Months 10–16)</div>
+  <div class="card-body">
+    🧠 Machine Learning — Bishop PRML + Hastie ESL + Geron Hands-On<br>
+    🔮 Deep Learning — Goodfellow et al. (free)<br>
+    🤖 AI — Russell & Norvig AIMA 4th ed.<br>
+    💾 Databases — Silberschatz DB + Kleppmann DDIA
+  </div>
+  <div style="margin-top:8px;font-size:9pt;color:var(--ink3)"><strong>Milestones:</strong> Implement CNN for image classification · Transformer from scratch · Bayesian methods & EM · Query optimizer prototype</div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="phase-badge" style="background:#059669">Phase 3</span> Specialization (Months 17–24)</div>
+  <div class="card-body">
+    💬 NLP — Jurafsky & Martin 3rd ed. (free) ⭐<br>
+    🎮 Reinforcement Learning — Sutton & Barto 2nd ed. (free) ⭐<br>
+    🧬 Bioinformatics — Durbin et al. + Compeau & Pevzner ⭐<br>
+    👁 Computer Vision — Szeliski 2nd ed. (free)<br>
+    🌐 Networks — Kurose & Ross 8th ed.<br>
+    λ PL Theory — Pierce TAPL + Crafting Interpreters
+  </div>
+  <div style="margin-top:8px;font-size:9pt;color:var(--ink3)"><strong>Milestones:</strong> 20+ papers in chosen area · CRISPR off-target ML predictor · 2 specialization projects · Capstone proposal</div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="phase-badge" style="background:#B45309">Phase 4</span> Research & Capstone (Months 25–30+)</div>
+  <div class="card-body">
+    📄 Research Methods — Booth et al. Craft of Research 4th ed.<br>
+    🏗 Capstone Project — ML-Guided CRISPR / Web Platform / RL Guide Selection<br>
+    ✍️ Paper Writing — Literature review → draft → submit<br>
+    🎯 Applications — SoP, CV, program spreadsheet
+  </div>
+  <div style="margin-top:8px;font-size:9pt;color:var(--ink3)"><strong>Milestones:</strong> Literature review (50+ papers) · Capstone defense-ready · 1 paper submitted · Applications to 5–10 programs</div>
+</div>
+
+<!-- ===== 5. THE LIBRARY ===== -->
+<div class="section page-break">
+  <div class="section-num">Part V</div>
+  <h2>The Library — Textbook Inventory</h2>
+  <div class="section-sub">24 textbooks across 3 tiers. Check off as you acquire each one. 8 are available free.</div>
+  <div class="section-rule"></div>
+</div>
+
+<div class="card">
+  <div class="card-title">Tier 1 — The Canon (Must-Read)</div>
+  <div class="book-row"><div class="book-icon">⚡</div><div class="book-info"><div class="book-title">Introduction to Algorithms (CLRS, 4th ed.)</div><div class="book-author">Cormen, Leiserson, Rivest, Stein</div><div class="book-meta"><span class="book-tag">Algorithms</span><span class="book-tag">Phase 1</span><span class="book-tag">All 6 Programs</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🤖</div><div class="book-info"><div class="book-title">AI: A Modern Approach (AIMA, 4th ed.)</div><div class="book-author">Russell & Norvig</div><div class="book-meta"><span class="book-tag">AI</span><span class="book-tag">Phase 2</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🧠</div><div class="book-info"><div class="book-title">Pattern Recognition & ML (Bishop)</div><div class="book-author">Christopher Bishop</div><div class="book-meta"><span class="book-tag">ML</span><span class="book-tag">Phase 2</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🔮</div><div class="book-info"><div class="book-title">Deep Learning</div><div class="book-author">Goodfellow, Bengio, Courville</div><div class="book-meta"><span class="book-tag">DL</span><span class="book-tag">Phase 2</span><span class="book-tag" style="background:#ecfdf5;color:#059669">FREE</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🖥</div><div class="book-info"><div class="book-title">Operating System Concepts (10th ed.)</div><div class="book-author">Silberschatz, Galvin, Gagne</div><div class="book-meta"><span class="book-tag">OS</span><span class="book-tag">Phase 1</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🔄</div><div class="book-info"><div class="book-title">Introduction to Theory of Computation (3rd ed.)</div><div class="book-author">Michael Sipser</div><div class="book-meta"><span class="book-tag">Theory</span><span class="book-tag">Phase 1</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🎯</div><div class="book-info"><div class="book-title">Algorithm Design</div><div class="book-author">Kleinberg & Tardos</div><div class="book-meta"><span class="book-tag">Algorithms</span><span class="book-tag">Phase 1</span></div></div></div>
+</div>
+
+<div class="card">
+  <div class="card-title">Tier 2 — Essential Companions</div>
+  <div class="book-row"><div class="book-icon">📊</div><div class="book-info"><div class="book-title">Elements of Statistical Learning (ESL)</div><div class="book-author">Hastie, Tibshirani, Friedman</div><div class="book-meta"><span class="book-tag">Stats ML</span><span class="book-tag" style="background:#ecfdf5;color:#059669">FREE</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🎮</div><div class="book-info"><div class="book-title">Reinforcement Learning (2nd ed.)</div><div class="book-author">Sutton & Barto</div><div class="book-meta"><span class="book-tag">RL</span><span class="book-tag" style="background:#ecfdf5;color:#059669">FREE</span></div></div></div>
+  <div class="book-row"><div class="book-icon">💬</div><div class="book-info"><div class="book-title">Speech & Language Processing (3rd ed.)</div><div class="book-author">Jurafsky & Martin</div><div class="book-meta"><span class="book-tag">NLP</span><span class="book-tag" style="background:#ecfdf5;color:#059669">FREE</span></div></div></div>
+  <div class="book-row"><div class="book-icon">👁</div><div class="book-info"><div class="book-title">Computer Vision: Algorithms & Apps (2nd ed.)</div><div class="book-author">Richard Szeliski</div><div class="book-meta"><span class="book-tag">CV</span><span class="book-tag" style="background:#ecfdf5;color:#059669">FREE</span></div></div></div>
+  <div class="book-row"><div class="book-icon">💾</div><div class="book-info"><div class="book-title">Database System Concepts (7th ed.)</div><div class="book-author">Silberschatz, Korth, Sudarshan</div><div class="book-meta"><span class="book-tag">DB</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🏗</div><div class="book-info"><div class="book-title">Designing Data-Intensive Applications</div><div class="book-author">Martin Kleppmann</div><div class="book-meta"><span class="book-tag">Distributed</span></div></div></div>
+  <div class="book-row"><div class="book-icon">⚙️</div><div class="book-info"><div class="book-title">Computer Systems: A Programmer's Perspective</div><div class="book-author">Bryant & O'Hallaron</div><div class="book-meta"><span class="book-tag">Systems</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🌐</div><div class="book-info"><div class="book-title">Computer Networking: Top-Down (8th ed.)</div><div class="book-author">Kurose & Ross</div><div class="book-meta"><span class="book-tag">Networks</span></div></div></div>
+  <div class="book-row"><div class="book-icon">λ</div><div class="book-info"><div class="book-title">Types and Programming Languages (TAPL)</div><div class="book-author">Benjamin Pierce</div><div class="book-meta"><span class="book-tag">PL Theory</span></div></div></div>
+</div>
+
+<div class="card">
+  <div class="card-title">Tier 3 — Prerequisites & Specialized</div>
+  <div class="book-row"><div class="book-icon">📐</div><div class="book-info"><div class="book-title">Discrete Mathematics (Rosen, 8th ed.)</div><div class="book-author">Kenneth Rosen</div><div class="book-meta"><span class="book-tag">Prereq</span></div></div></div>
+  <div class="book-row"><div class="book-icon">📏</div><div class="book-info"><div class="book-title">Introduction to Linear Algebra (Strang, 6th ed.)</div><div class="book-author">Gilbert Strang</div><div class="book-meta"><span class="book-tag">Prereq</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🎲</div><div class="book-info"><div class="book-title">A First Course in Probability (Ross, 10th ed.)</div><div class="book-author">Sheldon Ross</div><div class="book-meta"><span class="book-tag">Prereq</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🧬</div><div class="book-info"><div class="book-title">Biological Sequence Analysis</div><div class="book-author">Durbin, Eddy, Krogh, Mitchison</div><div class="book-meta"><span class="book-tag">Bioinformatics</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🔧</div><div class="book-info"><div class="book-title">Hands-On ML with Scikit-Learn (Geron, 3rd ed.)</div><div class="book-author">Aurélien Géron</div><div class="book-meta"><span class="book-tag">Practical ML</span></div></div></div>
+  <div class="book-row"><div class="book-icon">🌲</div><div class="book-info"><div class="book-title">Algorithms (Sedgewick & Wayne, 4th ed.)</div><div class="book-author">Sedgewick & Wayne</div><div class="book-meta"><span class="book-tag">UG Algorithms</span><span class="book-tag" style="background:#ecfdf5;color:#059669">FREE</span></div></div></div>
+  <div class="book-row"><div class="book-icon">📄</div><div class="book-info"><div class="book-title">The Craft of Research (4th ed.)</div><div class="book-author">Booth, Colomb, Williams, Bizup</div><div class="book-meta"><span class="book-tag">Research</span></div></div></div>
+</div>
+
+<!-- ===== 6. DAILY OPERATING SYSTEM ===== -->
+<div class="section page-break">
+  <div class="section-num">Part VI</div>
+  <h2>Daily Operating System</h2>
+  <div class="section-sub">The System v2.0 block schedule. Print and post on your wall.</div>
+  <div class="section-rule"></div>
+</div>
+
+<div class="g2">
+  <div class="card">
+    <div class="card-title">Weekday (Mon–Fri)</div>
+    <div class="sched-row" style="background:#dcfce7;border-color:#16a34a"><span class="sched-time">6:00–7:00</span><span class="sched-name">💪 Exercise</span><span class="sched-dur">1 hr</span></div>
+    <div class="sched-row" style="background:#f0f0f0;border-color:#999"><span class="sched-time">7:00–7:15</span><span class="sched-name">☕ Shower + Coffee</span><span class="sched-dur">15m</span></div>
+    <div class="sched-row" style="background:#dbeafe;border-color:#2563eb"><span class="sched-time">7:15–8:00</span><span class="sched-name">🖥 CS Theory</span><span class="sched-dur">45m</span></div>
+    <div class="sched-row" style="background:#fef9c3;border-color:#ca8a04"><span class="sched-time">8:00–5:00</span><span class="sched-name">💼 CVC OEI</span><span class="sched-dur">9 hrs</span></div>
+    <div class="sched-row" style="background:#f0f0f0;border-color:#999"><span class="sched-time">5:00–5:15</span><span class="sched-name">🚶 Decompress</span><span class="sched-dur">15m</span></div>
+    <div class="sched-row" style="background:#dbeafe;border-color:#2563eb"><span class="sched-time">5:15–6:15</span><span class="sched-name">🖥 CS Build</span><span class="sched-dur">1 hr</span></div>
+    <div class="sched-row" style="background:#ede9fe;border-color:#7c3aed"><span class="sched-time">6:15–6:45</span><span class="sched-name">🎓 PhD Prep</span><span class="sched-dur">30m</span></div>
+    <div class="sched-row" style="background:#f0f0f0;border-color:#16a34a"><span class="sched-time">6:45+</span><span class="sched-name">🌙 Rest</span><span class="sched-dur">Eve</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Weekend (Sat–Sun)</div>
+    <div class="sched-row" style="background:#dcfce7;border-color:#16a34a"><span class="sched-time">7:00–8:00</span><span class="sched-name">💪 Exercise</span><span class="sched-dur">1 hr</span></div>
+    <div class="sched-row" style="background:#f0f0f0;border-color:#999"><span class="sched-time">8:00–8:15</span><span class="sched-name">☕ Shower + Coffee</span><span class="sched-dur">15m</span></div>
+    <div class="sched-row" style="background:#dbeafe;border-color:#2563eb"><span class="sched-time">8:15–11:15</span><span class="sched-name">🖥 CS Deep Work</span><span class="sched-dur">3 hrs</span></div>
+    <div class="sched-row" style="background:#f0f0f0;border-color:#999"><span class="sched-time">11:15–11:30</span><span class="sched-name">🚶 Walk + Snack</span><span class="sched-dur">15m</span></div>
+    <div class="sched-row" style="background:#ede9fe;border-color:#7c3aed"><span class="sched-time">11:30–12:30</span><span class="sched-name">🎓 PhD Prep</span><span class="sched-dur">1 hr</span></div>
+    <div class="sched-row" style="background:#fef3c7;border-color:#f59e0b"><span class="sched-time">12:30–1:00</span><span class="sched-name">🎬 YouTube</span><span class="sched-dur">30m</span></div>
+    <div class="sched-row" style="background:#f0f0f0;border-color:#16a34a"><span class="sched-time">1:00+</span><span class="sched-name">🌙 Free</span><span class="sched-dur">Rest</span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Weekly Hour Budget</div>
+  <table class="roadmap-table">
+    <tr><th>Track</th><th>Weekday</th><th>Weekend</th><th>Weekly Total</th></tr>
+    <tr><td>💼 CVC OEI Work</td><td>40 hrs</td><td>—</td><td><strong>40 hrs</strong></td></tr>
+    <tr><td>🖥 CS Learning</td><td>8.75 hrs</td><td>6 hrs</td><td><strong>14.75 hrs</strong></td></tr>
+    <tr><td>💪 Exercise</td><td>5 hrs</td><td>2 hrs</td><td><strong>7 hrs</strong></td></tr>
+    <tr><td>🎓 PhD Prep</td><td>2.5 hrs</td><td>2 hrs</td><td><strong>4.5 hrs</strong></td></tr>
+    <tr><td>🎬 YouTube</td><td>—</td><td>1 hr</td><td><strong>1 hr</strong></td></tr>
+  </table>
+</div>
+
+<!-- ===== 7. WEEKLY REVIEW TEMPLATE ===== -->
+<div class="section page-break">
+  <div class="section-num">Part VII</div>
+  <h2>Weekly Review Template</h2>
+  <div class="section-sub">Sunday evening, 30 minutes. The most important ritual. Print multiple copies.</div>
+  <div class="section-rule"></div>
+</div>
+
+<div class="card">
+  <div class="card-title">Week of: ________________</div>
+
+  <div class="write-label" style="margin-top:12px">Review Checklist</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Process inbox to zero</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Review PARA: move completed Projects to Archives</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Review CVC work: What did I ship? Carry-overs? Monday priorities?</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Review Exercise: Did I hit 5–6 workouts?</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Review CS Learning: What did I build/read? Next module?</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Review PhD Prep: Papers read? Outreach sent? RQ sharper?</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Review YouTube: Content planned? Video recorded/edited?</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Advance CODE pipeline: notes ready to distill or express?</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Check calendar for coming week</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Identify One Big Thing for each track</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Rate yourself on 6 Dimensions of Learning</div>
+  <div class="checklist-item"><div class="checklist-box"></div>Clear workspace: file papers, close tabs</div>
+
+  <div class="write-label" style="margin-top:20px">One Big Thing — This Week</div>
+  <div class="g2">
+    <div><span style="font-size:9pt;color:var(--ink3)">💼 CVC:</span><div class="write-line"></div></div>
+    <div><span style="font-size:9pt;color:var(--ink3)">💪 Exercise:</span><div class="write-line"></div></div>
+    <div><span style="font-size:9pt;color:var(--ink3)">🖥 CS Learning:</span><div class="write-line"></div></div>
+    <div><span style="font-size:9pt;color:var(--ink3)">🎓 PhD Prep:</span><div class="write-line"></div></div>
+    <div><span style="font-size:9pt;color:var(--ink3)">🎬 YouTube:</span><div class="write-line"></div></div>
+  </div>
+
+  <div class="write-label" style="margin-top:20px">Wins This Week</div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+
+  <div class="write-label" style="margin-top:12px">Lessons & Adjustments</div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+
+  <div class="write-label" style="margin-top:12px">6 Dimensions Self-Rating (1–5)</div>
+  <div class="g2" style="gap:8px">
+    <div style="font-size:9pt">❤️ Caring: ___</div>
+    <div style="font-size:9pt">🧠 Metacognition: ___</div>
+    <div style="font-size:9pt">📚 Foundational Knowledge: ___</div>
+    <div style="font-size:9pt">🔧 Application: ___</div>
+    <div style="font-size:9pt">🔗 Integration: ___</div>
+    <div style="font-size:9pt">🤝 Human Connection: ___</div>
+  </div>
+</div>
+
+<!-- ===== 8. QUESTIONS & NEXT STEPS ===== -->
+<div class="section page-break">
+  <div class="section-num">Part VIII</div>
+  <h2>Open Questions & Skills to Develop</h2>
+  <div class="section-sub">Per Lab 4 (1.D.ii): "Generate a list of specific questions you want answers to." And (1.E.iii): "Create a list of skills you want to develop."</div>
+  <div class="section-rule"></div>
+</div>
+
+<div class="g2">
+  <div class="card">
+    <div class="card-title">Questions I Need Answered</div>
+    <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+    <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+    <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Skills I Want to Build</div>
+    <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+    <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+    <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">📚 Reading List (from Jeff Anderson's Community Challenge)</div>
+  <div class="g2" style="font-size:9pt;color:var(--ink2)">
+    <div>
+      <div class="checklist-item"><div class="checklist-box"></div>Grit — Angela Duckworth</div>
+      <div class="checklist-item"><div class="checklist-box"></div>Getting Things Done — David Allen</div>
+      <div class="checklist-item"><div class="checklist-box"></div>The Bullet Journal Method — Ryder Carroll</div>
+      <div class="checklist-item"><div class="checklist-box"></div>Deep Work — Cal Newport</div>
+      <div class="checklist-item"><div class="checklist-box"></div>Ultralearning — Scott Young</div>
+      <div class="checklist-item"><div class="checklist-box"></div>Building a Second Brain — Tiago Forte</div>
+    </div>
+    <div>
+      <div class="checklist-item"><div class="checklist-box"></div>So Good They Can't Ignore You — Cal Newport</div>
+      <div class="checklist-item"><div class="checklist-box"></div>Designing Your Life — Burnett & Evans</div>
+      <div class="checklist-item"><div class="checklist-box"></div>Drive — Daniel Pink</div>
+      <div class="checklist-item"><div class="checklist-box"></div>Willpower — Roy Baumeister</div>
+      <div class="checklist-item"><div class="checklist-box"></div>The Power of Full Engagement — Jim Loehr</div>
+      <div class="checklist-item"><div class="checklist-box"></div>Decisive — Chip & Dan Heath</div>
+    </div>
+  </div>
+</div>
+
+<div class="mantra">
+  Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
+  <span style="font-size:9pt;color:var(--ink3)">Create the type of world you want to live in.</span>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  Dream Binder · Henry Fan · The System v2.0 · GTD + PARA + CODE + Conquering College<br>
+  Based on Jeff Anderson's Conquering College Lab 4 · Horizons of Focus Model · David Allen's GTD<br>
+  April 2026
+</div>
+
+</body>
+</html>
