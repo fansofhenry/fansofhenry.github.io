@@ -6,6 +6,7 @@
 <title>Henry Fan — The System v4.0</title>
 <meta name="description" content="A GTD + PARA + Second Brain operating system for Henry Fan. Track exercise, CS learning, PhD prep, and YouTube.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
   --bg:#0d1017;--s1:#151923;--s2:#1c2231;--s3:#242c3d;
@@ -299,7 +300,6 @@ select.input{appearance:auto}
 
 /* ===== SCHEDULE PAGE ===== */
 #page-schedule{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased}
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 #page-schedule .sch-header{text-align:center;margin-bottom:32px}
 #page-schedule .sch-header h1{font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:800;letter-spacing:3px;margin-bottom:6px}
 #page-schedule .sch-header h1 span{color:var(--accent)}
@@ -2119,7 +2119,7 @@ function renderHabitChains(){
     let days='';
     for(let i=29;i>=0;i--){
       const dd=new Date(today);dd.setDate(dd.getDate()-i);
-      const k=ddStr(d);
+      const k=dStr(dd);
       days+=`<div class="chain-day ${t.check(k)?'active':''}" title="${k}"></div>`;
     }
     const riskBadge=atRisk?`<span class="at-risk-badge"><span class="at-risk-dot"></span>At risk!</span>`:'';
@@ -2219,7 +2219,7 @@ function renderExercise(){
   $('exWeek').textContent=wk;$('exMonth').textContent=mo;$('exStreak').textContent=streak;
   // Heatmap
   const now=new Date(),start=new Date(now);start.setDate(start.getDate()-((start.getDay()+6)%7)-49);
-  let h='';for(let i=0;i<56;i++){const dd=new Date(start);dd.setDate(dd.getDate()+i);const k=ddStr(d);h+=`<div class="heatmap-day ${dd>now?'future':S.exercise.some(e=>e.date===k)?'done':'rest'}">${dd.getDate()}</div>`}
+  let h='';for(let i=0;i<56;i++){const dd=new Date(start);dd.setDate(dd.getDate()+i);const k=dStr(dd);h+=`<div class="heatmap-day ${dd>now?'future':S.exercise.some(e=>e.date===k)?'done':'rest'}">${dd.getDate()}</div>`}
   $('exHeatmap').innerHTML=h;
   // Trend
   let th='',lh='';for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);const m=d.getMonth(),y=d.getFullYear();const c=S.exercise.filter(e=>{const ed=new Date(e.date);return ed.getMonth()===m&&ed.getFullYear()===y}).length;th+=`<div class="mini-bar" style="height:${Math.max(c/25*100,4)}%;background:${c>15?'var(--green)':c>8?'var(--yellow)':'var(--s3)'}"></div>`;lh+=`<span>${d.toLocaleDateString('en-US',{month:'short'})}</span>`}
