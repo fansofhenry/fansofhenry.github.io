@@ -476,6 +476,52 @@ html{scroll-behavior:smooth}
 .fab:hover{box-shadow:0 8px 32px rgba(107,138,255,.45)}
 </style>
 <style>
+/* ===== HORIZONS OF FOCUS CASCADE ===== */
+.hz-cascade{display:flex;flex-direction:column}
+.hz-band{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;transition:all .15s;border-left:4px solid transparent;position:relative}
+.hz-band:hover{background:var(--s2)}
+.hz-band::after{content:'';position:absolute;left:20px;bottom:0;right:20px;height:1px;background:var(--border)}
+.hz-band:last-child::after{display:none}
+.hz-alt{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--dim2);min-width:64px;text-align:center;padding:4px 6px;border-radius:var(--r2);background:var(--s2)}
+.hz-content{flex:1;min-width:0}
+.hz-title{font-size:14px;font-weight:700}
+.hz-desc{font-size:11px;color:var(--dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hz-indicator{flex-shrink:0}
+.hz-5{border-left-color:#f87171}.hz-5 .hz-title{color:#f87171}
+.hz-4{border-left-color:#fb923c}.hz-4 .hz-title{color:#fb923c}
+.hz-3{border-left-color:#fbbf24}.hz-3 .hz-title{color:#fbbf24}
+.hz-2{border-left-color:#34d399}.hz-2 .hz-title{color:#34d399}
+.hz-1{border-left-color:#6b8aff}.hz-1 .hz-title{color:#6b8aff}
+.hz-0{border-left-color:#a78bfa}.hz-0 .hz-title{color:#a78bfa}
+.hz-edit{display:none;padding:12px 20px 20px 98px;background:var(--s2);border-bottom:1px solid var(--border)}
+.hz-edit.open{display:block;animation:fadeIn .15s ease}
+@media(max-width:600px){.hz-edit{padding:12px 16px}}
+.hz-plan-year{margin-bottom:12px}
+.hz-plan-year h4{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.hz-plan-item{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:4px;font-size:11px}
+.hz-plan-item .plan-term{font-size:9px;font-weight:600;padding:2px 6px;border-radius:10px;background:var(--accent-g);color:var(--accent)}
+.hz-plan-item .plan-type{font-size:9px;font-weight:600;padding:2px 6px;border-radius:10px}
+.plan-t-course{background:var(--green-g);color:var(--green)}
+.plan-t-milestone{background:var(--yellow-g);color:var(--yellow)}
+.plan-t-apply{background:var(--red-g);color:var(--red)}
+.plan-t-research{background:var(--purple-g);color:var(--purple)}
+.hz-skill{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.hz-skill:last-child{border-bottom:none}
+.hz-skill-bar{flex:1;display:flex;gap:2px}
+.hz-skill-seg{height:6px;flex:1;border-radius:2px;background:var(--s3)}
+.hz-skill-seg.filled{background:var(--accent)}
+.rarity-common{color:var(--dim)}.rarity-uncommon{color:var(--green)}.rarity-rare{color:var(--accent)}.rarity-very-rare{color:var(--purple)}
+.hz-energy-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.hz-energy-row:last-child{border-bottom:none}
+.grit-btn{width:28px;height:28px;border-radius:var(--r2);border:2px solid var(--border);background:none;color:var(--dim);font-size:12px;cursor:pointer;transition:all .12s;display:flex;align-items:center;justify-content:center}
+.grit-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.grit-btn:hover{border-color:var(--accent)}
+.hz-book{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.hz-book:last-child{border-bottom:none}
+.hz-book-chk{width:16px;height:16px;border-radius:4px;border:2px solid var(--border);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s}
+.hz-book-chk.read{background:var(--green);border-color:var(--green)}
+.hz-book-chk.read::after{content:'✓';color:#fff;font-size:9px;font-weight:700}
+
 /* Password Gate */
 .pw-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .3s}
 .pw-gate.hidden{opacity:0;pointer-events:none}
@@ -537,7 +583,8 @@ html{scroll-behavior:smooth}
 <button class="nav-tab" data-page="cs">CS Journal <span class="kbd-hint">4</span></button>
 <button class="nav-tab" data-page="phd">PhD Tracker <span class="kbd-hint">5</span></button>
 <button class="nav-tab" data-page="brain">Second Brain <span class="kbd-hint">6</span></button>
-<button class="nav-tab" data-page="review">Weekly Review <span class="kbd-hint">7</span></button>
+<button class="nav-tab" data-page="horizons">Dream Binder <span class="kbd-hint">7</span></button>
+<button class="nav-tab" data-page="review">Weekly Review <span class="kbd-hint">8</span></button>
 </div>
 <div class="nav-right">
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode" title="Toggle theme">
@@ -680,10 +727,19 @@ html{scroll-behavior:smooth}
 <div id="d90Milestones"></div>
 </div>
 
-<div style="text-align:right;font-size:10px;color:var(--dim2);margin-top:4px" id="dLastUpdated"></div>
+<!-- Dream Binder Quick View -->
+<div class="card" style="cursor:pointer" onclick="goPage('horizons')">
+<div class="card-header"><h3 style="margin:0">Dream Binder — Horizons of Focus</h3><span class="badge b-purple">Tap to open</span></div>
+<div id="dHorizonsPreview" style="display:flex;flex-direction:column;gap:2px"></div>
+<div style="display:flex;gap:14px;margin-top:12px;flex-wrap:wrap">
+<div style="font-size:11px"><span style="font-weight:700;color:var(--accent)" id="dHzAlign">—</span> <span style="color:var(--dim)">alignment</span></div>
+<div style="font-size:11px"><span style="font-weight:700;color:var(--green)" id="dHzSkills">0</span> <span style="color:var(--dim)">career capital skills</span></div>
+<div style="font-size:11px"><span style="font-weight:700;color:var(--yellow)" id="dHzProjects">0</span> <span style="color:var(--dim)">active projects</span></div>
+<div style="font-size:11px"><span style="font-weight:700;color:var(--purple)" id="dHzGrit">—</span> <span style="color:var(--dim)">grit score</span></div>
+</div>
 </div>
 
-<!-- ==================== CAPTURE (Inbox) ==================== -->
+<div style="text-align:right;font-size:10px;color:var(--dim2);margin-top:4px" id="dLastUpdated"></div>
 <div class="page" id="page-inbox">
 <h1 style="font-size:22px;font-weight:700;margin-bottom:2px">Capture</h1>
 <p style="color:var(--dim);font-size:12px;margin-bottom:16px">GTD Step 1 + CODE Step 1. Get everything out of your head. Clarify during daily review.</p>
@@ -759,10 +815,11 @@ html{scroll-behavior:smooth}
 <p style="color:var(--dim);font-size:12px">Morning theory (7:15–8:00) + Evening building (5:15–6:15) · Deep deliberate practice</p></div>
 <button class="btn btn-p" onclick="showModal('csModal')">+ Log Entry</button>
 </div>
-<div class="g4" style="margin-bottom:14px">
+<div class="g5" style="margin-bottom:14px">
 <div class="stat"><div class="stat-label">Total Hours</div><div class="stat-val" id="csTotal">0</div><div class="stat-sub">cumulative</div></div>
 <div class="stat"><div class="stat-label">This Week</div><div class="stat-val" id="csWeekH">0</div><div class="stat-sub">of 12.25 hrs</div></div>
 <div class="stat"><div class="stat-label">Entries</div><div class="stat-val" id="csEntries">0</div><div class="stat-sub">logged</div></div>
+<div class="stat"><div class="stat-label">Avg Flow</div><div class="stat-val" id="csAvgFlow">—</div><div class="stat-sub">Deep Work score</div></div>
 <div class="stat"><div class="stat-label">Phase</div><div class="stat-val" id="csPhase">1</div><div class="stat-sub">of 5</div></div>
 </div>
 <div class="card">
@@ -849,6 +906,242 @@ html{scroll-behavior:smooth}
 <div id="ipList"></div>
 <div id="ipEmpty" style="text-align:center;padding:16px;color:var(--dim);font-size:12px">Your paper syntheses, code modules, and writing drafts appear here as IPs.</div>
 </div>
+</div>
+
+<!-- ==================== DREAM BINDER / HORIZONS OF FOCUS ==================== -->
+<div class="page" id="page-horizons">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+<div><h1 style="font-size:22px;font-weight:700">Dream Binder</h1>
+<p style="color:var(--dim);font-size:12px">Horizons of Focus — David Allen's GTD × Jeff Anderson's Conquering College × Your Life</p></div>
+<div style="display:flex;gap:8px">
+<button class="btn btn-o btn-sm" onclick="exportHorizons()">Export</button>
+</div>
+</div>
+
+<!-- Alignment Score -->
+<div class="g3" style="margin-bottom:14px">
+<div class="stat"><div class="stat-label">Alignment Score</div><div class="stat-val" id="hzAlignScore">—</div><div class="stat-sub">projects → purpose</div></div>
+<div class="stat"><div class="stat-label">Career Capital</div><div class="stat-val" id="hzCapitalCount">0</div><div class="stat-sub">rare skills tracked</div></div>
+<div class="stat"><div class="stat-label">Plan Completeness</div><div class="stat-val" id="hzPlanPct">0%</div><div class="stat-sub">horizons filled</div></div>
+</div>
+
+<!-- Visual Horizon Cascade -->
+<div class="card" style="padding:0;overflow:hidden">
+<div style="padding:20px 20px 10px"><h3 style="margin:0">6 Horizons of Focus</h3>
+<p style="font-size:11px;color:var(--dim);margin-top:4px">Priorities flow top-down. Purpose drives vision, vision drives goals, goals drive projects, projects drive actions.</p></div>
+
+<div class="hz-cascade" id="hzCascade">
+
+<!-- H5: Purpose & Principles -->
+<div class="hz-band hz-5" onclick="toggleHzEdit(5)">
+<div class="hz-alt">50,000 ft</div>
+<div class="hz-content">
+<div class="hz-title">Purpose &amp; Principles</div>
+<div class="hz-desc" id="hzDesc5">Why you exist. What you stand for. Click to define.</div>
+</div>
+<div class="hz-indicator" id="hzInd5"></div>
+</div>
+<div class="hz-edit" id="hzEdit5">
+<div class="form-group" style="margin-bottom:10px"><label>Life Purpose Statement</label>
+<textarea class="input" id="hzPurpose" style="width:100%;min-height:60px" placeholder="e.g. Democratize access to computational gene therapy design so community college students can solve real biomedical problems."></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>Core Values (comma-separated)</label>
+<input class="input" id="hzValues" style="width:100%" placeholder="e.g. Equity, rigor, curiosity, open science, persistence"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Principles — Rules you live by</label>
+<textarea class="input" id="hzPrinciples" style="width:100%;min-height:50px" placeholder="e.g. Ship before it's perfect. Teach what you learn. Stay physically strong."></textarea></div>
+<button class="btn btn-p btn-sm" onclick="saveHz(5)" style="margin-top:4px">Save</button>
+</div>
+
+<!-- H4: Vision -->
+<div class="hz-band hz-4" onclick="toggleHzEdit(4)">
+<div class="hz-alt">40,000 ft</div>
+<div class="hz-content">
+<div class="hz-title">3–5 Year Vision</div>
+<div class="hz-desc" id="hzDesc4">The future you're building toward. Click to define.</div>
+</div>
+<div class="hz-indicator" id="hzInd4"></div>
+</div>
+<div class="hz-edit" id="hzEdit4">
+<div class="form-group" style="margin-bottom:10px"><label>Vision Statement — Where are you in 5 years?</label>
+<textarea class="input" id="hzVision" style="width:100%;min-height:60px" placeholder="e.g. Enrolled in a computational biology PhD program, published first-author paper on AI-guided CRISPR therapy design, maintaining a strong body and clear mind."></textarea></div>
+<div class="form-group" style="margin-bottom:10px"><label>Target School &amp; Degree</label>
+<input class="input" id="hzSchool" style="width:100%" placeholder="e.g. MS/PhD Computational Biology — Stanford / UCSF / UC Berkeley"></div>
+<div class="form-group" style="margin-bottom:10px"><label>Wildly Important Results (3 max)</label>
+<textarea class="input" id="hzWIR" style="width:100%;min-height:50px" placeholder="1. Accepted into PhD program\n2. Portfolio of 3+ shipped bioinformatics tools\n3. Strong enough to deadlift 2× bodyweight"></textarea></div>
+<button class="btn btn-p btn-sm" onclick="saveHz(4)" style="margin-top:4px">Save</button>
+</div>
+
+<!-- H3: Goals & Objectives -->
+<div class="hz-band hz-3" onclick="toggleHzEdit(3)">
+<div class="hz-alt">30,000 ft</div>
+<div class="hz-content">
+<div class="hz-title">1–2 Year Goals</div>
+<div class="hz-desc" id="hzDesc3">Specific outcomes for the next 12–24 months. Click to define.</div>
+</div>
+<div class="hz-indicator" id="hzInd3"></div>
+</div>
+<div class="hz-edit" id="hzEdit3">
+<div class="form-group" style="margin-bottom:10px"><label>Goals (one per line — be specific &amp; time-bound)</label>
+<textarea class="input" id="hzGoals" style="width:100%;min-height:100px" placeholder="Complete MESA CRISPR project by June 2026\nBuild 3 interactive bioinformatics web tools\nRead 24 research papers (2/month)\nApply to 5+ PhD programs by Dec 2026\nBench press 185 lbs"></textarea></div>
+<button class="btn btn-p btn-sm" onclick="saveHz(3)" style="margin-top:4px">Save</button>
+</div>
+
+<!-- H2: Areas of Focus -->
+<div class="hz-band hz-2" onclick="toggleHzEdit(2)">
+<div class="hz-alt">20,000 ft</div>
+<div class="hz-content">
+<div class="hz-title">Areas of Focus &amp; Responsibility</div>
+<div class="hz-desc" id="hzDesc2">Ongoing roles and standards you maintain. Click to define.</div>
+</div>
+<div class="hz-indicator" id="hzInd2"></div>
+</div>
+<div class="hz-edit" id="hzEdit2">
+<div class="form-group" style="margin-bottom:10px"><label>Areas (one per line — role: standard)</label>
+<textarea class="input" id="hzAreas" style="width:100%;min-height:100px" placeholder="Health & Fitness: Exercise 6×/week, sleep 7+ hrs\nCRISPR Research: Advance pipeline weekly, verify all sequences\nCS Learning: 12.25 hrs/week deliberate practice\nCVC Work: Ship quality work, build relationships\nPhD Prep: Read papers, refine RQ, outreach faculty\nYouTube: 1 video/month minimum"></textarea></div>
+<button class="btn btn-p btn-sm" onclick="saveHz(2)" style="margin-top:4px">Save</button>
+</div>
+
+<!-- H1: Projects -->
+<div class="hz-band hz-1" onclick="toggleHzEdit(1)">
+<div class="hz-alt">10,000 ft</div>
+<div class="hz-content">
+<div class="hz-title">Current Projects</div>
+<div class="hz-desc" id="hzDesc1">Multi-step outcomes with a finish line. Click to manage.</div>
+</div>
+<div class="hz-indicator" id="hzInd1"></div>
+</div>
+<div class="hz-edit" id="hzEdit1">
+<div id="hzProjectList"></div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<input class="input" id="hzProjName" style="flex:1" placeholder="Project name">
+<select class="input" id="hzProjArea" style="width:auto">
+<option value="cs">CS</option><option value="crispr">CRISPR</option><option value="work">CVC</option><option value="phd">PhD</option><option value="youtube">YouTube</option><option value="health">Health</option><option value="other">Other</option>
+</select>
+<input class="input" id="hzProjGoal" style="width:120px" placeholder="Links to goal #">
+<button class="btn btn-p btn-sm" onclick="addHzProject()">Add</button>
+</div>
+</div>
+
+<!-- Ground: Next Actions -->
+<div class="hz-band hz-0">
+<div class="hz-alt">Runway</div>
+<div class="hz-content">
+<div class="hz-title">Next Actions</div>
+<div class="hz-desc">Your inbox items and immediate tasks. <span id="hzInboxCount" style="font-weight:700;color:var(--accent)">0</span> items waiting.</div>
+</div>
+<div class="hz-indicator"><span class="badge b-accent" style="cursor:pointer" onclick="goPage('inbox')">Go to Inbox →</span></div>
+</div>
+
+</div><!-- end cascade -->
+</div>
+
+<!-- 5-Year Academic Plan -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">5-Year Academic Plan</h3><span class="badge b-purple">Conquering College Lab 4</span></div>
+<p style="font-size:11px;color:var(--dim);margin-bottom:12px">Map out your courses, milestones, and transfer timeline. From Jeff Anderson: "Make this plan visually appealing, easy-to-edit, and flexible."</p>
+<div id="hzPlanYears"></div>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+<input class="input" id="hzPlanItem" style="flex:1;min-width:160px" placeholder="Course, milestone, or event">
+<select class="input" id="hzPlanYear" style="width:auto">
+<option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option>
+</select>
+<select class="input" id="hzPlanTerm" style="width:auto">
+<option value="Fall">Fall</option><option value="Winter">Winter</option><option value="Spring">Spring</option><option value="Summer">Summer</option>
+</select>
+<select class="input" id="hzPlanType" style="width:auto">
+<option value="course">Course</option><option value="milestone">Milestone</option><option value="apply">Application</option><option value="research">Research</option>
+</select>
+<button class="btn btn-p btn-sm" onclick="addPlanItem()">Add</button>
+</div>
+</div>
+
+<!-- Career Capital Inventory (Cal Newport) -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Career Capital Inventory</h3><span class="badge b-green">So Good They Can't Ignore You</span></div>
+<p style="font-size:11px;color:var(--dim);margin-bottom:12px">Cal Newport: Rare &amp; valuable skills = career capital. Track the skills that make you irreplaceable.</p>
+<div id="hzSkillList"></div>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+<input class="input" id="hzSkillName" style="flex:1;min-width:140px" placeholder="Skill (e.g. CRISPR off-target analysis)">
+<select class="input" id="hzSkillLevel" style="width:auto">
+<option value="1">Novice</option><option value="2">Beginner</option><option value="3">Intermediate</option><option value="4">Advanced</option><option value="5">Expert</option>
+</select>
+<select class="input" id="hzSkillRarity" style="width:auto">
+<option value="common">Common</option><option value="uncommon">Uncommon</option><option value="rare">Rare</option><option value="very-rare">Very Rare</option>
+</select>
+<button class="btn btn-p btn-sm" onclick="addSkill()">Add</button>
+</div>
+</div>
+
+<!-- Energy & Engagement (Designing Your Life) -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Energy &amp; Engagement Log</h3><span class="badge b-orange">Designing Your Life</span></div>
+<p style="font-size:11px;color:var(--dim);margin-bottom:12px">Burnett &amp; Evans: Track which activities give you energy vs drain you. Pattern reveals your ideal work.</p>
+<div id="hzEnergyList"></div>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+<input class="input" id="hzEnergyAct" style="flex:1;min-width:140px" placeholder="Activity">
+<select class="input" id="hzEnergyE" style="width:auto"><option value="5">⚡ High energy</option><option value="4">🔋 Good</option><option value="3">😐 Neutral</option><option value="2">😴 Low</option><option value="1">🪫 Draining</option></select>
+<select class="input" id="hzEnergyFlow" style="width:auto"><option value="5">🌊 Deep flow</option><option value="4">🎯 Focused</option><option value="3">😐 Meh</option><option value="2">😤 Distracted</option><option value="1">💀 Painful</option></select>
+<button class="btn btn-p btn-sm" onclick="addEnergy()">Add</button>
+</div>
+</div>
+
+<!-- Grit Check (Duckworth) -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Grit Pulse Check</h3><span class="badge b-red">Angela Duckworth</span></div>
+<p style="font-size:11px;color:var(--dim);margin-bottom:12px">Passion × Perseverance. "Enthusiasm is common. Endurance is rare." Are you still on the path?</p>
+<div class="g2">
+<div>
+<div style="font-size:11px;font-weight:600;color:var(--dim);margin-bottom:6px">Passion Alignment — Does this still light you up?</div>
+<div style="display:flex;gap:4px" id="hzPassion"></div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:600;color:var(--dim);margin-bottom:6px">Perseverance — Are you doing the hard thing daily?</div>
+<div style="display:flex;gap:4px" id="hzPerseverance"></div>
+</div>
+</div>
+<div style="margin-top:12px;text-align:center">
+<span style="font-size:13px;font-weight:700" id="hzGritScore">—</span>
+<span style="font-size:10px;color:var(--dim)"> Grit Score</span>
+</div>
+</div>
+
+<!-- Recommended Reading (from PDF) -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Recommended Reading</h3><span class="badge b-accent">Growth Library</span></div>
+<div id="hzBookList"></div>
+</div>
+
+<!-- Open Questions (Conquering College 1.D.ii) -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Open Questions</h3><span class="badge b-yellow">Things to Figure Out</span></div>
+<p style="font-size:11px;color:var(--dim);margin-bottom:10px">Jeff Anderson: "As you create your five-year plan, you will likely have questions. Capture them."</p>
+<div id="hzQuestionList"></div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<input class="input" id="hzQuestionInput" style="flex:1" placeholder="What do you need to figure out?">
+<button class="btn btn-p btn-sm" onclick="addQuestion()">Add</button>
+</div>
+</div>
+
+<!-- Odyssey Plans (Designing Your Life) -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Odyssey Plans — 3 Possible Lives</h3><span class="badge b-orange">Designing Your Life</span></div>
+<p style="font-size:11px;color:var(--dim);margin-bottom:12px">Burnett &amp; Evans: Don't agonize over one path. Sketch 3 genuinely different 5-year lives. Rate each on resources, confidence, likability, and coherence.</p>
+<div id="hzOdysseyPlans"></div>
+<div style="margin-top:10px">
+<button class="btn btn-p btn-sm" onclick="addOdyssey()">+ Add Odyssey Plan</button>
+</div>
+</div>
+
+<!-- Atomic Habits: Identity-Based Goals -->
+<div class="card">
+<div class="card-header"><h3 style="margin:0">Identity Statements</h3><span class="badge b-green">Atomic Habits × Grit</span></div>
+<p style="font-size:11px;color:var(--dim);margin-bottom:12px">James Clear: "Every action is a vote for the type of person you wish to become." Write identity statements — not goals, but who you ARE.</p>
+<div id="hzIdentityList"></div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<input class="input" id="hzIdentityInput" style="flex:1" placeholder='e.g. "I am a computational biologist who ships tools that work."'>
+<button class="btn btn-p btn-sm" onclick="addIdentity()">Add</button>
+</div>
+</div>
+
 </div>
 
 <!-- ==================== WEEKLY REVIEW ==================== -->
@@ -964,6 +1257,9 @@ Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
   <button class="bn-more-opt" data-page="brain" onclick="bottomNavGo('brain')">
     <span class="bn-opt-icon">🧠</span>Second Brain
   </button>
+  <button class="bn-more-opt" data-page="horizons" onclick="bottomNavGo('horizons')">
+    <span class="bn-opt-icon">🏔</span>Dream Binder
+  </button>
   <button class="bn-more-opt" data-page="review" onclick="bottomNavGo('review')">
     <span class="bn-opt-icon">📋</span>Weekly Review
   </button>
@@ -989,6 +1285,11 @@ Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 <div class="form-group" style="margin-bottom:10px"><label>Milestone</label><input class="input" id="csMilestone" style="width:100%" placeholder="e.g. Clock module oscillating"></div>
 <div class="form-group" style="margin-bottom:10px"><label>Hours</label><input class="input" type="number" id="csHours" value="0.75" step="0.25" style="width:100%"></div>
 <div class="form-group" style="margin-bottom:10px"><label>Reflection</label><textarea class="input" id="csReflect" style="width:100%" placeholder="Experience → Reflect → Conceptualize → Experiment"></textarea></div>
+<div class="g2" style="margin-bottom:10px">
+<div class="form-group"><label>Energy After (Designing Your Life)</label><select class="input" id="csEnergy" style="width:100%"><option value="5">⚡ High energy</option><option value="4">🔋 Good</option><option value="3">😐 Neutral</option><option value="2">😴 Low</option><option value="1">🪫 Drained</option></select></div>
+<div class="form-group"><label>Flow State (Deep Work)</label><select class="input" id="csFlow" style="width:100%"><option value="5">🌊 Deep flow</option><option value="4">🎯 Focused</option><option value="3">😐 Moderate</option><option value="2">😤 Distracted</option><option value="1">💀 Couldn't focus</option></select></div>
+</div>
+<div class="form-group" style="margin-bottom:10px"><label>Meta-Learning Note (Ultralearning)</label><input class="input" id="csMeta" style="width:100%" placeholder="What's the most effective way to learn this next piece?"></div>
 <div class="form-group" style="margin-bottom:10px"><label>Link</label><input class="input" id="csLink" style="width:100%" placeholder="GitHub, blog, photo URL"></div>
 <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-o" onclick="hideModal('csModal')">Cancel</button><button class="btn btn-p" onclick="saveCS()">Save</button></div></div></div>
 
@@ -1084,6 +1385,7 @@ function init(){
     S._utcFixed=true;
     try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}
   }
+  initHorizons();
 }
 function save(){S.lastUpdated=new Date().toISOString();localStorage.setItem(K,JSON.stringify(S))}
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
@@ -1332,15 +1634,21 @@ function renderInbox(){
   if(!S.inbox.length){$('inboxList').innerHTML='';$('inboxEmpty').style.display='';return}
   $('inboxEmpty').style.display='none';
   const typeIcon={task:'☐',idea:'💡',note:'📝',resource:'🔗'};
-  $('inboxList').innerHTML=S.inbox.map(i=>`<div class="inbox-item">
+  const now=Date.now();
+  $('inboxList').innerHTML=S.inbox.map(i=>{
+    const age=i.created?Math.floor((now-new Date(i.created).getTime())/(1000*60*60*24)):0;
+    const stale=age>=7;
+    return `<div class="inbox-item" ${stale?'style="border-color:var(--yellow);background:var(--yellow-g)"':''}>
     <span style="font-size:14px">${typeIcon[i.type]||'☐'}</span>
     <span style="flex:1;font-size:12px">${esc(i.text)}</span>
+    ${stale?'<span class="badge b-yellow" style="font-size:8px" title="Bullet Journal: migrate or kill stale items">'+age+'d STALE</span>':''}
     <span class="badge b-yellow" style="font-size:9px">${i.type}</span>
     <div class="inbox-actions">
       <button class="btn b-purple btn-sm" style="border:none" onclick="moveInbox('${i.id}','brain')">→ Brain</button>
+      <button class="btn btn-sm" style="border:none;background:var(--accent-g);color:var(--accent)" onclick="inboxToProject('${i.id}')">→ Project</button>
       <button class="btn btn-danger btn-sm" onclick="moveInbox('${i.id}','trash')">×</button>
       <button class="btn btn-danger btn-sm" onclick="delInbox('${i.id}')">del</button>
-    </div></div>`).join('')}
+    </div></div>`}).join('')}
 
 // Daily Startup
 const STARTUP=['Check today\'s calendar (work meetings)','Open each track\'s next action list','Confirm: I know what to do in each block','Review inbox — process any overnight captures','Set intention: what is the ONE thing today?'];
@@ -1379,13 +1687,16 @@ function renderExercise(){
   $('exTable').innerHTML=S.exercise.slice(0,30).map(e=>`<tr><td>${e.date}</td><td><span class="badge ${tb(e.type)}">${esc(e.type)}</span></td><td>${e.duration}m</td><td style="font-size:11px">${esc(e.keyExercise||'—')}</td><td style="font-size:12px;font-weight:700;color:${e.weightReps?'var(--green)':'var(--dim)'}">${esc(e.weightReps||'—')}</td><td style="color:var(--dim)">${esc(e.notes||'—')}</td><td><button class="btn btn-danger btn-sm" onclick="delEx('${e.id}')">×</button></td></tr>`).join('')}
 
 // ===== CS =====
-function saveCS(){S.cs.push({id:uid(),date:$('csDate').value,session:$('csSession').value,type:$('csType').value,project:$('csProject').value,milestone:$('csMilestone').value,hours:parseFloat($('csHours').value)||0,reflection:$('csReflect').value,link:$('csLink').value});S.cs.sort((a,b)=>b.date.localeCompare(a.date));save();hideModal('csModal');['csMilestone','csReflect','csLink'].forEach(i=>$(i).value='');renderAll();toast('Logged!')}
+function saveCS(){S.cs.push({id:uid(),date:$('csDate').value,session:$('csSession').value,type:$('csType').value,project:$('csProject').value,milestone:$('csMilestone').value,hours:parseFloat($('csHours').value)||0,reflection:$('csReflect').value,energy:parseInt($('csEnergy').value)||3,flow:parseInt($('csFlow').value)||3,meta:$('csMeta').value,link:$('csLink').value});S.cs.sort((a,b)=>b.date.localeCompare(a.date));save();hideModal('csModal');['csMilestone','csReflect','csLink','csMeta'].forEach(i=>$(i).value='');renderAll();toast('Logged!')}
 function delCS(id){S.cs=S.cs.filter(e=>e.id!==id);save();renderAll()}
 function cyclePhase(){S.phase=S.phase<5?S.phase+1:1;save();renderAll();toast('Phase '+S.phase)}
 document.querySelectorAll('[data-cstab]').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('[data-cstab]').forEach(n=>n.classList.remove('active'));t.classList.add('active');$('csLogView').style.display=t.dataset.cstab==='log'?'':'none';$('csReadView').style.display=t.dataset.cstab==='reading'?'':'none';$('csReflectView').style.display=t.dataset.cstab==='reflect'?'':'none'}));
 function renderCS(){
   const tot=S.cs.reduce((s,e)=>s+e.hours,0),wkH=S.cs.filter(e=>inWk(e.date)).reduce((s,e)=>s+e.hours,0);
   $('csTotal').textContent=tot.toFixed(1);$('csWeekH').textContent=wkH.toFixed(1);$('dCsHrs').textContent=wkH.toFixed(1);$('csPhase').textContent=S.phase;$('csEntries').textContent=S.cs.length;
+  const wkEntries=S.cs.filter(e=>inWk(e.date)&&e.flow);
+  const avgFlow=wkEntries.length?wkEntries.reduce((s,e)=>s+(e.flow||3),0)/wkEntries.length:0;
+  $('csAvgFlow').textContent=avgFlow?avgFlow.toFixed(1)+'/5':'—';
   const phases=['Ben Eater + N2T I + Petzold','N2T II + Pedagogy (Papert, Kolb)','Arduino + RPi + CS Unplugged','AI + Claude Code + Curriculum','Pilot Teaching + Data + Apps'];
   $('csPhaseBar').innerHTML=phases.map((p,i)=>`<div class="phase-seg ${i+1<S.phase?'done-ph':i+1===S.phase?'current':'upcoming'}" title="${p}">${i+1}</div>`).join('');
   $('csPhaseLabel').textContent='Phase '+S.phase+': '+phases[S.phase-1];
@@ -1487,7 +1798,7 @@ function renderBrain(){
 
 // ===== WEEKLY REVIEW =====
 let rvOff=0;function changeRvWk(d){rvOff+=d;renderReview()}
-const CHK=['Process inbox to zero (GTD)','Review PARA: move completed Projects to Archives','Review CVC work: shipped? carry-overs? Monday priorities?','Review Exercise: 5–6 workouts this week?','Review CS Learning: build/read? update next actions','Review PhD Prep: papers? outreach? RQ sharper?','Review YouTube: content planned? video recorded/edited?','Advance CODE pipeline: any notes ready to distill or express?','Check calendar for coming week','Identify One Big Thing for each track','Clear workspace: file papers, close tabs','Rate yourself on 6 Dimensions of Learning'];
+const CHK=['Process inbox to zero (GTD)','Review PARA: move completed Projects to Archives','Review CVC work: shipped? carry-overs? Monday priorities?','Review Exercise: 5–6 workouts this week?','Review CS Learning: build/read? update next actions','Review PhD Prep: papers? outreach? RQ sharper?','Review YouTube: content planned? video recorded/edited?','Advance CODE pipeline: any notes ready to distill or express?','Review Dream Binder: are projects aligned to goals & purpose? (Horizons)','Migrate or kill stale inbox items (Bullet Journal method)','Check calendar for coming week','Identify One Big Thing for each track','Clear workspace: file papers, close tabs','Rate yourself on 6 Dimensions of Learning','Rate Grit Pulse: passion + perseverance (Dream Binder)'];
 
 function renderReview(){
   const wk=wkMon(rvOff);$('rvWeekLabel').textContent=wkLabel(rvOff);
@@ -1593,10 +1904,309 @@ function renderDash(){
   $('d90Progress').innerHTML=`<div class="prog-row"><span class="prog-label">${dayNum>0?'Day '+dayNum:'Not started'}</span><div class="prog-bg" style="flex:1"><div class="prog-fill" style="width:${pct90}%;background:var(--accent)"></div></div><span class="prog-pct">${pct90}%</span></div>`;
   const ms=[{d:1,t:'Complete onboarding',k:'m1'},{d:14,t:'1-on-1s with key colleagues',k:'m14'},{d:30,t:'Self-assessment: what do I know?',k:'m30'},{d:45,t:'Knowledge base of common issues',k:'m45'},{d:60,t:'Propose process improvement',k:'m60'},{d:90,t:'Accomplishment summary to manager',k:'m90'}];
   $('d90Milestones').innerHTML=ms.map(m=>{const done=S.milestones[m.k];const active=!done&&dayNum>=m.d-7&&dayNum<=m.d;return `<div class="milestone"><button class="milestone-dot ${done?'ms-done':active?'ms-active':''}" onclick="toggleMs('${m.k}')"></button><span style="font-size:12px;${done?'color:var(--dim);text-decoration:line-through':''}">${m.t}</span></div>`}).join('');
-  $('dLastUpdated').textContent=S.lastUpdated?'Last updated: '+new Date(S.lastUpdated).toLocaleString():'';$('footerYear').textContent=new Date().getFullYear()}
+  $('dLastUpdated').textContent=S.lastUpdated?'Last updated: '+new Date(S.lastUpdated).toLocaleString():'';$('footerYear').textContent=new Date().getFullYear();
+  // Dashboard Horizons Preview
+  if(S.horizons){
+    const h=S.horizons;
+    const hzData=[
+      {label:'Purpose',color:'#f87171',has:!!h.h5?.purpose},
+      {label:'Vision',color:'#fb923c',has:!!h.h4?.vision},
+      {label:'Goals',color:'#fbbf24',has:!!h.h3?.goals},
+      {label:'Areas',color:'#34d399',has:!!h.h2?.areas},
+      {label:'Projects',color:'#6b8aff',has:(h.projects||[]).length>0}
+    ];
+    $('dHorizonsPreview').innerHTML=hzData.map(d=>`<div style="display:flex;align-items:center;gap:8px;font-size:11px">
+      <div style="width:8px;height:8px;border-radius:2px;background:${d.has?d.color:'var(--s3)'}"></div>
+      <span style="min-width:60px;color:${d.has?'var(--tx)':'var(--dim)'}">${d.label}</span>
+      <div style="flex:1;height:3px;border-radius:2px;background:${d.has?d.color+'33':'var(--s3)'}"><div style="height:100%;width:${d.has?'100':'0'}%;background:${d.color};border-radius:2px;transition:width .4s"></div></div>
+      <span style="font-size:9px;color:${d.has?d.color:'var(--dim)'}">${d.has?'✓':'—'}</span>
+    </div>`).join('');
+    const filled=hzData.filter(d=>d.has).length;
+    $('dHzAlign').textContent=filled>=4?'Strong':filled>=2?'Partial':'Weak';
+    $('dHzSkills').textContent=(h.skills||[]).length;
+    $('dHzProjects').textContent=(h.projects||[]).filter(p=>!p.done).length;
+    const g=h.grit||{};
+    $('dHzGrit').textContent=g.passion&&g.perseverance?((g.passion+g.perseverance)/2).toFixed(1)+'/5':'—';
+  }
+}
 function toggleMs(k){S.milestones[k]=!S.milestones[k];save();renderAll()}
 
-function renderAll(){renderDash();renderTodayBlocks();renderHabitChains();renderStreakWarnings();renderInbox();renderStartup();renderExercise();renderCS();renderYouTube();renderPhD();renderBrain();renderReview();checkBackup()}
+// ===== DREAM BINDER / HORIZONS =====
+const BOOKS=[
+  {title:'Grit',author:'Angela Duckworth'},
+  {title:'Getting Things Done',author:'David Allen'},
+  {title:'The Bullet Journal Method',author:'Ryder Carroll'},
+  {title:'The Power of Full Engagement',author:'Jim Loehr'},
+  {title:'So Good They Can\'t Ignore You',author:'Cal Newport'},
+  {title:'Designing Your Life',author:'Burnett & Evans'},
+  {title:'Decisive',author:'Chip & Dan Heath'},
+  {title:'Drive',author:'Daniel Pink'},
+  {title:'Willpower',author:'Roy Baumeister'},
+  {title:'Deep Work',author:'Cal Newport'},
+  {title:'Ultralearning',author:'Scott Young'},
+  {title:'Building a Second Brain',author:'Tiago Forte'},
+  {title:'Atomic Habits',author:'James Clear'},
+  {title:'The 7 Habits of Highly Effective People',author:'Stephen Covey'}
+];
+
+function initHorizons(){
+  if(!S.horizons)S.horizons={};
+  if(!S.horizons.h5)S.horizons.h5={purpose:'',values:'',principles:''};
+  if(!S.horizons.h4)S.horizons.h4={vision:'',school:'',wir:''};
+  if(!S.horizons.h3)S.horizons.h3={goals:''};
+  if(!S.horizons.h2)S.horizons.h2={areas:''};
+  if(!S.horizons.projects)S.horizons.projects=[];
+  if(!S.horizons.plan)S.horizons.plan=[];
+  if(!S.horizons.skills)S.horizons.skills=[];
+  if(!S.horizons.energy)S.horizons.energy=[];
+  if(!S.horizons.grit)S.horizons.grit={passion:0,perseverance:0};
+  if(!S.horizons.books)S.horizons.books={};
+  if(!S.horizons.questions)S.horizons.questions=[];
+  if(!S.horizons.odyssey)S.horizons.odyssey=[];
+  if(!S.horizons.identities)S.horizons.identities=[];
+}
+
+function toggleHzEdit(n){
+  const el=$('hzEdit'+n);
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.hz-edit').forEach(e=>e.classList.remove('open'));
+  if(!isOpen){
+    el.classList.add('open');
+    // Populate fields
+    const h=S.horizons;
+    if(n===5){$('hzPurpose').value=h.h5.purpose||'';$('hzValues').value=h.h5.values||'';$('hzPrinciples').value=h.h5.principles||''}
+    if(n===4){$('hzVision').value=h.h4.vision||'';$('hzSchool').value=h.h4.school||'';$('hzWIR').value=h.h4.wir||''}
+    if(n===3){$('hzGoals').value=h.h3.goals||''}
+    if(n===2){$('hzAreas').value=h.h2.areas||''}
+  }
+}
+function saveHz(n){
+  const h=S.horizons;
+  if(n===5){h.h5={purpose:$('hzPurpose').value,values:$('hzValues').value,principles:$('hzPrinciples').value}}
+  if(n===4){h.h4={vision:$('hzVision').value,school:$('hzSchool').value,wir:$('hzWIR').value}}
+  if(n===3){h.h3={goals:$('hzGoals').value}}
+  if(n===2){h.h2={areas:$('hzAreas').value}}
+  save();renderHorizons();toast('Horizon saved!');
+  $('hzEdit'+n).classList.remove('open');
+}
+function addHzProject(){
+  const name=$('hzProjName').value.trim();if(!name)return;
+  S.horizons.projects.push({id:uid(),name:name,area:$('hzProjArea').value,goal:$('hzProjGoal').value,done:false});
+  $('hzProjName').value='';$('hzProjGoal').value='';
+  save();renderHorizons();toast('Project added!');
+}
+function toggleHzProj(id){const p=S.horizons.projects.find(x=>x.id===id);if(p)p.done=!p.done;save();renderHorizons()}
+function delHzProj(id){S.horizons.projects=S.horizons.projects.filter(x=>x.id!==id);save();renderHorizons()}
+
+function addPlanItem(){
+  const item=$('hzPlanItem').value.trim();if(!item)return;
+  S.horizons.plan.push({id:uid(),item:item,year:$('hzPlanYear').value,term:$('hzPlanTerm').value,type:$('hzPlanType').value});
+  S.horizons.plan.sort((a,b)=>(a.year+a.term).localeCompare(b.year+b.term));
+  $('hzPlanItem').value='';save();renderHorizons();toast('Plan item added!');
+}
+function delPlanItem(id){S.horizons.plan=S.horizons.plan.filter(x=>x.id!==id);save();renderHorizons()}
+
+function addSkill(){
+  const name=$('hzSkillName').value.trim();if(!name)return;
+  S.horizons.skills.push({id:uid(),name:name,level:parseInt($('hzSkillLevel').value),rarity:$('hzSkillRarity').value});
+  $('hzSkillName').value='';save();renderHorizons();toast('Skill tracked!');
+}
+function delSkill(id){S.horizons.skills=S.horizons.skills.filter(x=>x.id!==id);save();renderHorizons()}
+
+function addEnergy(){
+  const act=$('hzEnergyAct').value.trim();if(!act)return;
+  S.horizons.energy.push({id:uid(),activity:act,energy:parseInt($('hzEnergyE').value),flow:parseInt($('hzEnergyFlow').value),date:td()});
+  $('hzEnergyAct').value='';save();renderHorizons();toast('Logged!');
+}
+function delEnergy(id){S.horizons.energy=S.horizons.energy.filter(x=>x.id!==id);save();renderHorizons()}
+
+function setGrit(type,val){
+  S.horizons.grit[type]=val;save();renderHorizons();
+}
+
+function toggleBook(idx){
+  S.horizons.books[idx]=!S.horizons.books[idx];save();renderHorizons();
+}
+
+function addQuestion(){
+  const q=$('hzQuestionInput').value.trim();if(!q)return;
+  S.horizons.questions.push({id:uid(),text:q,answered:false,date:td()});
+  $('hzQuestionInput').value='';save();renderHorizons();toast('Question captured!');
+}
+function toggleQuestion(id){const q=S.horizons.questions.find(x=>x.id===id);if(q)q.answered=!q.answered;save();renderHorizons()}
+function delQuestion(id){S.horizons.questions=S.horizons.questions.filter(x=>x.id!==id);save();renderHorizons()}
+
+function exportHorizons(){
+  const h=S.horizons;
+  let txt='DREAM BINDER — HORIZONS OF FOCUS\n'+('=').repeat(50)+'\n'+new Date().toLocaleDateString()+'\n\n';
+  txt+='H5 — PURPOSE & PRINCIPLES (50,000 ft)\n'+('-').repeat(40)+'\n';
+  txt+='Purpose: '+(h.h5.purpose||'(not set)')+'\nValues: '+(h.h5.values||'(not set)')+'\nPrinciples: '+(h.h5.principles||'(not set)')+'\n\n';
+  txt+='H4 — VISION (40,000 ft)\n'+('-').repeat(40)+'\n';
+  txt+='Vision: '+(h.h4.vision||'(not set)')+'\nTarget: '+(h.h4.school||'(not set)')+'\nWildly Important Results:\n'+(h.h4.wir||'(not set)')+'\n\n';
+  txt+='H3 — GOALS (30,000 ft)\n'+('-').repeat(40)+'\n'+(h.h3.goals||'(not set)')+'\n\n';
+  txt+='H2 — AREAS OF FOCUS (20,000 ft)\n'+('-').repeat(40)+'\n'+(h.h2.areas||'(not set)')+'\n\n';
+  txt+='H1 — PROJECTS (10,000 ft)\n'+('-').repeat(40)+'\n';
+  h.projects.forEach(p=>txt+=(p.done?'[x] ':'[ ] ')+p.name+' ('+p.area+')'+(p.goal?' → Goal #'+p.goal:'')+'\n');
+  txt+='\nIDENTITY STATEMENTS (Atomic Habits)\n'+('-').repeat(40)+'\n';
+  (h.identities||[]).forEach(id=>txt+='• '+id.text+'\n');
+  txt+='\n5-YEAR PLAN\n'+('-').repeat(40)+'\n';
+  h.plan.forEach(p=>txt+=p.year+' '+p.term+': '+p.item+' ['+p.type+']\n');
+  txt+='\nODYSSEY PLANS\n'+('-').repeat(40)+'\n';
+  (h.odyssey||[]).forEach((o,i)=>{txt+='\nPlan '+(i+1)+': '+o.title+'\n'+o.description+'\nResources: '+o.resources+'/5  Confidence: '+o.confidence+'/5  Like: '+o.like+'/5  Coherence: '+o.coherence+'/5\n'});
+  txt+='\nCAREER CAPITAL\n'+('-').repeat(40)+'\n';
+  h.skills.forEach(s=>txt+=s.name+' — Level '+s.level+'/5 ('+s.rarity+')\n');
+  txt+='\nOPEN QUESTIONS\n'+('-').repeat(40)+'\n';
+  h.questions.forEach(q=>txt+=(q.answered?'[x] ':'[ ] ')+q.text+'\n');
+  txt+='\nGRIT PULSE: Passion '+h.grit.passion+'/5, Perseverance '+h.grit.perseverance+'/5\n';
+  const b=new Blob([txt],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='dream-binder-'+td()+'.txt';a.click();toast('Exported!');
+}
+
+// Odyssey Plans
+function addOdyssey(){
+  if(!S.horizons.odyssey)S.horizons.odyssey=[];
+  S.horizons.odyssey.push({id:uid(),title:'',description:'',resources:3,confidence:3,like:3,coherence:3});
+  save();renderHorizons();
+}
+function updateOdyssey(id,field,val){
+  const o=(S.horizons.odyssey||[]).find(x=>x.id===id);
+  if(o){o[field]=['resources','confidence','like','coherence'].includes(field)?parseInt(val):val;save()}
+}
+function delOdyssey(id){S.horizons.odyssey=S.horizons.odyssey.filter(x=>x.id!==id);save();renderHorizons()}
+
+// Identity Statements
+function addIdentity(){
+  const text=$('hzIdentityInput').value.trim();if(!text)return;
+  if(!S.horizons.identities)S.horizons.identities=[];
+  S.horizons.identities.push({id:uid(),text:text});
+  $('hzIdentityInput').value='';save();renderHorizons();toast('Identity added!');
+}
+function delIdentity(id){S.horizons.identities=S.horizons.identities.filter(x=>x.id!==id);save();renderHorizons()}
+
+// Inbox → Project bridge
+function inboxToProject(id){
+  const item=S.inbox.find(x=>x.id===id);
+  if(!item)return;
+  initHorizons();
+  S.horizons.projects.push({id:uid(),name:item.text,area:'other',goal:'',done:false});
+  S.inbox=S.inbox.filter(x=>x.id!==id);
+  save();renderAll();toast('Moved to Projects!');
+}
+
+function renderHorizons(){
+  initHorizons();
+  const h=S.horizons;
+
+  // Horizon descriptions
+  const trunc=(s,n)=>s?(s.length>n?s.slice(0,n)+'…':s):'Click to define.';
+  $('hzDesc5').textContent=h.h5.purpose?trunc(h.h5.purpose,80):'Click to define your life purpose.';
+  $('hzDesc4').textContent=h.h4.vision?trunc(h.h4.vision,80):'Click to define your 3–5 year vision.';
+  $('hzDesc3').textContent=h.h3.goals?trunc(h.h3.goals.split('\n')[0],80):'Click to set 1–2 year goals.';
+  $('hzDesc2').textContent=h.h2.areas?trunc(h.h2.areas.split('\n')[0],80):'Click to define your areas of focus.';
+  const activeProj=h.projects.filter(p=>!p.done).length;
+  $('hzDesc1').textContent=h.projects.length?activeProj+' active project'+(activeProj!==1?'s':'')+', '+h.projects.filter(p=>p.done).length+' completed':'No projects yet. Click to add.';
+
+  // Indicators
+  const filled=[h.h5.purpose,h.h4.vision,h.h3.goals,h.h2.areas,h.projects.length>0].filter(Boolean).length;
+  [5,4,3,2,1].forEach(n=>{
+    const el=$('hzInd'+n);
+    const has=n===5?!!h.h5.purpose:n===4?!!h.h4.vision:n===3?!!h.h3.goals:n===2?!!h.h2.areas:h.projects.length>0;
+    el.innerHTML=has?'<span class="badge b-green">✓ Defined</span>':'<span class="badge b-yellow">Empty</span>';
+  });
+
+  // Stats
+  $('hzPlanPct').textContent=Math.round(filled/5*100)+'%';
+  $('hzAlignScore').textContent=filled>=4?'Strong':filled>=2?'Partial':'Weak';
+  $('hzCapitalCount').textContent=h.skills.length;
+  $('hzInboxCount').textContent=S.inbox.length;
+
+  // Projects
+  const areaIcon={cs:'🖥',crispr:'🧬',work:'💼',phd:'🎓',youtube:'🎬',health:'💪',other:'📌'};
+  $('hzProjectList').innerHTML=h.projects.length?h.projects.map(p=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)">
+    <button class="task-chk ${p.done?'done':''}" onclick="toggleHzProj('${p.id}')"></button>
+    <span style="font-size:14px">${areaIcon[p.area]||'📌'}</span>
+    <span style="flex:1;font-size:12px;${p.done?'text-decoration:line-through;color:var(--dim)':''}">${esc(p.name)}</span>
+    ${p.goal?'<span class="badge b-yellow" style="font-size:9px">Goal #'+esc(p.goal)+'</span>':''}
+    <span class="badge b-accent" style="font-size:9px">${esc(p.area)}</span>
+    <button class="btn btn-danger btn-sm" onclick="delHzProj('${p.id}')" style="font-size:10px;padding:2px 6px">×</button>
+  </div>`).join(''):'<p style="color:var(--dim);font-size:12px">No projects. Add your first below.</p>';
+
+  // 5-Year Plan
+  const years={};h.plan.forEach(p=>{if(!years[p.year])years[p.year]=[];years[p.year].push(p)});
+  $('hzPlanYears').innerHTML=Object.keys(years).length?Object.keys(years).sort().map(y=>`<div class="hz-plan-year"><h4>${y}</h4>${years[y].map(p=>`<div class="hz-plan-item">
+    <span class="plan-term">${p.term}</span>
+    <span class="plan-type plan-t-${p.type}">${p.type}</span>
+    <span style="flex:1">${esc(p.item)}</span>
+    <button class="btn btn-danger btn-sm" onclick="delPlanItem('${p.id}')" style="font-size:10px;padding:2px 6px">×</button>
+  </div>`).join('')}</div>`).join(''):'<p style="color:var(--dim);font-size:12px">Map out your courses and milestones below.</p>';
+
+  // Skills
+  $('hzSkillList').innerHTML=h.skills.length?h.skills.map(s=>`<div class="hz-skill">
+    <span style="flex:1;font-size:12px;font-weight:500">${esc(s.name)}</span>
+    <div class="hz-skill-bar">${[1,2,3,4,5].map(l=>`<div class="hz-skill-seg ${l<=s.level?'filled':''}"></div>`).join('')}</div>
+    <span class="badge rarity-${s.rarity}" style="font-size:9px;background:var(--s2);padding:2px 8px;border-radius:10px">${s.rarity}</span>
+    <button class="btn btn-danger btn-sm" onclick="delSkill('${s.id}')" style="font-size:10px;padding:2px 6px">×</button>
+  </div>`).join(''):'<p style="color:var(--dim);font-size:12px">Track the rare skills that make you irreplaceable.</p>';
+
+  // Energy log
+  $('hzEnergyList').innerHTML=h.energy.length?h.energy.slice(0,15).map(e=>`<div class="hz-energy-row">
+    <span style="flex:1">${esc(e.activity)}</span>
+    <span style="font-size:11px">Energy: ${'⚡'.repeat(e.energy)}</span>
+    <span style="font-size:11px">Flow: ${'🌊'.repeat(e.flow)}</span>
+    <span style="font-size:10px;color:var(--dim)">${e.date}</span>
+    <button class="btn btn-danger btn-sm" onclick="delEnergy('${e.id}')" style="font-size:10px;padding:2px 6px">×</button>
+  </div>`).join(''):'<p style="color:var(--dim);font-size:12px">Log activities to discover what gives you energy and flow.</p>';
+
+  // Grit
+  [['hzPassion','passion'],['hzPerseverance','perseverance']].forEach(([elId,key])=>{
+    $(elId).innerHTML=[1,2,3,4,5].map(v=>`<button class="grit-btn ${h.grit[key]>=v?'active':''}" onclick="setGrit('${key}',${v})">${v}</button>`).join('');
+  });
+  const gritAvg=h.grit.passion&&h.grit.perseverance?((h.grit.passion+h.grit.perseverance)/2).toFixed(1):'—';
+  $('hzGritScore').textContent=gritAvg+'/5';
+
+  // Books
+  $('hzBookList').innerHTML=BOOKS.map((b,i)=>`<div class="hz-book">
+    <button class="hz-book-chk ${h.books[i]?'read':''}" onclick="toggleBook(${i})"></button>
+    <span style="flex:1"><strong>${esc(b.title)}</strong> <span style="color:var(--dim)">— ${esc(b.author)}</span></span>
+    ${h.books[i]?'<span class="badge b-green">Read</span>':''}
+  </div>`).join('');
+
+  // Questions
+  $('hzQuestionList').innerHTML=h.questions.length?h.questions.map(q=>`<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)">
+    <button class="task-chk ${q.answered?'done':''}" onclick="toggleQuestion('${q.id}')"></button>
+    <span style="flex:1;font-size:12px;${q.answered?'text-decoration:line-through;color:var(--dim)':''}">${esc(q.text)}</span>
+    <span style="font-size:10px;color:var(--dim)">${q.date}</span>
+    <button class="btn btn-danger btn-sm" onclick="delQuestion('${q.id}')" style="font-size:10px;padding:2px 6px">×</button>
+  </div>`).join(''):'<p style="color:var(--dim);font-size:12px">No open questions yet.</p>';
+
+  // Odyssey Plans
+  const odyssey=h.odyssey||[];
+  $('hzOdysseyPlans').innerHTML=odyssey.length?odyssey.map((o,idx)=>{
+    const ratingBar=(label,field,val)=>`<div style="display:flex;align-items:center;gap:6px;font-size:10px"><span style="min-width:70px;color:var(--dim)">${label}</span>${[1,2,3,4,5].map(v=>`<div style="width:16px;height:8px;border-radius:2px;background:${v<=val?'var(--accent)':'var(--s3)'}; cursor:pointer" onclick="updateOdyssey('${o.id}','${field}',${v});renderHorizons()"></div>`).join('')}<span style="min-width:20px;font-weight:600">${val}/5</span></div>`;
+    return `<div class="card" style="margin-bottom:8px;border-left:4px solid ${idx===0?'var(--accent)':idx===1?'var(--green)':'var(--yellow)'}">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:12px;font-weight:700;color:var(--dim)">Plan ${idx+1}</span>
+        <button class="btn btn-danger btn-sm" onclick="delOdyssey('${o.id}')" style="font-size:10px;padding:2px 6px">×</button>
+      </div>
+      <input class="input" value="${esc(o.title)}" placeholder="Give this life a name" style="width:100%;margin-bottom:6px;font-weight:600" onchange="updateOdyssey('${o.id}','title',this.value)">
+      <textarea class="input" placeholder="Describe this 5-year path..." style="width:100%;min-height:50px;margin-bottom:8px" onchange="updateOdyssey('${o.id}','description',this.value)">${esc(o.description)}</textarea>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        ${ratingBar('Resources',  'resources',  o.resources)}
+        ${ratingBar('Confidence', 'confidence', o.confidence)}
+        ${ratingBar('Likability', 'like',       o.like)}
+        ${ratingBar('Coherence',  'coherence',  o.coherence)}
+      </div>
+    </div>`}).join(''):'<p style="color:var(--dim);font-size:12px">No odyssey plans yet. Create 3 genuinely different versions of your next 5 years.</p>';
+
+  // Identity Statements
+  const ids=h.identities||[];
+  $('hzIdentityList').innerHTML=ids.length?ids.map(id=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+    <span style="font-size:16px;color:var(--green)">◆</span>
+    <span style="flex:1;font-size:13px;font-style:italic">"${esc(id.text)}"</span>
+    <button class="btn btn-danger btn-sm" onclick="delIdentity('${id.id}')" style="font-size:10px;padding:2px 6px">×</button>
+  </div>`).join(''):'<p style="color:var(--dim);font-size:12px">Write who you ARE, not what you want. Identity drives behavior.</p>';
+}
+
+function renderAll(){renderDash();renderTodayBlocks();renderHabitChains();renderStreakWarnings();renderInbox();renderStartup();renderExercise();renderCS();renderYouTube();renderPhD();renderBrain();renderHorizons();renderReview();checkBackup()}
 
 // ===== COMMAND PALETTE =====
 let cmdSel=0;
@@ -1618,6 +2228,8 @@ function getSearchItems(){
   items.push({type:'action',icon:'🖥',title:'Log CS entry',sub:'Quick action',content:'',action:()=>{closeCmd();showModal('csModal')}});
   items.push({type:'action',icon:'📄',title:'Add paper',sub:'Quick action',content:'',action:()=>{closeCmd();showModal('paperModal')}});
   items.push({type:'action',icon:'📝',title:'New knowledge note',sub:'Quick action',content:'',action:()=>{closeCmd();showModal('noteModal')}});
+  items.push({type:'action',icon:'🏔',title:'Dream Binder',sub:'Open horizons of focus',content:'',action:()=>{closeCmd();goPage('horizons')}});
+  items.push({type:'action',icon:'📋',title:'Export Dream Binder',sub:'Download as text file',content:'',action:()=>{closeCmd();exportHorizons()}});
   items.push({type:'action',icon:'🎬',title:'Log YouTube session',sub:'Quick action',content:'',action:()=>{closeCmd();showModal('ytModal')}});
   items.push({type:'action',icon:'💾',title:'Export data backup',sub:'Quick action',content:'',action:()=>{closeCmd();exportData()}});
   items.push({type:'action',icon:'⏱',title:'Start focus timer',sub:'Quick action',content:'',action:()=>{closeCmd();goPage('dashboard');if(!timerRunning)toggleTimer()}});
@@ -1844,8 +2456,8 @@ document.addEventListener('keydown',e=>{
 
   // Number keys 1-7 for tab navigation
   const num=parseInt(e.key);
-  if(num>=1&&num<=7&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
-    const pages=['dashboard','inbox','exercise','cs','phd','brain','review'];
+  if(num>=1&&num<=8&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
+    const pages=['dashboard','inbox','exercise','cs','phd','brain','horizons','review'];
     goPage(pages[num-1]);return;
   }
   // 'c' for quick capture
@@ -1878,7 +2490,7 @@ function closeBnMore(){
   const activePage=document.querySelector('.page.active');
   if(activePage){
     const p=activePage.id.replace('page-','');
-    const morePages=['brain','review'];
+    const morePages=['brain','horizons','review'];
     $('bnMoreBtn').classList.toggle('active',morePages.includes(p));
   }
 }
@@ -1887,7 +2499,7 @@ function bottomNavGo(page){
   goPage(page);
 }
 function syncBottomNav(page){
-  const morePages=['brain','review'];
+  const morePages=['brain','horizons','review'];
   document.querySelectorAll('#bottomNav .bn-item').forEach(b=>{
     if(b.id==='bnMoreBtn'){
       b.classList.toggle('active',morePages.includes(page));
