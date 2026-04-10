@@ -713,6 +713,9 @@ html{scroll-behavior:smooth}
 .now-bar.show{display:flex}
 .now-bar-pulse{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulseDot 2s ease-in-out infinite;flex-shrink:0}
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+@keyframes imminentGlow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.5)}50%{box-shadow:0 0 0 8px rgba(251,191,36,.08)}}
+#dTrackCard.imminent{border-color:var(--yellow);background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(251,146,60,.1));animation:imminentGlow 2.2s ease-in-out infinite}
+#dTrackCard.imminent #dNowTrackEyebrow{color:#d97706}
 .now-bar-icon{font-size:16px}
 .now-bar-name{font-weight:700}
 .now-bar-time{font-family:'JetBrains Mono','SF Mono',monospace;background:rgba(255,255,255,.2);padding:3px 9px;border-radius:10px;font-size:11px;letter-spacing:.5px;margin-left:auto;flex-shrink:0}
@@ -1314,19 +1317,26 @@ html{scroll-behavior:smooth}
 <div style="font-size:9px;color:var(--dim)" id="dNowNext"></div>
 </div>
 </div>
-<!-- Playbook Active Track panel — your next action surfaced on the dashboard -->
-<div id="dNowTrackRow" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(107,138,255,.25)">
-  <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;margin-bottom:5px">▶ Your next action <span style="opacity:.7;font-weight:500">· from Playbook</span></div>
-  <div id="dNowTrackNext" style="font-size:12.5px;line-height:1.55;color:var(--tx);margin-bottom:6px;white-space:pre-line;font-weight:500">—</div>
-  <div id="dNowTrackProg" style="display:none;font-size:10px;color:var(--accent);font-weight:700;margin-bottom:6px;font-family:'JetBrains Mono',monospace">—</div>
-  <div id="dNowTrackExit" style="display:none;font-size:10px;color:var(--dim);line-height:1.5;margin-bottom:8px;font-style:italic;padding:6px 9px;background:rgba(251,191,36,.08);border-left:2px solid var(--yellow);border-radius:4px">—</div>
-  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-    <button onclick="dNowStartTrack()" style="background:var(--accent);color:#fff;border:0;padding:7px 14px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">▶ Start block</button>
-    <button onclick="dNowEditTrack()" style="background:var(--s2);color:var(--tx);border:1px solid var(--border);padding:7px 14px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">✏️ Edit</button>
-    <button onclick="goPage('playbook')" style="background:transparent;color:var(--dim);border:1px solid var(--border);padding:7px 14px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Open Playbook →</button>
-    <span id="dNowTrackStreak" style="margin-left:auto;font-size:10px;font-weight:700;color:var(--dim)">—</span>
-  </div>
 </div>
+
+<!-- Learning Block Track card — surfaces the Playbook Active Track for the
+     current or upcoming learning block. Visible during CVC work hours too. -->
+<div id="dTrackCard" style="display:none;background:linear-gradient(135deg,rgba(107,138,255,.1),rgba(167,139,250,.08));border:1px solid var(--accent);border-radius:var(--rs);padding:14px 16px;margin-bottom:12px;transition:all .3s">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px">
+    <div style="flex:1;min-width:0">
+      <div id="dNowTrackEyebrow" style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;margin-bottom:3px">▶ Your next action</div>
+      <div id="dNowTrackTitle" style="font-size:13px;font-weight:700;color:var(--tx);word-break:break-word">—</div>
+    </div>
+    <span id="dNowTrackStreak" style="font-size:10px;font-weight:700;color:var(--dim);flex-shrink:0;white-space:nowrap">—</span>
+  </div>
+  <div id="dNowTrackNext" style="font-size:12.5px;line-height:1.55;color:var(--tx);margin-bottom:7px;white-space:pre-line;font-weight:500;padding:8px 11px;background:var(--s2);border-radius:7px;border-left:3px solid var(--accent)">—</div>
+  <div id="dNowTrackProg" style="display:none;font-size:10px;color:var(--accent);font-weight:700;margin-bottom:7px;font-family:'JetBrains Mono',monospace">—</div>
+  <div id="dNowTrackExit" style="display:none;font-size:10px;color:var(--dim);line-height:1.5;margin-bottom:9px;font-style:italic;padding:7px 11px;background:rgba(251,191,36,.08);border-left:2px solid var(--yellow);border-radius:5px">—</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+    <button onclick="dNowStartTrack()" style="background:var(--accent);color:#fff;border:0;padding:8px 15px;border-radius:7px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit">▶ Start block</button>
+    <button onclick="dNowEditTrack()" style="background:var(--s2);color:var(--tx);border:1px solid var(--border);padding:8px 15px;border-radius:7px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit">✏️ Edit</button>
+    <button onclick="goPage('playbook')" style="background:transparent;color:var(--dim);border:1px solid var(--border);padding:8px 15px;border-radius:7px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit">Open Playbook →</button>
+  </div>
 </div>
 
 <!-- Energy Curve -->
@@ -2436,8 +2446,10 @@ html{scroll-behavior:smooth}
 <!-- SEARCH BAR -->
 <div class="pb-search-wrap">
   <svg class="pb-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-  <input class="pb-search" id="pbSearch" placeholder="Search across all resources, papers, projects, faculty..." />
+  <input class="pb-search" id="pbSearch" placeholder="Search tracks, exit notes, resources, papers, projects..." />
 </div>
+<!-- Cross-pane track/exit-note search results -->
+<div id="pbTrackSearchResults" style="display:none;margin-bottom:14px"></div>
 
 <div class="pb-tabs">
   <button class="pb-tab" data-pbtab="overview"><span class="pb-tab-icon">📊</span>All Tracks</button>
@@ -2456,7 +2468,12 @@ html{scroll-behavior:smooth}
       <div class="pb-ov-heading">All Tracks — Planning View</div>
       <div class="pb-ov-sub">Sunday weekly review · morning preflight · mentor-ready snapshot</div>
     </div>
-    <button class="pb-ov-copy-btn" onclick="pbCopyReport()">📋 Copy progress report</button>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="pb-ov-copy-btn" onclick="pbCopyReport()">📋 Copy progress report</button>
+      <button class="pb-ov-copy-btn" onclick="pbExportBackup()" style="background:var(--purple)">⬇️ Backup</button>
+      <button class="pb-ov-copy-btn" onclick="document.getElementById('pbImportFile').click()" style="background:var(--s2);color:var(--tx);border:1px solid var(--border)">⬆️ Restore</button>
+      <input type="file" id="pbImportFile" accept="application/json,.json" style="display:none" onchange="pbImportBackup(event)" />
+    </div>
   </div>
   <div id="pbOvPreflight"></div>
   <div class="pb-overview" id="pbOverviewGrid"></div>
@@ -3923,11 +3940,12 @@ function renderDash(){
     const minsLeft=Math.round((nowBlock.h2-hour)*60);
     $('dNowTimer').textContent=minsLeft+'m left';
     $('dNowNext').textContent=nextBlock?'Next: '+nextBlock.n.replace(/^[^\s]+ /,''):'Last block of the day';
-    // Surface the Playbook Active Track for this block, if any
-    dRenderNowTrack(nowBlock.n);
   } else {
     $('dNowBox').style.display='none';
   }
+  // Render the Learning Block Track card independently — uses Schedule data
+  // so it can preview the next learning block during CVC work hours too
+  dRenderNowTrack();
 
   // MVD button state
   $('dMvdBtn').textContent=mvdMode?'Full Day':'Minimum Day';
@@ -5132,6 +5150,59 @@ function pbRenderOverview(){
   }).join('');
 }
 
+function pbExportBackup(){
+  const data={
+    version:1,
+    exportedAt:new Date().toISOString(),
+    pbTracks:S.pbTracks||{},
+    pbCompletedMissions:S.pbCompletedMissions||{}
+  };
+  const json=JSON.stringify(data,null,2);
+  try{
+    const blob=new Blob([json],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download='playbook-backup-'+td()+'.json';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url),2000);
+    toast('📦 Backup downloaded — store it somewhere safe');
+  }catch(e){
+    // Fallback: clipboard
+    try{navigator.clipboard.writeText(json).then(()=>toast('📋 Backup copied to clipboard'))}
+    catch(e2){alert('Backup failed: '+e2.message)}
+  }
+}
+
+function pbImportBackup(e){
+  const file=e.target.files?.[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(!data||typeof data!=='object'||!data.pbTracks)throw new Error('Not a valid Playbook backup');
+      const count=Object.keys(data.pbTracks).length;
+      const exportedAt=data.exportedAt?new Date(data.exportedAt).toLocaleString():'unknown';
+      if(!confirm(`Restore backup from ${exportedAt}?\n\nThis will OVERWRITE your current tracks (${count} panes).\n\nYour current data will be lost.`)){
+        e.target.value='';
+        return;
+      }
+      S.pbTracks=data.pbTracks;
+      if(data.pbCompletedMissions)S.pbCompletedMissions=data.pbCompletedMissions;
+      save();
+      if(typeof pbRenderTrack==='function')pbRenderTrack();
+      if(typeof pbRenderOverview==='function')pbRenderOverview();
+      if(typeof dRenderNowTrack==='function')dRenderNowTrack();
+      toast('✅ Backup restored · '+count+' panes');
+    }catch(err){
+      alert('Import failed: '+err.message);
+    }
+    e.target.value='';
+  };
+  reader.onerror=()=>alert('Failed to read file');
+  reader.readAsText(file);
+}
+
 function pbCopyReport(){
   const lines=['# Playbook Progress Report · '+td(),''];
   const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -5362,30 +5433,51 @@ setInterval(()=>{
   }
 },15000);
 
-// === DASHBOARD Active Track surface ===
-// Map dashboard block names to Playbook pane keys. Dashboard blocks use emoji + name.
-const D_NOW_PANE_PATTERNS=[
-  {re:/CS Theory|CLRS/i,pane:'clrs'},
-  {re:/CS Build|Project Build|Build → PhD/i,pane:'build'},
-  {re:/PhD Deep Write|Deep Write/i,pane:'write'},
-  {re:/PhD Prep|PhD Deep|PhD$/i,pane:'phd'},
-  {re:/YouTube/i,pane:'youtube'}
-];
-
-function dPaneForBlockName(name){
-  if(!name)return null;
-  for(const p of D_NOW_PANE_PATTERNS){if(p.re.test(name))return p.pane}
-  return null;
-}
-
-function dRenderNowTrack(blockName){
-  const row=document.getElementById('dNowTrackRow');if(!row)return;
-  const pane=dPaneForBlockName(blockName);
-  if(!pane||typeof pbGetTrack!=='function'){row.style.display='none';return}
+// === DASHBOARD Learning Track card ===
+// Uses the Schedule system (getCurrentSchedBlock / getNextSchedBlock) so it's
+// accurate across weekdays/weekends and across all PB_PANE_FOR_BLOCK mappings.
+function dRenderNowTrack(){
+  const card=document.getElementById('dTrackCard');
+  if(!card)return;
+  if(typeof pbGetTrack!=='function'){card.style.display='none';return}
+  let pane=null,mode='now',minsUntil=0;
+  try{
+    const cur=(typeof getCurrentSchedBlock==='function')?getCurrentSchedBlock():null;
+    if(cur&&PB_PANE_FOR_BLOCK[cur.key]){
+      pane=PB_PANE_FOR_BLOCK[cur.key];
+      mode='now';
+    }else{
+      const nxt=(typeof getNextSchedBlock==='function')?getNextSchedBlock():null;
+      if(nxt&&PB_PANE_FOR_BLOCK[nxt.key]){
+        pane=PB_PANE_FOR_BLOCK[nxt.key];
+        mode='next';
+        const h=new Date().getHours()+new Date().getMinutes()/60;
+        minsUntil=Math.max(0,Math.round((nxt.h1-h)*60));
+      }
+    }
+  }catch(e){}
+  if(!pane){card.style.display='none';return}
   const t=pbGetTrack(pane);
-  const meta=(typeof PB_PANE_META!=='undefined')?PB_PANE_META[pane]:null;
-  row.style.display='block';
-  row.dataset.pane=pane;
+  const meta=PB_PANE_META[pane];
+  card.style.display='block';
+  card.dataset.pane=pane;
+  // Imminent warning state: within 5 minutes of next block start
+  if(mode==='next'&&minsUntil>0&&minsUntil<=5){
+    card.classList.add('imminent');
+  }else{
+    card.classList.remove('imminent');
+  }
+  const eyebrow=$('dNowTrackEyebrow');
+  if(mode==='now'){
+    eyebrow.innerHTML=`▶ In progress · <strong>${esc(meta.name)}</strong>`;
+  }else if(minsUntil<=5){
+    eyebrow.innerHTML=`🔔 Starting in ${minsUntil} min · <strong>${esc(meta.name)}</strong>`;
+  }else{
+    const h=Math.floor(minsUntil/60),m=minsUntil%60;
+    const untilStr=h>0?h+'h '+m+'m':m+'m';
+    eyebrow.innerHTML=`🕐 Coming up in ${untilStr} · <strong>${esc(meta.name)}</strong>`;
+  }
+  $('dNowTrackTitle').textContent=t.title||'(focus not set)';
   $('dNowTrackNext').textContent=t.nextAction||'(no next action set — click Edit to define it)';
   if(t.progress){
     $('dNowTrackProg').style.display='';
@@ -5393,14 +5485,14 @@ function dRenderNowTrack(blockName){
   }else{$('dNowTrackProg').style.display='none'}
   if(t.exitNote){
     $('dNowTrackExit').style.display='';
-    $('dNowTrackExit').textContent='📝 Last session: "'+(t.exitNote.length>180?t.exitNote.slice(0,180)+'…':t.exitNote)+'"';
+    $('dNowTrackExit').textContent='📝 Last: "'+(t.exitNote.length>180?t.exitNote.slice(0,180)+'…':t.exitNote)+'"';
   }else{$('dNowTrackExit').style.display='none'}
-  const streak=(typeof pbCalcStreak==='function')?pbCalcStreak(t):(t.streak||0);
-  $('dNowTrackStreak').textContent='🔥 '+streak+(meta?' · '+meta.duration+'m block':'');
+  const streak=pbCalcStreak(t);
+  $('dNowTrackStreak').textContent='🔥 '+streak+' · '+meta.duration+'m';
 }
 
 function dNowStartTrack(){
-  const pane=$('dNowTrackRow').dataset.pane;
+  const pane=$('dTrackCard').dataset.pane;
   if(!pane)return;
   goPage('playbook');
   setTimeout(()=>{
@@ -5410,7 +5502,7 @@ function dNowStartTrack(){
 }
 
 function dNowEditTrack(){
-  const pane=$('dNowTrackRow').dataset.pane;
+  const pane=$('dTrackCard').dataset.pane;
   if(!pane)return;
   goPage('playbook');
   setTimeout(()=>{
@@ -5418,6 +5510,35 @@ function dNowEditTrack(){
     setTimeout(()=>pbtOpenEdit(),120);
   },120);
 }
+
+// Proactive block-start warning (toast once per block per day at ≤5 min)
+let dLastWarnedBlock=null;
+function dCheckBlockWarning(){
+  try{
+    const nxt=(typeof getNextSchedBlock==='function')?getNextSchedBlock():null;
+    if(!nxt)return;
+    const pane=PB_PANE_FOR_BLOCK[nxt.key];
+    if(!pane)return;
+    const h=new Date().getHours()+new Date().getMinutes()/60;
+    const minsUntil=Math.round((nxt.h1-h)*60);
+    if(minsUntil<=0||minsUntil>5)return;
+    const key=td()+'_'+nxt.key;
+    if(dLastWarnedBlock===key)return;
+    dLastWarnedBlock=key;
+    try{S.pbLastWarnedBlock=key;save()}catch(e){}
+    const t=pbGetTrack(pane);
+    const meta=PB_PANE_META[pane];
+    const preview=t.nextAction?' · '+t.nextAction.slice(0,60)+(t.nextAction.length>60?'…':''):' · set next action!';
+    toast(`🔔 ${meta.name} in ${minsUntil}m${preview}`);
+  }catch(e){}
+}
+// Restore last-warned state across reloads so we don't double-warn
+try{if(S&&S.pbLastWarnedBlock)dLastWarnedBlock=S.pbLastWarnedBlock}catch(e){}
+// 30s interval: faster than renderDash's natural cadence so the 5-min warning fires crisply
+setInterval(()=>{
+  dCheckBlockWarning();
+  if(document.getElementById('page-dashboard')?.classList.contains('active'))dRenderNowTrack();
+},30000);
 
 function pbtCopyFile(){
   const pane=$('pbTrack').dataset.pane||pbCurrentPane();
@@ -5486,20 +5607,65 @@ function pbUpdateStats(){
 function pbSearch(q){
   const query=q.toLowerCase().trim();
   const activePane=document.querySelector('#page-playbook .pb-pane.active');
-  if(!activePane)return;
-  const cards=activePane.querySelectorAll('.pb-card, .pb-resource');
-  let anyVisible=false;
-  if(!query){
-    cards.forEach(c=>c.classList.remove('hidden'));
+  if(activePane){
+    const cards=activePane.querySelectorAll('.pb-card, .pb-resource');
+    if(!query){
+      cards.forEach(c=>c.classList.remove('hidden'));
+    }else{
+      activePane.querySelectorAll('.pb-card').forEach(card=>{
+        const text=card.textContent.toLowerCase();
+        card.classList.toggle('hidden',!text.includes(query));
+      });
+    }
+  }
+  pbRenderTrackSearch(query);
+}
+
+function pbRenderTrackSearch(query){
+  const box=document.getElementById('pbTrackSearchResults');
+  if(!box)return;
+  if(!query||query.length<2){box.style.display='none';box.innerHTML='';return}
+  if(!S.pbTracks){box.style.display='none';return}
+  const matches=[];
+  for(const pane of PB_ALL_PANES){
+    const t=S.pbTracks[pane];
+    if(!t)continue;
+    const fields=[
+      {k:'Current focus',v:t.title||''},
+      {k:'Next action',v:t.nextAction||''},
+      {k:'Progress',v:t.progress||''},
+      {k:'Exit note',v:t.exitNote||'',date:t.exitNoteDate||''}
+    ];
+    for(const h of (t.exitHistory||[])){
+      if(!h||!h.note)continue;
+      if(h.note===t.exitNote)continue; // skip the current one (already above)
+      fields.push({k:'Exit history',v:h.note,date:h.date||''});
+    }
+    for(const f of fields){
+      if(!f.v)continue;
+      const idx=f.v.toLowerCase().indexOf(query);
+      if(idx===-1)continue;
+      matches.push({pane,field:f.k,text:f.v,date:f.date||'',idx});
+    }
+  }
+  if(!matches.length){
+    box.style.display='';
+    box.innerHTML=`<div style="padding:14px;background:var(--s1);border:1px solid var(--border);border-radius:10px;font-size:12px;color:var(--dim);text-align:center">No track matches for "${esc(query)}" — searching static resources below.</div>`;
     return;
   }
-  // Hide cards entirely if no resources match within them
-  activePane.querySelectorAll('.pb-card').forEach(card=>{
-    let cardHasMatch=false;
-    const text=card.textContent.toLowerCase();
-    if(text.includes(query)){cardHasMatch=true;anyVisible=true}
-    card.classList.toggle('hidden',!cardHasMatch);
-  });
+  box.style.display='';
+  const items=matches.slice(0,12).map(m=>{
+    const meta=PB_PANE_META[m.pane];
+    // Windowed snippet around match with highlight
+    const start=Math.max(0,m.idx-40);
+    const end=Math.min(m.text.length,m.idx+query.length+80);
+    const before=(start>0?'…':'')+m.text.slice(start,m.idx);
+    const match=m.text.slice(m.idx,m.idx+query.length);
+    const after=m.text.slice(m.idx+query.length,end)+(end<m.text.length?'…':'');
+    const snippet=esc(before)+'<mark style="background:rgba(251,191,36,.5);color:inherit;padding:0 2px;border-radius:2px">'+esc(match)+'</mark>'+esc(after);
+    return `<div onclick="pbSwitchPane('${m.pane}')" style="padding:10px 13px;margin-bottom:6px;background:var(--s1);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--accent);cursor:pointer;transition:all .12s" onmouseover="this.style.borderLeftWidth='5px'" onmouseout="this.style.borderLeftWidth='3px'"><div style="font-size:9px;color:var(--dim);letter-spacing:.5px;text-transform:uppercase;font-weight:700;margin-bottom:3px">${meta.icon} ${esc(meta.name)} · ${esc(m.field)}${m.date?' · '+esc(m.date):''}</div><div style="font-size:12px;line-height:1.5;color:var(--tx)">${snippet}</div></div>`;
+  }).join('');
+  box.innerHTML=`<div style="padding:12px 14px;background:var(--s2);border:1px solid var(--border);border-radius:10px"><div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin-bottom:8px">🔍 Track matches · ${matches.length}${matches.length>12?' (showing 12)':''}</div>${items}</div>`;
 }
 
 // === ACTIVE BLOCK GLOW ===
