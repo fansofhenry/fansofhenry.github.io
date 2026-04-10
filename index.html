@@ -708,6 +708,74 @@ html{scroll-behavior:smooth}
 .hz-book-chk.read{background:var(--green);border-color:var(--green)}
 .hz-book-chk.read::after{content:'✓';color:#fff;font-size:9px;font-weight:700}
 
+/* === PERSISTENT NOW BAR === */
+.now-bar{position:sticky;top:0;z-index:101;background:linear-gradient(90deg,var(--accent),var(--purple));color:#fff;display:none;align-items:center;gap:12px;padding:6px 16px;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.now-bar.show{display:flex}
+.now-bar-pulse{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulseDot 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.now-bar-icon{font-size:16px}
+.now-bar-name{font-weight:700}
+.now-bar-time{font-family:'JetBrains Mono','SF Mono',monospace;background:rgba(255,255,255,.2);padding:3px 9px;border-radius:10px;font-size:11px;letter-spacing:.5px;margin-left:auto;flex-shrink:0}
+.now-bar-action{background:rgba(255,255,255,.25);border:none;color:#fff;padding:4px 12px;border-radius:14px;font-size:11px;font-weight:700;cursor:pointer;transition:background .15s;flex-shrink:0;font-family:inherit}
+.now-bar-action:hover{background:rgba(255,255,255,.4)}
+.now-bar-progress{position:absolute;left:0;bottom:0;height:2px;background:rgba(255,255,255,.6);transition:width 1s linear;width:0}
+.now-bar-close{background:none;border:none;color:#fff;font-size:18px;cursor:pointer;padding:0 4px;opacity:.7;flex-shrink:0}
+.now-bar-close:hover{opacity:1}
+.now-bar-detail{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.85;font-weight:500}
+@media(max-width:640px){
+  .now-bar-detail{display:none}
+  .now-bar-name{font-size:11px}
+}
+
+/* === MORNING BRIEFING MODAL === */
+.briefing-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;animation:fadeIn .3s ease}
+.briefing-bg.show{display:flex}
+.briefing-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:32px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.5);animation:briefingIn .35s cubic-bezier(.4,0,.2,1)}
+@keyframes briefingIn{0%{opacity:0;transform:scale(.94) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.briefing-header{text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.briefing-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.briefing-title{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.briefing-sub{font-size:13px;color:var(--dim)}
+.briefing-section{margin-bottom:20px}
+.briefing-section h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:10px}
+.briefing-block{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--s2);border-radius:10px;margin-bottom:6px;border-left:3px solid var(--accent)}
+.briefing-block-icon{font-size:18px}
+.briefing-block-info{flex:1;min-width:0}
+.briefing-block-name{font-size:13px;font-weight:600}
+.briefing-block-time{font-size:10px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+.briefing-quote{padding:14px 16px;background:linear-gradient(135deg,var(--accent-g),var(--purple-g));border-radius:10px;font-size:13px;font-style:italic;color:var(--tx);text-align:center;line-height:1.5;margin-bottom:16px;border:1px solid var(--accent)}
+.briefing-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.briefing-stat{padding:10px;background:var(--s2);border-radius:8px;text-align:center}
+.briefing-stat-val{font-size:18px;font-weight:800;color:var(--accent)}
+.briefing-stat-label{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.briefing-actions{display:flex;gap:8px;margin-top:8px}
+.briefing-btn{flex:1;padding:12px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
+.briefing-btn-primary{background:var(--accent);color:#fff}
+.briefing-btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.briefing-btn-secondary{background:var(--s2);color:var(--tx);border:1px solid var(--border)}
+.briefing-btn-secondary:hover{border-color:var(--accent)}
+
+/* === DRIFT BANNER === */
+.drift-banner{background:rgba(251,191,36,.12);border:1px solid var(--yellow);border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px;animation:slideDown .3s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.drift-banner .drift-icon{font-size:18px}
+.drift-banner .drift-text{flex:1;color:var(--tx)}
+.drift-banner .drift-text strong{color:var(--yellow)}
+.drift-banner button{background:var(--yellow);border:none;color:#000;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+
+/* === CELL CLICK MODAL === */
+.cell-modal-bg{position:fixed;inset:0;z-index:250;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.cell-modal-bg.show{display:flex;animation:fadeIn .2s ease}
+.cell-modal{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:480px;width:100%;animation:briefingIn .25s ease}
+.cell-modal-icon{font-size:32px;margin-bottom:8px}
+.cell-modal-name{font-size:20px;font-weight:800;margin-bottom:4px}
+.cell-modal-time{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);margin-bottom:16px}
+.cell-modal-protocol{font-size:13px;color:var(--tx);line-height:1.6;padding:14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--accent);margin-bottom:14px}
+.cell-modal-science{font-size:11px;color:var(--dim);font-style:italic;margin-bottom:18px;line-height:1.5}
+.cell-modal-actions{display:flex;gap:8px}
+#page-schedule td .c{cursor:pointer}
+#page-schedule td .c:hover{transform:scale(1.01)}
+
 /* Password Gate */
 .pw-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .3s}
 .pw-gate.hidden{opacity:0;pointer-events:none}
@@ -758,6 +826,58 @@ html{scroll-behavior:smooth}
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&inp.value.length<4){inp.classList.add('pw-err');msg.textContent='Enter 4 digits';setTimeout(function(){inp.classList.remove('pw-err')},400)}});
 })();
 </script>
+
+<!-- Persistent NOW Bar -->
+<div class="now-bar" id="nowBar" onclick="goSchedule()" style="cursor:pointer;position:relative">
+  <span class="now-bar-pulse"></span>
+  <span class="now-bar-icon" id="nowBarIcon">⚡</span>
+  <span class="now-bar-name" id="nowBarName">—</span>
+  <span class="now-bar-detail" id="nowBarDetail"></span>
+  <span class="now-bar-time" id="nowBarTime">--:--</span>
+  <button class="now-bar-action" onclick="event.stopPropagation();focusCurrentBlock()">Focus</button>
+  <button class="now-bar-close" onclick="event.stopPropagation();dismissNowBar()" title="Hide for this session">×</button>
+  <div class="now-bar-progress" id="nowBarProgress"></div>
+</div>
+
+<!-- Daily Morning Briefing Modal -->
+<div class="briefing-bg" id="briefingModal">
+  <div class="briefing-card">
+    <div class="briefing-header">
+      <div class="briefing-eyebrow">⚡ Morning Briefing</div>
+      <div class="briefing-title" id="briefingTitle">Good morning, Henry</div>
+      <div class="briefing-sub" id="briefingSub"></div>
+    </div>
+    <div class="briefing-quote" id="briefingQuote"></div>
+    <div class="briefing-stat-row">
+      <div class="briefing-stat"><div class="briefing-stat-val" id="briefingExStreak">0</div><div class="briefing-stat-label">Ex Streak</div></div>
+      <div class="briefing-stat"><div class="briefing-stat-val" id="briefingCsHrs">0</div><div class="briefing-stat-label">CS Hrs/Wk</div></div>
+      <div class="briefing-stat"><div class="briefing-stat-val" id="briefingPapers">0</div><div class="briefing-stat-label">Papers</div></div>
+    </div>
+    <div class="briefing-section">
+      <h4>Today's Focus Blocks</h4>
+      <div id="briefingBlocks"></div>
+    </div>
+    <div class="briefing-actions">
+      <button class="briefing-btn briefing-btn-secondary" onclick="dismissBriefing()">Maybe later</button>
+      <button class="briefing-btn briefing-btn-primary" onclick="startDayFromBriefing()">Let's go →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cell Click Modal -->
+<div class="cell-modal-bg" id="cellModal" onclick="if(event.target===this)hideCellModal()">
+  <div class="cell-modal">
+    <div class="cell-modal-icon" id="cellModalIcon">⚡</div>
+    <div class="cell-modal-name" id="cellModalName">—</div>
+    <div class="cell-modal-time" id="cellModalTime">—</div>
+    <div class="cell-modal-protocol" id="cellModalProtocol">—</div>
+    <div class="cell-modal-science" id="cellModalScience"></div>
+    <div class="cell-modal-actions">
+      <button class="briefing-btn briefing-btn-secondary" onclick="hideCellModal()">Close</button>
+      <button class="briefing-btn briefing-btn-primary" onclick="hideCellModal();focusCurrentBlock()">Start Focus Timer</button>
+    </div>
+  </div>
+</div>
 
 <nav class="nav"><div class="nav-inner">
 <div class="nav-brand">The System <span>v2.0</span></div>
@@ -3302,7 +3422,180 @@ setInterval(()=>{
   if(schedPage&&schedPage.classList.contains('active')){
     renderSchNowHero();
   }
+  renderNowBar();
 },1000);
+
+// ===== PERSISTENT NOW BAR =====
+let nowBarDismissed=false;
+function renderNowBar(){
+  const bar=document.getElementById('nowBar');
+  if(!bar)return;
+  if(nowBarDismissed){bar.classList.remove('show');return}
+  const cur=getCurrentSchedBlock();
+  if(!cur||cur.key==='sleep'||cur.key==='wind'||cur.key==='break'){bar.classList.remove('show');return}
+  bar.classList.add('show');
+  const now=new Date();
+  const hour=now.getHours()+now.getMinutes()/60+now.getSeconds()/3600;
+  const elapsed=hour-cur.h1;
+  const total=cur.h2-cur.h1;
+  const remaining=total-elapsed;
+  const remMin=Math.floor(remaining*60);
+  const remSec=Math.floor((remaining*60-remMin)*60);
+  document.getElementById('nowBarIcon').textContent=cur.icon;
+  document.getElementById('nowBarName').textContent=cur.name;
+  document.getElementById('nowBarDetail').textContent='· '+(cur.protocol||'').split('.')[0];
+  document.getElementById('nowBarTime').textContent=`${remMin}:${String(remSec).padStart(2,'0')} left`;
+  document.getElementById('nowBarProgress').style.width=Math.min((elapsed/total)*100,100)+'%';
+}
+function dismissNowBar(){nowBarDismissed=true;document.getElementById('nowBar').classList.remove('show')}
+function goSchedule(){
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const tab=document.querySelector('.nav-tab[data-page="schedule"]');
+  if(tab)tab.classList.add('active');
+  const page=document.getElementById('page-schedule');
+  if(page){page.classList.add('active');page.scrollIntoView({behavior:'smooth',block:'start'})}
+  renderSchedulePage();
+}
+function focusCurrentBlock(){
+  // Trigger the existing focus timer for the current block
+  const cur=getCurrentSchedBlock();
+  if(!cur)return;
+  const remMin=Math.ceil((cur.h2-(new Date().getHours()+new Date().getMinutes()/60))*60);
+  if(typeof startTimer==='function'){
+    startTimer(remMin*60);
+    toast('Focus timer started · '+remMin+' min');
+  } else {
+    goSchedule();
+  }
+}
+
+// ===== MORNING BRIEFING =====
+function shouldShowBriefing(){
+  const today=td();
+  if(S.lastBriefing===today)return false;
+  const h=new Date().getHours();
+  return h>=5&&h<11;
+}
+function showBriefing(){
+  const modal=document.getElementById('briefingModal');
+  if(!modal)return;
+  const now=new Date(),dow=now.getDay();
+  const dayName=DAY_NAMES[dow];
+  document.getElementById('briefingTitle').textContent=`Good morning, Henry`;
+  document.getElementById('briefingSub').textContent=`${dayName} · ${now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}`;
+
+  // Stats
+  document.getElementById('briefingExStreak').textContent=S.exercise?exStreak():0;
+  const csHrs=S.cs?S.cs.filter(e=>inWk(e.date)).reduce((s,e)=>s+e.hours,0).toFixed(1):0;
+  document.getElementById('briefingCsHrs').textContent=csHrs;
+  document.getElementById('briefingPapers').textContent=S.papers?S.papers.filter(p=>inWk(p.date)).length:0;
+
+  // Today's blocks
+  const blocks=getCurrentSchedBlocks().filter(b=>!['sleep','wind','break','family','rest'].includes(b.key));
+  document.getElementById('briefingBlocks').innerHTML=blocks.slice(0,6).map(b=>
+    `<div class="briefing-block"><span class="briefing-block-icon">${b.icon}</span><div class="briefing-block-info"><div class="briefing-block-name">${b.name}</div><div class="briefing-block-time">${b.time}</div></div></div>`
+  ).join('');
+
+  // Quote
+  const quotes=[
+    '"The chains of habit are too light to be felt until they are too heavy to be broken." — Warren Buffett',
+    '"You do not rise to the level of your goals. You fall to the level of your systems." — James Clear',
+    '"Discipline equals freedom." — Jocko Willink',
+    '"Your mind is for having ideas, not holding them." — David Allen',
+    '"What gets measured gets managed." — Peter Drucker',
+    '"The best time to plant a tree was 20 years ago. The second best time is now." — Chinese proverb',
+    '"Make the obvious choice the easy choice." — BJ Fogg',
+    '"Compound interest is the eighth wonder of the world." — Einstein (allegedly)',
+    '"Done is better than perfect." — Sheryl Sandberg',
+    '"You are what you repeatedly do. Excellence, then, is not an act, but a habit." — Will Durant'
+  ];
+  const dayIdx=Math.floor((Date.now()/86400000))%quotes.length;
+  document.getElementById('briefingQuote').textContent=quotes[dayIdx];
+
+  modal.classList.add('show');
+}
+function dismissBriefing(){
+  document.getElementById('briefingModal').classList.remove('show');
+  S.lastBriefing=td();save();
+}
+function startDayFromBriefing(){
+  dismissBriefing();
+  goSchedule();
+}
+
+// ===== CELL CLICK MODAL =====
+function showCellModal(blockKey){
+  const blocks=[...SCHED_BLOCKS.weekday,...SCHED_BLOCKS.saturday,...SCHED_BLOCKS.sunday];
+  const b=blocks.find(x=>x.key===blockKey);
+  if(!b)return;
+  document.getElementById('cellModalIcon').textContent=b.icon;
+  document.getElementById('cellModalName').textContent=b.name;
+  document.getElementById('cellModalTime').textContent=b.time;
+  document.getElementById('cellModalProtocol').textContent='⚡ '+b.protocol;
+  const science={
+    exercise:'Ratey (2008): Morning exercise ↑ BDNF 200-300%, primes hippocampus for memory formation. The 2-hr post-exercise window is peak neuroplasticity.',
+    cs_theory:'Kahneman (2011): Peak System 2 thinking 2-3 hrs post-wake. Karpicke (2011): Retrieval practice creates more durable memory than re-reading.',
+    cs_build:'Wieth & Zacks (2011): Off-peak hours actually favor insight problems and creative thinking. Build sessions leverage this paradox.',
+    work:'GTD (Allen): Use @work contexts to batch by tool/location. Reduces decision fatigue and context switching.',
+    phd_deep:'Cepeda (2006): Spacing effect — daily 30 min beats binge sessions. Compounds powerfully over months.',
+    phd_write:'Boice (1990): Daily writers published 9× more than binge writers. Sunday morning peak cognition for hardest task.',
+    youtube:'Karpicke (2011): Teaching = strongest retrieval practice. Generation effect (Slamecka 1978): producing > consuming.',
+    sleep:'Walker (2017): Sleep wires today\'s learning. SWS replays declarative memory; REM consolidates procedural skills.',
+    shutdown:'Newport (2016): Shutdown ritual clears attention residue (Leroy 2009). Prevents work bleeding into rest.'
+  };
+  document.getElementById('cellModalScience').textContent=science[blockKey]||'';
+  document.getElementById('cellModal').classList.add('show');
+}
+function hideCellModal(){document.getElementById('cellModal').classList.remove('show')}
+
+// Wire up cell clicks on schedule grid
+function wireScheduleCells(){
+  const cells=document.querySelectorAll('#page-schedule .schedule-wrap .c');
+  cells.forEach(cell=>{
+    if(cell.dataset.wired)return;
+    cell.dataset.wired='1';
+    cell.addEventListener('click',(e)=>{
+      const cls=cell.className;
+      const map={'c-exercise':'exercise','c-theory':'cs_theory','c-work':'work','c-build':'cs_build','c-phd':'phd_deep','c-youtube':'youtube','c-shutdown':'shutdown','c-sleep':'sleep','c-review':'review','c-rest':'rest','c-wind':'wind','c-family':'family'};
+      for(const k in map){if(cls.includes(k)){showCellModal(map[k]);return}}
+    });
+  });
+}
+
+// Auto-scroll Schedule page to current block when activated
+let lastSchedActive=false;
+function checkScheduleActivation(){
+  const sched=document.getElementById('page-schedule');
+  if(!sched)return;
+  const isActive=sched.classList.contains('active');
+  if(isActive&&!lastSchedActive){
+    setTimeout(()=>{
+      wireScheduleCells();
+      const hero=document.getElementById('schNowHero');
+      if(hero&&hero.style.display!=='none'){
+        hero.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    },200);
+  }
+  lastSchedActive=isActive;
+}
+setInterval(checkScheduleActivation,300);
+
+// Show briefing on page load if appropriate
+setTimeout(()=>{
+  if(typeof S!=='undefined'&&S&&shouldShowBriefing()){
+    showBriefing();
+  }
+},800);
+
+// Escape key closes modals
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.getElementById('briefingModal')?.classList.remove('show');
+    document.getElementById('cellModal')?.classList.remove('show');
+  }
+});
 
 // ===== COMMAND PALETTE =====
 let cmdSel=0;
