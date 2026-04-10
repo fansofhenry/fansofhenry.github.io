@@ -875,6 +875,60 @@ html{scroll-behavior:smooth}
   #page-playbook .pb-title{font-size:22px}
 }
 
+/* === PLAYBOOK V2 UPGRADES === */
+#page-playbook .pb-mission{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;border-radius:14px;padding:20px 24px;margin-bottom:20px;box-shadow:0 8px 32px rgba(107,138,255,.25);position:relative;overflow:hidden}
+#page-playbook .pb-mission::before{content:'';position:absolute;top:-30%;right:-15%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+#page-playbook .pb-mission-eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;opacity:.85;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+#page-playbook .pb-mission-pulse{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulseDot 2s ease-in-out infinite}
+#page-playbook .pb-mission-title{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;line-height:1.3}
+#page-playbook .pb-mission-detail{font-size:12px;opacity:.92;line-height:1.6;margin-bottom:12px}
+#page-playbook .pb-mission-actions{display:flex;gap:8px;flex-wrap:wrap}
+#page-playbook .pb-mission-btn{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+#page-playbook .pb-mission-btn:hover{background:rgba(255,255,255,.35)}
+#page-playbook .pb-mission-btn-primary{background:#fff;color:var(--accent)}
+#page-playbook .pb-mission-btn-primary:hover{background:#fff;opacity:.92}
+
+/* Progress bar at top of each pane */
+#page-playbook .pb-pane-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+#page-playbook .pb-pane-stat{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-align:left}
+#page-playbook .pb-pane-stat-val{font-size:20px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+#page-playbook .pb-pane-stat-label{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+@media(max-width:700px){#page-playbook .pb-pane-stats{grid-template-columns:repeat(2,1fr)}}
+
+/* Search bar */
+#page-playbook .pb-search-wrap{position:relative;margin-bottom:16px}
+#page-playbook .pb-search{width:100%;padding:11px 14px 11px 38px;border-radius:10px;border:1px solid var(--border);background:var(--s1);color:var(--tx);font-size:13px;outline:none;font-family:inherit;transition:all .15s}
+#page-playbook .pb-search:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+#page-playbook .pb-search::placeholder{color:var(--dim2)}
+#page-playbook .pb-search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--dim);pointer-events:none}
+
+/* Resource with checkbox state */
+#page-playbook .pb-resource{position:relative;cursor:default}
+#page-playbook .pb-resource-chk{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);background:var(--bg);flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;margin-right:2px}
+#page-playbook .pb-resource-chk:hover{border-color:var(--accent)}
+#page-playbook .pb-resource.done{opacity:.65}
+#page-playbook .pb-resource.done .pb-resource-chk{background:var(--green);border-color:var(--green)}
+#page-playbook .pb-resource.done .pb-resource-chk::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+#page-playbook .pb-resource.done .pb-resource-title{text-decoration:line-through;color:var(--dim)}
+#page-playbook .pb-resource.in-progress{border-left-color:var(--yellow)}
+#page-playbook .pb-resource.hidden{display:none}
+
+/* Active block glow on tab */
+#page-playbook .pb-tab.active-now{box-shadow:0 0 0 2px var(--green),0 0 16px rgba(52,211,153,.3);position:relative}
+#page-playbook .pb-tab.active-now::after{content:'NOW';position:absolute;top:-7px;right:-6px;font-size:8px;font-weight:800;background:var(--green);color:#fff;padding:1px 5px;border-radius:6px;letter-spacing:.5px}
+
+/* Resource note */
+#page-playbook .pb-note-toggle{background:none;border:none;color:var(--dim);font-size:14px;cursor:pointer;padding:2px 6px;border-radius:4px;margin-left:4px;flex-shrink:0}
+#page-playbook .pb-note-toggle:hover{background:var(--s3);color:var(--accent)}
+#page-playbook .pb-resource-note{display:none;width:100%;margin-top:8px;padding:8px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--tx);font-size:11px;font-family:inherit;resize:vertical;min-height:50px;outline:none}
+#page-playbook .pb-resource-note:focus{border-color:var(--accent)}
+#page-playbook .pb-resource-note.show{display:block}
+#page-playbook .pb-resource{flex-wrap:wrap}
+
+/* Highlighted search match */
+#page-playbook .pb-search-empty{text-align:center;padding:30px;color:var(--dim);font-size:13px;display:none}
+#page-playbook .pb-search-empty.show{display:block}
+
 /* Password Gate */
 .pw-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .3s}
 .pw-gate.hidden{opacity:0;pointer-events:none}
@@ -2155,7 +2209,25 @@ html{scroll-behavior:smooth}
 <div class="pb-hero">
   <div class="pb-eyebrow">📖 The Playbook</div>
   <div class="pb-title">What to actually do, every block.</div>
-  <div class="pb-sub">Stop wondering "what should I be doing right now?" This is your daily action manual — comprehensive resources, exact protocols, and concrete projects for every block of the system. Built for excellence in graduate CS coursework and PhD applications.</div>
+  <div class="pb-sub">Stop wondering "what should I be doing right now?" This is your daily action manual — comprehensive resources, exact protocols, and concrete projects for every block of the system.</div>
+</div>
+
+<!-- TODAY'S MISSION (sticky, applies to current block) -->
+<div class="pb-mission" id="pbMission">
+  <div class="pb-mission-eyebrow"><span class="pb-mission-pulse"></span>Today's Mission · <span id="pbMissionDay">—</span></div>
+  <div class="pb-mission-title" id="pbMissionTitle">—</div>
+  <div class="pb-mission-detail" id="pbMissionDetail">—</div>
+  <div class="pb-mission-actions">
+    <button class="pb-mission-btn pb-mission-btn-primary" onclick="pbStartMission()">▶ Start Now</button>
+    <button class="pb-mission-btn" onclick="pbCompleteMission()">✓ Mark Done</button>
+    <button class="pb-mission-btn" onclick="pbShuffleMission()">🎲 Different Mission</button>
+  </div>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="pb-search-wrap">
+  <svg class="pb-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  <input class="pb-search" id="pbSearch" placeholder="Search across all resources, papers, projects, faculty..." />
 </div>
 
 <div class="pb-tabs">
@@ -4421,6 +4493,231 @@ const _origSchToggleBlock=schToggleBlock;
 schToggleBlock=function(key){_origSchToggleBlock(key);setTimeout(checkDayComplete,200)};
 
 // ===== PLAYBOOK TABS =====
+const PB_MISSIONS={
+  clrs:[
+    {t:'Read CLRS §2.1 — Insertion Sort + work problems 2.1-1, 2.1-2',d:'Phase 1: Foundations. Walk through the algorithm with the loop invariant. Trace a small example by hand.',time:'60 min'},
+    {t:'Read CLRS §3 — Asymptotic Notation (CORE)',d:'Get fluent with Big-O, Big-Ω, Big-Θ. This is the language of all future algorithm work.',time:'60 min'},
+    {t:'Watch MIT 6.006 Lecture 1 — Demaine intro + take notes',d:'Set up your notebook system. Start your "CLRS journey" log today.',time:'60 min',link:'https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/'},
+    {t:'Master Theorem deep-dive — solve 10 recurrences',d:'CLRS §4.5. Until Master Theorem feels mechanical, you\'re not ready for divide-and-conquer.',time:'60 min'},
+    {t:'Implement merge sort in Python from memory',d:'Close the book. Write it from scratch. Then check against CLRS pseudocode.',time:'60 min'},
+    {t:'Hash tables: read CLRS §11 + implement open addressing',d:'CORE chapter. Open addressing with linear probing → quadratic → double hashing.',time:'60 min'},
+    {t:'Red-black trees: walk through insertion case 1, 2, 3',d:'CLRS §13. The 3 rotation cases. Draw them out by hand. This is THE classic CS interview test.',time:'60 min'},
+    {t:'DP warm-up: Fibonacci 4 ways (recursive → memo → bottom-up → constant space)',d:'CLRS §15. The single most important chapter. Begin with the simplest example.',time:'60 min'},
+    {t:'Solve the Coin Change problem (LeetCode #322)',d:'Classic DP. Map it to CLRS §15 framework. State, recurrence, base cases.',time:'60 min'},
+    {t:'BFS implementation + LeetCode #200 (Number of Islands)',d:'CLRS §22. Touch every node once, mark visited, queue.',time:'60 min'},
+    {t:'Dijkstra\'s algorithm — derive correctness via cut argument',d:'CLRS §24. The "shortest path always extends from settled vertices" insight.',time:'60 min'},
+    {t:'NP-completeness: SAT → 3-SAT → Independent Set reduction',d:'CLRS §34. The 5 canonical reductions. Memorize the chain.',time:'60 min'}
+  ],
+  build:[
+    {t:'Buy Ben Eater 8-bit kit ($65 starter) and unbox',d:'eater.net/8bit. The first physical action that unblocks 6 months of hardware work.',time:'30 min',link:'https://eater.net/8bit'},
+    {t:'Watch Ben Eater clock module videos 1-3 + take parts inventory',d:'Understand the 555 timer. Know which chips do what.',time:'60 min',link:'https://www.youtube.com/c/BenEater'},
+    {t:'Build the 555 clock module on breadboard',d:'First hardware milestone. Photo-document each step. Get the LED blinking.',time:'90 min'},
+    {t:'Enroll in Nand2Tetris on Coursera (audit free)',d:'nand2tetris.org. Set up the development environment.',time:'30 min',link:'https://www.nand2tetris.org'},
+    {t:'Nand2Tetris Project 1: Boolean Logic — implement NAND→MUX',d:'4 hours total. The HDL fluency starts here.',time:'60 min'},
+    {t:'Nand2Tetris Project 2: Half/Full Adder + ALU',d:'6 hours total. Off-by-one bugs in ALU control bits are common — go slow.',time:'60 min'},
+    {t:'Start Sorting Visualizer project — create GitHub repo',d:'Tier 2 algorithm project. Python + matplotlib.animation. Empty repo with README scaffolded.',time:'45 min'},
+    {t:'Implement insertion sort + merge sort in your visualizer',d:'Get the bars animating. Compare runtime visually.',time:'90 min'},
+    {t:'Start Mini Search Engine project',d:'Hash table from scratch (open addressing). Index Project Gutenberg top 100.',time:'90 min'},
+    {t:'Start xv6 Lab 1: Unix utilities (sleep, pingpong, primes)',d:'MIT 6.S081 introduction. Get xv6 building and running on QEMU.',time:'90 min',link:'https://pdos.csail.mit.edu/6.S081/2023/'},
+    {t:'Start Karpathy zero-to-hero: micrograd from scratch',d:'Build a tiny autograd engine. Forward + backward pass for ML from first principles.',time:'90 min',link:'https://karpathy.ai/zero-to-hero.html'},
+    {t:'Begin Research Network Mapper — set up Zotero + Semantic Scholar API',d:'Tier 4 PhD-aligned project. THE differentiator for grad apps.',time:'60 min'}
+  ],
+  phd:[
+    {t:'Set up Zotero + create 3 collections: Tier1, Tier2, Tier3',d:'30 min one-time setup. Becomes your paper management system for the next 18 months.',time:'30 min',link:'https://www.zotero.org/'},
+    {t:'Read Porter, Bailey-Lee, Simon (2013) "Halving Fail Rates with Peer Instruction"',d:'SIGCSE classic. Predict the finding from the title first. Then read. Then 1-page synthesis.',time:'30 min'},
+    {t:'Read Lewis, Anderson, Yasuhara (2016) "I Don\'t Code All Day"',d:'ICER. About fitting in CS when stereotypes don\'t fit. Critical for understanding belonging.',time:'30 min'},
+    {t:'Write 1 paragraph: "My research question is..."',d:'Don\'t edit. Just write. v1 will be terrible. That\'s the point.',time:'30 min'},
+    {t:'Identify 3 faculty whose work aligns + bookmark their Google Scholar',d:'Start with Leo Porter, Amy Ko, Mark Guzdial. Subscribe to alerts.',time:'30 min'},
+    {t:'Draft a cold email to one CS Ed faculty member',d:'Don\'t send yet. Just draft. Subject + 3 short paragraphs.',time:'30 min'},
+    {t:'Read Margolis & Fisher "Unlocking the Clubhouse" Ch 1',d:'Foundational. Even just the first chapter sets the equity frame.',time:'30 min'},
+    {t:'Create faculty tracker spreadsheet',d:'Columns: Name, Inst, Interests, Recent Paper, Contacted?, Response, Notes',time:'30 min'},
+    {t:'Read Denny et al. (2024) "Computing Education in the Era of GenAI"',d:'CACM. The most important recent paper for current CS Ed research.',time:'30 min'},
+    {t:'Read Goode, Margolis, Chapman (2014) "Curriculum is not enough"',d:'SIGCSE. ECS program theory. Critical equity reading.',time:'30 min'},
+    {t:'Research 1 PhD program: deadlines, faculty, fit, funding',d:'Pick from: UW iSchool, UCSD CSE, UCSD CogSci, Berkeley, Stanford, CMU HCII, Northwestern.',time:'30 min'},
+    {t:'Sunday: Polish this week\'s 4 micro-writes into a 500-word piece',d:'Use peak cognition. Pick one focus: Research Statement OR SoP draft.',time:'70 min'}
+  ],
+  write:[
+    {t:'Sunday Deep Write: Polish week\'s micro-writes → 500 words on Research Statement',d:'Week A of 4-week rotation. Sharp citation-backed claims about WHAT and WHY.',time:'70 min'},
+    {t:'Sunday Deep Write: Draft an SoP section for 1 target program',d:'Week B. Tailor: name 2 faculty, cite specific papers, connect to CC teaching.',time:'70 min'},
+    {t:'Sunday Deep Write: 500-word lit review synthesis (3-5 papers)',d:'Week C. Connects recent reading. THIS becomes a blog post / future paper.',time:'70 min'},
+    {t:'Sunday Deep Write: Position paper section (e.g., "AI in CC CS")',d:'Week D. Working paper. Future SIGCSE submission seed.',time:'70 min'},
+    {t:'Read Silvia "How to Write a Lot" Ch 1-2 (~30 pages)',d:'The productivity bible for academic writers. Boice\'s daily-writing research.',time:'30 min'},
+    {t:'Set up Overleaf account + clone an SoP LaTeX template',d:'Free. Use it for serious academic writing.',time:'30 min',link:'https://www.overleaf.com/'},
+    {t:'Free-write 500 words on "Why I want a PhD"',d:'No editing. Just dump. You\'ll mine this for SoP material later.',time:'30 min'},
+    {t:'Write a paragraph mini-bio (research-focused)',d:'For your CV header and faculty cold emails.',time:'15 min'}
+  ],
+  youtube:[
+    {t:'Pick a channel name + reserve handle on YouTube',d:'Top pick: "First Principles CS". Reserve @firstprinciplescs or @henryfan.',time:'30 min'},
+    {t:'Mon: Script "Why I\'m making this channel" (4-min video)',d:'1-page outline. Hook → Promise → Mission → CTA. Talking points only.',time:'45 min'},
+    {t:'Tue: Record Week 1 video — phone + Fifine mic + window light',d:'2-3 takes max. Don\'t re-watch during recording.',time:'45 min'},
+    {t:'Wed: Edit Week 1 in DaVinci Resolve — rough cut only',d:'Cut filler, title cards, one music bed. Don\'t chase perfection.',time:'45 min'},
+    {t:'Thu: Make Canva thumbnail + publish Week 1',d:'Face + 3-4 words text + high contrast. Pin first comment with question.',time:'45 min'},
+    {t:'Fri: Plan Week 2 + reply to any comments',d:'Pick from: "I\'m scared of my first CS class" or "Stack vs heap with backpack analogy"',time:'45 min'},
+    {t:'Sat batch: Record 2 "Office Hours Recovered" shorts back-to-back',d:'Get 3 weeks ahead. The most important gift you give your future self.',time:'90 min'},
+    {t:'Set up DaVinci Resolve + OBS Studio (free)',d:'davinciresolve.com + obsproject.com. ~15 min download + install.',time:'30 min'},
+    {t:'Make 12-week content plan in spreadsheet',d:'Every video gets a row: title, series, length target, status.',time:'45 min'}
+  ],
+  grad:[
+    {t:'Watch Andy Pavlo CMU 15-445 Lecture 1 (1.25x speed)',d:'May be the best CS lecture on YouTube. Database systems intro.',time:'60 min',link:'https://15445.courses.cs.cmu.edu/'},
+    {t:'Start MIT 6.824 Distributed Systems — Lecture 1',d:'⭐ HIGHEST ROI grad course. Robert Morris.',time:'60 min',link:'https://pdos.csail.mit.edu/6.824/'},
+    {t:'Begin Velleman "How to Prove It" — Ch 1',d:'Proof techniques. Do BEFORE grad theory courses.',time:'60 min'},
+    {t:'Watch Andrew Ng CS229 Lecture 1 — Linear Regression',d:'The classic ML course. Free on YouTube.',time:'60 min',link:'https://cs229.stanford.edu/'},
+    {t:'Berkeley CS188 Pacman Project 1: Search',d:'Implement BFS, DFS, UCS, A* on Pacman. Legendary AI project.',time:'90 min',link:'https://inst.eecs.berkeley.edu/~cs188/'},
+    {t:'Read DDIA Ch 1 (Reliable, Scalable, Maintainable)',d:'Kleppmann. The only modern systems book that matters.',time:'60 min'},
+    {t:'Read Sipser Ch 1.1 — Finite Automata',d:'Theory of Computation. The clearest theory text ever written.',time:'60 min'},
+    {t:'Strang MIT 18.06 Lecture 1 — Geometry of Linear Equations',d:'Linear algebra foundations. Free OCW.',time:'60 min',link:'https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/'},
+    {t:'Harvard Stat 110 Lecture 1 — Probability & Counting',d:'Blitzstein. Free and excellent. Probability foundations.',time:'60 min',link:'https://projects.iq.harvard.edu/stat110'},
+    {t:'Skim "Concrete Mathematics" Ch 1 (Knuth/Graham/Patashnik)',d:'Math for CS bible. Even skimming changes how you think.',time:'45 min'}
+  ]
+};
+
+const PB_PANE_FOR_BLOCK={cs_theory:'clrs',cs_build:'build',cs_morning:'clrs',cs_evening:'build',phd:'phd',phd_deep:'phd',phd_write:'write',cs_retrieval:'clrs',youtube:'youtube',cs_deep:'clrs',cs_build1:'build',cs_build2:'build',cs_read2:'clrs'};
+
+function pbCurrentPane(){
+  const cur=getCurrentSchedBlock?.();
+  if(cur&&PB_PANE_FOR_BLOCK[cur.key])return PB_PANE_FOR_BLOCK[cur.key];
+  return 'clrs';
+}
+
+function pbPaneTitle(p){return{clrs:'CLRS Theory',build:'CS Build',phd:'PhD Prep',write:'PhD Deep Write',youtube:'YouTube',grad:'Grad CS'}[p]||p}
+
+function pbActiveMission(){
+  const pane=pbCurrentPane();
+  const missions=PB_MISSIONS[pane];
+  if(!missions)return null;
+  if(!S.pbMissionIdx)S.pbMissionIdx={};
+  // Daily rotation: index = day-of-year % missions.length
+  const today=td();
+  if(S.pbMissionDate!==today){
+    S.pbMissionDate=today;
+    S.pbMissionIdx={};save();
+  }
+  let idx=S.pbMissionIdx[pane];
+  if(idx===undefined){
+    const dayNum=Math.floor((Date.now()/86400000));
+    idx=dayNum%missions.length;
+    S.pbMissionIdx[pane]=idx;save();
+  }
+  return {pane,mission:missions[idx],idx};
+}
+
+function pbRenderMission(){
+  const m=pbActiveMission();if(!m)return;
+  const dow=new Date().getDay();
+  const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  $('pbMissionDay').textContent=`${dayNames[dow]} · ${pbPaneTitle(m.pane)} block`;
+  $('pbMissionTitle').textContent=m.mission.t;
+  $('pbMissionDetail').textContent=m.mission.d+(m.mission.time?` · ⏱ ${m.mission.time}`:'');
+  $('pbMission').dataset.pane=m.pane;
+  $('pbMission').dataset.idx=m.idx;
+}
+
+function pbStartMission(){
+  const pane=$('pbMission').dataset.pane;
+  if(pane){
+    document.querySelectorAll('.pb-tab').forEach(b=>b.classList.remove('active'));
+    document.querySelector(`.pb-tab[data-pbtab="${pane}"]`)?.classList.add('active');
+    document.querySelectorAll('.pb-pane').forEach(p=>p.classList.remove('active'));
+    document.getElementById('pb-'+pane)?.classList.add('active');
+  }
+  const m=PB_MISSIONS[pane]?.[parseInt($('pbMission').dataset.idx)];
+  if(m&&m.link)window.open(m.link,'_blank');
+  toast('Mission started — go!');
+}
+
+function pbCompleteMission(){
+  if(!S.pbCompletedMissions)S.pbCompletedMissions={};
+  const today=td();
+  if(!S.pbCompletedMissions[today])S.pbCompletedMissions[today]=0;
+  S.pbCompletedMissions[today]++;
+  // Advance to next mission
+  pbShuffleMission();
+  toast('Mission complete! +1 today');
+}
+
+function pbShuffleMission(){
+  const pane=$('pbMission').dataset.pane||pbCurrentPane();
+  const missions=PB_MISSIONS[pane];
+  if(!missions)return;
+  if(!S.pbMissionIdx)S.pbMissionIdx={};
+  S.pbMissionIdx[pane]=(parseInt(S.pbMissionIdx[pane]||0)+1)%missions.length;
+  save();pbRenderMission();
+}
+
+// === RESOURCE STATE TRACKING ===
+function pbWireResources(){
+  if(!S.pbResources)S.pbResources={};
+  document.querySelectorAll('#page-playbook .pb-resource').forEach((res,i)=>{
+    if(res.dataset.pbWired)return;
+    res.dataset.pbWired='1';
+    // Generate unique ID from text content
+    const titleEl=res.querySelector('.pb-resource-title');
+    if(!titleEl)return;
+    const id='pbr_'+btoa(titleEl.textContent.slice(0,40)).replace(/[^a-z0-9]/gi,'').slice(0,16);
+    res.dataset.pbId=id;
+    // Add checkbox
+    if(!res.querySelector('.pb-resource-chk')){
+      const chk=document.createElement('button');
+      chk.className='pb-resource-chk';
+      chk.title='Mark complete';
+      chk.onclick=(e)=>{e.stopPropagation();pbToggleResource(id)};
+      res.insertBefore(chk,res.firstChild);
+    }
+    // Apply saved state
+    if(S.pbResources[id])res.classList.add('done');
+  });
+}
+
+function pbToggleResource(id){
+  if(!S.pbResources)S.pbResources={};
+  S.pbResources[id]=!S.pbResources[id];save();
+  document.querySelectorAll(`#page-playbook .pb-resource[data-pb-id="${id}"]`).forEach(el=>{
+    el.classList.toggle('done',S.pbResources[id]);
+  });
+  pbUpdateStats();
+}
+
+function pbUpdateStats(){
+  // Count done/total per pane and update stat cards
+  document.querySelectorAll('#page-playbook .pb-pane').forEach(pane=>{
+    const total=pane.querySelectorAll('.pb-resource').length;
+    const done=pane.querySelectorAll('.pb-resource.done').length;
+    const stat=pane.querySelector('.pb-pane-stat-progress');
+    if(stat)stat.textContent=`${done}/${total}`;
+  });
+}
+
+// === SEARCH ===
+function pbSearch(q){
+  const query=q.toLowerCase().trim();
+  const activePane=document.querySelector('#page-playbook .pb-pane.active');
+  if(!activePane)return;
+  const cards=activePane.querySelectorAll('.pb-card, .pb-resource');
+  let anyVisible=false;
+  if(!query){
+    cards.forEach(c=>c.classList.remove('hidden'));
+    return;
+  }
+  // Hide cards entirely if no resources match within them
+  activePane.querySelectorAll('.pb-card').forEach(card=>{
+    let cardHasMatch=false;
+    const text=card.textContent.toLowerCase();
+    if(text.includes(query)){cardHasMatch=true;anyVisible=true}
+    card.classList.toggle('hidden',!cardHasMatch);
+  });
+}
+
+// === ACTIVE BLOCK GLOW ===
+function pbHighlightActiveBlock(){
+  const cur=getCurrentSchedBlock?.();
+  if(!cur)return;
+  const pane=PB_PANE_FOR_BLOCK[cur.key];
+  document.querySelectorAll('.pb-tab').forEach(t=>t.classList.remove('active-now'));
+  if(pane){
+    document.querySelector(`.pb-tab[data-pbtab="${pane}"]`)?.classList.add('active-now');
+  }
+}
+
 function initPlaybook(){
   document.querySelectorAll('.pb-tab[data-pbtab]').forEach(btn=>{
     btn.addEventListener('click',()=>{
@@ -4429,9 +4726,15 @@ function initPlaybook(){
       document.querySelectorAll('.pb-pane').forEach(p=>p.classList.remove('active'));
       const pane=document.getElementById('pb-'+btn.dataset.pbtab);
       if(pane)pane.classList.add('active');
-      window.scrollTo({top:0,behavior:'smooth'});
+      // Reset search
+      const search=$('pbSearch');if(search){search.value='';pbSearch('')}
     });
   });
+
+  // Search bar
+  const search=$('pbSearch');
+  if(search){search.addEventListener('input',e=>pbSearch(e.target.value))}
+
   // Set today's rotation hints
   const dow=new Date().getDay();
   const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -4449,8 +4752,18 @@ function initPlaybook(){
   if(buildToday)buildToday.textContent=`${dayNames[dow]} — ${buildRot[dow]}`;
   const ytToday=$('pbYtToday');
   if(ytToday)ytToday.textContent=`${dayNames[dow]} — ${ytRot[dow]}`;
+
+  // Initialize new features
+  pbRenderMission();
+  pbWireResources();
+  pbHighlightActiveBlock();
 }
 setTimeout(initPlaybook,400);
+// Re-check active block + mission every minute
+setInterval(()=>{
+  pbHighlightActiveBlock();
+  if(document.getElementById('page-playbook')?.classList.contains('active'))pbRenderMission();
+},60000);
 
 // ===== SCROLLSPY for Schedule jump nav =====
 function initScheduleScrollspy(){
