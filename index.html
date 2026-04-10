@@ -939,6 +939,8 @@ html{scroll-behavior:smooth}
 /* Inline running-timer display inside the Active Track card */
 #page-playbook .pbt-timer-live{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;background:rgba(0,0,0,.25);border-radius:10px;margin-bottom:10px;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:16px;letter-spacing:1px;position:relative;border:1px solid rgba(255,255,255,.2)}
 #page-playbook .pbt-timer-live .pbt-timer-ring{width:10px;height:10px;border-radius:50%;background:var(--green);animation:pulseDot 1.2s ease-in-out infinite}
+#page-playbook .pbt-timer-live.paused{background:rgba(251,191,36,.22);border-color:rgba(251,191,36,.5)}
+#page-playbook .pbt-timer-live.paused .pbt-timer-ring{background:var(--yellow);animation:none}
 #page-playbook .pbt-timer-live-label{font-size:9px;font-weight:700;letter-spacing:2px;opacity:.7;margin-left:4px}
 
 /* Inline exit note form (replaces prompt dialog) */
@@ -957,6 +959,45 @@ html{scroll-behavior:smooth}
 #page-playbook .pbt-rest-btn{background:rgba(251,191,36,.18);border:1px solid rgba(251,191,36,.5);color:rgba(255,255,255,.95);padding:5px 10px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.3px}
 #page-playbook .pbt-rest-btn:hover{background:rgba(251,191,36,.3)}
 #page-playbook .pbt-rest-btn.done{background:rgba(251,191,36,.6);cursor:default}
+
+/* Overview (all tracks) view */
+#page-playbook .pb-ov-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+#page-playbook .pb-ov-heading{font-size:17px;font-weight:800;letter-spacing:-.01em}
+#page-playbook .pb-ov-sub{font-size:11px;color:var(--dim);margin-top:2px}
+#page-playbook .pb-ov-copy-btn{background:var(--accent);color:#fff;border:0;padding:9px 15px;border-radius:9px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;letter-spacing:.3px;transition:opacity .15s}
+#page-playbook .pb-ov-copy-btn:hover{opacity:.88}
+#page-playbook .pb-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px;margin-bottom:20px}
+#page-playbook .pb-ov-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:16px 18px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden}
+#page-playbook .pb-ov-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(107,138,255,.12)}
+#page-playbook .pb-ov-card.pb-ov-today{border-color:var(--green);background:linear-gradient(135deg,rgba(52,211,153,.06),var(--s1))}
+#page-playbook .pb-ov-card.pb-ov-today::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)}
+#page-playbook .pb-ov-top{display:flex;gap:11px;align-items:flex-start}
+#page-playbook .pb-ov-icon{font-size:26px;line-height:1;flex-shrink:0}
+#page-playbook .pb-ov-titles{flex:1;min-width:0}
+#page-playbook .pb-ov-name{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+#page-playbook .pb-ov-pill{background:var(--green);color:#fff;font-size:8px;padding:2px 6px;border-radius:4px;letter-spacing:.5px;font-weight:800}
+#page-playbook .pb-ov-pill-rest{background:var(--yellow);color:#000}
+#page-playbook .pb-ov-pill-done{background:var(--accent)}
+#page-playbook .pb-ov-title{font-size:13.5px;font-weight:700;line-height:1.35;color:var(--tx);word-break:break-word}
+#page-playbook .pb-ov-streak{font-size:11px;font-weight:800;padding:4px 10px;border-radius:16px;background:var(--s2);border:1px solid var(--border);flex-shrink:0;white-space:nowrap}
+#page-playbook .pb-ov-streak.hot{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;border-color:#f59e0b}
+#page-playbook .pb-ov-next{font-size:12px;color:var(--tx);line-height:1.5;background:var(--s2);border-radius:8px;padding:9px 12px;border-left:3px solid var(--accent);white-space:pre-line;word-break:break-word}
+#page-playbook .pb-ov-exit{font-size:11px;color:var(--dim);line-height:1.5;padding:7px 11px;border-radius:8px;background:var(--s2);border-left:3px solid var(--yellow);font-style:italic;word-break:break-word}
+#page-playbook .pb-ov-meta{font-size:10px;color:var(--dim2);display:flex;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:4px;font-family:'JetBrains Mono',monospace}
+#page-playbook .pb-ov-dots{display:flex;gap:3px;margin-left:auto}
+#page-playbook .pb-ov-dot{width:11px;height:11px;border-radius:3px;background:var(--border)}
+#page-playbook .pb-ov-dot-done{background:var(--accent)}
+#page-playbook .pb-ov-dot-rest{background:var(--yellow)}
+#page-playbook .pb-ov-dot-today{box-shadow:0 0 0 2px rgba(107,138,255,.3)}
+#page-playbook .pb-ov-preflight{background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(107,138,255,.08));border:1px solid var(--green);border-radius:12px;padding:14px 18px;margin-bottom:16px}
+#page-playbook .pb-ov-preflight-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:8px}
+#page-playbook .pb-ov-preflight-text{font-size:13px;line-height:1.55;color:var(--tx)}
+#page-playbook .pbt-suggest{background:rgba(255,255,255,.12);border:1px dashed rgba(255,255,255,.35);border-radius:8px;padding:10px 13px;margin-bottom:10px;font-size:11.5px;line-height:1.5;cursor:pointer;transition:background .15s}
+#page-playbook .pbt-suggest:hover{background:rgba(255,255,255,.22)}
+#page-playbook .pbt-suggest-label{font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;opacity:.72;margin-bottom:3px}
+
+/* Multi-line next-action rendering */
+#page-playbook .pbt-value{white-space:pre-line}
 
 /* Progress bar at top of each pane */
 #page-playbook .pb-pane-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
@@ -2355,7 +2396,7 @@ html{scroll-behavior:smooth}
     <div class="pbt-edit-hint">Define the ONE thing you'll do next block. Keep it specific — "implement heap sort's sift-down helper" beats "work on sorting visualizer." <strong>⌘/Ctrl+Enter</strong> to save · <strong>Esc</strong> to cancel</div>
     <input class="pbt-input" id="pbtEditTitle" placeholder="Current focus — e.g., Ch 11: Hash Tables" />
     <textarea class="pbt-input pbt-textarea" id="pbtEditNext" placeholder="Next action — exactly what you'll do in this block" rows="2"></textarea>
-    <input class="pbt-input" id="pbtEditUrl" placeholder="Resource URL (auto-opens when you Start) — optional" />
+    <textarea class="pbt-input pbt-textarea" id="pbtEditUrl" rows="2" placeholder="Resource URL(s) — one per line. All auto-open in new tabs when you Start. Optional."></textarea>
     <input class="pbt-input" id="pbtEditFile" placeholder="File path or repo (shown for reference) — optional" />
     <div class="pbt-edit-actions">
       <button class="pbt-btn pbt-btn-primary" onclick="pbtSaveEdit()">Save</button>
@@ -2376,12 +2417,26 @@ html{scroll-behavior:smooth}
 </div>
 
 <div class="pb-tabs">
+  <button class="pb-tab" data-pbtab="overview"><span class="pb-tab-icon">📊</span>All Tracks</button>
   <button class="pb-tab active" data-pbtab="clrs"><span class="pb-tab-icon">📖</span>CLRS Theory</button>
   <button class="pb-tab" data-pbtab="build"><span class="pb-tab-icon">🔧</span>CS Build</button>
   <button class="pb-tab" data-pbtab="phd"><span class="pb-tab-icon">🎓</span>PhD Prep</button>
   <button class="pb-tab" data-pbtab="write"><span class="pb-tab-icon">✍️</span>PhD Deep Write</button>
   <button class="pb-tab" data-pbtab="youtube"><span class="pb-tab-icon">🎬</span>YouTube</button>
   <button class="pb-tab" data-pbtab="grad"><span class="pb-tab-icon">🎯</span>Grad CS Excellence</button>
+</div>
+
+<!-- ===== OVERVIEW (ALL TRACKS) PANE ===== -->
+<div class="pb-pane" id="pb-overview">
+  <div class="pb-ov-header">
+    <div>
+      <div class="pb-ov-heading">All Tracks — Planning View</div>
+      <div class="pb-ov-sub">Sunday weekly review · morning preflight · mentor-ready snapshot</div>
+    </div>
+    <button class="pb-ov-copy-btn" onclick="pbCopyReport()">📋 Copy progress report</button>
+  </div>
+  <div id="pbOvPreflight"></div>
+  <div class="pb-overview" id="pbOverviewGrid"></div>
 </div>
 
 <!-- ===== CLRS THEORY PANE ===== -->
@@ -4840,6 +4895,11 @@ function pbRenderDots(t){
 
 function pbRenderTrack(){
   if(!document.getElementById('pbTrack'))return;
+  // Hide the focused track card entirely when the Overview pane is active —
+  // Overview is planning mode, not execution mode
+  const isOverview=document.getElementById('pb-overview')?.classList.contains('active');
+  $('pbTrack').style.display=isOverview?'none':'';
+  if(isOverview){pbRenderOverview();pbRenderTimeBanner();return}
   const pane=pbCurrentPane();
   const meta=PB_PANE_META[pane]||PB_PANE_META.clrs;
   const t=pbGetTrack(pane);
@@ -4928,11 +4988,121 @@ function pbRenderTimeBanner(){
 function pbTimeJump(){
   const pane=$('pbTimeJump').dataset.targetPane;
   if(!pane)return;
+  pbSwitchPane(pane);
+}
+
+function pbSwitchPane(pane){
   document.querySelectorAll('.pb-tab').forEach(b=>b.classList.remove('active'));
   document.querySelector(`.pb-tab[data-pbtab="${pane}"]`)?.classList.add('active');
   document.querySelectorAll('.pb-pane').forEach(p=>p.classList.remove('active'));
   document.getElementById('pb-'+pane)?.classList.add('active');
   pbRenderTrack();
+  if(pane==='overview')pbRenderOverview();
+}
+
+// === OVERVIEW PANE ===
+const PB_ALL_PANES=['clrs','build','phd','write','youtube','grad'];
+
+function pbTodaysPanes(){
+  const set=new Set();
+  try{
+    const blocks=getCurrentSchedBlocks();
+    for(const b of blocks){if(PB_PANE_FOR_BLOCK[b.key])set.add(PB_PANE_FOR_BLOCK[b.key])}
+  }catch(e){}
+  return set;
+}
+
+function pbRenderOverview(){
+  const grid=$('pbOverviewGrid');if(!grid)return;
+  const todaysPanes=pbTodaysPanes();
+  const todayKey=td();
+  // Preflight summary
+  const pre=$('pbOvPreflight');
+  if(pre){
+    const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dow=new Date().getDay();
+    const todayList=[...todaysPanes].map(p=>PB_PANE_META[p]?.name).filter(Boolean);
+    const cur=(typeof getCurrentSchedBlock==='function')?getCurrentSchedBlock():null;
+    const curLabel=cur&&PB_PANE_FOR_BLOCK[cur.key]?` · 🟢 in <strong>${esc(cur.name)}</strong> right now`:'';
+    pre.innerHTML=`<div class="pb-ov-preflight"><div class="pb-ov-preflight-title">📅 ${dayNames[dow]} Preflight</div><div class="pb-ov-preflight-text">Today's learning blocks: <strong>${todayList.length?todayList.join(' · '):'(weekend rest)'}</strong>${curLabel}. Confirm each has a fresh next action before you close this panel.</div></div>`;
+  }
+  grid.innerHTML=PB_ALL_PANES.map(p=>{
+    const meta=PB_PANE_META[p];
+    const t=pbGetTrack(p);
+    const streak=pbCalcStreak(t);
+    const isToday=todaysPanes.has(p);
+    const sessionSet=new Set(t.sessionDays||[]);
+    const restSet=new Set(t.restDays||[]);
+    const workedToday=sessionSet.has(todayKey);
+    const restedToday=restSet.has(todayKey);
+    // 7-day mini dots for this card
+    const miniDots=[];
+    for(let i=6;i>=0;i--){
+      const d=new Date();d.setDate(d.getDate()-i);
+      const k=pbDateKey(d);
+      let cls='pb-ov-dot';
+      if(sessionSet.has(k))cls+=' pb-ov-dot-done';
+      else if(restSet.has(k))cls+=' pb-ov-dot-rest';
+      if(k===todayKey)cls+=' pb-ov-dot-today';
+      miniDots.push(`<div class="${cls}" title="${k}"></div>`);
+    }
+    const pills=[];
+    if(isToday)pills.push('<span class="pb-ov-pill">TODAY</span>');
+    if(workedToday)pills.push('<span class="pb-ov-pill pb-ov-pill-done">✓ WORKED</span>');
+    else if(restedToday)pills.push('<span class="pb-ov-pill pb-ov-pill-rest">🛌 REST</span>');
+    const titleTxt=t.title||'(focus not set)';
+    const nextTxt=t.nextAction||'(no next action)';
+    const exitTxt=t.exitNote?`"${t.exitNote.length>140?t.exitNote.slice(0,140)+'…':t.exitNote}"`:'';
+    const streakCls=streak>=5?'pb-ov-streak hot':'pb-ov-streak';
+    return `<div class="pb-ov-card ${isToday?'pb-ov-today':''}" onclick="pbSwitchPane('${p}')">
+      <div class="pb-ov-top">
+        <span class="pb-ov-icon">${meta.icon}</span>
+        <div class="pb-ov-titles">
+          <div class="pb-ov-name">${meta.name}${pills.length?' '+pills.join(' '):''}</div>
+          <div class="pb-ov-title">${esc(titleTxt)}</div>
+        </div>
+        <div class="${streakCls}">🔥 ${streak}</div>
+      </div>
+      <div class="pb-ov-next">▶ ${esc(nextTxt)}</div>
+      ${exitTxt?`<div class="pb-ov-exit">📝 ${esc(exitTxt)} <span style="opacity:.7">· ${t.exitNoteDate||''}</span></div>`:''}
+      <div class="pb-ov-meta">
+        <span>${t.sessions||0} sessions</span>
+        <span>${meta.duration}m/block</span>
+        <div class="pb-ov-dots">${miniDots.join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function pbCopyReport(){
+  const lines=['# Playbook Progress Report · '+td(),''];
+  const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  lines.push(`_Generated ${dayNames[new Date().getDay()]} · for mentor sync_`);
+  lines.push('');
+  for(const p of PB_ALL_PANES){
+    const meta=PB_PANE_META[p];
+    const t=pbGetTrack(p);
+    const streak=pbCalcStreak(t);
+    lines.push(`## ${meta.icon} ${meta.name}`);
+    lines.push('');
+    lines.push(`- **Current focus:** ${t.title||'_(not set)_'}`);
+    lines.push(`- **Next action:** ${t.nextAction||'_(not set)_'}`);
+    if(t.exitNote)lines.push(`- **Last exit note** (${t.exitNoteDate||'—'}): ${t.exitNote}`);
+    if(t.url)lines.push(`- **Resource:** ${t.url}`);
+    if(t.file)lines.push(`- **File:** \`${t.file}\``);
+    lines.push(`- **Momentum:** 🔥 ${streak}-day streak · ${t.sessions||0} total sessions · ${meta.duration} min/block`);
+    lines.push('');
+  }
+  const md=lines.join('\n');
+  try{
+    navigator.clipboard.writeText(md).then(()=>toast('📋 Progress report copied · paste anywhere'));
+  }catch(e){
+    // Fallback: show in a textarea for manual copy
+    const ta=document.createElement('textarea');
+    ta.value=md;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast('📋 Copied')}catch(e2){toast('Copy failed')}
+    document.body.removeChild(ta);
+  }
 }
 
 function pbtStartTrack(){
@@ -4964,8 +5134,11 @@ function pbtStartTrack(){
       toast(`▶ ${meta.duration}-min timer started · ${meta.name}`);
     }
   }
-  // Open the resource if one is set
-  if(t.url){try{window.open(t.url,'_blank','noopener')}catch(e){}}
+  // Open resource(s) — supports multiple URLs separated by newlines or commas
+  if(t.url){
+    const urls=t.url.split(/[,\n]+/).map(s=>s.trim()).filter(s=>/^https?:\/\//.test(s));
+    for(const u of urls){try{window.open(u,'_blank','noopener')}catch(e){}}
+  }
   pbRenderTrack();
 }
 
@@ -5037,16 +5210,23 @@ function pbtSaveExit(){
   const t=pbGetTrack(pane);
   const val=$('pbtExitInput').value.trim();
   if(!val){toast('Write a quick note first');return}
+  const priorNext=t.nextAction||'';
   t.exitNote=val;
   t.exitNoteDate=td();
   save();
   $('pbtExitForm').style.display='none';
   pbRenderTrack();
   toast('Exit note saved · update next action?');
-  // Smooth loop: immediately open the edit form focused on next-action so the user
-  // can set up the entry point for tomorrow while the work is fresh in mind
+  // Smooth loop: open edit form and pre-fill Next Action from the exit note if
+  // nothing is there yet OR it still matches the previous session's action
   setTimeout(()=>{
     pbtOpenEdit();
+    const suggestion='Pick up: '+val.slice(0,140)+(val.length>140?'…':'');
+    const shouldPrefill=!priorNext||priorNext.length<5||priorNext===suggestion;
+    if(shouldPrefill){
+      $('pbtEditNext').value=suggestion;
+      $('pbtEditNext').select?.();
+    }
     setTimeout(()=>$('pbtEditNext').focus(),80);
   },300);
 }
@@ -5067,24 +5247,35 @@ function pbtShowIdeas(){
 let pbLastTimerState='idle';
 function pbTimerPoll(){
   if(typeof timerRunning==='undefined')return;
-  // Update live timer display on the Active Track card if running
+  // Update live timer display on the Active Track card
   const liveEl=document.getElementById('pbtTimerLive');
-  if(liveEl){
+  const timeEl=document.getElementById('pbtTimerTime');
+  if(liveEl&&timeEl){
+    const m=Math.floor(timerSec/60),s=Math.max(0,timerSec%60);
+    const mmss=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
     if(timerRunning){
       liveEl.style.display='';
-      const m=Math.floor(timerSec/60),s=timerSec%60;
-      const el=document.getElementById('pbtTimerTime');
-      if(el)el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+      liveEl.classList.remove('paused');
+      timeEl.textContent=mmss;
+      const lbl=liveEl.querySelector('.pbt-timer-live-label');
+      if(lbl)lbl.textContent='REMAINING';
+    }else if(timerPaused){
+      liveEl.style.display='';
+      liveEl.classList.add('paused');
+      timeEl.textContent='⏸ '+mmss;
+      const lbl=liveEl.querySelector('.pbt-timer-live-label');
+      if(lbl)lbl.textContent='PAUSED';
     }else{
       liveEl.style.display='none';
     }
   }
   // Detect running → done transition and auto-open exit note form on Playbook page
-  const state=timerRunning?'running':(!timerRunning&&timerSec<=0&&timerTotal>0?'done':'idle');
+  const state=timerRunning?'running':(timerPaused?'paused':(!timerRunning&&timerSec<=0&&timerTotal>0?'done':'idle'));
   if(state==='done'&&pbLastTimerState==='running'){
     if(document.getElementById('page-playbook')?.classList.contains('active')){
-      // Don't clobber a form the user is already interacting with
-      if($('pbtExitForm').style.display==='none'){
+      // Don't clobber a form the user is already interacting with, or the overview pane
+      const onOverview=document.getElementById('pb-overview')?.classList.contains('active');
+      if(!onOverview&&$('pbtExitForm').style.display==='none'){
         setTimeout(()=>{
           pbtLogExit();
           toast('⏸ Block done — log your exit note while it\'s fresh');
@@ -5095,6 +5286,15 @@ function pbTimerPoll(){
   pbLastTimerState=state;
 }
 setInterval(pbTimerPoll,1000);
+
+// Faster context banner refresh so the 5:14→5:15 transition feels live
+setInterval(()=>{
+  if(document.getElementById('page-playbook')?.classList.contains('active')){
+    pbRenderTimeBanner();
+    // Also re-render overview if it's visible, since Today's Panes can change
+    if(document.getElementById('pb-overview')?.classList.contains('active'))pbRenderOverview();
+  }
+},15000);
 
 function pbtCopyFile(){
   const pane=$('pbTrack').dataset.pane||pbCurrentPane();
@@ -5196,12 +5396,14 @@ function initPlaybook(){
       document.querySelectorAll('.pb-tab').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       document.querySelectorAll('.pb-pane').forEach(p=>p.classList.remove('active'));
-      const pane=document.getElementById('pb-'+btn.dataset.pbtab);
+      const paneId=btn.dataset.pbtab;
+      const pane=document.getElementById('pb-'+paneId);
       if(pane)pane.classList.add('active');
       // Reset search
       const search=$('pbSearch');if(search){search.value='';pbSearch('')}
-      // Re-render active track for the new pane
+      // Re-render (handles Overview visibility too)
       pbRenderTrack();
+      if(paneId==='overview')pbRenderOverview();
     });
   });
 
@@ -5211,7 +5413,7 @@ function initPlaybook(){
   if(cur&&PB_PANE_FOR_BLOCK[cur.key]){
     const targetPane=PB_PANE_FOR_BLOCK[cur.key];
     const activeTab=document.querySelector('.pb-tab.active')?.dataset.pbtab;
-    if(activeTab!==targetPane){
+    if(activeTab!==targetPane&&activeTab!=='overview'){
       document.querySelectorAll('.pb-tab').forEach(b=>b.classList.remove('active'));
       document.querySelector(`.pb-tab[data-pbtab="${targetPane}"]`)?.classList.add('active');
       document.querySelectorAll('.pb-pane').forEach(p=>p.classList.remove('active'));
