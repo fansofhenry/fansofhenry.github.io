@@ -408,6 +408,65 @@ select.input{appearance:auto}
 #page-schedule .sch-changes .track-head span:first-child{color:var(--exercise)}
 @media(max-width:768px){#page-schedule .pgrid,#page-schedule .phases{grid-template-columns:1fr}}
 
+/* === LIVE NOW HERO === */
+#page-schedule .sch-now-hero{display:flex;gap:24px;align-items:center;background:linear-gradient(135deg,rgba(107,138,255,.08),rgba(167,139,250,.08));border:2px solid var(--accent);border-radius:var(--r);padding:20px 24px;margin-bottom:20px;flex-wrap:wrap}
+#page-schedule .sch-now-left{flex:1;min-width:280px}
+#page-schedule .sch-now-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+#page-schedule .sch-now-block{font-size:1.4rem;font-weight:800;color:var(--tx);margin-bottom:6px}
+#page-schedule .sch-now-detail{font-size:.78rem;color:var(--dim);margin-bottom:8px;line-height:1.5}
+#page-schedule .sch-now-protocol{font-size:.7rem;color:var(--dim2);font-style:italic;line-height:1.5;padding:8px 12px;background:var(--s1);border-radius:var(--rs);border-left:3px solid var(--accent)}
+#page-schedule .sch-now-right{display:flex;flex-direction:column;align-items:center;gap:6px}
+#page-schedule .sch-now-timer-wrap{position:relative;width:120px;height:120px}
+#page-schedule .sch-now-timer-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+#page-schedule .sch-now-timer{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--accent)}
+#page-schedule .sch-now-timer-label{font-size:.55rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+#page-schedule .sch-now-next{font-size:.65rem;color:var(--dim);text-align:center;font-family:'JetBrains Mono',monospace}
+
+/* === JUMP NAV === */
+#page-schedule .sch-jump{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);position:sticky;top:52px;background:var(--bg);z-index:10;padding-top:8px}
+#page-schedule .sch-jump-btn{padding:7px 14px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s1);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;cursor:pointer;transition:all .15s;letter-spacing:.5px}
+#page-schedule .sch-jump-btn:hover{border-color:var(--accent);color:var(--tx)}
+#page-schedule .sch-jump-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* === TODAY CARD === */
+#page-schedule .sch-today-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin-bottom:24px}
+#page-schedule .sch-today-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+#page-schedule .sch-today-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase;margin-bottom:4px}
+#page-schedule .sch-today-progress{font-size:1.1rem;font-weight:700;color:var(--tx)}
+#page-schedule .sch-today-pct{font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:800;color:var(--accent)}
+#page-schedule .sch-today-blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+#page-schedule .sch-today-block{padding:10px 12px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--s2);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px}
+#page-schedule .sch-today-block:hover{border-color:var(--accent);transform:translateY(-1px)}
+#page-schedule .sch-today-block.done{background:rgba(52,211,153,.1);border-color:var(--green)}
+#page-schedule .sch-today-block.done .sch-today-name{color:var(--green);text-decoration:line-through}
+#page-schedule .sch-today-icon{font-size:1.2rem;flex-shrink:0}
+#page-schedule .sch-today-info{flex:1;min-width:0}
+#page-schedule .sch-today-name{font-size:.75rem;font-weight:600;color:var(--tx);margin-bottom:1px}
+#page-schedule .sch-today-time{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--dim2)}
+#page-schedule .sch-today-check{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:transparent}
+#page-schedule .sch-today-block.done .sch-today-check{background:var(--green);border-color:var(--green)}
+#page-schedule .sch-today-block.done .sch-today-check::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+#page-schedule .sch-today-footnote{font-size:.65rem;color:var(--dim2);margin-top:10px;text-align:center;font-style:italic}
+
+/* === HIGHLIGHT TODAY COLUMN === */
+#page-schedule td.today-col{box-shadow:inset 0 0 0 2px var(--accent)}
+#page-schedule thead th.today-th{background:var(--accent-g);color:var(--accent)}
+
+/* === ENERGY HEATMAP TOGGLE === */
+#page-schedule .sch-overlay-toggle{display:flex;justify-content:center;gap:8px;margin-bottom:12px}
+#page-schedule .sch-overlay-btn{padding:5px 12px;font-size:.6rem;font-family:'JetBrains Mono',monospace;border:1px solid var(--border);background:var(--s1);color:var(--dim);border-radius:14px;cursor:pointer;letter-spacing:.5px}
+#page-schedule .sch-overlay-btn.active{background:var(--accent-g);color:var(--accent);border-color:var(--accent)}
+
+/* === NOW CELL HIGHLIGHT === */
+#page-schedule td .c.now-cell{box-shadow:inset 0 0 0 2px var(--accent),0 0 12px rgba(107,138,255,.3);position:relative}
+#page-schedule td .c.now-cell::before{content:'NOW';position:absolute;top:-7px;right:-4px;font-size:.5rem;font-weight:800;background:var(--accent);color:#fff;padding:1px 5px;border-radius:6px;letter-spacing:.5px}
+
+@media(max-width:768px){
+  #page-schedule .sch-now-hero{flex-direction:column;text-align:center}
+  #page-schedule .sch-now-left{min-width:0}
+  #page-schedule .sch-jump{position:static}
+}
+
 /* Theme toggle */
 .theme-toggle{width:30px;height:30px;border-radius:var(--rs);border:1px solid var(--border);background:none;color:var(--dim);display:flex;align-items:center;justify-content:center;transition:all .15s;padding:0;flex-shrink:0}
 .theme-toggle:hover{color:var(--tx);background:var(--s2);border-color:var(--s3)}
@@ -1377,6 +1436,53 @@ html{scroll-behavior:smooth}
   <div class="motto">Deliver excellence at work. Build mastery on the margins. Earn the PhD.</div>
 </div>
 
+<!-- LIVE NOW HERO -->
+<div id="schNowHero" class="sch-now-hero" style="display:none">
+  <div class="sch-now-left">
+    <div class="sch-now-label">⚡ Right Now · <span id="schNowDay"></span></div>
+    <div class="sch-now-block" id="schNowBlock">—</div>
+    <div class="sch-now-detail" id="schNowDetail"></div>
+    <div class="sch-now-protocol" id="schNowProtocol"></div>
+  </div>
+  <div class="sch-now-right">
+    <div class="sch-now-timer-wrap">
+      <svg width="120" height="120" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--s3)" stroke-width="6"/>
+        <circle id="schNowRing" cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1s linear"/>
+      </svg>
+      <div class="sch-now-timer-text">
+        <div class="sch-now-timer" id="schNowTimer">--:--</div>
+        <div class="sch-now-timer-label">remaining</div>
+      </div>
+    </div>
+    <div class="sch-now-next" id="schNowNext"></div>
+  </div>
+</div>
+
+<!-- Quick Jump Nav -->
+<div class="sch-jump">
+  <button class="sch-jump-btn active" data-jump="now">⚡ Now</button>
+  <button class="sch-jump-btn" data-jump="grid">📅 Weekly Grid</button>
+  <button class="sch-jump-btn" data-jump="changes">🆕 v4 Changes</button>
+  <button class="sch-jump-btn" data-jump="phases">🏗️ Capstone Projects</button>
+  <button class="sch-jump-btn" data-jump="principles">🧬 Design Principles</button>
+  <button class="sch-jump-btn" data-jump="actions">📋 Action Items</button>
+  <button class="sch-jump-btn" onclick="window.print()" style="margin-left:auto">🖨 Print</button>
+</div>
+
+<!-- TODAY'S RITUALS QUICK CHECK -->
+<div class="sch-today-card" id="schTodayCard">
+  <div class="sch-today-header">
+    <div>
+      <div class="sch-today-label">TODAY'S BLOCKS · <span id="schTodayDay"></span></div>
+      <div class="sch-today-progress"><span id="schTodayDone">0</span> / <span id="schTodayTotal">0</span> complete</div>
+    </div>
+    <div class="sch-today-pct" id="schTodayPct">0%</div>
+  </div>
+  <div class="sch-today-blocks" id="schTodayBlocks"></div>
+  <div class="sch-today-footnote" id="schTodayFootnote"></div>
+</div>
+
 <div class="sch-legend">
   <span><div class="dot" style="background:var(--exercise)"></div> Exercise</span>
   <span><div class="dot" style="background:var(--theory)"></div> CS Theory</span>
@@ -1399,7 +1505,7 @@ html{scroll-behavior:smooth}
 </div>
 
 <!-- v4 CHANGES -->
-<div class="sch-section-title">v3.1 → v4.0 CHANGES</div>
+<div class="sch-section-title" id="sch-changes">v3.1 → v4.0 CHANGES</div>
 
 <div class="track sch-changes">
   <div class="track-head">
@@ -1420,7 +1526,8 @@ html{scroll-behavior:smooth}
 </div>
 
 <!-- SCHEDULE TABLE -->
-<div class="schedule-wrap">
+<div class="sch-section-title" id="sch-grid">WEEKLY GRID</div>
+<div class="schedule-wrap" id="schGridWrap">
 <table>
 <thead>
   <tr><th>Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
@@ -1512,7 +1619,7 @@ html{scroll-behavior:smooth}
 </div>
 
 <!-- PHASE CAPSTONE PROJECTS -->
-<div class="sch-section-title">CLRS PHASE CAPSTONE PROJECTS</div>
+<div class="sch-section-title" id="sch-phases">CLRS PHASE CAPSTONE PROJECTS</div>
 
 <div class="phases">
 <div class="phase-card ph-1">
@@ -1605,7 +1712,7 @@ html{scroll-behavior:smooth}
 </div>
 
 <!-- DESIGN PRINCIPLES -->
-<div class="sch-section-title">DESIGN PRINCIPLES</div>
+<div class="sch-section-title" id="sch-principles">DESIGN PRINCIPLES</div>
 
 <div class="pgrid">
 <div class="pcard">
@@ -1677,7 +1784,7 @@ html{scroll-behavior:smooth}
 </div>
 
 <!-- ACTION ITEMS BY TRACK -->
-<div class="sch-section-title">ACTION ITEMS BY TRACK</div>
+<div class="sch-section-title" id="sch-actions">ACTION ITEMS BY TRACK</div>
 
 <div class="track">
   <div class="track-head" style="background:var(--theory-bg);border-left:4px solid var(--theory)">
@@ -2990,7 +3097,212 @@ function renderHorizons(){
   </div>`).join(''):'<p style="color:var(--dim);font-size:12px">Write who you ARE, not what you want. Identity drives behavior.</p>';
 }
 
-function renderAll(){renderDash();renderTodayBlocks();renderHabitChains();renderStreakWarnings();renderInbox();renderStartup();renderExercise();renderCS();renderYouTube();renderPhD();renderBrain();renderHorizons();renderReview();checkBackup()}
+function renderAll(){renderDash();renderTodayBlocks();renderHabitChains();renderStreakWarnings();renderInbox();renderStartup();renderExercise();renderCS();renderYouTube();renderPhD();renderBrain();renderHorizons();renderReview();renderSchedulePage();checkBackup()}
+
+// ===== SCHEDULE PAGE (#9) ENHANCEMENTS =====
+const SCHED_BLOCKS={
+  weekday:[
+    {key:'exercise',icon:'🏋️',name:'Exercise',time:'5:50–6:50 AM',h1:5.83,h2:6.83,
+      protocol:'Warm up → main lift → cooldown. BDNF priming for morning learning.'},
+    {key:'cs_theory',icon:'📖',name:'CLRS Theory',time:'7:00–8:00 AM',h1:7,h2:8,
+      protocol:'5min retrieval → predict → read → 10min interleaved exercises from past chapter → exit reflection.'},
+    {key:'work',icon:'💼',name:'CVC Work',time:'8:00 AM–5:00 PM',h1:8,h2:17,
+      protocol:'Deliver excellence. GTD @work contexts. Friday: 10-min weekly reflection.'},
+    {key:'cs_build',icon:'🔧',name:'Build → PhD Micro-write',time:'5:15–6:45 PM',h1:17.25,h2:18.75,
+      protocol:'50min build at edge of ability → 10min PhD micro-write → 2min exit with incubation question.'},
+    {key:'shutdown',icon:'🛑',name:'Shutdown Ritual',time:'6:45–7:00 PM',h1:18.75,h2:19,
+      protocol:'Log progress. Set tomorrow\'s first action. Say "Shutdown complete." Clear attention residue.'},
+    {key:'family',icon:'🍽️',name:'Dinner / Family / Rest',time:'7:00–8:30 PM',h1:19,h2:20.5,
+      protocol:'Fully present. No work. No phone. Recovery is productive.'},
+    {key:'youtube',icon:'🎬',name:'YouTube Batch',time:'8:30–9:15 PM',h1:20.5,h2:21.25,
+      protocol:'Mon=script · Tue=record · Wed=edit · Thu=publish · Fri=plan. Low-load creative.'},
+    {key:'wind',icon:'🌙',name:'Wind Down',time:'9:15–10:00 PM',h1:21.25,h2:22,
+      protocol:'NO SCREENS. Read fiction. Journal. Dim lights. Melatonin onset protected.'},
+    {key:'sleep',icon:'😴',name:'Sleep',time:'10:00 PM–5:50 AM',h1:22,h2:29.83,
+      protocol:'7h 50m = 5+ full sleep cycles. SWS replays today\'s learning. REM integrates.'}
+  ],
+  saturday:[
+    {key:'exercise',icon:'🏋️',name:'Exercise',time:'5:50–6:50 AM',h1:5.83,h2:6.83,protocol:'Long workout or strength session.'},
+    {key:'cs_theory',icon:'📖',name:'Deep Read (MIT 6.006)',time:'7:00–8:00 AM',h1:7,h2:8,protocol:'Dual coding: text + lectures + Anki review.'},
+    {key:'cs_build1',icon:'🔧',name:'Project Build 1',time:'8:15–9:45 AM',h1:8.25,h2:9.75,protocol:'90-min ultradian deep work on phase capstone.'},
+    {key:'break',icon:'🚶',name:'Walk Break',time:'9:45–10:00 AM',h1:9.75,h2:10,protocol:'No screens. Movement. Hydrate.'},
+    {key:'cs_read2',icon:'📖',name:'Read Cycle 2',time:'10:00–11:30 AM',h1:10,h2:11.5,protocol:'Second 90-min ultradian. CLRS + Anki.'},
+    {key:'phd_deep',icon:'🎓',name:'PhD Deep Read',time:'12:00–1:30 PM',h1:12,h2:13.5,protocol:'Paper read → synthesis → 3 Anki cards.'},
+    {key:'cs_build2',icon:'🔧',name:'Project Build 2',time:'2:00–3:30 PM',h1:14,h2:15.5,protocol:'Integrate week\'s algorithm into project.'},
+    {key:'youtube',icon:'🎬',name:'YouTube Batch',time:'4:00–5:30 PM',h1:16,h2:17.5,protocol:'Long YouTube session — script/record/edit.'},
+    {key:'rest',icon:'🍽️',name:'Rest / Family',time:'5:30–8:30 PM',h1:17.5,h2:20.5,protocol:'Recovery. Be present.'},
+    {key:'wind',icon:'🌙',name:'Wind Down',time:'9:00–10:00 PM',h1:21,h2:22,protocol:'No screens. Read fiction.'},
+    {key:'sleep',icon:'😴',name:'Sleep',time:'10:00 PM–5:50 AM',h1:22,h2:29.83,protocol:'7h 50m sleep.'}
+  ],
+  sunday:[
+    {key:'recovery',icon:'🚶',name:'Active Recovery',time:'5:50–6:50 AM',h1:5.83,h2:6.83,protocol:'Walk, yoga, or mobility. Parasympathetic dominance.'},
+    {key:'phd_write',icon:'🎓',name:'PhD Deep Write',time:'6:50–8:00 AM',h1:6.83,h2:8,protocol:'PEAK COGNITION → hardest task. Polish week\'s micro-writes into prose.'},
+    {key:'family',icon:'🏠',name:'Family Day',time:'8:00 AM–9:00 PM',h1:8,h2:21,protocol:'Protected. Present. Property mgmt batched (30 min).'},
+    {key:'cs_retrieval',icon:'📖',name:'CLRS Retrieval',time:'9:00–9:30 PM',h1:21,h2:21.5,protocol:'Hardest problem, no notes → sleep immediately. INCUBATION.'},
+    {key:'review',icon:'✅',name:'GTD Weekly Review',time:'8:30–9:00 PM',h1:20.5,h2:21,protocol:'Process inbox. Plan next week. Set One Big Things.'},
+    {key:'sleep',icon:'😴',name:'Sleep',time:'10:00 PM–5:50 AM',h1:22,h2:29.83,protocol:'Memory consolidation + incubation active.'}
+  ]
+};
+const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function getCurrentSchedBlocks(){
+  const dow=new Date().getDay();
+  if(dow===0)return SCHED_BLOCKS.sunday;
+  if(dow===6)return SCHED_BLOCKS.saturday;
+  return SCHED_BLOCKS.weekday;
+}
+
+function getCurrentSchedBlock(){
+  const now=new Date(),hour=now.getHours()+now.getMinutes()/60;
+  const blocks=getCurrentSchedBlocks();
+  for(const b of blocks){
+    if(hour>=b.h1&&hour<b.h2)return b;
+  }
+  return null;
+}
+function getNextSchedBlock(){
+  const now=new Date(),hour=now.getHours()+now.getMinutes()/60;
+  const blocks=getCurrentSchedBlocks();
+  for(const b of blocks){
+    if(b.h1>hour)return b;
+  }
+  return null;
+}
+
+function renderSchNowHero(){
+  const hero=document.getElementById('schNowHero');
+  if(!hero)return;
+  const cur=getCurrentSchedBlock();
+  if(!cur){hero.style.display='none';return}
+  hero.style.display='flex';
+  const now=new Date();
+  document.getElementById('schNowDay').textContent=DAY_NAMES[now.getDay()];
+  document.getElementById('schNowBlock').textContent=cur.icon+' '+cur.name;
+  document.getElementById('schNowDetail').textContent=cur.time;
+  document.getElementById('schNowProtocol').textContent='⚡ '+cur.protocol;
+
+  const hour=now.getHours()+now.getMinutes()/60+now.getSeconds()/3600;
+  const elapsed=hour-cur.h1;
+  const total=cur.h2-cur.h1;
+  const remaining=total-elapsed;
+  const remMin=Math.floor(remaining*60);
+  const remSec=Math.floor((remaining*60-remMin)*60);
+  document.getElementById('schNowTimer').textContent=`${String(remMin).padStart(2,'0')}:${String(remSec).padStart(2,'0')}`;
+
+  // ring
+  const pct=elapsed/total;
+  const C=326.7;
+  document.getElementById('schNowRing').setAttribute('stroke-dashoffset',C*(1-pct));
+
+  // next block
+  const next=getNextSchedBlock();
+  document.getElementById('schNowNext').textContent=next?'NEXT: '+next.icon+' '+next.name+' @ '+next.time.split('–')[0]:'LAST BLOCK OF THE DAY';
+}
+
+function renderSchToday(){
+  const card=document.getElementById('schTodayCard');
+  if(!card)return;
+  const blocks=getCurrentSchedBlocks();
+  const now=new Date();
+  const dateKey=td();
+  if(!S.today[dateKey])S.today[dateKey]={};
+  document.getElementById('schTodayDay').textContent=DAY_NAMES[now.getDay()];
+  // exclude sleep block
+  const trackable=blocks.filter(b=>b.key!=='sleep'&&b.key!=='break'&&b.key!=='wind');
+  const done=trackable.filter(b=>S.today[dateKey][b.key]).length;
+  document.getElementById('schTodayDone').textContent=done;
+  document.getElementById('schTodayTotal').textContent=trackable.length;
+  const pct=trackable.length?Math.round(done/trackable.length*100):0;
+  document.getElementById('schTodayPct').textContent=pct+'%';
+
+  document.getElementById('schTodayBlocks').innerHTML=trackable.map(b=>{
+    const isDone=S.today[dateKey][b.key];
+    return `<div class="sch-today-block ${isDone?'done':''}" onclick="schToggleBlock('${b.key}')">
+      <span class="sch-today-icon">${b.icon}</span>
+      <div class="sch-today-info">
+        <div class="sch-today-name">${b.name}</div>
+        <div class="sch-today-time">${b.time}</div>
+      </div>
+      <div class="sch-today-check"></div>
+    </div>`;
+  }).join('');
+
+  let footnote='';
+  if(pct===100)footnote='🔥 Perfect day. Sleep well — consolidation begins now.';
+  else if(pct>=70)footnote='💪 Strong day. Don\'t let perfection block progress.';
+  else if(pct>=40)footnote='📈 Halfway there. Pick the highest-leverage block next.';
+  else if(done>0)footnote='✊ Started. Each block matters more than the last.';
+  else footnote='⚡ Day fresh. Pick the easiest block to get momentum.';
+  document.getElementById('schTodayFootnote').textContent=footnote;
+}
+
+function schToggleBlock(key){
+  const dateKey=td();
+  if(!S.today[dateKey])S.today[dateKey]={};
+  S.today[dateKey][key]=!S.today[dateKey][key];
+  // map to existing tracking blocks
+  const map={exercise:'exercise',cs_theory:'cs_morning',cs_build:'cs_evening',cs_build1:'cs_morning',cs_build2:'cs_evening',cs_read2:'cs_morning',phd_deep:'phd',phd_write:'phd',cs_retrieval:'phd',work:'work',youtube:'youtube',recovery:'exercise'};
+  if(map[key]){
+    S.today[dateKey][map[key]]=S.today[dateKey][key];
+    if(S.today[dateKey][key]&&typeof quickLog==='function')quickLog(map[key],dateKey);
+  }
+  save();renderSchToday();renderTodayBlocks();renderHabitChains();
+}
+
+let schedJumpInit=false;
+function initSchedJump(){
+  if(schedJumpInit)return;schedJumpInit=true;
+  document.querySelectorAll('.sch-jump-btn[data-jump]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.sch-jump-btn[data-jump]').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const target=btn.dataset.jump;
+      const map={now:'schNowHero',grid:'sch-grid',changes:'sch-changes',phases:'sch-phases',principles:'sch-principles',actions:'sch-actions'};
+      const el=document.getElementById(map[target]);
+      if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+}
+
+function highlightTodayColumn(){
+  // Highlight current day column in the grid table
+  const dow=new Date().getDay();
+  const colIdx=dow===0?7:dow; // Mon=1, Sun=7
+  const table=document.querySelector('#page-schedule .schedule-wrap table');
+  if(!table)return;
+  // Remove old highlights
+  table.querySelectorAll('.today-col,.today-th').forEach(el=>{el.classList.remove('today-col');el.classList.remove('today-th')});
+  // Add to current day
+  const ths=table.querySelectorAll('thead th');
+  if(ths[colIdx])ths[colIdx].classList.add('today-th');
+  table.querySelectorAll('tbody tr').forEach(tr=>{
+    const tds=tr.querySelectorAll('td');
+    let i=0,col=0;
+    for(const td of tds){
+      const span=parseInt(td.getAttribute('rowspan')||'1');
+      if(i===0&&tds.length===8){col++}
+      // First col is time label, then days
+      if(i===colIdx)td.classList.add('today-col');
+      i++;
+    }
+  });
+}
+
+function renderSchedulePage(){
+  if(!document.getElementById('page-schedule')) return;
+  initSchedJump();
+  renderSchNowHero();
+  renderSchToday();
+  highlightTodayColumn();
+}
+
+// Live timer for schedule "now" - update every second when on schedule page
+setInterval(()=>{
+  const schedPage=document.getElementById('page-schedule');
+  if(schedPage&&schedPage.classList.contains('active')){
+    renderSchNowHero();
+  }
+},1000);
 
 // ===== COMMAND PALETTE =====
 let cmdSel=0;
