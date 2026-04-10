@@ -1314,6 +1314,19 @@ html{scroll-behavior:smooth}
 <div style="font-size:9px;color:var(--dim)" id="dNowNext"></div>
 </div>
 </div>
+<!-- Playbook Active Track panel — your next action surfaced on the dashboard -->
+<div id="dNowTrackRow" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(107,138,255,.25)">
+  <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;margin-bottom:5px">▶ Your next action <span style="opacity:.7;font-weight:500">· from Playbook</span></div>
+  <div id="dNowTrackNext" style="font-size:12.5px;line-height:1.55;color:var(--tx);margin-bottom:6px;white-space:pre-line;font-weight:500">—</div>
+  <div id="dNowTrackProg" style="display:none;font-size:10px;color:var(--accent);font-weight:700;margin-bottom:6px;font-family:'JetBrains Mono',monospace">—</div>
+  <div id="dNowTrackExit" style="display:none;font-size:10px;color:var(--dim);line-height:1.5;margin-bottom:8px;font-style:italic;padding:6px 9px;background:rgba(251,191,36,.08);border-left:2px solid var(--yellow);border-radius:4px">—</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+    <button onclick="dNowStartTrack()" style="background:var(--accent);color:#fff;border:0;padding:7px 14px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">▶ Start block</button>
+    <button onclick="dNowEditTrack()" style="background:var(--s2);color:var(--tx);border:1px solid var(--border);padding:7px 14px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">✏️ Edit</button>
+    <button onclick="goPage('playbook')" style="background:transparent;color:var(--dim);border:1px solid var(--border);padding:7px 14px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Open Playbook →</button>
+    <span id="dNowTrackStreak" style="margin-left:auto;font-size:10px;font-weight:700;color:var(--dim)">—</span>
+  </div>
+</div>
 </div>
 
 <!-- Energy Curve -->
@@ -2356,6 +2369,15 @@ html{scroll-behavior:smooth}
   <div class="pbt-exit" id="pbtExit" style="display:none">
     <div class="pbt-label">📝 Exit note · <span id="pbtExitDate">—</span></div>
     <div class="pbt-exit-text" id="pbtExitText">—</div>
+    <details id="pbtHistoryDetails" style="margin-top:8px">
+      <summary style="cursor:pointer;font-size:10px;opacity:.72;letter-spacing:.4px;text-transform:uppercase;font-weight:700;outline:none">▸ Exit note history</summary>
+      <div id="pbtHistoryList" style="margin-top:8px;display:flex;flex-direction:column;gap:6px"></div>
+    </details>
+  </div>
+
+  <div class="pbt-progress-bar" id="pbtProgress" style="display:none;background:rgba(255,255,255,.12);border-radius:8px;padding:8px 13px;margin-bottom:10px;font-size:11.5px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.3px;border-left:3px solid rgba(255,255,255,.6)">
+    <span style="opacity:.75;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800">📊 Progress</span>
+    <span id="pbtProgressText" style="margin-left:6px">—</span>
   </div>
 
   <div class="pbt-timer-live" id="pbtTimerLive" style="display:none">
@@ -2398,6 +2420,7 @@ html{scroll-behavior:smooth}
     <textarea class="pbt-input pbt-textarea" id="pbtEditNext" placeholder="Next action — exactly what you'll do in this block" rows="2"></textarea>
     <textarea class="pbt-input pbt-textarea" id="pbtEditUrl" rows="2" placeholder="Resource URL(s) — one per line. All auto-open in new tabs when you Start. Optional."></textarea>
     <input class="pbt-input" id="pbtEditFile" placeholder="File path or repo (shown for reference) — optional" />
+    <input class="pbt-input" id="pbtEditProgress" placeholder="Progress snapshot — e.g., 'Ch 11/30 · 3 of 8 exercises' — optional" />
     <div class="pbt-edit-actions">
       <button class="pbt-btn pbt-btn-primary" onclick="pbtSaveEdit()">Save</button>
       <button class="pbt-btn" onclick="pbtCancelEdit()">Cancel</button>
@@ -3900,6 +3923,8 @@ function renderDash(){
     const minsLeft=Math.round((nowBlock.h2-hour)*60);
     $('dNowTimer').textContent=minsLeft+'m left';
     $('dNowNext').textContent=nextBlock?'Next: '+nextBlock.n.replace(/^[^\s]+ /,''):'Last block of the day';
+    // Surface the Playbook Active Track for this block, if any
+    dRenderNowTrack(nowBlock.n);
   } else {
     $('dNowBox').style.display='none';
   }
@@ -4841,6 +4866,8 @@ function pbGetTrack(pane){
   // Migrate old records: derive sessionDays from legacy lastStarted + streak
   if(!Array.isArray(t.sessionDays)){t.sessionDays=t.lastStarted?[t.lastStarted]:[]}
   if(!Array.isArray(t.restDays))t.restDays=[];
+  if(!Array.isArray(t.exitHistory))t.exitHistory=t.exitNote?[{date:t.exitNoteDate||td(),note:t.exitNote}]:[];
+  if(typeof t.progress!=='string')t.progress='';
   return t;
 }
 
@@ -4922,8 +4949,24 @@ function pbRenderTrack(){
     $('pbtExit').style.display='';
     $('pbtExitText').textContent='"'+t.exitNote+'"';
     $('pbtExitDate').textContent=t.exitNoteDate||'last session';
+    // Render history (skip first if it matches current exit note, otherwise show all)
+    const hist=Array.isArray(t.exitHistory)?t.exitHistory:[];
+    const list=$('pbtHistoryList');
+    if(list){
+      const past=hist.filter((e,i)=>!(i===0&&e.note===t.exitNote));
+      if(past.length){
+        list.innerHTML=past.slice(0,9).map(e=>`<div style="padding:6px 10px;background:rgba(0,0,0,.2);border-radius:6px;border-left:2px solid rgba(255,255,255,.25);font-size:11px;line-height:1.5"><div style="font-size:9px;opacity:.65;letter-spacing:.5px;margin-bottom:2px;text-transform:uppercase;font-weight:700">${esc(e.date)}</div><div style="font-style:italic;opacity:.92">${esc(e.note)}</div></div>`).join('');
+        $('pbtHistoryDetails').style.display='';
+      }else{$('pbtHistoryDetails').style.display='none'}
+    }
   }else{
     $('pbtExit').style.display='none';
+  }
+  if(t.progress){
+    $('pbtProgress').style.display='';
+    $('pbtProgressText').textContent=t.progress;
+  }else{
+    $('pbtProgress').style.display='none';
   }
   const urlLink=$('pbtOpenUrl');
   if(t.url){
@@ -5046,13 +5089,26 @@ function pbRenderOverview(){
       if(k===todayKey)cls+=' pb-ov-dot-today';
       miniDots.push(`<div class="${cls}" title="${k}"></div>`);
     }
+    // Compute days since last session (for stale warning)
+    const lastDates=[...(t.sessionDays||[])].sort();
+    const lastDate=lastDates[lastDates.length-1]||null;
+    let daysSince=null;
+    if(lastDate){
+      const last=new Date(lastDate+'T00:00:00');
+      const today=new Date(todayKey+'T00:00:00');
+      daysSince=Math.round((today-last)/86400000);
+    }
     const pills=[];
     if(isToday)pills.push('<span class="pb-ov-pill">TODAY</span>');
     if(workedToday)pills.push('<span class="pb-ov-pill pb-ov-pill-done">✓ WORKED</span>');
     else if(restedToday)pills.push('<span class="pb-ov-pill pb-ov-pill-rest">🛌 REST</span>');
+    if(daysSince===null)pills.push('<span class="pb-ov-pill" style="background:var(--purple)">NEW</span>');
+    else if(daysSince>=7)pills.push(`<span class="pb-ov-pill" style="background:var(--red)">⚠️ ${daysSince}d STALE</span>`);
+    if(!t.nextAction)pills.push('<span class="pb-ov-pill" style="background:var(--yellow);color:#000">NO NEXT</span>');
     const titleTxt=t.title||'(focus not set)';
     const nextTxt=t.nextAction||'(no next action)';
     const exitTxt=t.exitNote?`"${t.exitNote.length>140?t.exitNote.slice(0,140)+'…':t.exitNote}"`:'';
+    const progTxt=t.progress?`<div style="font-size:10px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;margin-top:2px">📊 ${esc(t.progress)}</div>`:'';
     const streakCls=streak>=5?'pb-ov-streak hot':'pb-ov-streak';
     return `<div class="pb-ov-card ${isToday?'pb-ov-today':''}" onclick="pbSwitchPane('${p}')">
       <div class="pb-ov-top">
@@ -5060,6 +5116,7 @@ function pbRenderOverview(){
         <div class="pb-ov-titles">
           <div class="pb-ov-name">${meta.name}${pills.length?' '+pills.join(' '):''}</div>
           <div class="pb-ov-title">${esc(titleTxt)}</div>
+          ${progTxt}
         </div>
         <div class="${streakCls}">🔥 ${streak}</div>
       </div>
@@ -5068,6 +5125,7 @@ function pbRenderOverview(){
       <div class="pb-ov-meta">
         <span>${t.sessions||0} sessions</span>
         <span>${meta.duration}m/block</span>
+        ${daysSince!==null?`<span>last ${daysSince===0?'today':daysSince+'d ago'}</span>`:''}
         <div class="pb-ov-dots">${miniDots.join('')}</div>
       </div>
     </div>`;
@@ -5086,6 +5144,7 @@ function pbCopyReport(){
     lines.push(`## ${meta.icon} ${meta.name}`);
     lines.push('');
     lines.push(`- **Current focus:** ${t.title||'_(not set)_'}`);
+    if(t.progress)lines.push(`- **Progress:** ${t.progress}`);
     lines.push(`- **Next action:** ${t.nextAction||'_(not set)_'}`);
     if(t.exitNote)lines.push(`- **Last exit note** (${t.exitNoteDate||'—'}): ${t.exitNote}`);
     if(t.url)lines.push(`- **Resource:** ${t.url}`);
@@ -5169,6 +5228,7 @@ function pbtOpenEdit(){
   $('pbtEditNext').value=t.nextAction||'';
   $('pbtEditUrl').value=t.url||'';
   $('pbtEditFile').value=t.file||'';
+  $('pbtEditProgress').value=t.progress||'';
   $('pbtEdit').style.display='';
   $('pbtIdeas').style.display='none';
   setTimeout(()=>$('pbtEditTitle').focus(),50);
@@ -5181,6 +5241,7 @@ function pbtSaveEdit(){
   t.nextAction=$('pbtEditNext').value.trim();
   t.url=$('pbtEditUrl').value.trim();
   t.file=$('pbtEditFile').value.trim();
+  t.progress=$('pbtEditProgress').value.trim();
   save();
   $('pbtEdit').style.display='none';
   pbRenderTrack();
@@ -5213,6 +5274,11 @@ function pbtSaveExit(){
   const priorNext=t.nextAction||'';
   t.exitNote=val;
   t.exitNoteDate=td();
+  // Push to history (dedup if same day)
+  if(!Array.isArray(t.exitHistory))t.exitHistory=[];
+  t.exitHistory=t.exitHistory.filter(e=>e.date!==t.exitNoteDate);
+  t.exitHistory.unshift({date:t.exitNoteDate,note:val});
+  if(t.exitHistory.length>10)t.exitHistory=t.exitHistory.slice(0,10);
   save();
   $('pbtExitForm').style.display='none';
   pbRenderTrack();
@@ -5295,6 +5361,63 @@ setInterval(()=>{
     if(document.getElementById('pb-overview')?.classList.contains('active'))pbRenderOverview();
   }
 },15000);
+
+// === DASHBOARD Active Track surface ===
+// Map dashboard block names to Playbook pane keys. Dashboard blocks use emoji + name.
+const D_NOW_PANE_PATTERNS=[
+  {re:/CS Theory|CLRS/i,pane:'clrs'},
+  {re:/CS Build|Project Build|Build → PhD/i,pane:'build'},
+  {re:/PhD Deep Write|Deep Write/i,pane:'write'},
+  {re:/PhD Prep|PhD Deep|PhD$/i,pane:'phd'},
+  {re:/YouTube/i,pane:'youtube'}
+];
+
+function dPaneForBlockName(name){
+  if(!name)return null;
+  for(const p of D_NOW_PANE_PATTERNS){if(p.re.test(name))return p.pane}
+  return null;
+}
+
+function dRenderNowTrack(blockName){
+  const row=document.getElementById('dNowTrackRow');if(!row)return;
+  const pane=dPaneForBlockName(blockName);
+  if(!pane||typeof pbGetTrack!=='function'){row.style.display='none';return}
+  const t=pbGetTrack(pane);
+  const meta=(typeof PB_PANE_META!=='undefined')?PB_PANE_META[pane]:null;
+  row.style.display='block';
+  row.dataset.pane=pane;
+  $('dNowTrackNext').textContent=t.nextAction||'(no next action set — click Edit to define it)';
+  if(t.progress){
+    $('dNowTrackProg').style.display='';
+    $('dNowTrackProg').textContent='📊 '+t.progress;
+  }else{$('dNowTrackProg').style.display='none'}
+  if(t.exitNote){
+    $('dNowTrackExit').style.display='';
+    $('dNowTrackExit').textContent='📝 Last session: "'+(t.exitNote.length>180?t.exitNote.slice(0,180)+'…':t.exitNote)+'"';
+  }else{$('dNowTrackExit').style.display='none'}
+  const streak=(typeof pbCalcStreak==='function')?pbCalcStreak(t):(t.streak||0);
+  $('dNowTrackStreak').textContent='🔥 '+streak+(meta?' · '+meta.duration+'m block':'');
+}
+
+function dNowStartTrack(){
+  const pane=$('dNowTrackRow').dataset.pane;
+  if(!pane)return;
+  goPage('playbook');
+  setTimeout(()=>{
+    pbSwitchPane(pane);
+    setTimeout(()=>pbtStartTrack(),120);
+  },120);
+}
+
+function dNowEditTrack(){
+  const pane=$('dNowTrackRow').dataset.pane;
+  if(!pane)return;
+  goPage('playbook');
+  setTimeout(()=>{
+    pbSwitchPane(pane);
+    setTimeout(()=>pbtOpenEdit(),120);
+  },120);
+}
 
 function pbtCopyFile(){
   const pane=$('pbTrack').dataset.pane||pbCurrentPane();
@@ -5778,6 +5901,10 @@ document.addEventListener('keydown',e=>{
   if(num>=1&&num<=9&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
     const pages=['dashboard','inbox','exercise','cs','phd','brain','horizons','review','schedule'];
     goPage(pages[num-1]);return;
+  }
+  // 'b' for Playbook
+  if(e.key==='b'&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
+    e.preventDefault();goPage('playbook');return;
   }
   // 'c' for quick capture
   if(e.key==='c'&&!e.metaKey&&!e.ctrlKey){
