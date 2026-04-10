@@ -763,6 +763,45 @@ html{scroll-behavior:smooth}
 .drift-banner .drift-text strong{color:var(--yellow)}
 .drift-banner button{background:var(--yellow);border:none;color:#000;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
 
+/* === BLOCK TRANSITION FLASH === */
+.block-flash{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);z-index:9999;background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;padding:32px 48px;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.5);text-align:center;opacity:0;pointer-events:none;transition:all .4s cubic-bezier(.4,0,.2,1)}
+.block-flash.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.block-flash-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+.block-flash-icon{font-size:42px;margin-bottom:6px}
+.block-flash-name{font-size:24px;font-weight:800;margin-bottom:4px}
+.block-flash-time{font-size:12px;opacity:.85;font-family:'JetBrains Mono',monospace}
+
+/* === DAY COMPLETE CELEBRATION === */
+.day-complete-bg{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;animation:fadeIn .4s ease}
+.day-complete-bg.show{display:flex}
+.day-complete-card{text-align:center;padding:40px;animation:briefingIn .6s cubic-bezier(.4,0,.2,1)}
+.day-complete-emoji{font-size:80px;margin-bottom:12px;animation:emojiBounce 1s ease infinite alternate}
+@keyframes emojiBounce{0%{transform:translateY(0)}100%{transform:translateY(-12px)}}
+.day-complete-title{font-size:42px;font-weight:900;background:linear-gradient(135deg,var(--green),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;letter-spacing:-.02em}
+.day-complete-sub{font-size:16px;color:var(--dim);margin-bottom:20px}
+.day-complete-msg{font-size:14px;color:var(--tx);max-width:400px;margin:0 auto 24px;line-height:1.6}
+.day-complete-btn{padding:14px 32px;background:var(--green);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.day-complete-confetti{position:absolute;width:10px;height:10px;border-radius:2px;animation:confetti-fall 2.5s ease-in forwards}
+
+/* === SCROLLSPY ACTIVE === */
+#page-schedule .sch-jump-btn[data-jump].in-view{background:var(--accent-g);color:var(--accent);border-color:var(--accent)}
+
+/* === MOBILE TABLE IMPROVEMENTS === */
+@media(max-width:768px){
+  #page-schedule .schedule-wrap{position:relative}
+  #page-schedule .schedule-wrap::after{content:'← swipe →';position:absolute;top:8px;right:14px;font-size:9px;color:var(--dim2);font-family:'JetBrains Mono',monospace;pointer-events:none;background:var(--s2);padding:2px 8px;border-radius:8px;opacity:.7}
+  #page-schedule table{font-size:.66rem}
+  #page-schedule .c .label{font-size:.65rem}
+  #page-schedule .sch-now-hero{padding:14px 16px;gap:14px}
+  #page-schedule .sch-now-block{font-size:1.1rem}
+}
+
+/* === UP NEXT WIDGET === */
+.up-next{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--s2);border:1px dashed var(--border);border-radius:8px;font-size:11px;color:var(--dim);margin-top:10px}
+.up-next-label{font-weight:700;color:var(--dim2);text-transform:uppercase;letter-spacing:1px;font-size:9px}
+.up-next-name{color:var(--tx);font-weight:600}
+.up-next-time{color:var(--dim);margin-left:auto;font-family:'JetBrains Mono',monospace}
+
 /* === CELL CLICK MODAL === */
 .cell-modal-bg{position:fixed;inset:0;z-index:250;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
 .cell-modal-bg.show{display:flex;animation:fadeIn .2s ease}
@@ -861,6 +900,25 @@ html{scroll-behavior:smooth}
       <button class="briefing-btn briefing-btn-secondary" onclick="dismissBriefing()">Maybe later</button>
       <button class="briefing-btn briefing-btn-primary" onclick="startDayFromBriefing()">Let's go →</button>
     </div>
+  </div>
+</div>
+
+<!-- Block Transition Flash -->
+<div class="block-flash" id="blockFlash">
+  <div class="block-flash-eyebrow" id="blockFlashEyebrow">▶ NOW STARTING</div>
+  <div class="block-flash-icon" id="blockFlashIcon">⚡</div>
+  <div class="block-flash-name" id="blockFlashName">—</div>
+  <div class="block-flash-time" id="blockFlashTime">—</div>
+</div>
+
+<!-- Day Complete Celebration -->
+<div class="day-complete-bg" id="dayCompleteBg" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="day-complete-card">
+    <div class="day-complete-emoji">🔥</div>
+    <div class="day-complete-title">Perfect Day</div>
+    <div class="day-complete-sub" id="dayCompleteSub">All blocks complete</div>
+    <div class="day-complete-msg">Sleep well — consolidation begins now. Walker (2017): everything you learned today gets wired into long-term memory tonight. The chain holds.</div>
+    <button class="day-complete-btn" onclick="document.getElementById('dayCompleteBg').classList.remove('show')">🌙 Goodnight</button>
   </div>
 </div>
 
@@ -1621,6 +1679,7 @@ html{scroll-behavior:smooth}
   <div class="sch-stat"><strong>5.5h</strong> PhD Prep</div>
   <div class="sch-stat"><strong>5h</strong> YouTube</div>
   <div class="sch-stat"><strong>40h</strong> CVC Work</div>
+  <div class="sch-stat"><strong>30m</strong> Property Mgmt</div>
   <div class="sch-stat" style="border-color:var(--warn)"><strong>7h 50m</strong> Sleep/night</div>
 </div>
 
@@ -1681,7 +1740,7 @@ html{scroll-behavior:smooth}
     <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span></div></td>
     <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span></div></td>
     <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Project Build 1</span><span class="time">8:15 – 9:45</span><span class="detail">Phase capstone project</span><span class="science">90-MIN ULTRADIAN</span></div></td>
-    <td rowspan="10"><div class="c c-family h10"><span class="label">🏠 Family Day</span><span class="time">8 AM – 9 PM</span><span class="detail">Protected. Present.</span></div></td>
+    <td rowspan="10"><div class="c c-family h10"><span class="label">🏠 Family Day</span><span class="time">8 AM – 8:30 PM</span><span class="detail">Protected. Present.</span></div></td>
   </tr>
   <tr><td>9 AM</td></tr>
   <tr>
@@ -1722,13 +1781,13 @@ html{scroll-behavior:smooth}
   <tr>
     <td>9 PM</td>
     <td colspan="5"><div class="c c-youtube"><span class="label">🎬 YouTube</span><span class="time">8:30 – 9:15</span><span class="detail">Mon script · Tue record · Wed edit · Thu publish · Fri plan</span><span class="science">LOW LOAD · SCREENS END 9:15</span></div></td>
-    <td><div class="c c-review"><span class="label">✅ GTD Review</span><span class="time">8:30 – 9:00</span><span class="science">METACOGNITION</span></div></td>
+    <td><div class="c c-family"><span class="label">🏘️ Property Mgmt / RA</span><span class="time">8:30 – 9:00</span><span class="detail">Batched RA duties, tenant comms</span><span class="science">BATCH ADMIN · GTD</span></div></td>
   </tr>
   <tr>
     <td>10 PM</td>
     <td colspan="5"><div class="c c-wind"><span class="label">🌙 Wind Down — No Screens</span><span class="time">9:15 – 10:00</span><span class="detail">Read fiction. Journal. Lights dim. Incubation questions percolating.</span><span class="science">MELATONIN ONSET PROTECTED</span></div></td>
     <td><div class="c c-wind"><span class="label">🌙 Wind Down</span><span class="time">9:00 – 10:00</span></div></td>
-    <td><div class="c c-theory"><span class="label">📖 CLRS Retrieval</span><span class="time">9:00 – 9:30</span><span class="detail">Hardest problem, no notes → sleep</span><span class="science">INCUBATION ★</span></div></td>
+    <td><div class="c c-review"><span class="label">✅ Review + 📖 Retrieval</span><span class="time">9:00 – 9:45</span><span class="detail">GTD review → CLRS hardest problem → sleep</span><span class="science">INCUBATION ★</span></div></td>
   </tr>
   <tr>
     <td>10 PM</td>
@@ -3257,9 +3316,10 @@ const SCHED_BLOCKS={
   sunday:[
     {key:'recovery',icon:'🚶',name:'Active Recovery',time:'5:50–6:50 AM',h1:5.83,h2:6.83,protocol:'Walk, yoga, or mobility. Parasympathetic dominance.'},
     {key:'phd_write',icon:'🎓',name:'PhD Deep Write',time:'6:50–8:00 AM',h1:6.83,h2:8,protocol:'PEAK COGNITION → hardest task. Polish week\'s micro-writes into prose.'},
-    {key:'family',icon:'🏠',name:'Family Day',time:'8:00 AM–9:00 PM',h1:8,h2:21,protocol:'Protected. Present. Property mgmt batched (30 min).'},
-    {key:'cs_retrieval',icon:'📖',name:'CLRS Retrieval',time:'9:00–9:30 PM',h1:21,h2:21.5,protocol:'Hardest problem, no notes → sleep immediately. INCUBATION.'},
-    {key:'review',icon:'✅',name:'GTD Weekly Review',time:'8:30–9:00 PM',h1:20.5,h2:21,protocol:'Process inbox. Plan next week. Set One Big Things.'},
+    {key:'family',icon:'🏠',name:'Family Evening',time:'8:00 AM–8:30 PM',h1:8,h2:20.5,protocol:'Protected. Present. No work, no phone. Recovery is productive.'},
+    {key:'property_mgmt',icon:'🏘️',name:'Property Management / RA',time:'8:30–9:00 PM',h1:20.5,h2:21,protocol:'30 min batched. RA duties, property issues, weekly tenant comms. GTD: batch admin work weekly to reduce decision fatigue.'},
+    {key:'review',icon:'✅',name:'GTD Weekly Review',time:'9:00–9:30 PM',h1:21,h2:21.5,protocol:'Process inbox. Plan next week. Set One Big Things. THE critical success factor of the system.'},
+    {key:'cs_retrieval',icon:'📖',name:'CLRS Retrieval',time:'9:30–9:45 PM',h1:21.5,h2:21.75,protocol:'Hardest problem, no notes → sleep immediately. INCUBATION effect (Wagner 2004).'},
     {key:'sleep',icon:'😴',name:'Sleep',time:'10:00 PM–5:50 AM',h1:22,h2:29.83,protocol:'Memory consolidation + incubation active.'}
   ]
 };
@@ -3588,6 +3648,99 @@ setTimeout(()=>{
     showBriefing();
   }
 },800);
+
+// ===== BLOCK TRANSITION FLASH =====
+let lastBlockKey=null;
+function checkBlockTransition(){
+  const cur=getCurrentSchedBlock();
+  const curKey=cur?cur.key:null;
+  if(lastBlockKey!==null&&curKey!==null&&lastBlockKey!==curKey&&!['sleep','wind','rest','family','break'].includes(curKey)){
+    showBlockFlash(cur);
+  }
+  lastBlockKey=curKey;
+}
+function showBlockFlash(block){
+  const flash=document.getElementById('blockFlash');
+  if(!flash)return;
+  document.getElementById('blockFlashIcon').textContent=block.icon;
+  document.getElementById('blockFlashName').textContent=block.name;
+  document.getElementById('blockFlashTime').textContent=block.time;
+  flash.classList.add('show');
+  setTimeout(()=>flash.classList.remove('show'),3500);
+  // Optional sound (uses Web Audio if user has interacted)
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator();
+    const g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);
+    o.frequency.value=523;g.gain.value=.1;
+    o.start();o.stop(ctx.currentTime+.15);
+    setTimeout(()=>{const o2=ctx.createOscillator();const g2=ctx.createGain();o2.connect(g2);g2.connect(ctx.destination);o2.frequency.value=659;g2.gain.value=.1;o2.start();o2.stop(ctx.currentTime+.15)},180);
+  }catch(e){}
+}
+// Check for transitions every 30 seconds
+setInterval(checkBlockTransition,30000);
+setTimeout(()=>{lastBlockKey=getCurrentSchedBlock()?.key||null},1500);
+
+// ===== DAY COMPLETE CELEBRATION =====
+let dayCompleteShown=false;
+function checkDayComplete(){
+  const dateKey=td();
+  if(!S.today||!S.today[dateKey])return;
+  const blocks=getCurrentSchedBlocks().filter(b=>!['sleep','wind','break','family','rest'].includes(b.key));
+  const done=blocks.filter(b=>S.today[dateKey][b.key]).length;
+  if(done===blocks.length&&blocks.length>0&&S.lastDayCompleteShown!==dateKey){
+    S.lastDayCompleteShown=dateKey;save();
+    showDayComplete(blocks.length);
+  }
+}
+function showDayComplete(count){
+  const bg=document.getElementById('dayCompleteBg');
+  if(!bg)return;
+  document.getElementById('dayCompleteSub').textContent=`All ${count} blocks complete`;
+  bg.classList.add('show');
+  // Confetti
+  const colors=['#34d399','#6b8aff','#a78bfa','#fbbf24','#f87171'];
+  for(let i=0;i<40;i++){
+    setTimeout(()=>{
+      const c=document.createElement('div');
+      c.className='day-complete-confetti';
+      c.style.background=colors[Math.floor(Math.random()*colors.length)];
+      c.style.left=Math.random()*100+'vw';
+      c.style.top='-20px';
+      c.style.animationDelay=Math.random()*.5+'s';
+      bg.appendChild(c);
+      setTimeout(()=>c.remove(),3000);
+    },i*40);
+  }
+}
+
+// Hook into existing toggleBlock so we check for completion
+const _origSchToggleBlock=schToggleBlock;
+schToggleBlock=function(key){_origSchToggleBlock(key);setTimeout(checkDayComplete,200)};
+
+// ===== SCROLLSPY for Schedule jump nav =====
+function initScheduleScrollspy(){
+  const sections=['schNowHero','sch-grid','sch-changes','sch-phases','sch-principles','sch-actions'];
+  const map={schNowHero:'now','sch-grid':'grid','sch-changes':'changes','sch-phases':'phases','sch-principles':'principles','sch-actions':'actions'};
+  function update(){
+    const sched=document.getElementById('page-schedule');
+    if(!sched||!sched.classList.contains('active'))return;
+    let activeKey='now';
+    for(const id of sections){
+      const el=document.getElementById(id);
+      if(!el)continue;
+      const rect=el.getBoundingClientRect();
+      if(rect.top<150)activeKey=map[id];
+    }
+    document.querySelectorAll('.sch-jump-btn[data-jump]').forEach(b=>{
+      if(b.dataset.jump===activeKey)b.classList.add('active');
+      else b.classList.remove('active');
+    });
+  }
+  window.addEventListener('scroll',update,{passive:true});
+}
+setTimeout(initScheduleScrollspy,500);
 
 // Escape key closes modals
 document.addEventListener('keydown',e=>{
