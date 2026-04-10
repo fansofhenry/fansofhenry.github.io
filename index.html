@@ -815,6 +815,66 @@ html{scroll-behavior:smooth}
 #page-schedule td .c{cursor:pointer}
 #page-schedule td .c:hover{transform:scale(1.01)}
 
+/* === PLAYBOOK PAGE === */
+#page-playbook .pb-hero{background:linear-gradient(135deg,var(--accent-g),var(--purple-g));border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin-bottom:20px}
+#page-playbook .pb-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+#page-playbook .pb-title{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+#page-playbook .pb-sub{font-size:13px;color:var(--dim);max-width:640px;line-height:1.6}
+#page-playbook .pb-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);position:sticky;top:52px;background:var(--bg);z-index:10;padding-top:8px}
+#page-playbook .pb-tab{padding:9px 16px;border-radius:10px;border:1px solid var(--border);background:var(--s1);color:var(--dim);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+#page-playbook .pb-tab:hover{border-color:var(--accent);color:var(--tx)}
+#page-playbook .pb-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+#page-playbook .pb-tab-icon{font-size:15px}
+#page-playbook .pb-pane{display:none;animation:fadeIn .25s ease}
+#page-playbook .pb-pane.active{display:block}
+#page-playbook .pb-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+#page-playbook .pb-card h3{font-size:14px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+#page-playbook .pb-card h3 .pb-badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;background:var(--accent-g);color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
+#page-playbook .pb-today{background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(107,138,255,.08));border:1px solid var(--green);padding:18px 22px;border-radius:12px;margin-bottom:18px}
+#page-playbook .pb-today-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+#page-playbook .pb-today-text{font-size:15px;font-weight:600;margin-bottom:8px}
+#page-playbook .pb-today-protocol{font-size:12px;color:var(--dim);line-height:1.6}
+#page-playbook .pb-protocol{font-family:'JetBrains Mono','SF Mono',monospace;font-size:11px;background:var(--s2);border-radius:8px;padding:14px 16px;line-height:1.8;color:var(--dim);border-left:3px solid var(--accent);margin-bottom:12px}
+#page-playbook .pb-protocol strong{color:var(--tx);font-weight:700}
+#page-playbook .pb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#page-playbook .pb-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:800px){#page-playbook .pb-grid2,#page-playbook .pb-grid3{grid-template-columns:1fr}}
+#page-playbook .pb-resource{padding:11px 14px;background:var(--s2);border-radius:8px;margin-bottom:6px;border-left:3px solid var(--accent);display:flex;align-items:center;gap:10px;transition:transform .12s}
+#page-playbook .pb-resource:hover{transform:translateX(2px)}
+#page-playbook .pb-resource-icon{font-size:18px;flex-shrink:0}
+#page-playbook .pb-resource-info{flex:1;min-width:0}
+#page-playbook .pb-resource-title{font-size:12px;font-weight:600;color:var(--tx)}
+#page-playbook .pb-resource-desc{font-size:10px;color:var(--dim);margin-top:1px;line-height:1.4}
+#page-playbook .pb-resource a{color:var(--accent);font-size:11px;font-weight:600;flex-shrink:0;margin-left:auto}
+#page-playbook .pb-phase{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+#page-playbook .pb-phase:last-child{border-bottom:none}
+#page-playbook .pb-phase-num{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:var(--accent-g);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+#page-playbook .pb-phase-info{flex:1;min-width:0}
+#page-playbook .pb-phase-title{font-size:13px;font-weight:700;margin-bottom:2px}
+#page-playbook .pb-phase-meta{font-size:10px;color:var(--dim2);font-family:'JetBrains Mono',monospace;margin-bottom:4px}
+#page-playbook .pb-phase-desc{font-size:11px;color:var(--dim);line-height:1.5}
+#page-playbook .pb-list{font-size:12px;line-height:1.7;color:var(--dim)}
+#page-playbook .pb-list li{margin-bottom:5px;padding-left:0}
+#page-playbook .pb-list li strong{color:var(--tx);font-weight:600}
+#page-playbook .pb-list li code{background:var(--s2);padding:1px 6px;border-radius:4px;font-size:10.5px;color:var(--accent);font-family:'JetBrains Mono',monospace}
+#page-playbook .pb-list a{color:var(--accent)}
+#page-playbook .pb-quote{padding:14px 18px;background:var(--s2);border-left:3px solid var(--purple);border-radius:0 8px 8px 0;font-style:italic;font-size:12px;color:var(--dim);margin:10px 0;line-height:1.6}
+#page-playbook .pb-callout{padding:12px 16px;border-radius:8px;background:rgba(251,191,36,.08);border:1px solid var(--yellow);font-size:12px;color:var(--tx);line-height:1.6;margin:10px 0}
+#page-playbook .pb-callout strong{color:var(--yellow)}
+#page-playbook .pb-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;background:var(--s3);color:var(--dim);margin-right:4px;margin-bottom:3px}
+#page-playbook .pb-tag-free{background:rgba(52,211,153,.15);color:var(--green)}
+#page-playbook .pb-tag-paid{background:rgba(251,191,36,.15);color:var(--yellow)}
+#page-playbook .pb-tag-video{background:rgba(248,113,113,.15);color:var(--red)}
+#page-playbook .pb-tag-book{background:rgba(167,139,250,.15);color:var(--purple)}
+#page-playbook .pb-tag-course{background:rgba(107,138,255,.15);color:var(--accent)}
+#page-playbook .pb-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--dim);margin:14px 0 8px;padding-top:10px;border-top:1px dashed var(--border)}
+#page-playbook .pb-section-title:first-child{border-top:none;padding-top:0;margin-top:0}
+@media(max-width:768px){
+  #page-playbook .pb-tabs{position:static;flex-wrap:wrap}
+  #page-playbook .pb-tab{font-size:11px;padding:7px 12px}
+  #page-playbook .pb-title{font-size:22px}
+}
+
 /* Password Gate */
 .pw-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .3s}
 .pw-gate.hidden{opacity:0;pointer-events:none}
@@ -950,6 +1010,7 @@ html{scroll-behavior:smooth}
 <button class="nav-tab" data-page="horizons">Dream Binder <span class="kbd-hint">7</span></button>
 <button class="nav-tab" data-page="review">Weekly Review <span class="kbd-hint">8</span></button>
 <button class="nav-tab" data-page="schedule">Schedule <span class="kbd-hint">9</span></button>
+<button class="nav-tab" data-page="playbook">📖 Playbook</button>
 <a class="nav-tab" href="projects.html" style="text-decoration:none">Projects <span class="kbd-hint">0</span></a>
 </div>
 <div class="nav-right">
@@ -2087,6 +2148,646 @@ html{scroll-behavior:smooth}
 
 </div>
 <!-- END SCHEDULE PAGE -->
+
+<!-- ==================== PLAYBOOK ==================== -->
+<div class="page" id="page-playbook">
+
+<div class="pb-hero">
+  <div class="pb-eyebrow">📖 The Playbook</div>
+  <div class="pb-title">What to actually do, every block.</div>
+  <div class="pb-sub">Stop wondering "what should I be doing right now?" This is your daily action manual — comprehensive resources, exact protocols, and concrete projects for every block of the system. Built for excellence in graduate CS coursework and PhD applications.</div>
+</div>
+
+<div class="pb-tabs">
+  <button class="pb-tab active" data-pbtab="clrs"><span class="pb-tab-icon">📖</span>CLRS Theory</button>
+  <button class="pb-tab" data-pbtab="build"><span class="pb-tab-icon">🔧</span>CS Build</button>
+  <button class="pb-tab" data-pbtab="phd"><span class="pb-tab-icon">🎓</span>PhD Prep</button>
+  <button class="pb-tab" data-pbtab="write"><span class="pb-tab-icon">✍️</span>PhD Deep Write</button>
+  <button class="pb-tab" data-pbtab="youtube"><span class="pb-tab-icon">🎬</span>YouTube</button>
+  <button class="pb-tab" data-pbtab="grad"><span class="pb-tab-icon">🎯</span>Grad CS Excellence</button>
+</div>
+
+<!-- ===== CLRS THEORY PANE ===== -->
+<div class="pb-pane active" id="pb-clrs">
+
+<div class="pb-today">
+<div class="pb-today-label">⚡ Today's CLRS Block · 7:00–8:00 AM</div>
+<div class="pb-today-text" id="pbClrsToday">Pick up where you left off in your current chapter.</div>
+<div class="pb-today-protocol">5-min retrieval warm-up → 7-min predict → 38-min core read + exercise → 10-min interleaved (different chapter) → 5-min Anki + 2-sentence journal.</div>
+</div>
+
+<div class="pb-card">
+<h3>📋 60-Minute Session Protocol <span class="pb-badge">Daily</span></h3>
+<div class="pb-protocol">
+<strong>0-5 min — Retrieval warm-up</strong> (book closed): write yesterday's main theorem and one pseudocode from memory<br>
+<strong>5-12 min — Predict</strong>: read section heading + figures only, write what you expect the algorithm/proof to be<br>
+<strong>12-50 min — Core read + exercise</strong>: deep read one section, work 1-2 exercises in a notebook<br>
+<strong>50-55 min — Interleave</strong>: touch a DIFFERENT chapter — review an earlier proof OR grind one LeetCode problem mapped to an older chapter<br>
+<strong>55-60 min — Anki + journal</strong>: add 1-3 cards, write what confused you in 2 sentences
+</div>
+<div class="pb-callout"><strong>The interleave move:</strong> Last 10 min always touches a DIFFERENT chapter. Builds discriminative contrast — "which algorithm fits this problem?" — not just isolated familiarity. Rohrer 2015: d=0.35 over blocked practice.</div>
+</div>
+
+<div class="pb-card">
+<h3>📚 6-Phase CLRS Path · 10 Months Total</h3>
+<div class="pb-phase"><div class="pb-phase-num">1</div><div class="pb-phase-info"><div class="pb-phase-title">Foundations · Weeks 1-4</div><div class="pb-phase-meta">Ch 1-5 + Appendices A-D · ~24 days</div><div class="pb-phase-desc">Insertion sort, asymptotic notation (core), divide-and-conquer + Master Theorem (core), probabilistic analysis. Get fluent with Big-O and recurrences before anything else.</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">2</div><div class="pb-phase-info"><div class="pb-phase-title">Sorting & Order Statistics · Weeks 5-7</div><div class="pb-phase-meta">Ch 6-9 · ~17 days</div><div class="pb-phase-desc">Heapsort, quicksort (core), linear-time sorting (counting/radix/bucket), medians and order statistics.</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">3</div><div class="pb-phase-info"><div class="pb-phase-title">Data Structures · Weeks 8-12</div><div class="pb-phase-meta">Ch 10-14 · ~22 days</div><div class="pb-phase-desc">Elementary structures, hash tables (core), BSTs, red-black trees (core), augmenting data structures.</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">4</div><div class="pb-phase-info"><div class="pb-phase-title">Advanced Design · Weeks 13-18</div><div class="pb-phase-meta">Ch 15-21 · ~38 days</div><div class="pb-phase-desc"><strong>Dynamic programming (go slow, 10 days)</strong>, greedy, amortized analysis, B-trees, Fibonacci heaps, vEB trees, Union-Find. DP is the make-or-break chapter.</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">5</div><div class="pb-phase-info"><div class="pb-phase-title">Graph Algorithms · Weeks 19-24</div><div class="pb-phase-meta">Ch 22-27 · ~30 days</div><div class="pb-phase-desc">BFS/DFS/topo sort, MSTs, single-source shortest paths (Dijkstra/Bellman-Ford), all-pairs shortest paths, max flow (core), bipartite matching (new in 4e).</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">6</div><div class="pb-phase-info"><div class="pb-phase-title">Selected Topics · Weeks 25-30</div><div class="pb-phase-meta">Ch 28-35 · ~30 days</div><div class="pb-phase-desc">Pick 4-5: Matrix ops, FFT, number theory, string matching, geometry. <strong>NP-completeness (34) and approximation (35) are non-negotiable for PhD prep.</strong></div></div></div>
+</div>
+
+<div class="pb-card">
+<h3>🎥 Companion Video Resources</h3>
+<div class="pb-section-title">MIT OpenCourseWare</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">MIT 6.006 Intro to Algorithms (Spring 2020)</div><div class="pb-resource-desc">Erik Demaine + Jason Ku · Free · Maps directly onto CLRS chapters</div></div><a href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">MIT 6.046J Design & Analysis of Algorithms (Spring 2015)</div><div class="pb-resource-desc">Graduate level · Erik Demaine · Maps to advanced CLRS chapters</div></div><a href="https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">MIT 6.854 Advanced Algorithms (Fall 2008)</div><div class="pb-resource-desc">David Karger · Most advanced free algorithms course online</div></div><a href="https://ocw.mit.edu/courses/6-854j-advanced-algorithms-fall-2008/" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">Tim Roughgarden / Stanford</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎬</span><div class="pb-resource-info"><div class="pb-resource-title">Algorithms Illuminated (full series, free)</div><div class="pb-resource-desc">Tim Roughgarden's complete YouTube series · Companion to his book</div></div><a href="https://www.algorithmsilluminated.org/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">🎬</span><div class="pb-resource-info"><div class="pb-resource-title">Stanford CS161 Design & Analysis of Algorithms</div><div class="pb-resource-desc">Tim Roughgarden / Mary Wootters · Notes + psets posted publicly</div></div><a href="https://stanford-cs161.github.io/winter2022/" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">YouTube Channels</div>
+<div class="pb-resource"><span class="pb-resource-icon">📺</span><div class="pb-resource-info"><div class="pb-resource-title">Abdul Bari</div><div class="pb-resource-desc">Best whiteboard intuition for DP, graphs, recursion</div></div><a href="https://www.youtube.com/@abdul_bari" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📺</span><div class="pb-resource-info"><div class="pb-resource-title">William Fiset</div><div class="pb-resource-desc">Graph theory + data structures from scratch</div></div><a href="https://www.youtube.com/@WilliamFiset-videos" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📺</span><div class="pb-resource-info"><div class="pb-resource-title">Errichto</div><div class="pb-resource-desc">Competitive angle on CLRS topics</div></div><a href="https://www.youtube.com/@Errichto" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">Visualizers</div>
+<div class="pb-resource"><span class="pb-resource-icon">👁</span><div class="pb-resource-info"><div class="pb-resource-title">VisuAlgo</div><div class="pb-resource-desc">Animated data structures + algorithms</div></div><a href="https://visualgo.net/en" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">👁</span><div class="pb-resource-info"><div class="pb-resource-title">USFCA Algorithm Visualizer</div><div class="pb-resource-desc">Step-through animations for every classic algo</div></div><a href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">Free PDFs</div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">Jeff Erickson's Algorithms (free)</div><div class="pb-resource-desc">Excellent problems · Public CLRS-equivalent textbook</div></div><a href="http://jeffe.cs.illinois.edu/teaching/algorithms/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">Dasgupta, Papadimitriou, Vazirani (free)</div><div class="pb-resource-desc">UC Berkeley algorithms text · Concise + classic</div></div><a href="https://people.eecs.berkeley.edu/~vazirani/algorithms.html" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">walkccc CLRS 4e Solutions</div><div class="pb-resource-desc">Most complete solution set · Use after 20-min attempt</div></div><a href="https://walkccc.me/CLRS/" target="_blank">Open ↗</a></div>
+</div>
+
+<div class="pb-card">
+<h3>💪 Practice Problems by Chapter</h3>
+<ul class="pb-list">
+<li><strong>Ch 6 (heaps):</strong> LeetCode <code>#215</code>, <code>#295</code>, <code>#703</code></li>
+<li><strong>Ch 7-9 (sorting/selection):</strong> <code>#912</code>, <code>#75</code></li>
+<li><strong>Ch 11 (hashing):</strong> <code>#1</code>, <code>#49</code>, <code>#128</code>, <code>#560</code></li>
+<li><strong>Ch 12-13 (BSTs):</strong> <code>#98</code>, <code>#230</code>, <code>#450</code>, <code>#108</code></li>
+<li><strong>Ch 15 (DP):</strong> <code>#322</code>, <code>#300</code>, <code>#72</code>, <code>#1143</code>, <code>#10</code>, <code>#312</code></li>
+<li><strong>Ch 16 (greedy):</strong> <code>#45</code>, <code>#55</code>, <code>#435</code>, <code>#621</code></li>
+<li><strong>Ch 21 (union-find):</strong> <code>#547</code>, <code>#684</code>, <code>#1319</code></li>
+<li><strong>Ch 22 (BFS/DFS):</strong> <code>#200</code>, <code>#133</code>, <code>#207</code>, <code>#994</code></li>
+<li><strong>Ch 23 (MST):</strong> <code>#1584</code>, <code>#1135</code></li>
+<li><strong>Ch 24 (shortest path):</strong> <code>#743</code>, <code>#787</code>, <code>#1631</code></li>
+<li><strong>Ch 32 (string matching):</strong> <code>#28</code>, <code>#214</code>, <code>#686</code></li>
+<li><strong>Ch 34-35 (NP/approx):</strong> <code>#416</code>, <code>#698</code></li>
+</ul>
+<div class="pb-section-title">Competitive Sites</div>
+<div class="pb-resource"><span class="pb-resource-icon">⚔️</span><div class="pb-resource-info"><div class="pb-resource-title">Codeforces EDU</div><div class="pb-resource-desc">Free structured courses on graphs, DP, binary search</div></div><a href="https://codeforces.com/edu/courses" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">⚔️</span><div class="pb-resource-info"><div class="pb-resource-title">AtCoder Educational DP Contest</div><div class="pb-resource-desc">26 classic DP problems · Perfect CLRS Ch 15 complement</div></div><a href="https://atcoder.jp/contests/dp" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">⚔️</span><div class="pb-resource-info"><div class="pb-resource-title">CSES Problem Set</div><div class="pb-resource-desc">Finnish national training · CLRS-aligned 300+ problems</div></div><a href="https://cses.fi/problemset/" target="_blank">Open ↗</a></div>
+</div>
+
+<div class="pb-card">
+<h3>🧠 Anki Deck Strategy</h3>
+<ul class="pb-list">
+<li><strong>10-15 cards/chapter</strong> (~350 cards total). Tag by chapter, by type (definition/pseudocode/proof/complexity), by phase.</li>
+<li><strong>Card templates:</strong> (1) algo name → pseudocode, (2) complexity → algo, (3) loop invariant statements, (4) proof skeletons, (5) recurrence → solution, (6) problem prose → approach</li>
+<li><strong>Schedule:</strong> 5-8 new cards/day · cap reviews at 30/day weekdays · catch up Saturday</li>
+<li><strong>Use FSRS scheduler</strong> (Anki 23.10+) with retention target 0.9</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>🏆 Grad-Level Self-Test Prompts</h3>
+<div class="pb-quote">"Explain merge sort to a 12-year-old using a deck of cards." · "Why is a hash table usually faster than a sorted array for lookup?" · "What does NP-complete mean to someone who's never seen a computer?"</div>
+<ul class="pb-list">
+<li><strong>Weekly whiteboard prompts</strong> (30 min, no notes): Derive merge sort recurrence with recursion tree · Prove BFS distance invariant · Implement red-black insertion with all rotation cases · Reduce 3-SAT to Independent Set · Prove Dijkstra correctness via cut argument</li>
+<li><strong>Free qualifying exam archives:</strong></li>
+</ul>
+<div class="pb-resource"><span class="pb-resource-icon">📝</span><div class="pb-resource-info"><div class="pb-resource-title">Berkeley CS Prelims Archive</div><div class="pb-resource-desc">Free past graduate qualifying exams</div></div><a href="https://www2.eecs.berkeley.edu/Students/Grad/prelim.shtml" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📝</span><div class="pb-resource-info"><div class="pb-resource-title">UIUC Algorithms Quals (Jeff Erickson)</div><div class="pb-resource-desc">Old exams + extended problem sets</div></div><a href="http://jeffe.cs.illinois.edu/teaching/algorithms/" target="_blank">Open ↗</a></div>
+</div>
+
+</div><!-- /CLRS PANE -->
+
+<!-- ===== CS BUILD PANE ===== -->
+<div class="pb-pane" id="pb-build">
+
+<div class="pb-today">
+<div class="pb-today-label">⚡ Today's Build Block · 5:15–6:45 PM</div>
+<div class="pb-today-text" id="pbBuildToday">Today: Mon/Wed/Fri = code project · Tue/Thu = hardware (Ben Eater)</div>
+<div class="pb-today-protocol">2-min entry: read yesterday's exit note → 50-min build at edge of ability → 10-min PhD micro-write → 2-min exit: git commit + tomorrow's first action + new incubation question.</div>
+</div>
+
+<div class="pb-card">
+<h3>📋 Daily 50-Minute Build Protocol <span class="pb-badge">M-F</span></h3>
+<div class="pb-protocol">
+<strong>5:15 (2m)</strong> Read yesterday's exit-note.md + check incubation question — did sleep yield insight?<br>
+<strong>5:17 (50m)</strong> BUILD at the edge of ability. No tutorials on autopilot.<br>
+<strong>6:07 (10m)</strong> PhD micro-write: 1 paragraph in <code>phd-journal/YYYY-MM-DD.md</code> connecting today's build to a research question<br>
+<strong>6:17 (2m)</strong> <code>git commit -m "..."</code> · write tomorrow's first action + new incubation question to <code>exit-note.md</code><br>
+<strong>6:19</strong> Walk away. Incubation does the rest.
+</div>
+<div class="pb-callout"><strong>The edge-of-ability rule:</strong> If you can't describe why you're stuck in one sentence, you're too far over. If you haven't been stuck today, you're too far under. Move the ladder.</div>
+</div>
+
+<div class="pb-card">
+<h3>🔨 Tier 1 — Foundation Hardware: Ben Eater 8-Bit</h3>
+<ul class="pb-list">
+<li><strong>555 Clock</strong> — 4-6h · oscilloscope trace of square wave</li>
+<li><strong>Registers</strong> — 6-8h · A, B, IR with 74LS173 · bus tri-state</li>
+<li><strong>ALU</strong> — 8-10h · 2x 74LS283 adders + XOR for subtract</li>
+<li><strong>RAM + MAR</strong> — 8-10h · 74LS189, 16 bytes · manual write/read cycle</li>
+<li><strong>Program Counter</strong> — 3-4h · 74LS161 counting on LEDs</li>
+<li><strong>Output + 7-seg</strong> — 6-8h · EEPROM decoder · decimal display</li>
+<li><strong>Instruction Decoder</strong> — 10-12h · EEPROM microcode</li>
+<li><strong>Flags + Conditional Jump</strong> — 6-8h · running Fibonacci</li>
+</ul>
+<div class="pb-resource"><span class="pb-resource-icon">🛒</span><div class="pb-resource-info"><div class="pb-resource-title">Ben Eater Kit ($65 starter, ~$300 total)</div><div class="pb-resource-desc">Free videos · Buy parts as you go</div></div><a href="https://eater.net/8bit" target="_blank">Open ↗</a></div>
+<div class="pb-callout"><strong>#1 debugging tip:</strong> Most bugs are miswired clock enable lines. Always clock by hand first. Use a logic probe. 0.1uF decoupling cap on every chip. Wire colors matter: red=VCC, black=GND, yellow=data, blue=control.</div>
+</div>
+
+<div class="pb-card">
+<h3>💻 Tier 1 — Foundation Software: Nand2Tetris</h3>
+<ul class="pb-list">
+<li><strong>P1 Boolean Logic</strong> — 4h · NAND→MUX</li>
+<li><strong>P2 Arithmetic</strong> — 6h · half/full adder, ALU</li>
+<li><strong>P3 Sequential</strong> — 6h · DFF, RAM8→RAM16K</li>
+<li><strong>P4 Machine Language</strong> — 4h · Hack assembly</li>
+<li><strong>P5 Computer Architecture</strong> — 8h · CPU+Memory wiring</li>
+<li><strong>P6 Assembler (Python)</strong> — 10h · symbol table two-pass · <strong>own repo</strong></li>
+<li><strong>P7 VM I: Stack Arithmetic</strong> — 10h · own repo</li>
+<li><strong>P8 VM II: Function Calling</strong> — 14h · own repo</li>
+<li><strong>P9 Jack Program</strong> — 6h</li>
+<li><strong>P10 Compiler I: Syntax</strong> — 14h · recursive descent · own repo</li>
+<li><strong>P11 Compiler II: Codegen</strong> — 18h · own repo</li>
+<li><strong>P12 OS</strong> — 16h · Memory, Math, Screen, String, Output, Keyboard · own repo</li>
+</ul>
+<p style="font-size:11px;color:var(--dim);margin-top:8px"><strong>Total ~120 hours.</strong> Projects 6-12 each become their own GitHub repo (6 portfolio artifacts).</p>
+<div class="pb-resource"><span class="pb-resource-icon">🌐</span><div class="pb-resource-info"><div class="pb-resource-title">Nand2Tetris Course Site (Free)</div><div class="pb-resource-desc">All projects · The Elements of Computing Systems book</div></div><a href="https://www.nand2tetris.org" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">🌐</span><div class="pb-resource-info"><div class="pb-resource-title">Coursera Audit (Free)</div><div class="pb-resource-desc">Build a Modern Computer From First Principles</div></div><a href="https://www.coursera.org/learn/build-a-computer" target="_blank">Open ↗</a></div>
+</div>
+
+<div class="pb-card">
+<h3>🎯 Tier 2 — Algorithm Implementation Projects</h3>
+<ul class="pb-list">
+<li><strong>Sorting Visualizer (2wk)</strong> — Insertion, merge, quick (Hoare + Lomuto), heap, radix, Timsort. Benchmark across distributions.</li>
+<li><strong>Mini Search Engine (3wk)</strong> — Hash table from scratch (open addressing + Robin Hood), BST index, Levenshtein, TF-IDF. Corpus: Project Gutenberg top 100.</li>
+<li><strong>Pathfinding Visualizer (2wk)</strong> — BFS, DFS, Dijkstra (binary heap), A* (Manhattan + Euclidean). <strong>Host on GitHub Pages</strong> — recruiter favorite.</li>
+<li><strong>Huffman Compressor (1wk)</strong> — Encoder/decoder · measure ratio vs gzip</li>
+<li><strong>Persistent Data Structures (3wk)</strong> — Path copying BST, HAMT (Bagwell/Clojure style). Read Okasaki.</li>
+<li><strong>Regex Engine from NFA (2wk)</strong> — Thompson construction · linear-time on <code>a?^n a^n</code></li>
+</ul>
+<div class="pb-resource"><span class="pb-resource-icon">📖</span><div class="pb-resource-info"><div class="pb-resource-title">Russ Cox: Regex Engine Tutorial</div><div class="pb-resource-desc">The classic guide to building from NFA</div></div><a href="https://swtch.com/~rsc/regexp/regexp1.html" target="_blank">Open ↗</a></div>
+</div>
+
+<div class="pb-card">
+<h3>⚙️ Tier 3 — Systems Projects (Months 6-18)</h3>
+<ul class="pb-list">
+<li><strong>Shell in C (2wk)</strong> — Pipes, redirection, job control, globbing, history. Reference: xv6's <code>sh.c</code></li>
+<li><strong>Thread Library (3wk)</strong> — <code>thread_create</code>, mutex, cond, using <code>ucontext.h</code></li>
+<li><strong>Simple File System (3wk)</strong> — Inodes, bitmap, directories. Build on FUSE.</li>
+<li><strong>Memory Allocator (2wk)</strong> — implicit free list → explicit → segregated fit. CMU Malloc Lab.</li>
+<li><strong>TCP/IP Stack (4wk)</strong> — TUN/TAP · ARP → ICMP → IPv4 → TCP handshake</li>
+<li><strong>B-Tree Database Engine (4wk)</strong> — SQLite clone in C · query parser → page cache → WAL</li>
+</ul>
+<div class="pb-section-title">Gold Standard Lab Series</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">MIT 6.S081 / xv6 (Labs 1-6)</div><div class="pb-resource-desc">The canonical OS course · all in C</div></div><a href="https://pdos.csail.mit.edu/6.S081/2023/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">CMU 15-213 / CS:APP Labs</div><div class="pb-resource-desc">Datalab, bomblab, attacklab, cachelab, shelllab, malloclab</div></div><a href="http://csapp.cs.cmu.edu/3e/labs.html" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📖</span><div class="pb-resource-info"><div class="pb-resource-title">Saminiir TCP/IP Stack Walkthrough</div><div class="pb-resource-desc">Step-by-step network stack from scratch</div></div><a href="https://www.saminiir.com/lets-code-tcp-ip-stack-1-ethernet-arp/" target="_blank">Open ↗</a></div>
+</div>
+
+<div class="pb-card">
+<h3>🤖 Tier 3 — AI/ML Projects (Months 10-18)</h3>
+<ul class="pb-list">
+<li><strong>Linear/Logistic Regression from scratch (1wk)</strong> — NumPy only · derive gradients on paper</li>
+<li><strong>MLP on MNIST (1wk)</strong> — Forward + backprop by hand → refactor into mini autodiff (Karpathy's <code>micrograd</code>)</li>
+<li><strong>CNN on MNIST (2wk)</strong> — Pure NumPy → PyTorch · target &gt;99% accuracy</li>
+<li><strong>Transformer from scratch (3wk)</strong> — Karpathy's "Let's build GPT" · multi-head attention + layer norm + positional encoding by hand</li>
+<li><strong>nanoGPT on Shakespeare (1wk)</strong> — Training pipeline + sample outputs</li>
+<li><strong>Recommendation System (2wk)</strong> — MovieLens 100K · collab filtering + matrix factorization</li>
+<li><strong>Q-learning Gridworld (1wk)</strong> — Tabular Q-learning + SARSA → DQN on CartPole</li>
+</ul>
+<div class="pb-resource"><span class="pb-resource-icon">🎬</span><div class="pb-resource-info"><div class="pb-resource-title">Karpathy Zero-to-Hero Series</div><div class="pb-resource-desc">Free · Build ML from scratch with the OG · Highest ROI ML resource</div></div><a href="https://karpathy.ai/zero-to-hero.html" target="_blank">Open ↗</a></div>
+</div>
+
+<div class="pb-card">
+<h3>🎓 Tier 4 — PhD-Aligned Projects (THE DIFFERENTIATORS)</h3>
+<p style="font-size:11px;color:var(--dim);margin-bottom:10px">These are what admissions committees notice. Each one doubles as research infrastructure.</p>
+<ul class="pb-list">
+<li><strong>Research Network Mapper</strong> — Pulls Zotero + Semantic Scholar API → BFS, PageRank, Louvain clusters, MST. <em>Becomes your literature review engine. Goes in your SoP.</em></li>
+<li><strong>Document Similarity Detector</strong> — Rabin-Karp + MinHash/LSH on your paper notes · KMP for phrase reuse</li>
+<li><strong>Curriculum Generator (SIGCSE-ready)</strong> — LLM + retrieval over textbooks → generates CS1 syllabi · evaluate with CC instructors. <em>Publishable as SIGCSE/ITiCSE tool paper.</em></li>
+<li><strong>Equity Dashboard</strong> — Scrape California Community College Chancellor's MIS data → CS enrollment by race/gender/first-gen. Streamlit/Observable.</li>
+<li><strong>Help-Seeking Bot</strong> — Chatbot trained on (consented) CC student questions · log hesitation, rephrasings. <em>This IS a dissertation pilot.</em></li>
+</ul>
+<div class="pb-callout"><strong>For each:</strong> start a repo TODAY with a <code>research/</code> folder containing <code>rq.md</code>, <code>related-work.md</code>, <code>protocol.md</code>. Makes your PhD story visible in commit history.</div>
+</div>
+
+<div class="pb-card">
+<h3>📁 GitHub Portfolio Polish</h3>
+<ul class="pb-list">
+<li><strong>Repo naming:</strong> <code>topic-artifact-lang</code> (e.g., <code>compiler-jack-python</code>, <code>citation-graph-viz</code>)</li>
+<li><strong>Pinned 6 (update quarterly):</strong> Ben Eater · Nand2Tetris Compiler · Research Network Mapper · Curriculum Generator · Regex/TCP stack · nanoGPT-from-scratch</li>
+<li><strong>README sections:</strong> Problem · Background · Approach · Complexity · Benchmarks · Limitations · References · How to run</li>
+<li><strong>Polish moves:</strong> GitHub Actions CI badge · pytest coverage · live demo on GH Pages · <code>CITATION.cff</code> · tagged releases</li>
+</ul>
+</div>
+
+</div><!-- /BUILD PANE -->
+
+<!-- ===== PHD PREP PANE ===== -->
+<div class="pb-pane" id="pb-phd">
+
+<div class="pb-today">
+<div class="pb-today-label">⚡ Today's PhD Block · 6:15–6:45 PM (30 min)</div>
+<div class="pb-today-text" id="pbPhdToday">Today's rotation: see weekday focus below</div>
+<div class="pb-today-protocol">Predict from title (2m) → read paper (20m) → synthesize from memory (5m) → 3 Anki cards (3m). Target: 2 papers/week → 50 in 6 months.</div>
+</div>
+
+<div class="pb-card">
+<h3>📋 Weekday 30-Min PhD Prep Rotation</h3>
+<div class="pb-protocol">
+<strong>Mon — Read #1:</strong> Predict abstract from title (2m) → read (20m) → synthesize in own words (5m) → 3 Anki cards (3m). Use Zotero + a "CSEd-papers" note template.<br>
+<strong>Tue — Micro-write + Read #2:</strong> 10-min reflection on Monday's paper (what it changes about your teaching) → skim Paper #2 (20m).<br>
+<strong>Wed — Synthesis:</strong> Close laptop for 10 min. Rewrite both papers from memory. Then outline a 500-word piece connecting them.<br>
+<strong>Thu — Outreach:</strong> Draft ONE cold email or faculty reply. Update your faculty tracker spreadsheet.<br>
+<strong>Fri — Program research:</strong> Deep-dive ONE program per week. Fill: deadline, faculty, materials, funding, fit notes.
+</div>
+</div>
+
+<div class="pb-card">
+<h3>📚 Tier 1 Must-Read Papers (Months 1-3)</h3>
+<div class="pb-section-title">Equity & Broadening Participation</div>
+<ul class="pb-list">
+<li><strong>Margolis & Fisher (2002)</strong> — <em>Unlocking the Clubhouse: Women in Computing</em> (book; free chapters via MIT Press)</li>
+<li><strong>Margolis et al. (2008)</strong> — <em>Stuck in the Shallow End: Education, Race, and Computing</em></li>
+<li><strong>Goode, Margolis, Chapman (2014)</strong> — "Curriculum is not enough" — SIGCSE · DOI 10.1145/2538862.2538948</li>
+<li><strong>Lewis et al. (2019)</strong> — "Alignment of Goals and Perceptions of Computing" — ICER · DOI 10.1145/3291279.3339426</li>
+<li><strong>Scott, Sheridan, Clark (2015)</strong> — "Culturally Responsive Computing: A Theory Revisited" · DOI 10.1080/17439884.2014.924966</li>
+</ul>
+<div class="pb-section-title">Help-Seeking & Belonging</div>
+<ul class="pb-list">
+<li><strong>Nguyen & Lewis (2020)</strong> — "Competitive Enrollment Policies... First-Year Students' Sense of Belonging" — SIGCSE · DOI 10.1145/3328778.3366805</li>
+<li><strong>Lewis, Anderson, Yasuhara (2016)</strong> — "I Don't Code All Day: Fitting in CS When the Stereotypes Don't Fit" — ICER · DOI 10.1145/2960310.2960332</li>
+<li><strong>Doebling & Kazerouni (2021)</strong> — "Patterns of Academic Help-Seeking in Undergraduate Computing Students" — Koli Calling · DOI 10.1145/3488042.3488052</li>
+</ul>
+<div class="pb-section-title">Pedagogy</div>
+<ul class="pb-list">
+<li><strong>Porter, Bailey-Lee, Simon (2013)</strong> — "Halving Fail Rates using Peer Instruction" — SIGCSE · DOI 10.1145/2445196.2445250</li>
+<li><strong>Ericson, Margulieux, Rick (2017)</strong> — "Solving Parsons Problems vs Writing Code" — ITiCSE · DOI 10.1145/3059009.3059040</li>
+<li><strong>McDowell et al. (2006)</strong> — "Pair programming improves student retention" — CACM · DOI 10.1145/1145287.1145293</li>
+</ul>
+<div class="pb-section-title">AI in CS Ed (CRITICAL 2024-2026)</div>
+<ul class="pb-list">
+<li><strong>Denny, Prather, Becker et al. (2024)</strong> — "Computing Education in the Era of Generative AI" — CACM · DOI 10.1145/3624720</li>
+<li><strong>Prather et al. (2023)</strong> — "Usability and Interactions with Copilot for Novice Programmers" — TOCHI · DOI 10.1145/3617367</li>
+<li><strong>Kazemitabaar et al. (2023)</strong> — "Studying the effect of AI Code Generators..." — CHI · DOI 10.1145/3544548.3580919</li>
+<li><strong>MacNeil et al. (2023)</strong> — "Experiences from Using Code Explanations Generated by LLMs" — SIGCSE · DOI 10.1145/3545945.3569785</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>👥 Top Faculty to Follow (15)</h3>
+<div class="pb-grid2">
+<div>
+<ul class="pb-list">
+<li><strong>Leo Porter (UCSD)</strong> — peer instruction, AI code tools</li>
+<li><strong>Amy J. Ko (UW iSchool)</strong> — critical CS ed, justice. <a href="https://faculty.washington.edu/ajko" target="_blank">faculty.washington.edu/ajko</a></li>
+<li><strong>Mark Guzdial (Michigan)</strong> — media computation, task-specific PLs</li>
+<li><strong>Beth Simon (UCSD)</strong> — peer instruction, POGIL</li>
+<li><strong>Cynthia Lee (Stanford)</strong> — inclusive pedagogy</li>
+<li><strong>Colleen Lewis (UIUC)</strong> — equity, help-seeking. CSTeachingTips.org</li>
+<li><strong>Sepehr Vakil (Northwestern)</strong> — justice-centered CS</li>
+<li><strong>Jean Salac (UW)</strong> — equity in K-12 CS</li>
+</ul>
+</div>
+<div>
+<ul class="pb-list">
+<li><strong>Brett Becker (UC Dublin)</strong> — error messages, GenAI</li>
+<li><strong>Andrew Petersen (Toronto)</strong> — CS1 assessment</li>
+<li><strong>Paul Denny (Auckland)</strong> — PeerWise creator</li>
+<li><strong>Andrew Luxton-Reilly (Auckland)</strong> — systematic reviews</li>
+<li><strong>Barbara Ericson (Michigan)</strong> — Parsons problems, Runestone</li>
+<li><strong>Kathi Fisler (Brown)</strong> — Bootstrap curriculum</li>
+<li><strong>Elizabeth Patitsas (McGill)</strong> — grading, stereotype threat</li>
+</ul>
+</div>
+</div>
+<div class="pb-callout"><strong>For each:</strong> bookmark Google Scholar profile + subscribe to alerts. Follow on Mastodon (hci.social, fediscience.org).</div>
+</div>
+
+<div class="pb-card">
+<h3>🎯 Top PhD Programs (deadlines typically Dec 1-15)</h3>
+<ul class="pb-list">
+<li><strong>UW iSchool (Information Science PhD)</strong> · Dec 15 · Amy Ko, Jean Salac, Katie Davis · Full 5-yr funding</li>
+<li><strong>UCSD CSE</strong> · Dec 15 · Leo Porter, Christine Alvarado, Gerald Soosai Raj · Full</li>
+<li><strong>UCSD Cognitive Science</strong> · Dec 1 · Beth Simon, Porter (joint) · Full · CS-ed-through-cogsci angle</li>
+<li><strong>UC Berkeley EECS</strong> · Dec 8 · Armando Fox, Marti Hearst, Lisa Yan · Full · Competitive</li>
+<li><strong>Stanford CS</strong> · Dec 1 · Chris Piech, Mehran Sahami, Cynthia Lee · Full · Very competitive</li>
+<li><strong>CMU HCII</strong> · Dec 1 · Ken Koedinger, Amy Ogan, Majd Sakr · Full</li>
+<li><strong>Northwestern Learning Sciences (SESP)</strong> · Dec 1 · Sepehr Vakil, Eleanor O'Rourke · Full</li>
+<li><strong>Michigan CSE / School of Information</strong> · Dec 15 · Mark Guzdial, Barb Ericson · Full</li>
+<li><strong>Toronto CS</strong> · Dec 15 · Andrew Petersen, Michelle Craig, Steve Easterbrook · Full</li>
+<li><strong>Brown CS</strong> · Dec 15 · Kathi Fisler, Shriram Krishnamurthi · Full</li>
+<li><strong>UIUC CS</strong> · Dec 15 · Colleen Lewis, Craig Zilles · Full</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>📧 Cold Email Template</h3>
+<div class="pb-quote">
+<strong>Subject:</strong> Prospective PhD student — [specific paper title] question<br><br>
+Dear Dr. Porter,<br><br>
+I'm Henry Fan, an Application Support Analyst at CVC OEI Exchange and an adjunct CS instructor at [CC name]. I'm preparing applications for Fall 2027 PhD programs in CS Education.<br><br>
+Your 2013 "Halving Fail Rates" paper has shaped how I run my CS1 sections — I've adapted peer instruction for async online community college students and noticed that help-seeking patterns differ sharply from the synchronous case. This connects to your more recent work on AI-assisted learning, and I'm curious whether Copilot changes the peer-explanation dynamic you documented.<br><br>
+Are you planning to take new PhD students for Fall 2027? I'd welcome a brief conversation about research fit, or any pointers for strengthening my preparation over the next year.<br><br>
+Best,<br>Henry Fan
+</div>
+<div class="pb-callout"><strong>Timing:</strong> August-October 2026 is prime. Avoid December (apps review). Follow up ONCE after 2 weeks.</div>
+</div>
+
+<div class="pb-card">
+<h3>📅 18-Month Milestone Roadmap</h3>
+<ul class="pb-list">
+<li><strong>Month 1-3</strong> (Apr-Jun 2026): Zotero set up · 12 Tier-1 papers read · draft RQ v1 · blog started · contact 1 faculty informally</li>
+<li><strong>Month 4-6</strong> (Jul-Sep 2026): 25 papers synthesized · 2 faculty contacted · research statement v1 · finalize program longlist (20) · <strong>ask recommenders by Sep</strong></li>
+<li><strong>Month 7-9</strong> (Oct-Dec 2026) — CRITICAL: research statement v3 · 5 faculty contacted (2 warm replies) · SoPs drafted per program · letters in motion · <strong>submit Dec 1-15</strong></li>
+<li><strong>Month 10-12</strong> (Jan-Mar 2027): Interviews, visit days, polish paper submission (Koli Calling or RESPECT 2027 first-author target)</li>
+<li><strong>Month 13-15</strong> (Apr-Jun 2027): Decisions, pick program, submit first workshop paper</li>
+<li><strong>Month 16-18</strong> (Jul-Sep 2027): Onboarding, pre-read with new advisor, move logistics</li>
+</ul>
+</div>
+
+</div><!-- /PHD PANE -->
+
+<!-- ===== PHD DEEP WRITE PANE ===== -->
+<div class="pb-pane" id="pb-write">
+
+<div class="pb-today">
+<div class="pb-today-label">⚡ Sunday Deep Write · 6:50–8:00 AM (70 min)</div>
+<div class="pb-today-text">Polish the week's micro-writes into 400-700 words of polished prose</div>
+<div class="pb-today-protocol">Peak cognition window. Hardest task. Use your 4-week rotation: Research Statement → SoP → Lit Review → Working Paper.</div>
+</div>
+
+<div class="pb-card">
+<h3>📋 70-Minute Sunday Protocol</h3>
+<div class="pb-protocol">
+<strong>0-10 min</strong> Re-read the week's micro-writes and Anki cards. Highlight the BEST sentence from each.<br>
+<strong>10-60 min</strong> Polish into 400-700 words of prose targeted at ONE artifact (4-week rotation below)<br>
+<strong>60-70 min</strong> Write next week's focus sentence + pick the two papers Mon/Tue will cover
+</div>
+<div class="pb-callout"><strong>Why daily micro-writing beats Sunday binges:</strong> Boice (1990) tracked 27 new faculty over 2 years. Daily writers produced 9× more pages. Your Sunday session POLISHES fragments — never starts from scratch.</div>
+</div>
+
+<div class="pb-card">
+<h3>📅 4-Week Writing Rotation</h3>
+<ul class="pb-list">
+<li><strong>Week A — Research Statement:</strong> Polish 1 paragraph of your evolving research statement. Aim for sharp, citation-backed claims about WHAT you want to study and WHY.</li>
+<li><strong>Week B — Statement of Purpose:</strong> Draft a section of an SoP for ONE target program. Tailor: name 2 faculty, cite a specific paper of theirs, connect to your CC teaching.</li>
+<li><strong>Week C — Lit Review Mini-Synthesis:</strong> Write a 500-word piece connecting 3-5 papers you've read recently. THIS becomes a blog post (publishable!) + future paper.</li>
+<li><strong>Week D — Working Paper / Position Piece:</strong> Draft a section of a future SIGCSE submission OR a position paper (e.g., "AI in CC CS: A Pragmatic Framework").</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>📖 Writing Resources (Free & Essential)</h3>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">"How to Write a Lot" by Paul Silvia</div><div class="pb-resource-desc">The productivity bible for academic writers · 100 pages · Boice's daily-writing research applied</div></div></div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">"The Craft of Research" by Booth, Colomb, Williams, Bizup</div><div class="pb-resource-desc">Free PDFs widely circulated · Research questions, evidence, warrants, drafting</div></div></div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">Helen Sword's "Stylish Academic Writing"</div><div class="pb-resource-desc">How to write academic prose that doesn't put readers to sleep</div></div></div>
+<div class="pb-resource"><span class="pb-resource-icon">🔧</span><div class="pb-resource-info"><div class="pb-resource-title">Zotero + Better BibTeX + Obsidian Zotero plugin</div><div class="pb-resource-desc">Free reference manager + note system</div></div><a href="https://www.zotero.org/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">🔧</span><div class="pb-resource-info"><div class="pb-resource-title">Overleaf (free LaTeX)</div><div class="pb-resource-desc">For writing your first research paper</div></div><a href="https://www.overleaf.com/" target="_blank">Open ↗</a></div>
+</div>
+
+<div class="pb-card">
+<h3>🎯 Research Method Primers</h3>
+<ul class="pb-list">
+<li><strong>Creswell, Research Design (5e)</strong> — mixed methods bible</li>
+<li><strong>Saldaña, The Coding Manual for Qualitative Researchers</strong> — thematic analysis</li>
+<li><strong>Charmaz, Constructing Grounded Theory</strong> — grounded theory</li>
+<li><strong>OpenIntro Statistics</strong> (free at openintro.org) — descriptive + inferential stats</li>
+<li><strong>CITI IRB training</strong> (Social/Behavioral module at citiprogram.org) — needed before any human subjects research</li>
+<li><strong>Fincher & Robins, Cambridge Handbook of Computing Education Research</strong> — THE reference</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>📝 SoP Structure for CS Ed</h3>
+<ol class="pb-list">
+<li><strong>Hook</strong> — A specific teaching moment that generated a research question</li>
+<li><strong>Trajectory</strong> — Your path: support analyst → CC instructor → research-curious</li>
+<li><strong>Research interests</strong> — 2-3 questions with citations to 3-5 papers in target lab</li>
+<li><strong>Why this program</strong> — Name 2-3 faculty, one specific paper each, why YOUR background uniquely positions you</li>
+<li><strong>Career goal</strong> — Usually "tenure-track faculty researching X" or "research scientist"</li>
+</ol>
+<div class="pb-callout"><strong>Personal Statement vs Research Statement:</strong> Many programs require BOTH. Personal = diversity/lived experience. Research = intellectual agenda. Don't duplicate.</div>
+</div>
+
+</div><!-- /WRITE PANE -->
+
+<!-- ===== YOUTUBE PANE ===== -->
+<div class="pb-pane" id="pb-youtube">
+
+<div class="pb-today">
+<div class="pb-today-label">⚡ Today's YouTube Block</div>
+<div class="pb-today-text" id="pbYtToday">Mon=script · Tue=record · Wed=edit · Thu=publish · Fri=plan</div>
+<div class="pb-today-protocol">Weekday 8:30-9:15 PM (45 min low-load creative). Saturday 4:00-5:30 PM (90 min big build).</div>
+</div>
+
+<div class="pb-card">
+<h3>🎯 Channel Positioning</h3>
+<ul class="pb-list">
+<li><strong>Working name:</strong> "First Principles CS"</li>
+<li><strong>Tagline:</strong> "Computer science for the rest of us — built from scratch"</li>
+<li><strong>Mission:</strong> Teach CS from the ground up for community college students who are serious about transferring, grad school, or building real systems — no prerequisites, no gatekeeping, no hand-waving</li>
+<li><strong>Target persona — "Marisol, 20":</strong> First-gen, second-year CC student, working 20 hrs/week, just finished CS1 in Python, intimidated by "algorithm," scared she's behind transfer students</li>
+<li><strong>Differentiation:</strong> "Ben Eater–style first-principles teaching, made for community college students who are applying to transfer. Taught by a CC instructor who's been there."</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>📺 6 Content Series</h3>
+<ul class="pb-list">
+<li><strong>Series A — "Build a Computer From Nothing"</strong> (15 eps, 15-25 min, flagship): Mirrors Ben Eater with CC framing. Why build a CPU? · Binary · Logic gates · Adders · Clock · Registers · RAM · Program counter · Instruction decoder · First running program</li>
+<li><strong>Series B — "CLRS Decoded"</strong> (15 eps, 12-18 min): One algorithm per video. 10 min explainer + 10 min code-along. Insertion · Merge · Quick · Heap · Binary search · BFS · DFS · Dijkstra · Hash tables · DP intro · Fibonacci · Coin change · Union-find · Topo sort · Master theorem</li>
+<li><strong>Series C — "Office Hours Recovered"</strong> (12 eps, 5-10 min, START HERE): "I'm scared of my first CS class" · "Stack vs heap with a backpack" · "What is a pointer, actually?" · "Recursion is not magic" · "Big-O in 7 minutes" · "Am I too late to learn CS?"</li>
+<li><strong>Series D — "Should I Get a CS PhD?"</strong> (10 eps, 10-15 min): Why a CC student should consider a PhD · Transferring from CC to top CS program · Cold-emailing professors · GRE, grades, what really matters</li>
+<li><strong>Series E — "Henry Builds X"</strong> (10 eps, 20-30 min): Sorting visualizer · Mini search engine · Build your own shell/grep · Tiny interpreter · Chip-8 emulator · Spreadsheet from scratch · NN from scratch</li>
+<li><strong>Series F — "Transfer Track"</strong> (8 eps, 8-12 min): IGETC · ASSIST.org · Transfer essay · Timelines · UC vs CSU vs private · CS vs CompE</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>📅 Weekday Production Workflow</h3>
+<div class="pb-protocol">
+<strong>Mon — Script (45m):</strong> Pick from backlog. 1-page outline: Hook → Promise → 3 teaching beats → Application → CTA. Don't write full script — talking points only.<br>
+<strong>Tue — Record (45m):</strong> 5-min setup, 30-min A-roll in 2-3 takes, 10-min B-roll/screen capture. Stand if possible (energy).<br>
+<strong>Wed — Edit (45m):</strong> Rough cut only. Cut filler, title cards, one music bed, 2-3 SFX. Don't chase perfection.<br>
+<strong>Thu — Publish (45m):</strong> Thumbnail (15m Canva), SEO title/description (10m), upload, schedule, pin first comment.<br>
+<strong>Fri — Plan (45m):</strong> Analytics (CTR, AVD, retention), reply to comments, 2-3 new ideas, pick next topic.
+</div>
+</div>
+
+<div class="pb-card">
+<h3>🎬 Scripting Template (tape above your desk)</h3>
+<div class="pb-protocol">
+<strong>HOOK (10s):</strong> "Most CC students never learn how a CPU actually works. By the end of this, you'll have built one in your head."<br>
+<strong>PROMISE (15s):</strong> "I'll show you the clock module — the heartbeat of every computer."<br>
+<strong>TEACH (6-8 min):</strong> 3 beats, each with visual + analogy + code/hardware<br>
+<strong>APPLY (60s):</strong> "Here's why this matters for your transfer/interview/CS2 class..."<br>
+<strong>CTA (15s):</strong> "Subscribe for the next one — we're building the register file."
+</div>
+</div>
+
+<div class="pb-card">
+<h3>🛠 Equipment ($0-500 budget)</h3>
+<div class="pb-section-title">Phase 0 — Start This Weekend ($0-80)</div>
+<ul class="pb-list">
+<li>iPhone 1080p30 as camera (NOT 4K — file size)</li>
+<li><strong>Fifine K669B USB mic</strong> ($30) or Maono AU-PM421 ($55)</li>
+<li>Window light + $15 clip lamp with daylight bulb</li>
+<li><strong>DaVinci Resolve</strong> (free editing)</li>
+<li><strong>OBS</strong> (free screen recording)</li>
+<li><strong>Canva Free</strong> for thumbnails</li>
+<li>$15 phone tripod</li>
+</ul>
+<div class="pb-section-title">Don't Buy Yet</div>
+<p style="font-size:11px;color:var(--dim)">Elgato gear · fancy cameras · green screen · teleprompter. Paralysis &gt; gear.</p>
+</div>
+
+<div class="pb-card">
+<h3>📋 First 12 Weeks Content Plan</h3>
+<ul class="pb-list">
+<li><strong>Wk 1:</strong> "Why I'm making this channel — for CC students like me" (4 min)</li>
+<li><strong>Wk 2:</strong> "I'm scared of my first CS class — watch this" (6 min) · Series C</li>
+<li><strong>Wk 3:</strong> "Insertion Sort, Visualized for CC Students" (12 min) · Series B</li>
+<li><strong>Wk 4:</strong> "What's actually inside your laptop?" (10 min) · Series A-1</li>
+<li><strong>Wk 5:</strong> "Stack vs Heap with a backpack analogy" (7 min) · Series C</li>
+<li><strong>Wk 6:</strong> "Binary: counting like a computer" (12 min) · Series A-2</li>
+<li><strong>Wk 7:</strong> "Merge Sort, decoded" (14 min) · Series B</li>
+<li><strong>Wk 8:</strong> "Should a CC student get a CS PhD?" (10 min) · Series D</li>
+<li><strong>Wk 9:</strong> "Logic gates on a breadboard — no EE background needed" (18 min) · Series A-3</li>
+<li><strong>Wk 10:</strong> "Pointers, from first principles" (9 min) · Series C</li>
+<li><strong>Wk 11:</strong> "Binary Search, decoded" (11 min) · Series B</li>
+<li><strong>Wk 12:</strong> "Building an adder by hand" (20 min) · Series A-4</li>
+</ul>
+<div class="pb-callout"><strong>Realistic expectation:</strong> By week 12 → 12 videos, ~500-1500 total views, ~50-150 subs. THIS IS NORMAL AND GOOD. Median educational channel takes 12-24 months to hit 1k subs.</div>
+</div>
+
+<div class="pb-card">
+<h3>🚫 What to Avoid</h3>
+<ul class="pb-list">
+<li><strong>Don't imitate ThePrimeagen</strong> — be the calm classroom teacher</li>
+<li><strong>Don't chase production value</strong> — Ben Eater shoots in a garage</li>
+<li><strong>Done > perfect</strong> — Published 7/10 beats unpublished 9/10</li>
+<li><strong>Don't teach what you haven't built</strong> — Make it a "learning in public" episode</li>
+<li><strong>Don't monetize for 18+ months</strong> — distracts from craft</li>
+<li><strong>Don't compare week 4 to year 4 channels</strong></li>
+<li><strong>Don't delete old videos</strong> — they become "I used to be bad too" proof</li>
+<li><strong>Don't record students without consent</strong> — use composite questions</li>
+</ul>
+</div>
+
+</div><!-- /YOUTUBE PANE -->
+
+<!-- ===== GRAD CS PANE ===== -->
+<div class="pb-pane" id="pb-grad">
+
+<div class="pb-today">
+<div class="pb-today-label">⚡ Pre-Grad-School Excellence Track</div>
+<div class="pb-today-text">Daily prep regimen for crushing grad CS coursework</div>
+<div class="pb-today-protocol">Morning (theory, fresh brain) → Afternoon (coding/labs) → Evening (writing, reviewing, Anki)</div>
+</div>
+
+<div class="pb-card">
+<h3>🎓 The 10 Core Graduate CS Courses</h3>
+
+<div class="pb-section-title">1. Graduate Algorithms</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">MIT 6.046J Design & Analysis of Algorithms</div><div class="pb-resource-desc">Erik Demaine · Free · Maps to advanced CLRS</div></div><a href="https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/" target="_blank">Open ↗</a></div>
+<p style="font-size:11px;color:var(--dim);margin:6px 0">Pain points: DP state formulation, amortized analysis, NP-hardness reductions. Fix: 3 reductions/week until mechanical.</p>
+
+<div class="pb-section-title">2. Operating Systems</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">MIT 6.S081 OS Engineering (xv6)</div><div class="pb-resource-desc">The canonical OS course · Frans Kaashoek · Implement features in C</div></div><a href="https://pdos.csail.mit.edu/6.S081/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">OSTEP (Operating Systems: Three Easy Pieces) — FREE</div><div class="pb-resource-desc">Arpaci-Dusseau · Best free OS textbook</div></div><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">3. Computer Architecture / Systems</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">CMU 15-213 / 15-513 (CS:APP)</div><div class="pb-resource-desc">The legendary labs: bomb, attack, cache, malloc · Bryant & O'Hallaron</div></div><a href="http://csapp.cs.cmu.edu/" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">4. Theory of Computation</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">MIT 18.404J — Taught by Sipser himself</div><div class="pb-resource-desc">Companion to the textbook · Free OCW</div></div><a href="https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/" target="_blank">Open ↗</a></div>
+<p style="font-size:11px;color:var(--dim);margin:6px 0">Memorize 5 canonical reductions: SAT→3SAT→CLIQUE→VC→HAM-CYCLE.</p>
+
+<div class="pb-section-title">5. Machine Learning</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">Stanford CS229 (Andrew Ng)</div><div class="pb-resource-desc">Full videos free on YouTube · The classic</div></div><a href="https://cs229.stanford.edu/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">Bishop PRML — Now FREE</div><div class="pb-resource-desc">microsoft.com/.../prml-book/ · The canonical ML textbook</div></div><a href="https://www.microsoft.com/en-us/research/people/cmbishop/prml-book/" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">6. Artificial Intelligence</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">Berkeley CS188 — Pacman Projects</div><div class="pb-resource-desc">Legendary CS188 Pacman labs (search, multi-agent, RL)</div></div><a href="https://inst.eecs.berkeley.edu/~cs188/" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">7. Computer Networks</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">Stanford CS144 — Build Your Own TCP Stack</div><div class="pb-resource-desc">Nick McKeown · You implement reliable transport in C++</div></div><a href="https://cs144.github.io/" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">8. Database Systems</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">CMU 15-445 — Andy Pavlo (BEST DB COURSE)</div><div class="pb-resource-desc">Andy Pavlo's lectures may be the best on YouTube for any CS topic · BusTub project</div></div><a href="https://15445.courses.cs.cmu.edu/" target="_blank">Open ↗</a></div>
+
+<div class="pb-section-title">9. Distributed Systems ⭐ HIGHEST ROI</div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">MIT 6.824 / 6.5840 — Robert Morris</div><div class="pb-resource-desc">⭐ Build MapReduce + Raft + sharded K/V store · Career-changing</div></div><a href="https://pdos.csail.mit.edu/6.824/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">DDIA — Designing Data-Intensive Applications</div><div class="pb-resource-desc">Kleppmann · The only modern systems book that matters</div></div></div>
+
+<div class="pb-section-title">10. Programming Languages / Compilers</div>
+<div class="pb-resource"><span class="pb-resource-icon">📕</span><div class="pb-resource-info"><div class="pb-resource-title">Crafting Interpreters (Bob Nystrom) — FREE</div><div class="pb-resource-desc">Build BOTH a tree-walking + bytecode interpreter · The most fun CS book</div></div><a href="https://craftinginterpreters.com/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">🎓</span><div class="pb-resource-info"><div class="pb-resource-title">Cornell CS 6120 Advanced Compilers (Adrian Sampson)</div><div class="pb-resource-desc">The grad-level compilers gem · Research-oriented</div></div></div>
+</div>
+
+<div class="pb-card">
+<h3>📐 Mathematical Foundations</h3>
+<ul class="pb-list">
+<li><strong>Discrete Math</strong> — Rosen + <a href="https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/" target="_blank">MIT 6.042J</a> · 6 weeks · Ready when: induction is automatic</li>
+<li><strong>Linear Algebra</strong> — Strang + <a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/" target="_blank">MIT 18.06</a> · 8 weeks · Ready when: SVD and eigendecomposition feel geometric</li>
+<li><strong>Probability</strong> — Blitzstein <a href="https://projects.iq.harvard.edu/stat110" target="_blank">Harvard Stat 110</a> · 10 weeks · Ready when: identify conjugate priors by inspection</li>
+<li><strong>Multivariable Calculus</strong> — 3Blue1Brown + MIT 18.02 · 4 weeks refresher</li>
+<li><strong>Real Analysis</strong> — Abbott or Rudin · 12 weeks · Only if going theory-heavy</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>📚 Essential Books Beyond Textbooks</h3>
+<ul class="pb-list">
+<li><strong>How to Prove It</strong> by Velleman — proof techniques · DO BEFORE GRAD THEORY</li>
+<li><strong>Concrete Mathematics</strong> by Knuth/Graham/Patashnik — math for CS bible</li>
+<li><strong>The Algorithm Design Manual</strong> by Skiena — CLRS's practical cousin</li>
+<li><strong>Designing Data-Intensive Applications</strong> by Kleppmann</li>
+<li><strong>Computer Systems: A Programmer's Perspective</strong> (CS:APP) by Bryant & O'Hallaron</li>
+<li><strong>OSTEP</strong> by Arpaci-Dusseau (FREE)</li>
+<li><strong>Crafting Interpreters</strong> by Bob Nystrom (FREE)</li>
+</ul>
+</div>
+
+<div class="pb-card">
+<h3>🏆 Top 5 Pre-Grad-School Milestones</h3>
+<ol class="pb-list">
+<li><strong>Complete Nand2Tetris</strong> — proves systems thinking</li>
+<li><strong>Work through CLRS Ch 1-30</strong> with full solutions to ~1/3 of exercises</li>
+<li><strong>xv6 modifications</strong> — add a syscall, implement COW fork, add a scheduler</li>
+<li><strong>End-to-end ML system</strong> — dataset → training → deployment (FastAPI) → GitHub</li>
+<li><strong>Write 2-3 technical blog posts</strong> — e.g., "Raft in 500 lines of Go" · function as proto-research papers</li>
+</ol>
+<div class="pb-callout"><strong>The single highest-ROI activity right now:</strong> MIT 6.824 + DDIA. Distributed systems is the intersection of every other course and the strongest signal for PhD admissions. Pair with CS:APP labs for systems depth and CS229 for ML breadth, and you'll enter any grad program ready to contribute in your first semester.</div>
+</div>
+
+<div class="pb-card">
+<h3>🧠 The Grad Student Mindset Shift</h3>
+<ul class="pb-list">
+<li><strong>Undergrad:</strong> Reads textbook. Solves psets.</li>
+<li><strong>Grad:</strong> Reads papers. Proposes extensions. Writes their own.</li>
+<li><strong>Start now:</strong> Each week read one NeurIPS/SOSP/SIGCOMM/POPL paper. Ask "what would I do differently?"</li>
+<li><strong>Keep an "ideas" file</strong>: When you disagree with a textbook claim, write it down and try to formalize your objection.</li>
+<li><strong>Think of every course not as "material to learn"</strong> but as "tools I'm adding to my research toolbox"</li>
+</ul>
+</div>
+
+</div><!-- /GRAD PANE -->
+
+</div><!-- /PLAYBOOK PAGE -->
 
 </div>
 
@@ -3718,6 +4419,38 @@ function showDayComplete(count){
 // Hook into existing toggleBlock so we check for completion
 const _origSchToggleBlock=schToggleBlock;
 schToggleBlock=function(key){_origSchToggleBlock(key);setTimeout(checkDayComplete,200)};
+
+// ===== PLAYBOOK TABS =====
+function initPlaybook(){
+  document.querySelectorAll('.pb-tab[data-pbtab]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.pb-tab').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.pb-pane').forEach(p=>p.classList.remove('active'));
+      const pane=document.getElementById('pb-'+btn.dataset.pbtab);
+      if(pane)pane.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+  // Set today's rotation hints
+  const dow=new Date().getDay();
+  const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const phdRot={1:'Read Paper #1 — Predict → Read → Synthesize → 3 Anki cards',2:'Micro-write reflection (10m) → Read Paper #2 (20m)',3:'Synthesis from memory (10m) → Outline 500-word piece',4:'Faculty outreach: Draft or send 1 email · Update tracker',5:'Program research: Deep-dive 1 program',6:'Saturday flex: catch-up or rest',0:'Sunday: Polish week\'s writes into prose (Deep Write block)'};
+  const buildRot={1:'Code project (Mon) — algorithm implementation or systems',2:'Hardware (Ben Eater) — solder, breadboard, photo-document',3:'Code project (Wed) — same project as Monday, push milestone',4:'Hardware (Ben Eater) — continue from Tuesday',5:'Code project (Fri) — ship + commit + write README',6:'Saturday: long deep build session (3 hrs)',0:'Sunday: rest or polish project README'};
+  const ytRot={1:'📝 Script day — pick from backlog, write 1-page outline',2:'🎬 Record day — A-roll + B-roll, 2-3 takes',3:'✂️ Edit day — rough cut, no perfectionism',4:'📤 Publish day — thumbnail, SEO, upload, pin first comment',5:'📊 Plan day — analytics, comment replies, next week pick',6:'Saturday batch: big build OR 2-3 short videos back-to-back',0:'Sunday: rest from YouTube'};
+  const clrsToday=$('pbClrsToday');
+  if(clrsToday){
+    const phaseHints=['Phase 1 Foundations','Phase 2 Sorting','Phase 3 Data Structures','Phase 4 Advanced Design','Phase 5 Graph Algorithms','Phase 6 Selected Topics'];
+    clrsToday.textContent=`${dayNames[dow]} · Phase ${S.phase||1} — ${phaseHints[(S.phase||1)-1]}. Continue from where you left off.`;
+  }
+  const phdToday=$('pbPhdToday');
+  if(phdToday)phdToday.textContent=`${dayNames[dow]} — ${phdRot[dow]}`;
+  const buildToday=$('pbBuildToday');
+  if(buildToday)buildToday.textContent=`${dayNames[dow]} — ${buildRot[dow]}`;
+  const ytToday=$('pbYtToday');
+  if(ytToday)ytToday.textContent=`${dayNames[dow]} — ${ytRot[dow]}`;
+}
+setTimeout(initPlaybook,400);
 
 // ===== SCROLLSPY for Schedule jump nav =====
 function initScheduleScrollspy(){
