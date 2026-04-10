@@ -888,6 +888,44 @@ html{scroll-behavior:smooth}
 #page-playbook .pb-mission-btn-primary{background:#fff;color:var(--accent)}
 #page-playbook .pb-mission-btn-primary:hover{background:#fff;opacity:.92}
 
+/* === ACTIVE TRACK (primary block-entry card) === */
+#page-playbook .pb-track-card{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;border-radius:16px;padding:22px 26px;margin-bottom:18px;box-shadow:0 12px 40px rgba(107,138,255,.28);position:relative;overflow:hidden}
+#page-playbook .pb-track-card::before{content:'';position:absolute;top:-40%;right:-20%;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+#page-playbook .pbt-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative}
+#page-playbook .pbt-icon-wrap{display:flex;align-items:center;gap:13px;flex:1;min-width:0}
+#page-playbook .pbt-icon{font-size:30px;flex-shrink:0;line-height:1}
+#page-playbook .pbt-meta{flex:1;min-width:0}
+#page-playbook .pbt-eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;opacity:.85;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+#page-playbook .pbt-eyebrow .pbt-pulse{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulseDot 2s ease-in-out infinite;flex-shrink:0}
+#page-playbook .pbt-title{font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.3;word-break:break-word}
+#page-playbook .pbt-streak{font-size:11px;font-weight:800;padding:7px 13px;border-radius:20px;background:rgba(255,255,255,.22);flex-shrink:0;white-space:nowrap;letter-spacing:.3px}
+#page-playbook .pbt-next{background:rgba(255,255,255,.13);border-radius:10px;padding:12px 15px;margin-bottom:10px;border-left:3px solid rgba(255,255,255,.65);position:relative}
+#page-playbook .pbt-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.78;margin-bottom:4px}
+#page-playbook .pbt-value{font-size:13px;line-height:1.55;font-weight:500}
+#page-playbook .pbt-exit{background:rgba(0,0,0,.22);border-radius:10px;padding:11px 15px;margin-bottom:10px;border-left:3px solid rgba(251,191,36,.7);position:relative}
+#page-playbook .pbt-exit-text{font-size:12px;line-height:1.55;opacity:.95;font-style:italic;word-break:break-word}
+#page-playbook .pbt-primer{font-size:10.5px;opacity:.72;margin-bottom:14px;text-align:center;letter-spacing:.4px;line-height:1.6;position:relative}
+#page-playbook .pbt-actions{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+#page-playbook .pbt-btn{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+#page-playbook .pbt-btn:hover{background:rgba(255,255,255,.35)}
+#page-playbook .pbt-btn:active{transform:translateY(1px)}
+#page-playbook .pbt-btn-primary{background:#fff;color:var(--accent);flex:1;justify-content:center;font-size:13px;padding:12px 18px}
+#page-playbook .pbt-btn-primary:hover{background:#fff;opacity:.94}
+#page-playbook .pbt-edit{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2);position:relative}
+#page-playbook .pbt-input{display:block;width:100%;box-sizing:border-box;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 13px;border-radius:8px;font-size:13px;margin-bottom:8px;font-family:inherit}
+#page-playbook .pbt-input::placeholder{color:rgba(255,255,255,.58)}
+#page-playbook .pbt-input:focus{outline:none;background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.65)}
+#page-playbook .pbt-textarea{resize:vertical;min-height:52px;line-height:1.45}
+#page-playbook .pbt-edit-hint{font-size:10px;opacity:.7;margin-bottom:10px;letter-spacing:.3px}
+#page-playbook .pbt-edit-actions{display:flex;gap:8px;margin-top:4px}
+#page-playbook .pbt-ideas{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.15);position:relative}
+#page-playbook .pbt-ideas-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.72;margin-bottom:8px}
+#page-playbook .pbt-idea{display:block;width:100%;text-align:left;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;padding:9px 13px;border-radius:8px;font-size:11.5px;margin-bottom:6px;cursor:pointer;font-family:inherit;line-height:1.4;transition:background .15s}
+#page-playbook .pbt-idea:hover{background:rgba(255,255,255,.18)}
+#page-playbook .pbt-idea-title{font-weight:700;display:block;margin-bottom:2px}
+#page-playbook .pbt-idea-desc{opacity:.8;font-size:10.5px}
+@media(max-width:640px){#page-playbook .pbt-btn-primary{flex-basis:100%}#page-playbook .pbt-btn{flex:1;justify-content:center}}
+
 /* Progress bar at top of each pane */
 #page-playbook .pb-pane-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
 #page-playbook .pb-pane-stat{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-align:left}
@@ -2216,15 +2254,54 @@ html{scroll-behavior:smooth}
   <div class="pb-sub">Stop wondering "what should I be doing right now?" This is your daily action manual — comprehensive resources, exact protocols, and concrete projects for every block of the system.</div>
 </div>
 
-<!-- TODAY'S MISSION (sticky, applies to current block) -->
-<div class="pb-mission" id="pbMission">
-  <div class="pb-mission-eyebrow"><span class="pb-mission-pulse"></span>Today's Mission · <span id="pbMissionDay">—</span></div>
-  <div class="pb-mission-title" id="pbMissionTitle">—</div>
-  <div class="pb-mission-detail" id="pbMissionDetail">—</div>
-  <div class="pb-mission-actions">
-    <button class="pb-mission-btn pb-mission-btn-primary" onclick="pbStartMission()">▶ Start Now</button>
-    <button class="pb-mission-btn" onclick="pbCompleteMission()">✓ Mark Done</button>
-    <button class="pb-mission-btn" onclick="pbShuffleMission()">🎲 Different Mission</button>
+<!-- ACTIVE TRACK — the primary "enter this block" card -->
+<div class="pb-track-card" id="pbTrack">
+  <div class="pbt-header">
+    <div class="pbt-icon-wrap">
+      <span class="pbt-icon" id="pbtIcon">📖</span>
+      <div class="pbt-meta">
+        <div class="pbt-eyebrow"><span class="pbt-pulse"></span>Active Track · <span id="pbtPane">CLRS Theory</span></div>
+        <div class="pbt-title" id="pbtTitle">Set your current focus →</div>
+      </div>
+    </div>
+    <div class="pbt-streak" id="pbtStreak" title="Consecutive days you've entered this block">🔥 0</div>
+  </div>
+
+  <div class="pbt-next">
+    <div class="pbt-label">▶ Next action · exactly what you'll do</div>
+    <div class="pbt-value" id="pbtNext">Click Edit to define your next action.</div>
+    <div class="pbt-file" id="pbtFileRow" style="display:none;margin-top:8px;font-size:11px;opacity:.82;font-family:'JetBrains Mono',monospace;word-break:break-all"><span id="pbtFileText"></span> <button onclick="pbtCopyFile()" style="background:rgba(255,255,255,.2);border:0;color:#fff;padding:2px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin-left:4px;font-family:inherit">copy</button></div>
+  </div>
+
+  <div class="pbt-exit" id="pbtExit" style="display:none">
+    <div class="pbt-label">📝 Exit note · <span id="pbtExitDate">—</span></div>
+    <div class="pbt-exit-text" id="pbtExitText">—</div>
+  </div>
+
+  <div class="pbt-primer">📵 phone DND · 💬 close Slack · 💧 water · 🪟 one tab open · 🎧 headphones on</div>
+
+  <div class="pbt-actions">
+    <button class="pbt-btn pbt-btn-primary" onclick="pbtStartTrack()">▶ Start <span id="pbtDuration">60</span>-min block</button>
+    <button class="pbt-btn" onclick="pbtOpenEdit()" title="Edit this track's focus and next action">✏️ Edit</button>
+    <button class="pbt-btn" onclick="pbtLogExit()" title="Log an exit note — what you did, where you're stuck">📝 End</button>
+    <a class="pbt-btn" id="pbtOpenUrl" href="#" target="_blank" rel="noopener" style="display:none">🔗 Resource</a>
+  </div>
+
+  <div class="pbt-edit" id="pbtEdit" style="display:none">
+    <div class="pbt-edit-hint">Define the ONE thing you'll do next block. Keep it specific — "implement heap sort's sift-down helper" beats "work on sorting visualizer."</div>
+    <input class="pbt-input" id="pbtEditTitle" placeholder="Current focus — e.g., Ch 11: Hash Tables" />
+    <textarea class="pbt-input pbt-textarea" id="pbtEditNext" placeholder="Next action — exactly what you'll do in this block" rows="2"></textarea>
+    <input class="pbt-input" id="pbtEditUrl" placeholder="Resource URL (auto-opens when you Start) — optional" />
+    <input class="pbt-input" id="pbtEditFile" placeholder="File path or repo (shown for reference) — optional" />
+    <div class="pbt-edit-actions">
+      <button class="pbt-btn pbt-btn-primary" onclick="pbtSaveEdit()">Save</button>
+      <button class="pbt-btn" onclick="pbtCancelEdit()">Cancel</button>
+      <button class="pbt-btn" onclick="pbtShowIdeas()" title="See seed ideas from the mission bank">💡 Ideas</button>
+    </div>
+    <div class="pbt-ideas" id="pbtIdeas" style="display:none">
+      <div class="pbt-ideas-label">💡 Seed ideas — click to use as next action</div>
+      <div id="pbtIdeasList"></div>
+    </div>
   </div>
 </div>
 
@@ -4598,76 +4675,192 @@ const PB_MISSIONS={
 };
 
 const PB_PANE_FOR_BLOCK={cs_theory:'clrs',cs_build:'build',cs_morning:'clrs',cs_evening:'build',phd:'phd',phd_deep:'phd',phd_write:'write',cs_retrieval:'clrs',youtube:'youtube',cs_deep:'clrs',cs_build1:'build',cs_build2:'build',cs_read2:'clrs'};
+const PB_PANE_META={
+  clrs:{icon:'📖',name:'CLRS Theory',duration:60},
+  build:{icon:'🔧',name:'CS Build',duration:90},
+  phd:{icon:'🎓',name:'PhD Prep',duration:30},
+  write:{icon:'✍️',name:'PhD Deep Write',duration:70},
+  youtube:{icon:'🎬',name:'YouTube',duration:45},
+  grad:{icon:'🎯',name:'Grad CS',duration:60}
+};
+
+function pbPaneTitle(p){return PB_PANE_META[p]?.name||p}
 
 function pbCurrentPane(){
-  const cur=getCurrentSchedBlock?.();
+  // If the user has a pane open, trust that
+  const visible=document.querySelector('#page-playbook .pb-pane.active');
+  if(visible)return visible.id.replace('pb-','');
+  // Else default to current schedule block's pane
+  const cur=(typeof getCurrentSchedBlock==='function')?getCurrentSchedBlock():null;
   if(cur&&PB_PANE_FOR_BLOCK[cur.key])return PB_PANE_FOR_BLOCK[cur.key];
   return 'clrs';
 }
 
-function pbPaneTitle(p){return{clrs:'CLRS Theory',build:'CS Build',phd:'PhD Prep',write:'PhD Deep Write',youtube:'YouTube',grad:'Grad CS'}[p]||p}
+// === ACTIVE TRACK STATE ===
+function pbGetTrack(pane){
+  if(!S.pbTracks)S.pbTracks={};
+  if(!S.pbTracks[pane]){
+    // Seed from first mission so the user sees something actionable on first visit
+    const seed=PB_MISSIONS[pane]?.[0];
+    S.pbTracks[pane]={
+      title:seed?.t||'',
+      nextAction:seed?.d||'',
+      file:'',
+      url:seed?.link||'',
+      exitNote:'',
+      exitNoteDate:'',
+      lastStarted:'',
+      streak:0,
+      sessions:0
+    };
+    save();
+  }
+  return S.pbTracks[pane];
+}
 
-function pbActiveMission(){
+function pbRenderTrack(){
+  if(!document.getElementById('pbTrack'))return;
   const pane=pbCurrentPane();
-  const missions=PB_MISSIONS[pane];
-  if(!missions)return null;
-  if(!S.pbMissionIdx)S.pbMissionIdx={};
-  // Daily rotation: index = day-of-year % missions.length
+  const meta=PB_PANE_META[pane]||PB_PANE_META.clrs;
+  const t=pbGetTrack(pane);
+  $('pbtIcon').textContent=meta.icon;
+  $('pbtPane').textContent=meta.name;
+  $('pbtTitle').textContent=t.title||'Set your current focus →';
+  const nextEl=$('pbtNext');
+  if(t.nextAction){
+    nextEl.textContent=t.nextAction;
+    nextEl.style.opacity='1';
+  }else{
+    nextEl.textContent='Click "Edit" to define the ONE thing you\'ll do this block.';
+    nextEl.style.opacity='.75';
+  }
+  $('pbtDuration').textContent=meta.duration;
+  $('pbtStreak').textContent='🔥 '+(t.streak||0);
+  if(t.exitNote){
+    $('pbtExit').style.display='';
+    $('pbtExitText').textContent='"'+t.exitNote+'"';
+    $('pbtExitDate').textContent=t.exitNoteDate||'last session';
+  }else{
+    $('pbtExit').style.display='none';
+  }
+  const urlLink=$('pbtOpenUrl');
+  if(t.url){
+    urlLink.href=t.url;
+    urlLink.style.display='';
+  }else{
+    urlLink.style.display='none';
+  }
+  if(t.file){
+    $('pbtFileRow').style.display='';
+    $('pbtFileText').textContent='📂 '+t.file;
+  }else{
+    $('pbtFileRow').style.display='none';
+  }
+  $('pbTrack').dataset.pane=pane;
+  // Close edit form whenever pane changes
+  $('pbtEdit').style.display='none';
+  $('pbtIdeas').style.display='none';
+}
+
+function pbtStartTrack(){
+  const pane=$('pbTrack').dataset.pane||pbCurrentPane();
+  const meta=PB_PANE_META[pane]||PB_PANE_META.clrs;
+  const t=pbGetTrack(pane);
+  // Streak maintenance
   const today=td();
-  if(S.pbMissionDate!==today){
-    S.pbMissionDate=today;
-    S.pbMissionIdx={};save();
+  const y=new Date();y.setDate(y.getDate()-1);
+  const yKey=y.getFullYear()+'-'+String(y.getMonth()+1).padStart(2,'0')+'-'+String(y.getDate()).padStart(2,'0');
+  if(t.lastStarted===today){/* already counted today */}
+  else if(t.lastStarted===yKey)t.streak=(t.streak||0)+1;
+  else t.streak=1;
+  t.lastStarted=today;
+  t.sessions=(t.sessions||0)+1;
+  save();
+  // Start the focus timer in the background
+  if(typeof startTimerInterval==='function'){
+    if(timerRunning||timerPaused){
+      toast('Timer already active — pause/reset on Dashboard first');
+    }else{
+      timerSec=meta.duration*60;
+      timerTotal=meta.duration*60;
+      if(typeof renderTimer==='function')renderTimer();
+      startTimerInterval();
+      toast(`▶ ${meta.duration}-min timer started · ${meta.name}`);
+    }
   }
-  let idx=S.pbMissionIdx[pane];
-  if(idx===undefined){
-    const dayNum=Math.floor((Date.now()/86400000));
-    idx=dayNum%missions.length;
-    S.pbMissionIdx[pane]=idx;save();
-  }
-  return {pane,mission:missions[idx],idx};
+  // Open the resource if one is set
+  if(t.url){try{window.open(t.url,'_blank','noopener')}catch(e){}}
+  pbRenderTrack();
 }
 
-function pbRenderMission(){
-  const m=pbActiveMission();if(!m)return;
-  const dow=new Date().getDay();
-  const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  $('pbMissionDay').textContent=`${dayNames[dow]} · ${pbPaneTitle(m.pane)} block`;
-  $('pbMissionTitle').textContent=m.mission.t;
-  $('pbMissionDetail').textContent=m.mission.d+(m.mission.time?` · ⏱ ${m.mission.time}`:'');
-  $('pbMission').dataset.pane=m.pane;
-  $('pbMission').dataset.idx=m.idx;
+function pbtOpenEdit(){
+  const pane=$('pbTrack').dataset.pane||pbCurrentPane();
+  const t=pbGetTrack(pane);
+  $('pbtEditTitle').value=t.title||'';
+  $('pbtEditNext').value=t.nextAction||'';
+  $('pbtEditUrl').value=t.url||'';
+  $('pbtEditFile').value=t.file||'';
+  $('pbtEdit').style.display='';
+  $('pbtIdeas').style.display='none';
+  setTimeout(()=>$('pbtEditTitle').focus(),50);
 }
 
-function pbStartMission(){
-  const pane=$('pbMission').dataset.pane;
-  if(pane){
-    document.querySelectorAll('.pb-tab').forEach(b=>b.classList.remove('active'));
-    document.querySelector(`.pb-tab[data-pbtab="${pane}"]`)?.classList.add('active');
-    document.querySelectorAll('.pb-pane').forEach(p=>p.classList.remove('active'));
-    document.getElementById('pb-'+pane)?.classList.add('active');
-  }
-  const m=PB_MISSIONS[pane]?.[parseInt($('pbMission').dataset.idx)];
-  if(m&&m.link)window.open(m.link,'_blank');
-  toast('Mission started — go!');
+function pbtSaveEdit(){
+  const pane=$('pbTrack').dataset.pane||pbCurrentPane();
+  const t=pbGetTrack(pane);
+  t.title=$('pbtEditTitle').value.trim();
+  t.nextAction=$('pbtEditNext').value.trim();
+  t.url=$('pbtEditUrl').value.trim();
+  t.file=$('pbtEditFile').value.trim();
+  save();
+  $('pbtEdit').style.display='none';
+  pbRenderTrack();
+  toast('Track updated');
 }
 
-function pbCompleteMission(){
-  if(!S.pbCompletedMissions)S.pbCompletedMissions={};
-  const today=td();
-  if(!S.pbCompletedMissions[today])S.pbCompletedMissions[today]=0;
-  S.pbCompletedMissions[today]++;
-  // Advance to next mission
-  pbShuffleMission();
-  toast('Mission complete! +1 today');
+function pbtCancelEdit(){
+  $('pbtEdit').style.display='none';
+  $('pbtIdeas').style.display='none';
 }
 
-function pbShuffleMission(){
-  const pane=$('pbMission').dataset.pane||pbCurrentPane();
-  const missions=PB_MISSIONS[pane];
-  if(!missions)return;
-  if(!S.pbMissionIdx)S.pbMissionIdx={};
-  S.pbMissionIdx[pane]=(parseInt(S.pbMissionIdx[pane]||0)+1)%missions.length;
-  save();pbRenderMission();
+function pbtLogExit(){
+  const pane=$('pbTrack').dataset.pane||pbCurrentPane();
+  const t=pbGetTrack(pane);
+  const note=prompt('Exit note — what did you finish? What are you stuck on? (This shows at the start of your next session.)',t.exitNote||'');
+  if(note===null)return;
+  t.exitNote=note.trim();
+  t.exitNoteDate=td();
+  save();
+  pbRenderTrack();
+  toast('Exit note saved — shows next session');
+}
+
+function pbtShowIdeas(){
+  const pane=$('pbTrack').dataset.pane||pbCurrentPane();
+  const missions=PB_MISSIONS[pane]||[];
+  const list=$('pbtIdeasList');
+  list.innerHTML=missions.slice(0,8).map((m,i)=>`<button class="pbt-idea" onclick="pbtUseIdea(${i})"><span class="pbt-idea-title">${esc(m.t)}</span><span class="pbt-idea-desc">${esc(m.d||'')}</span></button>`).join('')||'<div style="font-size:11px;opacity:.7">No ideas for this pane.</div>';
+  $('pbtIdeas').style.display='';
+}
+
+function pbtCopyFile(){
+  const pane=$('pbTrack').dataset.pane||pbCurrentPane();
+  const t=pbGetTrack(pane);
+  if(!t.file)return;
+  try{
+    navigator.clipboard.writeText(t.file).then(()=>toast('Path copied: '+t.file));
+  }catch(e){toast('Copy failed')}
+}
+
+function pbtUseIdea(i){
+  const pane=$('pbTrack').dataset.pane||pbCurrentPane();
+  const m=PB_MISSIONS[pane]?.[i];
+  if(!m)return;
+  $('pbtEditTitle').value=m.t;
+  $('pbtEditNext').value=m.d||'';
+  if(m.link)$('pbtEditUrl').value=m.link;
+  $('pbtIdeas').style.display='none';
+  $('pbtEditTitle').focus();
 }
 
 // === RESOURCE STATE TRACKING ===
@@ -4754,8 +4947,24 @@ function initPlaybook(){
       if(pane)pane.classList.add('active');
       // Reset search
       const search=$('pbSearch');if(search){search.value='';pbSearch('')}
+      // Re-render active track for the new pane
+      pbRenderTrack();
     });
   });
+
+  // Auto-select the pane that matches the current schedule block (only if user hasn't
+  // manually picked one yet — detected by all panes still at their default state)
+  const cur=(typeof getCurrentSchedBlock==='function')?getCurrentSchedBlock():null;
+  if(cur&&PB_PANE_FOR_BLOCK[cur.key]){
+    const targetPane=PB_PANE_FOR_BLOCK[cur.key];
+    const activeTab=document.querySelector('.pb-tab.active')?.dataset.pbtab;
+    if(activeTab!==targetPane){
+      document.querySelectorAll('.pb-tab').forEach(b=>b.classList.remove('active'));
+      document.querySelector(`.pb-tab[data-pbtab="${targetPane}"]`)?.classList.add('active');
+      document.querySelectorAll('.pb-pane').forEach(p=>p.classList.remove('active'));
+      document.getElementById('pb-'+targetPane)?.classList.add('active');
+    }
+  }
 
   // Search bar
   const search=$('pbSearch');
@@ -4780,15 +4989,15 @@ function initPlaybook(){
   if(ytToday)ytToday.textContent=`${dayNames[dow]} — ${ytRot[dow]}`;
 
   // Initialize new features
-  pbRenderMission();
+  pbRenderTrack();
   pbWireResources();
   pbHighlightActiveBlock();
 }
 setTimeout(initPlaybook,400);
-// Re-check active block + mission every minute
+// Re-check active block + track every minute
 setInterval(()=>{
   pbHighlightActiveBlock();
-  if(document.getElementById('page-playbook')?.classList.contains('active'))pbRenderMission();
+  if(document.getElementById('page-playbook')?.classList.contains('active'))pbRenderTrack();
 },60000);
 
 // ===== SCROLLSPY for Schedule jump nav =====
@@ -4933,7 +5142,7 @@ $('cmdInput').addEventListener('keydown',e=>{
   else if(e.key==='Escape'){closeCmd()}
 });
 
-const VALID_PAGES=['dashboard','inbox','exercise','cs','phd','brain','horizons','review','schedule'];
+const VALID_PAGES=['dashboard','inbox','exercise','cs','phd','brain','horizons','review','schedule','playbook'];
 function goPage(p,skipHash){
   if(!VALID_PAGES.includes(p))p='dashboard';
   document.querySelectorAll('.nav-tab').forEach(n=>n.classList.remove('active'));
@@ -4944,6 +5153,8 @@ function goPage(p,skipHash){
   document.querySelector('.nav-tabs').classList.remove('open');
   syncBottomNav(p);
   renderAll();
+  // Re-render playbook track when entering playbook page
+  if(p==='playbook'&&typeof pbRenderTrack==='function')pbRenderTrack();
   if(!skipHash){
     const newHash='#'+p;
     if(location.hash!==newHash)history.replaceState(null,'',newHash);
