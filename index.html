@@ -1232,6 +1232,24 @@ body.mentor-view .sch-share-btn{display:none}
 #page-dashboard details.dash-demoted > .card{margin:0 16px 14px;border-color:var(--border)}
 #page-dashboard details.dash-demoted > summary .dd-hint{font-size:10px;color:var(--dim2);text-transform:none;letter-spacing:.02em;font-style:italic;font-weight:500;font-family:Georgia,serif;margin-left:auto}
 
+/* === Schedule week thread · mentor voice above the weekly grid === */
+#page-schedule .sch-week-thread{margin:0 0 20px;padding:22px 26px;border-radius:14px;background:linear-gradient(160deg,rgba(52,211,153,.09) 0%,rgba(167,139,250,.05) 55%,rgba(251,191,36,.05) 100%);border:1px solid rgba(52,211,153,.25);box-shadow:0 5px 22px rgba(13,16,23,.16)}
+#page-schedule .sch-week-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:10px;font-family:-apple-system,system-ui,sans-serif}
+#page-schedule .sch-week-line{font-size:clamp(17px,2.6vw,22px);font-weight:700;line-height:1.35;color:var(--tx);letter-spacing:-.01em;font-family:-apple-system,system-ui,sans-serif}
+#page-schedule .sch-week-line em{font-style:italic;color:var(--dim);font-weight:500;font-family:Georgia,serif}
+#page-schedule .sch-week-line strong{color:var(--green);font-weight:700}
+#page-schedule .sch-week-mentor{margin-top:16px;padding:16px 20px 16px 24px;background:rgba(251,191,36,.09);border-left:3px solid var(--yellow);border-radius:0 10px 10px 0;font-family:Georgia,'Times New Roman',serif;font-style:italic;color:var(--tx);font-size:13.5px;line-height:1.75}
+#page-schedule .sch-week-mentor::before{content:"— Mentor note · this week";display:block;font-family:-apple-system,system-ui,sans-serif;font-style:normal;font-size:10px;letter-spacing:.14em;color:var(--yellow);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+#page-schedule .sch-week-mentor strong{color:#fff;font-weight:600;font-style:italic}
+#page-schedule .sch-week-mentor em{font-style:normal;color:var(--dim)}
+
+/* Live-now deep-link buttons — hand off from Schedule to Focus / Playbook */
+#page-schedule .sch-now-links{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+#page-schedule .sch-now-link{padding:9px 15px;background:rgba(107,138,255,.15);color:var(--accent);border:1px solid rgba(107,138,255,.32);border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.05em;text-decoration:none;transition:all .15s;cursor:pointer;font-family:-apple-system,system-ui,sans-serif;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+#page-schedule .sch-now-link:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px)}
+#page-schedule .sch-now-link.secondary{background:transparent;color:var(--dim);border-color:var(--border)}
+#page-schedule .sch-now-link.secondary:hover{background:var(--s2);color:var(--tx);border-color:var(--dim)}
+
 </style>
 <script>(function(){try{if(localStorage.getItem('systemv2_theme')==='light')document.documentElement.classList.add('light')}catch(e){}}());</script>
 </head>
@@ -2076,6 +2094,13 @@ body.mentor-view .sch-share-btn{display:none}
   <div class="arc-phase" id="arcPhase">—</div>
 </div>
 
+<!-- Today's thread · this week's mentor voice, sits above the weekly grid -->
+<div class="sch-week-thread">
+  <div class="sch-week-eyebrow" id="schWeekEyebrow">— Loading —</div>
+  <div class="sch-week-line" id="schWeekLine">—</div>
+  <div class="sch-week-mentor" id="schWeekMentor">The weekly mentor note will load in a moment. If you see this for more than a couple of seconds, reload and tell me.</div>
+</div>
+
 <div class="sch-header">
   <h1>COMPOUND <span>v4.1</span></h1>
   <div class="sub">Deep work on the 18-month arc · CS Ed PhD prep · Remote CVC analyst</div>
@@ -2090,6 +2115,11 @@ body.mentor-view .sch-share-btn{display:none}
     <div class="sch-now-block" id="schNowBlock">—</div>
     <div class="sch-now-detail" id="schNowDetail"></div>
     <div class="sch-now-protocol" id="schNowProtocol"></div>
+    <!-- Deep links · hand off from Schedule to execution surfaces -->
+    <div class="sch-now-links">
+      <a class="sch-now-link" href="focus.html">🎯 Open Focus — what to do</a>
+      <a class="sch-now-link secondary" href="#" onclick="goPage('playbook');return false">📖 Open Playbook — session cockpit</a>
+    </div>
   </div>
   <div class="sch-now-right">
     <div class="sch-now-timer-wrap">
@@ -7159,6 +7189,89 @@ setInterval(function(){
   function init(){
     setTimeout(renderMorningSurface,150);
     setInterval(renderMorningSurface,60000);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<!-- === Schedule week-thread renderer — phase-aware mentor voice above the weekly grid === -->
+<script>
+(function(){
+  const ARC_START=new Date('2026-04-20T00:00:00');
+  const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  function mondayOf(d){
+    const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+    const day=x.getDay();
+    const diff=day===0?-6:(1-day);
+    x.setDate(x.getDate()+diff);
+    return x;
+  }
+  function fmtMD(d){return(d.getMonth()+1)+'/'+d.getDate();}
+
+  // Phase-aware mentor note for a given week of the arc
+  function weekMentor(elapsed, weekNum){
+    if (elapsed < 0) {
+      const daysUntil=Math.abs(elapsed);
+      if (daysUntil > 7) {
+        return 'This week is a <strong>setup week</strong>. You\'re still pre-arc — use the margin hours to install the machinery: clean inbox, Zotero library ready, empty Anki deck created, laptop set up for the 5:50 AM rise. When the arc actually starts, you want zero friction between alarm and first block. <em>Setup done well now buys you the first two weeks of the arc for free.</em>';
+      }
+      return 'You\'re <strong>one week from launch.</strong> This is the hardest week — the week when the temptation is to keep fine-tuning the plan instead of running it. Resist. Fix the one thing you said you\'d fix, write down the <em>one sentence</em> about what Week 1 of the arc is actually for, and close the laptop. Next Monday, the real work starts.';
+    }
+    if (weekNum <= 6) {
+      return 'This is <strong>Phase 1 · habit installation</strong>. The only job this week is to show up to the 7am CLRS block every weekday. Not to finish chapters. Not to get ahead. <em>Just to arrive at the desk with a pen and coffee.</em> Everything else on the Schedule is optional; this one isn\'t. If you manage that, the week is a win regardless of output.';
+    }
+    if (weekNum <= 12) {
+      return 'Phase 1 is behind you; you\'re in <strong>Phase 2 · velocity</strong>. This is where CLRS actually starts compounding and where you expect to ship your first capstone-phase artifact. If you\'re falling behind on pages, that\'s fine. Not on sessions. <em>Sessions compound. Pages don\'t.</em>';
+    }
+    if (weekNum <= 24) {
+      return 'You\'re in <strong>the deep middle</strong>. This is where most 18-month arcs quietly die — not from a crisis, from fatigue. The antidote isn\'t more discipline; it\'s more honesty. Pick the one track that\'s fragile this week, name it out loud, and cut one ambitious thing from its week. <em>The arc isn\'t a streak; it\'s a ship.</em>';
+    }
+    if (weekNum <= 52) {
+      return '<strong>Application window approaching.</strong> Every margin block this week is either building the story or polishing it. No more new tracks. If it doesn\'t end up in the SoP, a GitHub README, or the YouTube portfolio, defer it to post-arc. <em>Close, don\'t open.</em>';
+    }
+    return '<strong>Home stretch.</strong> The arc ends soon. What\'s left isn\'t learning new things — it\'s finishing and shipping the artifacts already in flight. <em>Close loops. Don\'t open new ones.</em>';
+  }
+
+  function render(){
+    try {
+      const eyebrow=document.getElementById('schWeekEyebrow');
+      const line=document.getElementById('schWeekLine');
+      const mentor=document.getElementById('schWeekMentor');
+      if(!eyebrow||!line||!mentor)return;
+
+      const now=new Date();
+      const day=now.getDay();
+      const elapsed=Math.floor((now-ARC_START)/86400000);
+
+      const weekStart=mondayOf(now);
+      const weekEnd=new Date(weekStart);weekEnd.setDate(weekEnd.getDate()+6);
+      const weekLabel=fmtMD(weekStart)+' → '+fmtMD(weekEnd);
+
+      if (elapsed < 0) {
+        const du=Math.abs(elapsed);
+        eyebrow.textContent='PRE-ARC · '+weekLabel;
+        line.innerHTML='<strong>'+du+' day'+(du===1?'':'s')+'</strong> until the arc begins · '+DAYS_FULL[day];
+      } else {
+        const weekNum=Math.floor(elapsed/7)+1;
+        eyebrow.textContent='ARC WEEK '+weekNum+' · '+weekLabel;
+        line.innerHTML='<strong>Week '+weekNum+'</strong> of the arc · '+DAYS_FULL[day];
+      }
+
+      const weekNum=elapsed<0?0:Math.floor(elapsed/7)+1;
+      mentor.innerHTML=weekMentor(elapsed,weekNum);
+    } catch(err){
+      console.error('schedule week render failed',err);
+    }
+  }
+
+  function init(){
+    setTimeout(render,180);
+    setInterval(render,60000);
   }
   if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded',init);
