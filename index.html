@@ -1062,6 +1062,46 @@ html{scroll-behavior:smooth}
 .pw-box input.pw-err{border-color:var(--red);animation:shake .4s ease}
 .pw-box .pw-msg{font-size:11px;color:var(--red);margin-top:8px;min-height:16px}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+/* === MENTOR SHARE VIEW ===
+   ?mentor=1 in the URL bypasses the passcode gate and serves a read-only
+   schedule view. Hide all private pages, top nav, bottom nav, NOW bar,
+   floating action buttons, command palette, and non-public Schedule sections. */
+body.mentor-view .nav-tabs,
+body.mentor-view .now-bar,
+body.mentor-view #fabBtn,
+body.mentor-view .fab-menu,
+body.mentor-view #cmdPalette,
+body.mentor-view #bottomNav,
+body.mentor-view #bnMorePopup,
+body.mentor-view #page-dashboard,
+body.mentor-view #page-inbox,
+body.mentor-view #page-exercise,
+body.mentor-view #page-cs,
+body.mentor-view #page-phd,
+body.mentor-view #page-brain,
+body.mentor-view #page-horizons,
+body.mentor-view #page-review,
+body.mentor-view #page-playbook,
+body.mentor-view #briefingModal,
+body.mentor-view #pbTrack,
+body.mentor-view #dTrackCard,
+body.mentor-view #dNowBox,
+body.mentor-view #schJumpNav,
+body.mentor-view #schNowHero,
+body.mentor-view .sch-changes,
+body.mentor-view #sch-actions,
+body.mentor-view .brand-right{display:none !important}
+body.mentor-view #page-schedule{display:block !important}
+body.mentor-view{background:var(--bg)}
+body.mentor-view .brand-left{pointer-events:none}
+.mentor-banner{display:none;background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;padding:14px 20px;text-align:center;font-size:13px;line-height:1.5;margin:0 0 16px;border-radius:12px;box-shadow:0 8px 24px rgba(107,138,255,.22)}
+.mentor-banner strong{font-weight:800;letter-spacing:.3px}
+.mentor-banner .mb-sub{font-size:11px;opacity:.85;margin-top:3px;letter-spacing:.3px}
+body.mentor-view .mentor-banner{display:block}
+.sch-share-btn{background:var(--accent);color:#fff;border:0;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.3px;display:inline-flex;align-items:center;gap:6px;transition:opacity .15s}
+.sch-share-btn:hover{opacity:.9}
+body.mentor-view .sch-share-btn{display:none}
 </style>
 <script>(function(){try{if(localStorage.getItem('systemv2_theme')==='light')document.documentElement.classList.add('light')}catch(e){}}());</script>
 </head>
@@ -1082,6 +1122,19 @@ html{scroll-behavior:smooth}
   var inp=document.getElementById('pwInput');
   var msg=document.getElementById('pwMsg');
   var CODE='5751';
+  // Mentor share view: ?mentor=1 bypasses the passcode gate and serves a
+  // read-only schedule view with all private pages and edit affordances hidden.
+  try{
+    var params=new URLSearchParams(location.search);
+    if(params.get('mentor')==='1'){
+      document.body.classList.add('mentor-view');
+      gate.classList.add('hidden');
+      setTimeout(function(){gate.remove()},400);
+      // Force the schedule route
+      if(location.hash!=='#schedule')history.replaceState(null,'','?mentor=1#schedule');
+      return;
+    }
+  }catch(e){}
   // Check session
   try{if(sessionStorage.getItem('sv2_auth')==='1'){gate.classList.add('hidden');setTimeout(function(){gate.remove()},400);}}catch(e){}
   inp.addEventListener('input',function(){
@@ -1859,10 +1912,16 @@ html{scroll-behavior:smooth}
 <!-- ===== SCHEDULE PAGE ===== -->
 <div class="page" id="page-schedule">
 
+<div class="mentor-banner">
+  <strong>👋 You're viewing Henry Fan's weekly schedule · v4.1</strong>
+  <div class="mb-sub">Shared read-only view · The System v2.0 — Deliver excellence at work · Build mastery on the margins · Earn the PhD</div>
+</div>
+
 <div class="sch-header">
-  <h1>THE SYSTEM <span>v4.0</span></h1>
+  <h1>THE SYSTEM <span>v4.1</span></h1>
   <div class="sub">Project-Based Learning Science Edition — Redesigned for Consolidation & Transfer</div>
   <div class="motto">Deliver excellence at work. Build mastery on the margins. Earn the PhD.</div>
+  <div style="margin-top:14px"><button class="sch-share-btn" onclick="schCopyMentorLink()">📤 Copy mentor share link</button></div>
 </div>
 
 <!-- LIVE NOW HERO -->
@@ -4574,6 +4633,17 @@ function renderNowBar(){
   document.getElementById('nowBarProgress').style.width=Math.min((elapsed/total)*100,100)+'%';
 }
 function dismissNowBar(){nowBarDismissed=true;document.getElementById('nowBar').classList.remove('show')}
+function schCopyMentorLink(){
+  const base=location.origin+location.pathname;
+  const url=base+'?mentor=1#schedule';
+  const doCopy=()=>navigator.clipboard.writeText(url).then(()=>toast('📤 Mentor link copied — paste anywhere')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast('📤 Copied')}catch(e){prompt('Copy this link:',url)}
+    document.body.removeChild(ta);
+  });
+  try{doCopy()}catch(e){prompt('Copy this link:',url)}
+}
+
 function goSchedule(){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
