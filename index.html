@@ -1234,18 +1234,11 @@ body.mentor-view .sch-share-btn{display:none}
 <div class="nav-brand">The System <span>v2.0</span></div>
 <button class="hamburger" onclick="document.querySelector('.nav-tabs').classList.toggle('open')" aria-label="Menu">☰</button>
 <div class="nav-tabs">
-<button class="nav-tab active" data-page="schedule">📅 Schedule <span class="kbd-hint">1</span></button>
-<button class="nav-tab" data-page="playbook">📖 Playbook <span class="kbd-hint">2</span></button>
-<button class="nav-tab" data-page="dashboard">📊 Dashboard <span class="kbd-hint">3</span></button>
+<button class="nav-tab" data-page="dashboard">📊 Dashboard <span class="kbd-hint">1</span></button>
+<button class="nav-tab active" data-page="schedule">📅 Schedule <span class="kbd-hint">2</span></button>
+<button class="nav-tab" data-page="playbook">📖 Playbook <span class="kbd-hint">3</span></button>
+<a class="nav-tab" href="focus.html" style="text-decoration:none">🎯 Focus</a>
 <a class="nav-tab" href="projects.html" style="text-decoration:none">Projects <span class="kbd-hint">0</span></a>
-<!-- Hidden by default — still accessible via direct hash URL or command palette -->
-<button class="nav-tab" data-page="inbox" style="display:none">Capture</button>
-<button class="nav-tab" data-page="exercise" style="display:none">Exercise</button>
-<button class="nav-tab" data-page="cs" style="display:none">CS Journal</button>
-<button class="nav-tab" data-page="phd" style="display:none">PhD Tracker</button>
-<button class="nav-tab" data-page="brain" style="display:none">Second Brain</button>
-<button class="nav-tab" data-page="horizons" style="display:none">Dream Binder</button>
-<button class="nav-tab" data-page="review" style="display:none">Weekly Review</button>
 </div>
 <div class="nav-right">
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode" title="Toggle theme">
@@ -5897,7 +5890,7 @@ $('cmdPalette').addEventListener('click',e=>{if(e.target===$('cmdPalette'))close
 function getSearchItems(){
   const items=[];
   // Navigation
-  const pages=[{p:'dashboard',l:'Dashboard',i:'📊'},{p:'inbox',l:'Capture',i:'📥'},{p:'exercise',l:'Exercise',i:'💪'},{p:'cs',l:'CS Journal',i:'🖥'},{p:'phd',l:'PhD Tracker',i:'🎓'},{p:'brain',l:'Second Brain',i:'🧠'},{p:'horizons',l:'Dream Binder',i:'🌅'},{p:'review',l:'Weekly Review',i:'📋'},{p:'schedule',l:'Schedule',i:'📅'}];
+  const pages=[{p:'dashboard',l:'Dashboard',i:'📊'},{p:'schedule',l:'Schedule',i:'📅'},{p:'playbook',l:'Playbook',i:'📖'}];
   pages.forEach(pg=>items.push({type:'nav',icon:pg.i,title:'Go to '+pg.l,sub:'Navigation',content:'',action:()=>{goPage(pg.p);closeCmd()}}));
   // Actions
   items.push({type:'action',icon:'➕',title:'New capture',sub:'Quick action',content:'',action:()=>{closeCmd();fabAction('task')}});
@@ -6161,7 +6154,7 @@ document.addEventListener('keydown',e=>{
   // Number keys 1-7 for tab navigation
   const num=parseInt(e.key);
   if(num>=1&&num<=9&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
-    const pages=['schedule','playbook','dashboard'];
+    const pages=['dashboard','schedule','playbook'];
     if(num>=1&&num<=pages.length){goPage(pages[num-1]);return}
   }
   // 'b' for Playbook
