@@ -1309,12 +1309,48 @@ article.pi-card {
   .log-form-row { grid-template-columns: 1fr; }
 }
 
+/* ---- Log controls: text search + filter chips ---- */
+.log-controls {
+  margin: 16px 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.log-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.log-search {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  box-sizing: border-box;
+}
+.log-search:focus {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+.log-search::placeholder { color: var(--ink-3); }
+.log-search-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
 /* ---- Filter chip row ---- */
 .log-filter {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin: 16px 0 10px;
 }
 .log-chip {
   font-family: var(--sans);

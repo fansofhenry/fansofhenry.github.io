@@ -784,12 +784,18 @@
         </div>
       </form>
 
-      <div class="log-filter" role="tablist" aria-label="Filter log by paper">
-        <button type="button" class="log-chip active" data-filter="all" role="tab" aria-selected="true">All <span class="log-chip-count" data-count="all">0</span></button>
-        <button type="button" class="log-chip p1" data-filter="paper-1" role="tab" aria-selected="false">P01 <span class="log-chip-count" data-count="paper-1">0</span></button>
-        <button type="button" class="log-chip p2" data-filter="paper-2" role="tab" aria-selected="false">P02 <span class="log-chip-count" data-count="paper-2">0</span></button>
-        <button type="button" class="log-chip p3" data-filter="paper-3" role="tab" aria-selected="false">P03 <span class="log-chip-count" data-count="paper-3">0</span></button>
-        <button type="button" class="log-chip lab" data-filter="lab" role="tab" aria-selected="false">Lab <span class="log-chip-count" data-count="lab">0</span></button>
+      <div class="log-controls">
+        <div class="log-search-wrap">
+          <input type="search" id="log-search" class="log-search" placeholder="Search entries by what moved or notes..." aria-label="Search log entries" autocomplete="off">
+          <span class="log-search-count" id="log-search-count" aria-live="polite"></span>
+        </div>
+        <div class="log-filter" role="tablist" aria-label="Filter log by paper">
+          <button type="button" class="log-chip active" data-filter="all" role="tab" aria-selected="true">All <span class="log-chip-count" data-count="all">0</span></button>
+          <button type="button" class="log-chip p1" data-filter="paper-1" role="tab" aria-selected="false">P01 <span class="log-chip-count" data-count="paper-1">0</span></button>
+          <button type="button" class="log-chip p2" data-filter="paper-2" role="tab" aria-selected="false">P02 <span class="log-chip-count" data-count="paper-2">0</span></button>
+          <button type="button" class="log-chip p3" data-filter="paper-3" role="tab" aria-selected="false">P03 <span class="log-chip-count" data-count="paper-3">0</span></button>
+          <button type="button" class="log-chip lab" data-filter="lab" role="tab" aria-selected="false">Lab <span class="log-chip-count" data-count="lab">0</span></button>
+        </div>
       </div>
 
       <ul class="log-feed" id="log-list" aria-live="polite"></ul>
@@ -1263,6 +1269,9 @@ modeling-bench-aitutor/          ← Paper 03 repo
   var exportBtn = document.getElementById('export-log');
   var importBtn = document.getElementById('import-log');
   var filterBar = document.querySelector('.log-filter');
+  var searchInput = document.getElementById('log-search');
+  var searchCountEl = document.getElementById('log-search-count');
+  var searchTerm = '';
   var storedFilter;
   try { storedFilter = localStorage.getItem(FILTER_KEY); } catch (_) { storedFilter = null; }
   var filter = (storedFilter && VALID_FILTERS[storedFilter]) ? storedFilter : 'all';
@@ -1478,12 +1487,33 @@ modeling-bench-aitutor/          ← Paper 03 repo
     renderPaperState();
     renderExportState();
     var visible = filter === 'all' ? entries : entries.filter(function (e) { return e.paper === filter; });
+    /* Text search combines with the paper filter: both must match.
+       Matches on what + notes, case-insensitive, substring only. */
+    if (searchTerm) {
+      visible = visible.filter(function (e) {
+        var hay = ((e.what || '') + ' ' + (e.notes || '')).toLowerCase();
+        return hay.indexOf(searchTerm) !== -1;
+      });
+    }
+    if (searchCountEl) {
+      if (searchTerm) {
+        searchCountEl.textContent = visible.length + ' match' + (visible.length === 1 ? '' : 'es');
+      } else {
+        searchCountEl.textContent = '';
+      }
+    }
 
     list.innerHTML = '';
     if (visible.length === 0) {
-      var msg = filter === 'all'
-        ? 'No entries yet. The first one is the hardest.'
-        : 'No entries for this paper yet.';
+      var msg;
+      if (searchTerm) {
+        msg = 'No entries match "' + escapeHtml(searchTerm) + '"' +
+              (filter === 'all' ? '.' : ' in this paper.');
+      } else if (filter === 'all') {
+        msg = 'No entries yet. The first one is the hardest.';
+      } else {
+        msg = 'No entries for this paper yet.';
+      }
       list.innerHTML = '<li class="log-empty">' + msg + '</li>';
       return;
     }
@@ -1528,6 +1558,13 @@ modeling-bench-aitutor/          ← Paper 03 repo
       var chip = ev.target.closest('.log-chip');
       if (!chip) return;
       applyFilter(chip.getAttribute('data-filter'));
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      searchTerm = searchInput.value.trim().toLowerCase();
+      render();
     });
   }
 
