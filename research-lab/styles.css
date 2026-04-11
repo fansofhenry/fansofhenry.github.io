@@ -1779,6 +1779,46 @@ footer code { font-size: 11px; }
   .mentor-dialog textarea { flex: 1; min-height: 200px; }
 }
 
+/* Help dialog is narrower and content-sized — it's a reference card,
+   not a text editor, so it shouldn't claim the full 820px canvas. */
+.help-dialog { max-width: 460px; }
+.help-shortcuts {
+  margin: 4px 0 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.help-shortcuts > div {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.help-shortcuts dt { margin: 0; }
+.help-shortcuts dd {
+  margin: 0;
+  font: 400 13px/1.4 var(--sans);
+  color: var(--ink-2);
+}
+.help-shortcuts kbd {
+  display: inline-block;
+  min-width: 28px;
+  padding: 3px 8px;
+  font: 600 12px/1 var(--mono);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  text-align: center;
+}
+[data-theme="dark"] .help-shortcuts > div { background: var(--bg-2); }
+[data-theme="dark"] .help-shortcuts kbd { background: var(--bg); }
+
 /* ============================================================
    19. PRINT
    A PhD committee member or mentor might want a paper copy of the
@@ -1799,7 +1839,7 @@ footer code { font-size: 11px; }
   html, body { background: #ffffff !important; color: #000000 !important; }
   .skip-link, .topbar, .sidebar, .mobile-overlay, .sb-foot,
   .arc-section, .accordion-toggle, .log-form, .log-filter,
-  .log-feed .delete, .mentor-dialog { display: none !important; }
+  .log-feed .delete, .mentor-dialog, .help-dialog { display: none !important; }
   .layout { display: block; }
   .main { display: block; }
   .main-content { background: #ffffff !important; }

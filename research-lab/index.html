@@ -216,6 +216,10 @@
       <span aria-hidden="true">◐</span>
       <span id="themeBtnLabel">Dark</span>
     </button>
+    <button class="theme-btn" id="helpBtn" type="button" aria-label="Keyboard shortcuts (press ? anywhere)">
+      <span aria-hidden="true">?</span>
+      <span>Shortcuts</span>
+    </button>
   </div>
 </aside>
 
@@ -818,6 +822,29 @@
           <textarea id="mentor-dialog-text" rows="22" spellcheck="false" aria-describedby="mentor-dialog-title"></textarea>
           <div class="mentor-dialog-btns">
             <button type="button" id="mentor-copy">Copy markdown</button>
+            <button type="submit" class="secondary" value="close">Close</button>
+          </div>
+        </form>
+      </dialog>
+
+      <!-- Keyboard shortcut help dialog. Opens from the sidebar Shortcuts
+           button OR from anywhere by pressing `?`. Native <dialog> gives
+           Escape + focus trap. -->
+      <dialog id="help-dialog" class="mentor-dialog help-dialog" aria-labelledby="help-dialog-title">
+        <form method="dialog" class="mentor-dialog-form">
+          <header class="mentor-dialog-head">
+            <h3 id="help-dialog-title">Keyboard shortcuts</h3>
+            <button type="submit" class="mentor-dialog-x" value="close" aria-label="Close shortcuts">&times;</button>
+          </header>
+          <dl class="help-shortcuts">
+            <div><dt><kbd>l</kbd></dt><dd>Focus the "What moved" log input</dd></div>
+            <div><dt><kbd>/</kbd></dt><dd>Focus the log search</dd></div>
+            <div><dt><kbd>m</kbd></dt><dd>Draft the weekly mentor update</dd></div>
+            <div><dt><kbd>?</kbd></dt><dd>Show or hide this help</dd></div>
+            <div><dt><kbd>Esc</kbd></dt><dd>Close any open dialog</dd></div>
+          </dl>
+          <p class="mentor-dialog-lede">Shortcuts are disabled while you're typing in an input, textarea, or select, so they never hijack the log form. Modifier keys (⌘, Ctrl, Alt) are also ignored.</p>
+          <div class="mentor-dialog-btns">
             <button type="submit" class="secondary" value="close">Close</button>
           </div>
         </form>
@@ -1722,6 +1749,65 @@ modeling-bench-aitutor/          ← Paper 03 repo
       /* Focus the textarea so the user can immediately start editing;
          the native focus trap keeps Tab cycling inside the dialog. */
       setTimeout(function () { mentorText.focus(); }, 0);
+    });
+    /* WCAG 2.4.3 — return focus to the trigger after the dialog closes,
+       whether it was closed via Esc, the X, or a form submit button. */
+    mentorDialog.addEventListener('close', function () {
+      if (draftBtn && typeof draftBtn.focus === 'function') draftBtn.focus();
+    });
+  }
+
+  /* ---- Keyboard shortcuts + help dialog ----
+     Global listener for `l`, `/`, `m`, `?`. Disabled while the user is
+     typing in any editable element so it never steals keys from the log
+     form or search box. Modifier combos (⌘/Ctrl/Alt) are also ignored so
+     browser and OS shortcuts still work. */
+  var helpBtn    = document.getElementById('helpBtn');
+  var helpDialog = document.getElementById('help-dialog');
+  var logWhatInput = document.querySelector('#log-form input[name="what"]');
+
+  function isEditable(el) {
+    if (!el) return false;
+    var tag = el.tagName;
+    return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+  }
+  function openDialog(dlg) {
+    if (!dlg) return;
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+  }
+  document.addEventListener('keydown', function (ev) {
+    /* `?` toggles help even if another dialog is open, because it's
+       the one shortcut a new user is guaranteed to need. */
+    if (ev.key === '?' && !isEditable(ev.target) && helpDialog) {
+      ev.preventDefault();
+      if (helpDialog.open) helpDialog.close();
+      else openDialog(helpDialog);
+      return;
+    }
+    if (isEditable(ev.target)) return;
+    if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
+    /* Don't fire letter shortcuts while any app dialog is open — native
+       Escape handling is enough, and we don't want `m` to reopen the
+       mentor dialog from inside the help dialog. */
+    if ((mentorDialog && mentorDialog.open) || (helpDialog && helpDialog.open)) return;
+    if (ev.key === 'l' && logWhatInput) {
+      ev.preventDefault();
+      logWhatInput.focus();
+      logWhatInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (ev.key === '/' && searchInput) {
+      ev.preventDefault();
+      searchInput.focus();
+      searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (ev.key === 'm' && draftBtn) {
+      ev.preventDefault();
+      draftBtn.click();
+    }
+  });
+  if (helpBtn && helpDialog) {
+    helpBtn.addEventListener('click', function () { openDialog(helpDialog); });
+    helpDialog.addEventListener('close', function () {
+      if (typeof helpBtn.focus === 'function') helpBtn.focus();
     });
   }
 
