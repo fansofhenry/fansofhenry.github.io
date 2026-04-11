@@ -1,14 +1,46 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Henry Fan Research Lab — Applied Linear Algebra × CS Education</title>
-<meta name="description" content="Three-paper research program with Prof. Jeff Anderson (Foothill College). Henry Fan as principal author." />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)" />
+<title>The Modeling Bench — Henry Fan Research Lab</title>
+<meta name="description" content="A working hub for Henry Fan's three-paper research program with Prof. Jeff Anderson (Foothill College): open-hardware lab kits, linear-algebra-first neural nets, and anti-racist AI tutoring." />
+
+<!-- Open Graph / LinkedIn / Slack preview -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="The Modeling Bench" />
+<meta property="og:title" content="The Modeling Bench — Henry Fan Research Lab" />
+<meta property="og:description" content="A three-paper research program with Prof. Jeff Anderson (Foothill College). Open-hardware lab kits, linear-algebra-first neural nets, and an anti-racist AI tutoring framework. Principal author: Henry Fan." />
+<meta property="og:url" content="https://fansofhenry.github.io/research-lab/" />
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="The Modeling Bench — Henry Fan Research Lab" />
+<meta name="twitter:description" content="Three first-author papers at the intersection of applied linear algebra, hands-on lab pedagogy, and CS education. Mentor: Prof. Jeff Anderson." />
+
+<link rel="canonical" href="https://fansofhenry.github.io/research-lab/" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>" />
+
+<!-- Set theme before first paint so dark-mode users don't see a light-mode flash. -->
+<script>
+(function () {
+  try {
+    var stored = localStorage.getItem('lab-theme');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var theme = stored || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (_) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="layout">
@@ -65,7 +97,10 @@
     </div>
   </nav>
   <div class="sb-foot">
-    <button class="theme-btn" id="themeBtn">◐ Dark</button>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">
+      <span aria-hidden="true">◐</span>
+      <span id="themeBtnLabel">Dark</span>
+    </button>
   </div>
 </aside>
 
@@ -1101,17 +1136,24 @@ modeling-bench-aitutor/          ← Paper 03 repo
 })();
 
 /* ---- Dark mode ---- */
+/* The initial theme was set by the inline head script to avoid FOUC.
+   This block just wires the toggle + keeps the button label in sync. */
 const html = document.documentElement;
 const themeBtn = document.getElementById('themeBtn');
-if (localStorage.getItem('lab-theme') === 'dark') {
-  html.dataset.theme = 'dark';
-  if (themeBtn) themeBtn.textContent = '◑ Light';
+const themeBtnLabel = document.getElementById('themeBtnLabel');
+function syncThemeBtn() {
+  if (!themeBtnLabel) return;
+  const isDark = html.dataset.theme === 'dark';
+  themeBtnLabel.textContent = isDark ? 'Light' : 'Dark';
+  if (themeBtn) themeBtn.setAttribute('aria-label',
+    isDark ? 'Switch to light mode' : 'Switch to dark mode');
 }
+syncThemeBtn();
 if (themeBtn) themeBtn.addEventListener('click', () => {
   const dark = html.dataset.theme === 'dark';
   html.dataset.theme = dark ? 'light' : 'dark';
-  themeBtn.textContent = dark ? '◐ Dark' : '◑ Light';
   localStorage.setItem('lab-theme', html.dataset.theme);
+  syncThemeBtn();
 });
 
 /* ---- Mobile sidebar ---- */
