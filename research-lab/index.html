@@ -1215,12 +1215,16 @@ modeling-bench-aitutor/          ← Paper 03 repo
 /* ---- localStorage research log ---- */
 (function () {
   var KEY = 'research-lab-log-v1';
+  var FILTER_KEY = 'research-lab-filter-v1';
+  var VALID_FILTERS = { all: 1, 'paper-1': 1, 'paper-2': 1, 'paper-3': 1, lab: 1 };
   var form = document.getElementById('log-form');
   var list = document.getElementById('log-list');
   var exportBtn = document.getElementById('export-log');
   var importBtn = document.getElementById('import-log');
   var filterBar = document.querySelector('.log-filter');
-  var filter = 'all';
+  var storedFilter;
+  try { storedFilter = localStorage.getItem(FILTER_KEY); } catch (_) { storedFilter = null; }
+  var filter = (storedFilter && VALID_FILTERS[storedFilter]) ? storedFilter : 'all';
 
   var STEP_NAMES = {
     '1': 'Find',
@@ -1302,17 +1306,25 @@ modeling-bench-aitutor/          ← Paper 03 repo
     });
   }
 
+  function applyFilter(f) {
+    if (!VALID_FILTERS[f]) f = 'all';
+    filter = f;
+    try { localStorage.setItem(FILTER_KEY, f); } catch (_) {}
+    if (filterBar) {
+      filterBar.querySelectorAll('.log-chip').forEach(function (c) {
+        var active = c.getAttribute('data-filter') === f;
+        c.classList.toggle('active', active);
+        c.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+    render();
+  }
+
   if (filterBar) {
     filterBar.addEventListener('click', function (ev) {
       var chip = ev.target.closest('.log-chip');
       if (!chip) return;
-      filter = chip.getAttribute('data-filter');
-      filterBar.querySelectorAll('.log-chip').forEach(function (c) {
-        var active = c === chip;
-        c.classList.toggle('active', active);
-        c.setAttribute('aria-selected', active ? 'true' : 'false');
-      });
-      render();
+      applyFilter(chip.getAttribute('data-filter'));
     });
   }
 
@@ -1336,6 +1348,12 @@ modeling-bench-aitutor/          ← Paper 03 repo
   list.addEventListener('click', function (ev) {
     if (ev.target.classList.contains('delete')) {
       var id = ev.target.getAttribute('data-id');
+      var entry = load().filter(function (e) { return e.id === id; })[0];
+      var preview = entry && entry.what ? entry.what.slice(0, 80) : '';
+      var msg = 'Delete this log entry?' +
+        (preview ? '\n\n"' + preview + (entry.what.length > 80 ? '…' : '') + '"' : '') +
+        '\n\nThis cannot be undone without a prior Export JSON.';
+      if (!window.confirm(msg)) return;
       save(load().filter(function (e) { return e.id !== id; }));
       render();
     }
@@ -1377,7 +1395,7 @@ modeling-bench-aitutor/          ← Paper 03 repo
     input.click();
   });
 
-  render();
+  applyFilter(filter);
 })();
 
 /* ---- Dark mode ---- */
@@ -1455,34 +1473,44 @@ document.querySelectorAll('.paper-body, .pi-body').forEach(function (body) {
   sync();
 });
 
-/* ---- Program arc: compute current week from start date ---- */
-(function computeArc() {
+/* ---- Program arc: compute current week from start date.
+   Re-run on visibilitychange so a tab left open overnight still shows
+   the right week the next morning without a manual reload. ---- */
+(function () {
   var START = new Date('2026-04-10T00:00:00');
   var END   = new Date('2027-04-10T00:00:00');
-  var now   = new Date();
   var msWeek = 7 * 24 * 60 * 60 * 1000;
   var totalWeeks = Math.round((END - START) / msWeek); /* 52 */
-  var elapsedWeeks = Math.floor((now - START) / msWeek);
-  /* Clamp to [1, totalWeeks] so the bar reads "Week 1" before the
-     start date and stops at 52 after it. */
-  var week = Math.max(1, Math.min(totalWeeks, elapsedWeeks + 1));
-  var pct = Math.max(0, Math.min(100, ((now - START) / (END - START)) * 100));
 
-  var weekLabel = document.getElementById('arc-week-label');
-  var pctLabel  = document.getElementById('arc-pct-label');
-  var fill      = document.getElementById('arc-fill');
-  var cursor    = document.getElementById('arc-cursor');
-  var track     = document.getElementById('arc-track');
+  function computeArc() {
+    var now = new Date();
+    var elapsedWeeks = Math.floor((now - START) / msWeek);
+    /* Clamp to [1, totalWeeks] so the bar reads "Week 1" before the
+       start date and stops at 52 after it. */
+    var week = Math.max(1, Math.min(totalWeeks, elapsedWeeks + 1));
+    var pct = Math.max(0, Math.min(100, ((now - START) / (END - START)) * 100));
 
-  if (weekLabel) weekLabel.textContent = 'Week ' + week + ' of ' + totalWeeks;
-  if (pctLabel)  pctLabel.textContent  = '~' + Math.round(pct) + '% elapsed';
-  if (fill)      fill.style.width      = pct + '%';
-  if (cursor)    cursor.style.left     = pct + '%';
-  if (track) {
-    track.setAttribute('aria-valuenow', String(week));
-    track.setAttribute('aria-label',
-      'Twelve-month program arc, week ' + week + ' of ' + totalWeeks);
+    var weekLabel = document.getElementById('arc-week-label');
+    var pctLabel  = document.getElementById('arc-pct-label');
+    var fill      = document.getElementById('arc-fill');
+    var cursor    = document.getElementById('arc-cursor');
+    var track     = document.getElementById('arc-track');
+
+    if (weekLabel) weekLabel.textContent = 'Week ' + week + ' of ' + totalWeeks;
+    if (pctLabel)  pctLabel.textContent  = '~' + Math.round(pct) + '% elapsed';
+    if (fill)      fill.style.width      = pct + '%';
+    if (cursor)    cursor.style.left     = pct + '%';
+    if (track) {
+      track.setAttribute('aria-valuenow', String(week));
+      track.setAttribute('aria-label',
+        'Twelve-month program arc, week ' + week + ' of ' + totalWeeks);
+    }
   }
+
+  computeArc();
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) computeArc();
+  });
 })();
 
 /* ---- Active section tracking ---- */
