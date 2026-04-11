@@ -463,15 +463,9 @@
           </div>
         </details>
       </div>
-      <div class="paper-kanban">
-        <div class="kanban-label">Kanban</div>
-        <div class="kanban-cols">
-          <div class="k-col backlog"><h5>Backlog <span class="count">4</span></h5><ul><li>Hardware BOM v0</li><li>OpenCV pipeline v0</li><li>Wk 1 reread</li><li>IRB exemption form</li></ul></div>
-          <div class="k-col in-prog"><h5>In Progress <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-          <div class="k-col in-rev"><h5>In Review <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-          <div class="k-col done"><h5>Done <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-        </div>
-      </div>
+      <!-- Log pulse: computed from the research-log entries for this paper
+           on every render. See renderPaperState() in the main script block. -->
+      <div class="paper-pulse" data-paper-pulse="paper-1" aria-live="polite"></div>
     </article>
 
     <!-- PAPER 02 -->
@@ -549,15 +543,7 @@
           </div>
         </details>
       </div>
-      <div class="paper-kanban">
-        <div class="kanban-label">Kanban</div>
-        <div class="kanban-cols">
-          <div class="k-col backlog"><h5>Backlog <span class="count">3</span></h5><ul><li>NumPy training loop</li><li>SVD viz prototype</li><li>10-item instrument</li></ul></div>
-          <div class="k-col in-prog"><h5>In Progress <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-          <div class="k-col in-rev"><h5>In Review <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-          <div class="k-col done"><h5>Done <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-        </div>
-      </div>
+      <div class="paper-pulse" data-paper-pulse="paper-2" aria-live="polite"></div>
     </article>
 
     <!-- PAPER 03 -->
@@ -634,15 +620,7 @@
           </div>
         </details>
       </div>
-      <div class="paper-kanban">
-        <div class="kanban-label">Kanban</div>
-        <div class="kanban-cols">
-          <div class="k-col backlog"><h5>Backlog <span class="count">4</span></h5><ul><li>Audit rubric v0</li><li>System prompt v0</li><li>SPA scaffold</li><li>IRB exemption</li></ul></div>
-          <div class="k-col in-prog"><h5>In Progress <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-          <div class="k-col in-rev"><h5>In Review <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-          <div class="k-col done"><h5>Done <span class="count">0</span></h5><ul><li class="empty">—</li></ul></div>
-        </div>
-      </div>
+      <div class="paper-pulse" data-paper-pulse="paper-3" aria-live="polite"></div>
     </article>
 
     <div class="callout" style="margin-top:32px;">
@@ -1271,9 +1249,117 @@ modeling-bench-aitutor/          ← Paper 03 repo
     });
   }
 
+  function daysSince(ts) {
+    return Math.floor((Date.now() - ts) / (24 * 60 * 60 * 1000));
+  }
+  function ageLabel(days) {
+    if (days <= 0) return 'today';
+    if (days === 1) return '1d ago';
+    return days + 'd ago';
+  }
+
+  /* ---- Paper state ----
+     Reads the log and projects a per-paper summary into the three
+     masthead pills (.ppill-stage), the paper-card status tags
+     (.tag.status), and the .paper-pulse block inside each paper
+     card. Called from render() so it stays in sync with every add,
+     delete, and import. */
+  function renderPaperState() {
+    var entries = load();
+    var byPaper = { 'paper-1': [], 'paper-2': [], 'paper-3': [] };
+    entries.forEach(function (e) {
+      if (byPaper[e.paper]) byPaper[e.paper].push(e);
+    });
+
+    ['paper-1', 'paper-2', 'paper-3'].forEach(function (key) {
+      var list = byPaper[key].slice().sort(function (a, b) { return b.ts - a.ts; });
+      var count = list.length;
+      var latest = list[0] || null;
+      var steps = {};
+      list.forEach(function (e) { if (e.step && STEP_NAMES[e.step]) steps[e.step] = true; });
+      var stepCount = Object.keys(steps).length;
+
+      var n = key.slice(-1); /* '1', '2', '3' */
+
+      /* Masthead pill stage */
+      var pillStage = document.querySelector('.ppill.p' + n + ' .ppill-stage');
+      if (pillStage) {
+        if (count === 0) {
+          pillStage.textContent = 'Not started';
+          pillStage.classList.remove('live');
+        } else {
+          var age = ageLabel(daysSince(latest.ts));
+          pillStage.textContent = latest.step
+            ? '§' + latest.step + ' · ' + age
+            : count + (count === 1 ? ' entry · ' : ' entries · ') + age;
+          pillStage.classList.add('live');
+        }
+      }
+
+      /* Paper-card status tag */
+      var statusTag = document.querySelector('.paper-card.p' + n + '-card .tag.status');
+      if (statusTag) {
+        if (count === 0) {
+          statusTag.textContent = 'Backlog';
+          statusTag.classList.remove('live');
+        } else if (latest.step && STEP_NAMES[latest.step]) {
+          statusTag.textContent = '§' + latest.step + ' ' + STEP_NAMES[latest.step];
+          statusTag.classList.add('live');
+        } else {
+          statusTag.textContent = 'Active';
+          statusTag.classList.add('live');
+        }
+      }
+
+      /* Paper pulse block */
+      var pulse = document.querySelector('.paper-pulse[data-paper-pulse="' + key + '"]');
+      if (pulse) {
+        var dotsHtml = '';
+        for (var i = 1; i <= 8; i++) {
+          dotsHtml += '<span class="pulse-dot' + (steps[String(i)] ? ' on' : '') +
+                      '" title="Step ' + i + ' ' + STEP_NAMES[String(i)] + '"></span>';
+        }
+        var dotsBlock =
+          '<div class="pulse-dots" role="img" aria-label="' +
+            stepCount + ' of 8 Anderson modeling steps advanced">' +
+            dotsHtml +
+            '<span class="pulse-dots-count">' + stepCount + ' / 8 steps</span>' +
+          '</div>';
+        var head =
+          '<div class="pulse-head"><span class="pulse-label">Log pulse</span></div>';
+        if (count === 0) {
+          pulse.innerHTML = head + dotsBlock +
+            '<div class="pulse-summary pulse-empty">' +
+              'No log entries yet for this paper. ' +
+              '<a href="#log">Start in §04 Research Log</a>.' +
+            '</div>';
+          return;
+        }
+        var age = ageLabel(daysSince(latest.ts));
+        var stepStr = latest.step && STEP_NAMES[latest.step]
+          ? '§' + latest.step + ' ' + STEP_NAMES[latest.step]
+          : 'untagged';
+        var summary =
+          '<div class="pulse-summary">' +
+            '<strong>' + count + '</strong> ' +
+            (count === 1 ? 'entry' : 'entries') +
+            ' · last ' + escapeHtml(age) +
+            ' · ' + escapeHtml(stepStr) +
+          '</div>';
+        var whatText = (latest.what || '').trim();
+        var whatShown = whatText.length > 160 ? whatText.slice(0, 160) + '…' : whatText;
+        var quote = whatShown
+          ? '<blockquote class="pulse-quote">' + escapeHtml(whatShown) + '</blockquote>'
+          : '';
+        pulse.innerHTML = head + dotsBlock + summary + quote;
+      }
+    });
+  }
+
   function render() {
     var entries = load().slice().sort(function (a, b) { return b.ts - a.ts; });
     updateCounts(entries);
+    renderPaperState();
     var visible = filter === 'all' ? entries : entries.filter(function (e) { return e.paper === filter; });
 
     list.innerHTML = '';

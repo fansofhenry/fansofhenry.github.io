@@ -923,71 +923,119 @@ details[open].pid summary::after {
 .accordion-toggle[aria-pressed="true"] { color: var(--p2); }
 
 /* ============================================================
-   11. KANBAN
+   11. PAPER PULSE
+   Log-driven "heartbeat" for each paper card. Replaces the old
+   static Kanban (which never updated from any real data source).
+   Content is computed from the research-log localStorage entries
+   by renderPaperState() and re-rendered on every log mutation.
+   Four visual rows: label, 8-step coverage dots, one-line stats
+   (entries / last-entry age / last-step), and the most recent
+   "what moved" quote.
    ============================================================ */
-.paper-kanban {
-  padding: 0 32px 28px;
-}
-.kanban-label {
-  font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink-3);
-  margin-bottom: 8px;
-}
-.kanban-cols {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-.k-col {
+.paper-pulse {
+  margin: 4px 32px 28px;
+  padding: 18px 22px 20px;
   background: var(--bg-2);
-  border-radius: var(--radius);
-  padding: 10px 12px;
-  min-height: 80px;
-  border-top: 3px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: 10px;
 }
-.k-col.backlog  { border-top-color: var(--ink-3); }
-.k-col.in-prog  { border-top-color: var(--p2); }
-.k-col.in-rev   { border-top-color: #92400e; }
-.k-col.done     { border-top-color: var(--p3); }
-
-.k-col h5 {
+.paper-pulse .pulse-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.paper-pulse .pulse-label {
   font-family: var(--sans);
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--ink-3);
-  margin: 0 0 8px;
+}
+.paper-pulse .pulse-dots {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 7px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
 }
-.k-col .count {
-  background: var(--border);
+.paper-pulse .pulse-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.paper-card.p1-card .pulse-dot.on { background: var(--p1); border-color: var(--p1); }
+.paper-card.p2-card .pulse-dot.on { background: var(--p2); border-color: var(--p2); }
+.paper-card.p3-card .pulse-dot.on { background: var(--p3); border-color: var(--p3); }
+.paper-pulse .pulse-dots-count {
+  margin-left: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+.paper-pulse .pulse-summary {
   color: var(--ink-2);
-  font-size: 10px;
-  padding: 0 5px;
-  border-radius: 8px;
-  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.55;
 }
-.k-col ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.paper-pulse .pulse-summary strong {
+  color: var(--ink);
+  font-weight: 700;
 }
-.k-col li {
-  font-size: 12px;
+.paper-pulse .pulse-empty {
+  font-style: italic;
+  color: var(--ink-3);
+}
+.paper-pulse .pulse-quote {
+  margin: 12px 0 0;
+  padding: 6px 0 6px 14px;
+  border-left: 3px solid var(--border);
   color: var(--ink-2);
-  padding: 4px 0;
-  border-bottom: 1px solid var(--border);
-  line-height: 1.4;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.45;
+  font-style: italic;
 }
-.k-col li:last-child { border-bottom: none; }
-.k-col li.empty { color: var(--ink-3); font-style: italic; border-bottom: none; }
+.paper-card.p1-card .pulse-quote { border-left-color: var(--p1); }
+.paper-card.p2-card .pulse-quote { border-left-color: var(--p2); }
+.paper-card.p3-card .pulse-quote { border-left-color: var(--p3); }
+
+/* Live status tag — when the log has entries for a paper, the
+   static "Backlog" tag is replaced in-place by a live step label
+   (e.g. "§3 State ideal") colored with the paper's accent. */
+.tag.status.live {
+  background: var(--bg);
+  border-color: var(--ink-2);
+  color: var(--ink);
+}
+.paper-card.p1-card .tag.status.live {
+  background: var(--p1-bg);
+  color: var(--p1);
+  border-color: var(--p1-bd);
+}
+.paper-card.p2-card .tag.status.live {
+  background: var(--p2-bg);
+  color: var(--p2);
+  border-color: var(--p2-bd);
+}
+.paper-card.p3-card .tag.status.live {
+  background: var(--p3-bg);
+  color: var(--p3);
+  border-color: var(--p3-bd);
+}
+
+/* Masthead pill stage gets a slight lift when live; no change
+   when it still reads "Not started". */
+.ppill-stage.live {
+  opacity: 0.85;
+  font-family: var(--mono);
+  letter-spacing: 0.01em;
+}
 
 /* ============================================================
    12. PI CARDS (PhD section)
