@@ -1010,14 +1010,58 @@ function fmtRel(ts){
   return `${Math.floor(d/86400)}d ago`;
 }
 const trackNames = {yt:'YouTube', grad:'Grad Prep', phd:'PhD Research'};
+
+// Write-side unification: mirror Focus wins into systemv2_gtd.pbTracks.focus.exitHistory
+// so the Playbook's backup/export captures them and the same localStorage origin
+// has a single unified wins log. The `focus` pane is intentionally NOT added to
+// PB_ALL_PANES, so Playbook's own UI renderers ignore it — this mirror exists for
+// data unification, not as a new Playbook card.
+function mirrorToPlaybook(track, text){
+  try {
+    const key = 'systemv2_gtd';
+    const sys = JSON.parse(localStorage.getItem(key) || '{}');
+    if (!sys.pbTracks) sys.pbTracks = {};
+    if (!sys.pbTracks.focus) {
+      sys.pbTracks.focus = {
+        title: 'Focus · margin wins',
+        nextAction: '',
+        file: '',
+        url: '',
+        exitNote: '',
+        exitNoteDate: '',
+        lastStarted: '',
+        sessions: 0,
+        sessionDays: [],
+        restDays: [],
+        exitHistory: []
+      };
+    }
+    if (!Array.isArray(sys.pbTracks.focus.exitHistory)) sys.pbTracks.focus.exitHistory = [];
+    const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+    const label = trackNames[track] || track;
+    sys.pbTracks.focus.exitHistory.unshift({
+      date: today,
+      note: `[Focus · ${label}] ${text.trim()}`
+    });
+    // Cap at 50 entries so the log doesn't grow unbounded
+    sys.pbTracks.focus.exitHistory = sys.pbTracks.focus.exitHistory.slice(0, 50);
+    localStorage.setItem(key, JSON.stringify(sys));
+  } catch(e) {
+    console.warn('mirror to playbook failed', e);
+  }
+}
+
 document.querySelectorAll('.done-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const track = btn.dataset.track;
     const text = prompt(`One sentence: what did you move forward in this ${trackNames[track]} block?`);
     if (!text || !text.trim()) return;
+    // Primary write — Focus's own log
     state.logs[track].unshift({ts: Date.now(), text: text.trim()});
     state.logs[track] = state.logs[track].slice(0, 10);
     save();
+    // Mirror write — Playbook's unified store
+    mirrorToPlaybook(track, text);
     renderLog(track);
     renderLastWin();
     btn.textContent = '✓ Logged';
@@ -1068,11 +1112,13 @@ function gatherAllWins(){
       }
     });
   });
-  // Playbook exit history
+  // Playbook exit history — SKIP the `focus` pane because that's the mirror of
+  // state.logs we just iterated above; including it would double-count.
   try {
     const sys = JSON.parse(localStorage.getItem('systemv2_gtd') || '{}');
     const pbTracks = sys.pbTracks || {};
     Object.keys(pbTracks).forEach(pane => {
+      if (pane === 'focus') return; // skip the Focus mirror
       const tr = pbTracks[pane] || {};
       const hist = Array.isArray(tr.exitHistory) ? tr.exitHistory : [];
       hist.forEach(entry => {
