@@ -93,6 +93,60 @@
 html { scroll-behavior: smooth; }
 html, body { margin: 0; padding: 0; height: 100%; }
 
+/* Users who request reduced motion get zero non-essential animation.
+   Keeping the value above 0 avoids an old Safari bug where 0s could
+   fall through to a later !important rule. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------ Skip link ------
+   Visible only when focused by a keyboard user. Lets screen-reader
+   and Tab users jump past the sidebar nav to the main content. */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -44px;
+  z-index: 300;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: none;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 8px;
+  outline: 2px solid var(--p2);
+  outline-offset: 2px;
+}
+
+/* ------ Focus-visible ------
+   Keyboard-only focus ring. Click interactions stay untouched. */
+:focus-visible {
+  outline: 2px solid var(--p2);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.sb-link:focus-visible,
+.sb-back:focus-visible,
+.topbar-back:focus-visible,
+.theme-btn:focus-visible {
+  outline-color: #f0ece4;
+  outline-offset: 1px;
+}
+/* Remove the faded outline on :focus (non-keyboard) for pointer users. */
+:focus:not(:focus-visible) { outline: none; }
+
 body {
   font-family: var(--sans);
   color: var(--ink);

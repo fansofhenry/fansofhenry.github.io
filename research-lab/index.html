@@ -74,7 +74,7 @@
     <div class="sb-stat"><strong>Apr 10</strong><span>Started</span></div>
     <div class="sb-stat"><strong>Apr 27</strong><span>Target</span></div>
   </div>
-  <nav class="sb-nav">
+  <nav class="sb-nav" aria-label="Section links">
     <div class="sb-group">
       <div class="sb-group-label">Lab</div>
       <a href="#mission"  class="sb-link"><span class="sb-dot"></span>§00 Mission</a>
@@ -143,7 +143,7 @@
     </div>
   </header>
 
-  <main class="main-content">
+  <main class="main-content" id="main-content" tabindex="-1">
     <div class="content">
 
     <!-- §00 MISSION -->
@@ -1061,10 +1061,14 @@ modeling-bench-aitutor/          ← Paper 03 repo
     entries.forEach(function (e) {
       var li = document.createElement('li');
       li.className = e.paper === 'lab' ? '' : e.paper;
+      /* id is an internal-only string but we still escape it because an
+         imported JSON file could contain an arbitrary value. */
       li.innerHTML =
-        '<button class="delete" data-id="' + e.id + '" title="Delete">×</button>' +
-        '<span class="when">' + fmt(e.ts) + '</span>' +
-        '<span class="which">' + paperLabel(e.paper) + '</span>' +
+        '<button class="delete" data-id="' + escapeHtml(e.id) + '" ' +
+          'title="Delete entry" aria-label="Delete log entry">' +
+          '<span aria-hidden="true">×</span></button>' +
+        '<span class="when">' + escapeHtml(fmt(e.ts)) + '</span>' +
+        '<span class="which">' + escapeHtml(paperLabel(e.paper)) + '</span>' +
         '<span class="what">' + escapeHtml(e.what) + '</span>' +
         (e.notes ? '<div style="margin-top:6px; color:var(--ink-3); font-size:13px;">' + escapeHtml(e.notes).replace(/\n/g, '<br>') + '</div>' : '');
       list.appendChild(li);
@@ -1164,13 +1168,28 @@ if (themeBtn) themeBtn.addEventListener('click', () => {
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
 const menuBtn = document.getElementById('menuBtn');
+function setSidebar(open) {
+  if (!sidebar || !overlay) return;
+  sidebar.classList.toggle('open', open);
+  overlay.classList.toggle('show', open);
+  if (menuBtn) menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
 if (menuBtn) menuBtn.addEventListener('click', () => {
-  sidebar.classList.toggle('open');
-  overlay.classList.toggle('show');
+  setSidebar(!sidebar.classList.contains('open'));
 });
-if (overlay) overlay.addEventListener('click', () => {
-  sidebar.classList.remove('open');
-  overlay.classList.remove('show');
+if (overlay) overlay.addEventListener('click', () => setSidebar(false));
+
+/* Close the drawer when a sidebar link is tapped, and when Escape is hit. */
+document.querySelectorAll('.sb-link').forEach((l) => {
+  l.addEventListener('click', () => {
+    if (window.matchMedia('(max-width: 768px)').matches) setSidebar(false);
+  });
+});
+document.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+    setSidebar(false);
+    if (menuBtn) menuBtn.focus();
+  }
 });
 
 /* ---- Active section tracking ---- */
