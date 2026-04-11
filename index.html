@@ -894,6 +894,68 @@ html{scroll-behavior:smooth}
 #page-playbook .pb-callout{padding:14px 18px;border-radius:10px;background:rgba(251,191,36,.1);border:1px solid var(--yellow);font-size:13px;color:var(--tx);line-height:1.65;margin:12px 0}
 #page-playbook .pb-callout strong{color:var(--yellow)}
 #page-playbook .pb-section-title{font-size:11.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--tx);opacity:.62;margin:14px 0 8px;padding-top:4px}
+#page-playbook .pb-ref-drawer summary::-webkit-details-marker{display:none}
+#page-playbook .pb-ref-drawer summary:hover{border-color:var(--accent)}
+#page-playbook .pb-ref-drawer[open] summary span:last-child{transform:rotate(90deg);display:inline-block;transition:transform .15s}
+#page-playbook .pb-ref-drawer summary span:last-child{transition:transform .15s;display:inline-block}
+
+/* === MASTERY QUEUE (spaced retrieval) === */
+#page-playbook .mastery-card{background:linear-gradient(135deg,rgba(251,191,36,.1),rgba(244,114,182,.08));border:1px solid var(--yellow);border-radius:14px;padding:18px 22px;margin-bottom:16px;position:relative;overflow:hidden}
+#page-playbook .mastery-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+#page-playbook .mastery-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--yellow);margin-bottom:3px}
+#page-playbook .mastery-title{font-size:15px;font-weight:800;color:var(--tx);line-height:1.35}
+#page-playbook .mastery-count{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800;padding:6px 12px;border-radius:20px;background:rgba(251,191,36,.18);color:var(--yellow);flex-shrink:0;white-space:nowrap;border:1px solid rgba(251,191,36,.5)}
+#page-playbook .mastery-empty{font-size:12px;color:var(--tx);opacity:.65;padding:14px 16px;background:var(--s2);border-radius:8px;border-left:3px solid var(--border);line-height:1.55}
+#page-playbook .mastery-review-btn{background:var(--yellow);color:#000;border:0;padding:10px 18px;border-radius:9px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.3px;display:inline-flex;align-items:center;gap:6px;transition:opacity .15s}
+#page-playbook .mastery-review-btn:hover{opacity:.88}
+#page-playbook .mastery-flow{margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:18px 22px;position:relative}
+#page-playbook .mastery-card-pane{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--tx);opacity:.55;margin-bottom:6px}
+#page-playbook .mastery-card-front{font-size:15px;font-weight:600;line-height:1.5;color:var(--tx);margin-bottom:14px;min-height:40px}
+#page-playbook .mastery-card-back{font-size:13.5px;line-height:1.6;color:var(--tx);opacity:.9;padding:12px 14px;background:var(--s2);border-left:3px solid var(--green);border-radius:7px;margin-bottom:14px;white-space:pre-line}
+#page-playbook .mastery-card-back.hidden{display:none}
+#page-playbook .mastery-flip-btn{background:var(--s2);border:1px solid var(--border);color:var(--tx);padding:10px 18px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;width:100%}
+#page-playbook .mastery-flip-btn:hover{border-color:var(--accent)}
+#page-playbook .mastery-rate-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+#page-playbook .mastery-rate-btn{padding:9px 6px;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;border:1px solid var(--border);background:var(--s2);color:var(--tx);transition:all .15s}
+#page-playbook .mastery-rate-btn:hover{transform:translateY(-1px)}
+#page-playbook .mastery-rate-btn.r0{border-color:#ef4444;color:#ef4444}
+#page-playbook .mastery-rate-btn.r1{border-color:var(--yellow);color:var(--yellow)}
+#page-playbook .mastery-rate-btn.r2{border-color:var(--accent);color:var(--accent)}
+#page-playbook .mastery-rate-btn.r3{border-color:var(--green);color:var(--green)}
+#page-playbook .mastery-progress{font-size:10.5px;color:var(--tx);opacity:.6;text-align:center;margin-top:10px;font-family:'JetBrains Mono',monospace}
+#page-playbook .mastery-add-form{margin-top:14px;padding-top:14px;border-top:1px dashed var(--border)}
+#page-playbook .mastery-add-form textarea,#page-playbook .mastery-add-form select{display:block;width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--border);color:var(--tx);padding:10px 13px;border-radius:8px;font-size:13px;margin-bottom:8px;font-family:inherit;resize:vertical}
+#page-playbook .mastery-add-form textarea{min-height:52px;line-height:1.5}
+#page-playbook .mastery-add-btn{background:var(--accent);color:#fff;border:0;padding:9px 16px;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit}
+
+/* === MENTOR CALL PREP / DEBRIEF === */
+#page-playbook .mentor-call-card{background:linear-gradient(135deg,rgba(244,114,182,.1),rgba(107,138,255,.08));border:1px solid var(--phd,#f472b6);border-radius:14px;padding:18px 22px;margin-bottom:16px;position:relative;overflow:hidden}
+#page-playbook .mentor-call-card.active{border-color:var(--green);background:linear-gradient(135deg,rgba(52,211,153,.15),rgba(107,138,255,.08));animation:pulseDot 2.4s ease-in-out infinite}
+#page-playbook .mentor-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--phd,#f472b6);margin-bottom:4px}
+#page-playbook .mentor-call-card.active .mentor-eyebrow{color:var(--green)}
+#page-playbook .mentor-title{font-size:15px;font-weight:800;color:var(--tx);line-height:1.35;margin-bottom:10px}
+#page-playbook .mentor-field{margin-bottom:12px}
+#page-playbook .mentor-field-label{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx);opacity:.68;margin-bottom:5px}
+#page-playbook .mentor-field textarea{display:block;width:100%;box-sizing:border-box;background:var(--s1);border:1px solid var(--border);color:var(--tx);padding:10px 13px;border-radius:8px;font-size:13px;font-family:inherit;resize:vertical;min-height:60px;line-height:1.55}
+#page-playbook .mentor-field textarea:focus{outline:none;border-color:var(--accent)}
+#page-playbook .mentor-prev{padding:10px 13px;background:var(--s2);border-left:3px solid var(--purple);border-radius:6px;font-size:11.5px;line-height:1.55;color:var(--tx);opacity:.82;margin-bottom:12px}
+#page-playbook .mentor-prev strong{color:var(--tx);opacity:1}
+#page-playbook .mentor-save-btn{background:var(--phd,#f472b6);color:#fff;border:0;padding:10px 18px;border-radius:9px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+#page-playbook .mentor-save-btn:hover{opacity:.9}
+#page-playbook .mentor-auto{font-size:11px;color:var(--tx);opacity:.62;line-height:1.5;padding:10px 13px;background:var(--s2);border-radius:7px;margin-bottom:12px;font-style:italic}
+
+/* === SUNDAY OUTPUT REVIEW === */
+#page-playbook .sunday-card{background:linear-gradient(135deg,rgba(251,146,60,.1),rgba(251,191,36,.08));border:1px solid var(--youtube,#fb923c);border-radius:14px;padding:18px 22px;margin-bottom:16px}
+#page-playbook .sunday-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--youtube,#fb923c);margin-bottom:4px}
+#page-playbook .sunday-title{font-size:15px;font-weight:800;color:var(--tx);line-height:1.35;margin-bottom:12px}
+#page-playbook .sunday-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:14px}
+#page-playbook .sunday-stat{background:var(--s1);border:1px solid var(--border);border-radius:9px;padding:10px 12px}
+#page-playbook .sunday-stat-label{font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx);opacity:.58;margin-bottom:3px}
+#page-playbook .sunday-stat-val{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:800;color:var(--tx);line-height:1.2}
+#page-playbook .sunday-stat-sub{font-size:10px;color:var(--tx);opacity:.62;margin-top:2px}
+#page-playbook .sunday-commit{margin-top:6px}
+#page-playbook .sunday-commit textarea{display:block;width:100%;box-sizing:border-box;background:var(--s1);border:1px solid var(--border);color:var(--tx);padding:11px 14px;border-radius:8px;font-size:13px;font-family:inherit;resize:vertical;min-height:72px;line-height:1.6}
+#page-playbook .sunday-commit textarea:focus{outline:none;border-color:var(--youtube,#fb923c)}
 #page-playbook .pb-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;background:var(--s3);color:var(--dim);margin-right:4px;margin-bottom:3px}
 #page-playbook .pb-tag-free{background:rgba(52,211,153,.15);color:var(--green)}
 #page-playbook .pb-tag-paid{background:rgba(251,191,36,.15);color:var(--yellow)}
@@ -2436,9 +2498,9 @@ body.mentor-view .sch-share-btn{display:none}
 <div class="page" id="page-playbook">
 
 <div class="pb-hero">
-  <div class="pb-eyebrow">📖 The Playbook</div>
-  <div class="pb-title">What to actually do, every block.</div>
-  <div class="pb-sub">Stop wondering "what should I be doing right now?" This is your daily action manual — comprehensive resources, exact protocols, and concrete projects for every block of the system.</div>
+  <div class="pb-eyebrow">🧪 The Lab</div>
+  <div class="pb-title">Where mastery compounds.</div>
+  <div class="pb-sub">Not a productivity tool — a research lab for a PhD applicant on an 18-month arc. Each block is a bet on the long game. Each card is an artifact. Each session compounds.</div>
 </div>
 
 <!-- TIME-AWARE CONTEXT BANNER — "what block are you in / when's the next one" -->
@@ -2454,11 +2516,11 @@ body.mentor-view .sch-share-btn{display:none}
     <div class="pbt-icon-wrap">
       <span class="pbt-icon" id="pbtIcon">📖</span>
       <div class="pbt-meta">
-        <div class="pbt-eyebrow"><span class="pbt-pulse"></span>Active Track · <span id="pbtPane">CLRS Theory</span></div>
+        <div class="pbt-eyebrow"><span class="pbt-pulse"></span>In the lab · <span id="pbtPane">CLRS Theory</span></div>
         <div class="pbt-title" id="pbtTitle">Set your current focus →</div>
       </div>
     </div>
-    <div class="pbt-streak" id="pbtStreak" title="Consecutive days you've entered this block">🔥 0</div>
+    <div class="pbt-streak" id="pbtStreak" title="Consecutive days in the arc · every one compounds">🔥 0</div>
   </div>
 
   <div class="pbt-next">
@@ -2556,8 +2618,8 @@ body.mentor-view .sch-share-btn{display:none}
 <div class="pb-pane active" id="pb-overview">
   <div class="pb-ov-header">
     <div>
-      <div class="pb-ov-heading">All Tracks — Planning View</div>
-      <div class="pb-ov-sub">Sunday weekly review · morning preflight · mentor-ready snapshot</div>
+      <div class="pb-ov-heading">All Tracks · the long view</div>
+      <div class="pb-ov-sub">Sunday review · Monday mentor call · compound across the 18-month arc</div>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
       <button class="pb-ov-copy-btn" onclick="pbCopyReport()">📋 Copy progress report</button>
@@ -2566,6 +2628,12 @@ body.mentor-view .sch-share-btn{display:none}
       <input type="file" id="pbImportFile" accept="application/json,.json" style="display:none" onchange="pbImportBackup(event)" />
     </div>
   </div>
+  <!-- Mastery Queue (spaced retrieval) -->
+  <div id="pbMasteryCard"></div>
+  <!-- Sunday Output Review (Sundays only) -->
+  <div id="pbSundayCard"></div>
+  <!-- Jeff Mentor Call prep/debrief (Mondays only) -->
+  <div id="pbMentorCard"></div>
   <div id="pbOvPreflight"></div>
   <div class="pb-overview" id="pbOverviewGrid"></div>
 </div>
@@ -2829,15 +2897,17 @@ body.mentor-view .sch-share-btn{display:none}
 </div>
 </div>
 
-<div style="margin:24px 0 16px;padding:10px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--dim2);display:flex;align-items:center;gap:10px">
-  <span style="font-size:16px">📚</span>
-  <div style="flex:1">
-    <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin-bottom:2px">Reference material · not for in-block use</div>
-    <div style="font-size:11px;color:var(--dim);line-height:1.5">Everything above is what you do DURING a PhD block. Everything below (papers, faculty, programs, SoP template, 18-month roadmap) is reference — skim it on Sunday review, not at 5:15 PM.</div>
-  </div>
-</div>
+<details class="pb-ref-drawer" style="margin-top:24px">
+  <summary style="cursor:pointer;list-style:none;padding:14px 18px;background:var(--s2);border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;gap:12px;outline:none;user-select:none">
+    <span style="font-size:18px">📚</span>
+    <div style="flex:1">
+      <div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:2px">Reference drawer · papers, faculty, programs, templates</div>
+      <div style="font-size:11.5px;color:var(--tx);opacity:.65;line-height:1.5">Not for in-block use. Skim on Sunday review. <strong>Click to expand.</strong></div>
+    </div>
+    <span style="font-size:14px;opacity:.55">▸</span>
+  </summary>
 
-<div class="pb-card">
+<div class="pb-card" style="margin-top:16px">
 <h3>📚 Tier 1 Must-Read Papers (Months 1-3)</h3>
 <div class="pb-section-title">Equity & Broadening Participation</div>
 <ul class="pb-list">
@@ -2939,6 +3009,8 @@ Best,<br>Henry Fan
 <li><strong>Month 16-18</strong> (Jul-Sep 2027): Onboarding, pre-read with new advisor, move logistics</li>
 </ul>
 </div>
+
+</details>
 
 </div><!-- /PHD PANE -->
 
@@ -5228,6 +5300,334 @@ function pbSwitchPane(pane){
   if(pane==='overview')pbRenderOverview();
 }
 
+// === MASTERY QUEUE (spaced retrieval · SM-2-lite) ===
+// The single biggest missing learning-science piece. Retrieval practice is
+// the #1 predictor of durable learning (Karpicke & Blunt 2011). This adds
+// a tiny daily queue of cards across CLRS concepts and PhD paper claims.
+function pbMasteryInit(){
+  if(!S.mastery)S.mastery={cards:[]};
+  if(!Array.isArray(S.mastery.cards))S.mastery.cards=[];
+}
+function pbMasteryDueToday(){
+  pbMasteryInit();
+  const today=td();
+  return S.mastery.cards.filter(c=>!c.due||c.due<=today);
+}
+let pbMasteryReviewIdx=-1;
+let pbMasteryReviewQueue=[];
+function pbMasteryStartReview(){
+  pbMasteryReviewQueue=pbMasteryDueToday();
+  pbMasteryReviewIdx=0;
+  pbRenderMasteryCard();
+}
+function pbMasteryFlip(){
+  const card=$('pbMasteryBack');
+  if(card)card.classList.toggle('hidden',false);
+  const btn=$('pbMasteryFlipBtn');
+  if(btn)btn.style.display='none';
+}
+// SM-2-lite: rating 0=forgot, 1=hard, 2=good, 3=easy
+function pbMasteryRate(rating){
+  const card=pbMasteryReviewQueue[pbMasteryReviewIdx];
+  if(!card)return;
+  const stored=S.mastery.cards.find(c=>c.id===card.id);
+  if(!stored)return;
+  stored.reps=(stored.reps||0)+1;
+  stored.lastReviewed=td();
+  const curEase=stored.ease||2.5;
+  let interval=stored.interval||1;
+  if(rating===0){interval=1;stored.ease=Math.max(1.3,curEase-0.2)}
+  else if(rating===1){interval=Math.max(1,Math.round(interval*1.2));stored.ease=Math.max(1.3,curEase-0.05)}
+  else if(rating===2){interval=Math.round(interval*curEase);stored.ease=curEase}
+  else if(rating===3){interval=Math.round(interval*curEase*1.3);stored.ease=Math.min(3.2,curEase+0.1)}
+  stored.interval=interval;
+  const due=new Date();due.setDate(due.getDate()+interval);
+  stored.due=pbDateKey(due);
+  save();
+  pbMasteryReviewIdx++;
+  pbRenderMasteryCard();
+}
+function pbRenderMasteryCard(){
+  const host=$('pbMasteryCard');if(!host)return;
+  pbMasteryInit();
+  const due=pbMasteryDueToday();
+  const total=S.mastery.cards.length;
+  // Active review session mode
+  if(pbMasteryReviewIdx>=0&&pbMasteryReviewIdx<pbMasteryReviewQueue.length){
+    const c=pbMasteryReviewQueue[pbMasteryReviewIdx];
+    const meta=PB_PANE_META[c.pane]||{icon:'',name:c.pane||''};
+    host.innerHTML=`<div class="mastery-card">
+      <div class="mastery-header">
+        <div>
+          <div class="mastery-eyebrow">🧠 Retrieval Practice · in session</div>
+          <div class="mastery-title">Card ${pbMasteryReviewIdx+1} of ${pbMasteryReviewQueue.length}</div>
+        </div>
+        <button onclick="pbMasteryExit()" style="background:transparent;border:1px solid var(--border);color:var(--tx);padding:7px 13px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">Exit</button>
+      </div>
+      <div class="mastery-flow">
+        <div class="mastery-card-pane">${meta.icon} ${esc(meta.name)}</div>
+        <div class="mastery-card-front">${esc(c.front)}</div>
+        <div class="mastery-card-back hidden" id="pbMasteryBack">${esc(c.back)}</div>
+        <button class="mastery-flip-btn" id="pbMasteryFlipBtn" onclick="pbMasteryFlip()">Show answer · then rate</button>
+        <div class="mastery-rate-row">
+          <button class="mastery-rate-btn r0" onclick="pbMasteryRate(0)">Forgot<br><span style="font-weight:500;opacity:.7;font-size:9px">reset to 1d</span></button>
+          <button class="mastery-rate-btn r1" onclick="pbMasteryRate(1)">Hard<br><span style="font-weight:500;opacity:.7;font-size:9px">×1.2</span></button>
+          <button class="mastery-rate-btn r2" onclick="pbMasteryRate(2)">Good<br><span style="font-weight:500;opacity:.7;font-size:9px">×ease</span></button>
+          <button class="mastery-rate-btn r3" onclick="pbMasteryRate(3)">Easy<br><span style="font-weight:500;opacity:.7;font-size:9px">×ease×1.3</span></button>
+        </div>
+        <div class="mastery-progress">ease ${(S.mastery.cards.find(x=>x.id===c.id)?.ease||2.5).toFixed(2)} · interval ${S.mastery.cards.find(x=>x.id===c.id)?.interval||1}d · reps ${S.mastery.cards.find(x=>x.id===c.id)?.reps||0}</div>
+      </div>
+    </div>`;
+    return;
+  }
+  // Session complete
+  if(pbMasteryReviewIdx>=0&&pbMasteryReviewIdx>=pbMasteryReviewQueue.length&&pbMasteryReviewQueue.length>0){
+    host.innerHTML=`<div class="mastery-card">
+      <div class="mastery-header">
+        <div>
+          <div class="mastery-eyebrow" style="color:var(--green)">✅ Session Complete</div>
+          <div class="mastery-title">Reviewed ${pbMasteryReviewQueue.length} card${pbMasteryReviewQueue.length===1?'':'s'} · next review scheduled</div>
+        </div>
+      </div>
+      <div class="mastery-empty">Come back tomorrow. SWS + REM will finish the consolidation while you sleep (Walker 2017).</div>
+      <div style="margin-top:12px"><button onclick="pbMasteryExit()" style="background:var(--s2);border:1px solid var(--border);color:var(--tx);padding:8px 15px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">Back to overview</button></div>
+    </div>`;
+    return;
+  }
+  // Idle / ready state
+  host.innerHTML=`<div class="mastery-card">
+    <div class="mastery-header">
+      <div>
+        <div class="mastery-eyebrow">🧠 Mastery Queue · spaced retrieval</div>
+        <div class="mastery-title">${due.length>0?due.length+' card'+(due.length===1?'':'s')+' due today':'Queue empty'}</div>
+      </div>
+      ${due.length>0?`<button class="mastery-review-btn" onclick="pbMasteryStartReview()">Review ${due.length} now →</button>`:''}
+    </div>
+    ${total===0?`<div class="mastery-empty">No cards yet. Retrieval practice is the #1 predictor of durable learning (Karpicke &amp; Blunt 2011). Add 1 card per CLRS section and per PhD paper — 5 min/day compounds to mastery.</div>`
+      :due.length===0?`<div class="mastery-empty">All ${total} cards are future-dated. Come back tomorrow — consolidation happens in sleep.</div>`
+      :''}
+    <details style="margin-top:14px">
+      <summary style="cursor:pointer;font-size:11px;color:var(--tx);opacity:.7;font-weight:700;outline:none">+ Add a retrieval card</summary>
+      <div class="mastery-add-form">
+        <select id="pbMasteryNewPane">
+          <option value="clrs">📖 CLRS Theory</option>
+          <option value="phd">🎓 PhD Prep</option>
+          <option value="build">🔧 CS Build</option>
+          <option value="write">✍️ Deep Write</option>
+          <option value="grad">🎯 Grad CS</option>
+        </select>
+        <textarea id="pbMasteryNewFront" placeholder="Front — question or prompt (e.g., 'What's the recurrence for merge sort?' or 'What did Porter 2013 find about fail rates?')"></textarea>
+        <textarea id="pbMasteryNewBack" placeholder="Back — answer or claim (e.g., 'T(n)=2T(n/2)+Θ(n) → Θ(n log n)' or 'Peer instruction halved DFW rates in CS1')"></textarea>
+        <button class="mastery-add-btn" onclick="pbMasteryAddCard()">Add card · due today</button>
+      </div>
+    </details>
+    ${total>0?`<div style="font-size:10.5px;color:var(--tx);opacity:.55;margin-top:10px;font-family:'JetBrains Mono',monospace">${total} total · ${due.length} due · ${total-due.length} future</div>`:''}
+  </div>`;
+}
+function pbMasteryExit(){
+  pbMasteryReviewIdx=-1;
+  pbMasteryReviewQueue=[];
+  pbRenderMasteryCard();
+}
+function pbMasteryAddCard(){
+  const pane=$('pbMasteryNewPane').value;
+  const front=$('pbMasteryNewFront').value.trim();
+  const back=$('pbMasteryNewBack').value.trim();
+  if(!front||!back){toast('Both front and back are required');return}
+  pbMasteryInit();
+  S.mastery.cards.push({
+    id:'m_'+Math.random().toString(36).slice(2,10),
+    pane,front,back,
+    created:td(),
+    lastReviewed:'',
+    due:td(),
+    ease:2.5,
+    interval:1,
+    reps:0
+  });
+  save();
+  $('pbMasteryNewFront').value='';
+  $('pbMasteryNewBack').value='';
+  pbRenderMasteryCard();
+  toast('🧠 Card added · due today');
+}
+
+// === MENTOR CALL: Jeff Anderson, Monday 8:00–8:40 PM PST ===
+// Prep card (Mon before 8 PM), active state (8:00–8:40), debrief after.
+function pbMentorInit(){
+  if(!Array.isArray(S.mentorNotes))S.mentorNotes=[];
+}
+function pbMondayKey(){
+  // Return the yyyy-mm-dd of the most recent Monday (today if Monday)
+  const d=new Date();
+  const dow=d.getDay();
+  const diff=dow===0?-6:1-dow; // Sunday → back to last Mon; else to this Mon
+  d.setDate(d.getDate()+diff);
+  return pbDateKey(d);
+}
+function pbMentorEntry(date){
+  pbMentorInit();
+  return S.mentorNotes.find(n=>n.date===date);
+}
+function pbMentorCallState(){
+  // Returns: 'prep' | 'active' | 'debrief' | 'none'
+  const now=new Date();
+  if(now.getDay()!==1)return 'none'; // not Monday
+  const h=now.getHours()+now.getMinutes()/60;
+  if(h<19.5)return 'none'; // before 7:30 PM, don't show yet
+  if(h<20)return 'prep'; // 7:30-8:00 PM prep
+  if(h<20.75)return 'active'; // 8:00-8:45 PM during
+  return 'debrief'; // after 8:45 PM
+}
+function pbRenderMentorCall(){
+  const host=$('pbMentorCard');if(!host)return;
+  pbMentorInit();
+  const state=pbMentorCallState();
+  if(state==='none'){host.innerHTML='';return}
+  const mondayKey=pbMondayKey();
+  let entry=pbMentorEntry(mondayKey);
+  if(!entry){entry={date:mondayKey,surface:'',question:'',capture:''};S.mentorNotes.push(entry);save()}
+  // Auto-suggest surface items from the week: pull top 3 exit notes by date
+  const weekStart=new Date();weekStart.setDate(weekStart.getDate()-weekStart.getDay());
+  const weekStartKey=pbDateKey(weekStart);
+  const recentExits=[];
+  for(const p of PB_ALL_PANES){
+    const t=pbGetTrack(p);
+    if(t.exitNote&&t.exitNoteDate&&t.exitNoteDate>=weekStartKey){
+      recentExits.push(`${PB_PANE_META[p].icon} ${PB_PANE_META[p].name}: ${t.exitNote.slice(0,120)}`);
+    }
+  }
+  // Previous week's capture as context
+  const prior=S.mentorNotes.filter(n=>n.date<mondayKey&&n.capture).sort((a,b)=>b.date.localeCompare(a.date))[0];
+  const priorBlock=prior?`<div class="mentor-prev"><strong>Last week (${prior.date}):</strong> ${esc(prior.capture)}</div>`:'';
+  const autoHint=recentExits.length?`<div class="mentor-auto">This week's auto-surface: ${esc(recentExits.slice(0,3).join(' · '))}</div>`:'';
+  if(state==='prep'){
+    host.innerHTML=`<div class="mentor-call-card">
+      <div class="mentor-eyebrow">🎓 Jeff Anderson · call prep · 8:00 PM in ${Math.max(0,Math.round((20-(new Date().getHours()+new Date().getMinutes()/60))*60))} min</div>
+      <div class="mentor-title">3 things to surface · 1 question to ask</div>
+      ${priorBlock}
+      ${autoHint}
+      <div class="mentor-field">
+        <div class="mentor-field-label">3 things to surface</div>
+        <textarea id="pbMentorSurface" placeholder="What do you want Jeff to see this week? Progress on research statement, papers read, papers stuck on, research question evolution, outreach status...">${esc(entry.surface||'')}</textarea>
+      </div>
+      <div class="mentor-field">
+        <div class="mentor-field-label">1 question to ask</div>
+        <textarea id="pbMentorQuestion" placeholder="The question only Jeff can answer. What's the highest-leverage thing you need his input on this week?">${esc(entry.question||'')}</textarea>
+      </div>
+      <button class="mentor-save-btn" onclick="pbMentorSave()">Save prep</button>
+    </div>`;
+  }else if(state==='active'){
+    host.innerHTML=`<div class="mentor-call-card active">
+      <div class="mentor-eyebrow">🟢 Call in progress · ends 8:40 PM</div>
+      <div class="mentor-title">Take notes as Jeff speaks — capture specifics, not paraphrase</div>
+      ${priorBlock}
+      <div class="mentor-field">
+        <div class="mentor-field-label">What to surface (your notes)</div>
+        <textarea id="pbMentorSurface">${esc(entry.surface||'')}</textarea>
+      </div>
+      <div class="mentor-field">
+        <div class="mentor-field-label">Jeff's response + what he said</div>
+        <textarea id="pbMentorCapture" placeholder="Capture the specific language Jeff uses. What did he push back on? What did he endorse? What paper/person/framework did he point to?">${esc(entry.capture||'')}</textarea>
+      </div>
+      <button class="mentor-save-btn" onclick="pbMentorSave()">Save · continue</button>
+    </div>`;
+  }else{ // debrief
+    host.innerHTML=`<div class="mentor-call-card">
+      <div class="mentor-eyebrow">📝 Post-call debrief · log before wind-down</div>
+      <div class="mentor-title">What will you DO differently this week because of the call?</div>
+      ${priorBlock}
+      <div class="mentor-field">
+        <div class="mentor-field-label">Capture from Jeff — what he said</div>
+        <textarea id="pbMentorCapture" placeholder="Specifics. Direct quotes if you remember them. Frameworks he pointed to. People he mentioned. Papers he flagged.">${esc(entry.capture||'')}</textarea>
+      </div>
+      <div class="mentor-field">
+        <div class="mentor-field-label">Commitments I made</div>
+        <textarea id="pbMentorSurface" placeholder="The concrete things you committed to having done by next Monday's call. These become next week's Next Actions.">${esc(entry.surface||'')}</textarea>
+      </div>
+      <button class="mentor-save-btn" onclick="pbMentorSave()">Save debrief</button>
+    </div>`;
+  }
+}
+function pbMentorSave(){
+  pbMentorInit();
+  const mondayKey=pbMondayKey();
+  let entry=pbMentorEntry(mondayKey);
+  if(!entry){entry={date:mondayKey};S.mentorNotes.push(entry)}
+  const surf=$('pbMentorSurface');if(surf)entry.surface=surf.value;
+  const q=$('pbMentorQuestion');if(q)entry.question=q.value;
+  const cap=$('pbMentorCapture');if(cap)entry.capture=cap.value;
+  save();
+  toast('🎓 Mentor notes saved');
+}
+
+// === SUNDAY OUTPUT REVIEW ===
+// Sunday-only view showing the week's output and next-week commitments.
+function pbRenderSundayOutput(){
+  const host=$('pbSundayCard');if(!host)return;
+  const now=new Date();
+  if(now.getDay()!==0){host.innerHTML='';return} // Sundays only
+  // Compute week's output
+  const weekStart=new Date();weekStart.setDate(weekStart.getDate()-weekStart.getDay());
+  weekStart.setHours(0,0,0,0);
+  const weekStartKey=pbDateKey(weekStart);
+  let sessions=0,paneWorked=new Set(),progressSnaps=[],mostRecentExit=null;
+  for(const p of PB_ALL_PANES){
+    const t=pbGetTrack(p);
+    const sessDays=(t.sessionDays||[]).filter(d=>d>=weekStartKey);
+    sessions+=sessDays.length;
+    if(sessDays.length>0)paneWorked.add(p);
+    if(t.progress)progressSnaps.push({pane:p,progress:t.progress,title:t.title||''});
+    if(t.exitNote&&t.exitNoteDate&&t.exitNoteDate>=weekStartKey){
+      if(!mostRecentExit||t.exitNoteDate>mostRecentExit.date)mostRecentExit={pane:p,date:t.exitNoteDate,note:t.exitNote};
+    }
+  }
+  // Jeff note from this week
+  pbMentorInit();
+  const jeffThisWeek=S.mentorNotes.filter(n=>n.date>=weekStartKey).sort((a,b)=>b.date.localeCompare(a.date))[0];
+  // Persist commitments in S.sundayCommits = {[weekKey]: "text"}
+  if(!S.sundayCommits)S.sundayCommits={};
+  const commitKey=weekStartKey;
+  const commitText=S.sundayCommits[commitKey]||'';
+  host.innerHTML=`<div class="sunday-card">
+    <div class="sunday-eyebrow">☀️ Sunday Output Review · week of ${weekStartKey}</div>
+    <div class="sunday-title">What you shipped this week · and what you'll ship next</div>
+    <div class="sunday-grid">
+      <div class="sunday-stat"><div class="sunday-stat-label">Sessions</div><div class="sunday-stat-val">${sessions}</div><div class="sunday-stat-sub">logged</div></div>
+      <div class="sunday-stat"><div class="sunday-stat-label">Tracks</div><div class="sunday-stat-val">${paneWorked.size}</div><div class="sunday-stat-sub">worked</div></div>
+      <div class="sunday-stat"><div class="sunday-stat-label">Mastery</div><div class="sunday-stat-val">${(S.mastery?.cards||[]).length}</div><div class="sunday-stat-sub">cards</div></div>
+      <div class="sunday-stat"><div class="sunday-stat-label">Jeff Call</div><div class="sunday-stat-val">${jeffThisWeek?.capture?'✓':'—'}</div><div class="sunday-stat-sub">${jeffThisWeek?.capture?'logged':'not logged'}</div></div>
+    </div>
+    ${progressSnaps.length?`<div style="font-size:12px;color:var(--tx);opacity:.85;margin-bottom:10px;line-height:1.7">📊 <strong>Current state:</strong> ${progressSnaps.slice(0,4).map(s=>`${PB_PANE_META[s.pane].icon} ${esc(s.progress)}`).join(' · ')}</div>`:''}
+    ${mostRecentExit?`<div style="padding:10px 13px;background:var(--s2);border-left:3px solid var(--yellow);border-radius:7px;font-size:11.5px;line-height:1.6;margin-bottom:12px;font-style:italic;color:var(--tx);opacity:.88">📝 Last exit note (${mostRecentExit.date}): "${esc(mostRecentExit.note)}"</div>`:''}
+    ${jeffThisWeek?.capture?`<div style="padding:10px 13px;background:var(--s2);border-left:3px solid var(--phd,#f472b6);border-radius:7px;font-size:11.5px;line-height:1.6;margin-bottom:12px;color:var(--tx);opacity:.88">🎓 <strong>From Jeff (${jeffThisWeek.date}):</strong> ${esc(jeffThisWeek.capture)}</div>`:''}
+    <div class="sunday-commit">
+      <div style="font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx);opacity:.68;margin-bottom:6px">Commitments for next week · share with Jeff Monday</div>
+      <textarea id="pbSundayCommits" oninput="pbSundaySaveCommits()" placeholder="1. [specific deliverable]&#10;2. [specific deliverable]&#10;3. [specific deliverable]&#10;&#10;Specific &gt; general. 'Finish Ch 11 exercises' &gt; 'study more CLRS'.">${esc(commitText)}</textarea>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+      <button onclick="pbCopyReport()" style="background:var(--youtube,#fb923c);color:#fff;border:0;padding:9px 16px;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">📋 Copy full report</button>
+      <button onclick="pbSundayCopyCommits()" style="background:var(--s2);color:var(--tx);border:1px solid var(--border);padding:9px 16px;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">📤 Copy commitments only</button>
+    </div>
+  </div>`;
+}
+function pbSundaySaveCommits(){
+  if(!S.sundayCommits)S.sundayCommits={};
+  const weekStart=new Date();weekStart.setDate(weekStart.getDate()-weekStart.getDay());
+  const key=pbDateKey(weekStart);
+  const ta=$('pbSundayCommits');
+  if(ta)S.sundayCommits[key]=ta.value;
+  save();
+}
+function pbSundayCopyCommits(){
+  const weekStart=new Date();weekStart.setDate(weekStart.getDate()-weekStart.getDay());
+  const key=pbDateKey(weekStart);
+  const txt=(S.sundayCommits&&S.sundayCommits[key])||'';
+  if(!txt){toast('Nothing to copy yet');return}
+  try{navigator.clipboard.writeText(txt).then(()=>toast('📤 Commitments copied'))}
+  catch(e){toast('Copy failed')}
+}
+
 // === OVERVIEW PANE ===
 const PB_ALL_PANES=['clrs','build','phd','write','youtube','grad'];
 
@@ -5242,6 +5642,10 @@ function pbTodaysPanes(){
 
 function pbRenderOverview(){
   const grid=$('pbOverviewGrid');if(!grid)return;
+  // Render the Mastery Queue + Sunday view + Mentor call panel at top
+  pbRenderMasteryCard();
+  pbRenderSundayOutput();
+  pbRenderMentorCall();
   const todaysPanes=pbTodaysPanes();
   const todayKey=td();
   // Preflight summary + This Week Narrative + Cognitive Load meter
