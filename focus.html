@@ -1043,19 +1043,64 @@ function renderLog(track){
 }
 ['yt','grad','phd'].forEach(renderLog);
 
-function renderLastWin(){
-  let latest = null, latestTrack = null;
-  ['yt','grad','phd'].forEach(t => {
-    const top = state.logs[t][0];
-    if (top && (!latest || top.ts > latest.ts)) { latest = top; latestTrack = t; }
+// Cross-surface last-win: reads from BOTH Focus (hf_focus_v1) AND
+// Playbook (systemv2_gtd.pbTracks[*].exitHistory) so the banner
+// shows the most recent win from anywhere on the system — not
+// just this page. Read-only; we never write to systemv2_gtd.
+const PB_PANE_NAMES = {
+  clrs:'Playbook · CLRS',
+  build:'Playbook · CS Build',
+  phd:'Playbook · PhD Prep',
+  write:'Playbook · Deep Write',
+  youtube:'Playbook · YouTube',
+  grad:'Playbook · Grad CS',
+  overview:'Playbook · Overview'
+};
+const FOCUS_TRACK_NAMES = {yt:'Focus · YouTube', grad:'Focus · Grad Prep', phd:'Focus · PhD Research'};
+
+function gatherAllWins(){
+  const wins = [];
+  // Focus own logs (state.logs is already the parsed in-memory copy)
+  Object.keys(state.logs || {}).forEach(t => {
+    (state.logs[t] || []).forEach(item => {
+      if (item && item.ts && item.text) {
+        wins.push({ts:item.ts, text:item.text, source:FOCUS_TRACK_NAMES[t] || ('Focus · '+t)});
+      }
+    });
   });
+  // Playbook exit history
+  try {
+    const sys = JSON.parse(localStorage.getItem('systemv2_gtd') || '{}');
+    const pbTracks = sys.pbTracks || {};
+    Object.keys(pbTracks).forEach(pane => {
+      const tr = pbTracks[pane] || {};
+      const hist = Array.isArray(tr.exitHistory) ? tr.exitHistory : [];
+      hist.forEach(entry => {
+        if (entry && entry.date && entry.note) {
+          const d = new Date(entry.date + 'T12:00:00');
+          if (!isNaN(d.getTime())) {
+            wins.push({ts:d.getTime(), text:entry.note, source:PB_PANE_NAMES[pane] || ('Playbook · '+pane)});
+          }
+        }
+      });
+    });
+  } catch(e){}
+  wins.sort((a,b) => b.ts - a.ts);
+  return wins;
+}
+
+function renderLastWin(){
+  const wins = gatherAllWins();
   const banner = document.getElementById('lastWinBanner');
-  if (!latest) { banner.classList.remove('show'); return; }
-  document.getElementById('lwText').textContent = `"${latest.text}"`;
-  document.getElementById('lwMeta').textContent = `${trackNames[latestTrack]} · ${fmtRel(latest.ts)}`;
+  if (!wins.length) { banner.classList.remove('show'); return; }
+  const top = wins[0];
+  document.getElementById('lwText').textContent = `"${top.text}"`;
+  document.getElementById('lwMeta').textContent = `${top.source} · ${fmtRel(top.ts)}`;
   banner.classList.add('show');
 }
 renderLastWin();
+// Re-poll every 30s so a Playbook exit note saved in another tab appears here
+setInterval(renderLastWin, 30000);
 
 const sections = ['top','youtube','grad','labs'];
 const tabs = document.querySelectorAll('.nav-tab[data-target]');
