@@ -37,7 +37,9 @@ research-lab/
     ├── paper-skeleton.md
     ├── video-script.md
     ├── long-list-of-candidates.md
-    └── phd-targets.md
+    ├── phd-targets.md
+    ├── reading-notes.md
+    └── reproducibility-checklist.md
 ```
 
 ## Tech choices and why
@@ -53,7 +55,15 @@ research-lab/
 - **`localStorage` research log.** The log entries live on the
   visitor's own device; a JSON export/import button lets Henry
   commit snapshots into git monthly. This avoids a backend and
-  keeps the mentor-facing site purely static.
+  keeps the mentor-facing site purely static. The log drives two
+  other UI elements on the page: (1) a per-paper "live pulse" block
+  inside each paper card that shows the latest entry, the number of
+  distinct modeling steps touched, and a timestamp — so the three
+  paper cards reflect real state instead of an aspirational Kanban;
+  (2) a "Draft mentor update" button that opens a native `<dialog>`
+  pre-filled with the last 7 days of log entries grouped by paper
+  and tagged with their Anderson step, shaped like
+  `templates/mentor-update.md`, ready to copy into email.
 - **Live program arc.** A 52-week progress bar at the top of the
   page is computed from the 2026-04-10 start date every page load,
   so the site demonstrates currency (Week N of 52) instead of just

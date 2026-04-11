@@ -5,6 +5,8 @@
 ## 1. What shipped
 List concrete artifacts produced this week. A commit, a photo, a draft section, a fixed bug, a sent email — all count. Words written do not count unless they are in the paper.
 
+Tag each bullet with the Anderson modeling step the artifact advanced: `(§1 Find)`, `(§2 Mathematize)`, `(§3 State ideal)`, `(§4 Solve)`, `(§5 Analyze)`, `(§6 Verify)`, `(§7 Transfer)`, `(§8 Iterate)`. A paper that stays on the same step for three weeks in a row is a blocker, not a workstream.
+
 - P1:
 - P2:
 - P3:
