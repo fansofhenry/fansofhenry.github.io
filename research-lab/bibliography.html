@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Annotated Bibliography — The Modeling Bench · Henry Fan</title>
+<meta name="description" content="Annotated working bibliography for Henry Fan's three-paper research program with Prof. Jeff Anderson. Grouped by paper, each entry linked to a specific research question it supports.">
+<meta name="author" content="Henry Fan">
+<meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://fansofhenry.github.io/research-lab/bibliography.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Modeling Bench">
+<meta property="og:title" content="Annotated Bibliography — The Modeling Bench">
+<meta property="og:description" content="Working bibliography for a three-paper research program on hands-on linear algebra, SVD-first neural nets, and anti-racist AI tutoring.">
+<meta property="og:url" content="https://fansofhenry.github.io/research-lab/bibliography.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<script>
+(function(){try{var s=localStorage.getItem('lab-theme');var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));}catch(_){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f3; --bg-2: #f3f0e6; --surface: #ffffff; --border: #dcd8cd;
+    --ink: #1a1814; --ink-2: #4a4640; --ink-3: #6f6a62;
+    --p1: #9b1c1c; --p1-bg: #fff7f7; --p1-bd: #fbd5d5;
+    --p2: #1e3a8a; --p2-bg: #f0f5ff; --p2-bd: #c7d7fd;
+    --p3: #065f46; --p3-bg: #f0fdf6; --p3-bd: #a7f3d0;
+    --cross: #7c2d12; --cross-bg: #fff7ed; --cross-bd: #fed7aa;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #131110; --bg-2: #1a1815; --surface: #1f1d1a; --border: #2e2b26;
+    --ink: #e8e3da; --ink-2: #a8a39a; --ink-3: #948f85;
+    --p1: #fca5a5; --p1-bg: #1f0f0f; --p1-bd: #5c2020;
+    --p2: #93b4fb; --p2-bg: #0d1525; --p2-bd: #1e3366;
+    --p3: #6ee7b7; --p3-bg: #091a11; --p3-bd: #14432a;
+    --cross: #fdba74; --cross-bg: #1a0f07; --cross-bd: #5a2b0d;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+  }
+  .skip-link { position: absolute; left: -9999px; top: 0; background: var(--p2); color: var(--bg); padding: 10px 16px; border-radius: 0 0 8px 0; font-family: var(--mono); font-size: 12px; font-weight: 600; text-decoration: none; z-index: 999; }
+  .skip-link:focus { left: 0; outline: 2px solid var(--ink); outline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--p2); outline-offset: 3px; border-radius: 3px; }
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+  .breadcrumb {
+    max-width: 820px; margin: 0 auto; padding: 32px 28px 0;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--ink-3);
+  }
+  .breadcrumb a { color: var(--ink-2); text-decoration: none; border-bottom: 1px dotted var(--border); }
+  .breadcrumb a:hover { color: var(--p2); border-bottom-color: var(--p2); }
+  .breadcrumb .sep { margin: 0 10px; color: var(--ink-3); }
+
+  main {
+    max-width: 820px; margin: 0 auto; padding: 24px 28px 96px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3); margin: 18px 0 12px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(38px, 6.5vw, 60px);
+    line-height: 1.06; letter-spacing: -0.01em;
+    margin: 0 0 20px;
+  }
+  .lede {
+    font-size: 19px; color: var(--ink-2);
+    max-width: 56ch; margin: 0 0 18px;
+  }
+  .lede em { color: var(--ink); font-style: italic; }
+
+  .draft-banner {
+    background: var(--cross-bg);
+    border: 1px solid var(--cross-bd);
+    border-left: 3px solid var(--cross);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 26px 0 36px;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .draft-banner strong { color: var(--ink); font-weight: 600; }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: -0.005em;
+    margin: 52px 0 6px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .section-meta {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-3);
+    margin: 0 0 22px;
+  }
+  .section-meta .p1-ink { color: var(--p1); }
+  .section-meta .p2-ink { color: var(--p2); }
+  .section-meta .p3-ink { color: var(--p3); }
+  .section-meta .cross-ink { color: var(--cross); }
+
+  ol.refs { list-style: none; padding: 0; margin: 0; counter-reset: ref; }
+  ol.refs li {
+    counter-increment: ref;
+    position: relative;
+    padding: 18px 18px 18px 58px;
+    margin-bottom: 14px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  ol.refs li::before {
+    content: "[" counter(ref) "]";
+    position: absolute;
+    left: 14px; top: 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0;
+  }
+  ol.refs li.p1 { border-left: 3px solid var(--p1); }
+  ol.refs li.p2 { border-left: 3px solid var(--p2); }
+  ol.refs li.p3 { border-left: 3px solid var(--p3); }
+  ol.refs li.cross { border-left: 3px solid var(--cross); }
+
+  .cite { font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+  .cite .authors { font-weight: 600; }
+  .cite .title { font-style: italic; color: var(--ink); }
+  .cite .venue { color: var(--ink-2); }
+  .cite a { color: var(--p2); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  .cite a:hover { color: var(--p1); }
+  [data-theme="dark"] .cite a { color: var(--p2); }
+  [data-theme="dark"] .cite a:hover { color: var(--p1); }
+
+  .annotation {
+    font-size: 14.5px; color: var(--ink-2);
+    margin: 8px 0 0; line-height: 1.62;
+  }
+  .annotation strong { color: var(--ink); font-weight: 600; }
+  .rq-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 10px;
+  }
+  .rq-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink-3);
+  }
+  .p1 .rq-tag { border-color: var(--p1-bd); background: var(--p1-bg); color: var(--p1); }
+  .p2 .rq-tag { border-color: var(--p2-bd); background: var(--p2-bg); color: var(--p2); }
+  .p3 .rq-tag { border-color: var(--p3-bd); background: var(--p3-bg); color: var(--p3); }
+  .cross .rq-tag { border-color: var(--cross-bd); background: var(--cross-bg); color: var(--cross); }
+
+  .tot {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  footer {
+    max-width: 820px; margin: 56px auto 0;
+    padding: 28px 28px 0;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.05em;
+    color: var(--ink-3);
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+  footer a:hover { color: var(--p2); }
+  .footer-row { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 8px; }
+
+  @media (max-width: 560px) {
+    main { padding: 16px 18px 60px; }
+    .breadcrumb { padding: 24px 18px 0; }
+    h1 { font-size: clamp(30px, 10vw, 42px); }
+    .lede { font-size: 17px; }
+    ol.refs li { padding: 16px 16px 16px 46px; }
+    ol.refs li::before { left: 12px; }
+    footer { padding: 24px 18px 0; }
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<a class="skip-link" href="#main-content">Skip to bibliography</a>
+
+<div class="breadcrumb">
+  <a href="/">Compound</a><span class="sep">›</span>
+  <a href="/research-lab/">Modeling Bench</a><span class="sep">›</span>
+  Bibliography
+</div>
+
+<main id="main-content">
+
+  <div class="eyebrow">§ Bibliography</div>
+  <h1>Annotated Bibliography</h1>
+  <p class="lede">
+    A working reading list for the three-paper program — grouped by the paper each source is load-bearing for, annotated with why it earns the slot, and tagged to the specific research question it supports.
+  </p>
+  <p class="lede">
+    This is a <em>working document</em>, not a final reference list. New entries arrive when a paper draft needs them; weak entries get cut when a tighter citation replaces them. The goal is <em>twenty sources you actually use</em>, not two hundred you don't.
+  </p>
+
+  <div class="draft-banner">
+    <strong>Draft status:</strong> curated by Henry Fan; not yet mentor-reviewed. Entries marked with a Paper-01 / 02 / 03 color are committed anchors; cross-cutting entries serve methodology and framing across papers. DOIs and free-access URLs are provided wherever they exist.
+  </div>
+
+  <!-- ==================================================
+       CROSS-CUTTING — methodology, framing, mentor lineage
+       ================================================== -->
+  <h2 id="cross">Cross-cutting</h2>
+  <div class="section-meta"><span class="cross-ink">●</span> Methodology · framing · mentor lineage</div>
+
+  <ol class="refs">
+
+    <li class="cross">
+      <p class="cite">
+        <span class="authors">Anderson, J.</span> (2018). <span class="title">Make Eigenvalues Resonate: A Coupled Oscillator Project for Lower-Division Linear Algebra.</span> <span class="venue">PRIMUS, 28(1).</span>
+        <a href="https://doi.org/10.1080/10511970.2018.1484400">doi:10.1080/10511970.2018.1484400</a>
+      </p>
+      <p class="annotation">
+        <strong>The anchor for Paper 01.</strong> Anderson's original MER project uses a two-mass spring-coupled pendulum as a verifiable bridge from matrix diagonalization to physical resonance. Our paper extends this to a three-degree-of-freedom case with an open-hardware BOM and a computer-vision tracking pipeline — explicitly taking up Anderson's written invitation in the Math 2BL S26 deliverables doc: <em>"Project To-Do List: Under development (maybe you can help me develop this in spring 2026)?"</em>
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Framing</span>
+        <span class="rq-tag">P01 anchor</span>
+      </div>
+    </li>
+
+    <li class="cross">
+      <p class="cite">
+        <span class="authors">Anderson, J.</span> (2024). <span class="title">Five Anti-Racist Learner-Centered Objectives for the Applied Mathematics Classroom.</span> <span class="venue">PRIMUS.</span>
+        <a href="https://doi.org/10.1080/10511970.2024.2369984">doi:10.1080/10511970.2024.2369984</a>
+      </p>
+      <p class="annotation">
+        <strong>The anchor for Paper 03 and the evaluation lens for Papers 01 and 02.</strong> Anderson's five objectives (humanize the discipline, authentic modeling, transferable skills, student agency, assessment as learning) are operationalized into the 5×3 audit rubric in Paper 03, and mapped onto every MER 2.0 lab activity in Paper 01.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Framing</span>
+        <span class="rq-tag">P03 anchor</span>
+        <span class="rq-tag">Rubric source</span>
+      </div>
+    </li>
+
+    <li class="cross">
+      <p class="cite">
+        <span class="authors">Shulman, L. S.</span> (1986). <span class="title">Those Who Understand: Knowledge Growth in Teaching.</span> <span class="venue">Educational Researcher, 15(2), 4–14.</span>
+      </p>
+      <p class="annotation">
+        <strong>Pedagogical content knowledge.</strong> The canonical citation for the claim that teaching a topic requires a different kind of knowledge than doing the topic. Frames every paper's positioning: what does a teacher of eigenvalues need to know that a user of eigenvalues does not?
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Framing</span>
+      </div>
+    </li>
+
+    <li class="cross">
+      <p class="cite">
+        <span class="authors">Design-Based Research Collective.</span> (2003). <span class="title">Design-Based Research: An Emerging Paradigm for Educational Inquiry.</span> <span class="venue">Educational Researcher, 32(1), 5–8.</span>
+      </p>
+      <p class="annotation">
+        <strong>Methodology anchor for all three papers.</strong> Each paper is design-based research, not a randomized controlled trial. This citation justifies (a) iterating the intervention during the study, (b) reporting on small-n pilots as contributions, and (c) treating the artifact itself as a research output.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Methodology</span>
+      </div>
+    </li>
+
+    <li class="cross">
+      <p class="cite">
+        <span class="authors">Papert, S.</span> (1980). <span class="title">Mindstorms: Children, Computers, and Powerful Ideas.</span> <span class="venue">Basic Books.</span>
+      </p>
+      <p class="annotation">
+        <strong>The hands-on verification ethos.</strong> Papert's insistence that powerful ideas become learnable when students can <em>make something do the thing</em> sits behind Jeff Anderson's own "verifiable at a kitchen table" criterion. Cited in every paper's motivation as the intellectual lineage for the hardware kit, the SVD-first activity, and the modeling-co-pilot constraint.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Framing</span>
+      </div>
+    </li>
+
+    <li class="cross">
+      <p class="cite">
+        <span class="authors">Bryan, K., &amp; Leise, T.</span> (2006). <span class="title">The $25,000,000,000 Eigenvector: The Linear Algebra behind Google.</span> <span class="venue">SIAM Review, 48(3), 569–581.</span>
+      </p>
+      <p class="annotation">
+        <strong>The tone target.</strong> Anderson cites this paper as the gold standard for "make abstract linear algebra concretely consequential." Every paper in the program tries to match its storytelling register: open with a concrete stake (a $25B valuation, a student's kitchen table, a ChatGPT refusal), then earn the math.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Tone</span>
+        <span class="rq-tag">Framing</span>
+      </div>
+    </li>
+
+  </ol>
+
+  <p class="tot">6 cross-cutting refs</p>
+
+  <!-- ==================================================
+       PAPER 01 — MER 2.0 (Crimson)
+       ================================================== -->
+  <h2 id="p01">Paper 01 — MER 2.0</h2>
+  <div class="section-meta"><span class="p1-ink">●</span> Hardware kit · computer vision · coupled oscillators</div>
+
+  <ol class="refs">
+
+    <li class="p1">
+      <p class="cite">
+        <span class="authors">Strang, G.</span> (2016). <span class="title">Introduction to Linear Algebra</span> (5th ed.). <span class="venue">Wellesley–Cambridge Press.</span>
+      </p>
+      <p class="annotation">
+        Baseline exposition of the eigenvalue decomposition for undergraduates. The MER 2.0 lab worksheet assumes Strang-level vocabulary: characteristic polynomial, eigenbasis, diagonalization. Used to calibrate what a Math 2B student already has in their toolkit at the start of the activity.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ1 · Reproducibility</span>
+      </div>
+    </li>
+
+    <li class="p1">
+      <p class="cite">
+        <span class="authors">Crawford, F. S.</span> (1968). <span class="title">Waves.</span> <span class="venue">Berkeley Physics Course, Volume 3. McGraw-Hill.</span>
+      </p>
+      <p class="annotation">
+        The classic lab-first treatment of normal modes. Crawford's home experiments with coupled pendula (Chapters 1–2) are the direct pedagogical ancestor of MER and of this paper. We cite Crawford to situate the kit in the <em>home experiments</em> tradition, which is exactly the lineage Anderson invokes.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ2 · Eigen-intuition</span>
+        <span class="rq-tag">Lineage</span>
+      </div>
+    </li>
+
+    <li class="p1">
+      <p class="cite">
+        <span class="authors">Georgi, H.</span> (1993). <span class="title">The Physics of Waves.</span> <span class="venue">Prentice-Hall.</span>
+      </p>
+      <p class="annotation">
+        The rigorous normal-modes reference for a 3-DOF coupled system. Georgi's Chapter 3 derivation of the eigenvalue spectrum of a one-dimensional mass-spring chain is the source of the matrix form used in the three-mass extension. Cited in the methods section as the validation target: our measured frequencies must match Georgi's analytical formula within our stated tolerance.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ1 · Reproducibility</span>
+        <span class="rq-tag">Validation target</span>
+      </div>
+    </li>
+
+    <li class="p1">
+      <p class="cite">
+        <span class="authors">Feynman, R. P., Leighton, R. B., &amp; Sands, M.</span> (1963). <span class="title">The Feynman Lectures on Physics, Volume I</span>, Chapters 24 (Transients) and 49 (Modes). <span class="venue">Addison-Wesley.</span>
+        <a href="https://www.feynmanlectures.caltech.edu/I_49.html">free online</a>
+      </p>
+      <p class="annotation">
+        Feynman's Chapter 49 frames modes as "the things you can do and have them stay that way" — the phrase we use in the student worksheet to motivate why eigenvectors matter physically. Used as the expository anchor for the "state the ideal model" step in Anderson's eight-step modeling process.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ2 · Eigen-intuition</span>
+        <span class="rq-tag">Student worksheet</span>
+      </div>
+    </li>
+
+    <li class="p1">
+      <p class="cite">
+        <span class="authors">Bradski, G.</span> (2000). <span class="title">The OpenCV Library.</span> <span class="venue">Dr. Dobb's Journal of Software Tools, 25(11), 120–123.</span>
+      </p>
+      <p class="annotation">
+        Standard citation for the computer-vision library used in the tracking pipeline. The paper's contribution is <em>not</em> the CV — it is that the pipeline fits in a single Python script a precalculus student can read. Bradski's paper is the required attribution for the library.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ3 · Verifiability floor</span>
+      </div>
+    </li>
+
+    <li class="p1">
+      <p class="cite">
+        <span class="authors">Hanson, G. W.</span> (2007). <span class="title">Coupled Oscillators and the Double Pendulum as Pedagogical Tools.</span> <span class="venue">American Journal of Physics.</span>
+      </p>
+      <p class="annotation">
+        Working placeholder — confirm exact citation and DOI before submission. Serves as the physics-education parallel to MER, cited to show that the coupled-oscillator-as-lab tradition exists outside of math-ed journals.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Placeholder</span>
+      </div>
+    </li>
+
+  </ol>
+
+  <p class="tot">6 refs · Paper 01</p>
+
+  <!-- ==================================================
+       PAPER 02 — Matrices → Networks (Navy)
+       ================================================== -->
+  <h2 id="p02">Paper 02 — Matrices → Networks</h2>
+  <div class="section-meta"><span class="p2-ink">●</span> SVD-first neural nets · community college curriculum</div>
+
+  <ol class="refs">
+
+    <li class="p2">
+      <p class="cite">
+        <span class="authors">Strang, G.</span> (2019). <span class="title">Linear Algebra and Learning from Data.</span> <span class="venue">Wellesley–Cambridge Press.</span>
+      </p>
+      <p class="annotation">
+        <strong>The structural anchor for Paper 02.</strong> Part I.8 ("Four Fundamental Subspaces") and Part III ("Low-Rank and Compressed Sensing") provide the SVD-first scaffolding the activity inverts: rather than deriving SVD from the subspaces, we hand students a <em>trained</em> network and use SVD to reveal its learned structure. Cited in the methods section as the linear-algebra level we assume.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ1 · Math floor</span>
+        <span class="rq-tag">Structural anchor</span>
+      </div>
+    </li>
+
+    <li class="p2">
+      <p class="cite">
+        <span class="authors">Nielsen, M.</span> (2015). <span class="title">Neural Networks and Deep Learning.</span> <span class="venue">Determination Press (online).</span>
+        <a href="http://neuralnetworksanddeeplearning.com">neuralnetworksanddeeplearning.com</a>
+      </p>
+      <p class="annotation">
+        The definitive free introduction to MLPs, and the exact text we are inverting. Nielsen derives backpropagation first and interprets weight matrices second; our paper flips this. Cited both as prior art and as the explicit foil — we walk the reader through which of Nielsen's steps require multivariable calculus and which do not.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ2 · Mental model</span>
+        <span class="rq-tag">Foil</span>
+      </div>
+    </li>
+
+    <li class="p2">
+      <p class="cite">
+        <span class="authors">LeCun, Y., Bottou, L., Bengio, Y., &amp; Haffner, P.</span> (1998). <span class="title">Gradient-Based Learning Applied to Document Recognition.</span> <span class="venue">Proceedings of the IEEE, 86(11), 2278–2324.</span>
+        <a href="https://doi.org/10.1109/5.726791">doi:10.1109/5.726791</a>
+      </p>
+      <p class="annotation">
+        Origin of the convolutional approach and a canonical citation for handwritten-digit classification. We cite it to acknowledge the CNN-shaped hole in our activity: the SVD-of-a-dense-MLP story is an honest simplification, and this paper is where the reader is sent if they want the full convolutional account.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Honest acknowledgment</span>
+      </div>
+    </li>
+
+    <li class="p2">
+      <p class="cite">
+        <span class="authors">Hull, J. J.</span> (1994). <span class="title">A Database for Handwritten Text Recognition Research.</span> <span class="venue">IEEE Transactions on Pattern Analysis and Machine Intelligence, 16(5), 550–554.</span>
+      </p>
+      <p class="annotation">
+        Origin paper for the USPS handwritten-digit dataset used throughout the activity. Chosen over MNIST because USPS is smaller (16×16 vs 28×28), which means a single-hidden-layer network with visible weights fits on one screen and trains in under a minute in Colab — both pedagogical wins.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ3 · Min-viable footprint</span>
+      </div>
+    </li>
+
+    <li class="p2">
+      <p class="cite">
+        <span class="authors">Goodfellow, I., Bengio, Y., &amp; Courville, A.</span> (2016). <span class="title">Deep Learning.</span> <span class="venue">MIT Press.</span>
+        <a href="https://www.deeplearningbook.org">deeplearningbook.org</a>
+      </p>
+      <p class="annotation">
+        The canonical graduate-level reference and the textbook our activity is <em>not</em> trying to replace. Cited to mark the scope boundary: a precalculus-first community college student does not need Goodfellow before they can look inside a trained network — and the paper's contribution depends on that claim being true.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Scope boundary</span>
+      </div>
+    </li>
+
+    <li class="p2">
+      <p class="cite">
+        <span class="authors">Olah, C.</span> (2014). <span class="title">Neural Networks, Manifolds, and Topology.</span> <span class="venue">colah.github.io (blog).</span>
+        <a href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/">free online</a>
+      </p>
+      <p class="annotation">
+        A stylistic benchmark for geometric intuition about what a trained network <em>is doing</em>. Olah's illustrations of nonlinear boundary warping inform the visual language of the student worksheet: we tell students that a weight matrix is a map, and SVD tells you which directions the map stretches.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Visual pedagogy</span>
+      </div>
+    </li>
+
+  </ol>
+
+  <p class="tot">6 refs · Paper 02</p>
+
+  <!-- ==================================================
+       PAPER 03 — AI Tutor (Forest)
+       ================================================== -->
+  <h2 id="p03">Paper 03 — Anti-Racist AI Tutor</h2>
+  <div class="section-meta"><span class="p3-ink">●</span> LLM scaffolding · audit rubric · design-based research</div>
+
+  <ol class="refs">
+
+    <li class="p3">
+      <p class="cite">
+        <span class="authors">Kasneci, E., Sessler, K., Küchemann, S., Bannert, M., Dementieva, D., Fischer, F., Gasser, U., Groh, G., Günnemann, S., Hüllermeier, E., Krusche, S., Kutyniok, G., Michaeli, T., Nerdel, C., Pfeffer, J., Poquet, O., Sailer, M., Schmidt, A., Seidel, T., … Kasneci, G.</span> (2023). <span class="title">ChatGPT for Good? On Opportunities and Challenges of Large Language Models for Education.</span> <span class="venue">Learning and Individual Differences, 103, 102274.</span>
+        <a href="https://doi.org/10.1016/j.lindif.2023.102274">doi:10.1016/j.lindif.2023.102274</a>
+      </p>
+      <p class="annotation">
+        <strong>The survey anchor.</strong> The most-cited early synthesis on LLMs in education, and the paper reviewers will compare Paper 03 to. Our contribution is the <em>audit framework</em> — this paper catalogs opportunities and challenges but does not operationalize any of them into a measurable rubric. Cited to position Paper 03 as the missing operationalization.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ1 · Scoping</span>
+        <span class="rq-tag">RQ2 · Comparative baseline</span>
+      </div>
+    </li>
+
+    <li class="p3">
+      <p class="cite">
+        <span class="authors">Selwyn, N.</span> (2019). <span class="title">Should Robots Replace Teachers? AI and the Future of Education.</span> <span class="venue">Polity Press.</span>
+      </p>
+      <p class="annotation">
+        Critical-theory framing. Selwyn argues that the "tutor vs. teacher" dichotomy is the wrong frame; the real question is which student-led practices a tool enables or forecloses. Paper 03 adopts this framing directly: we ask <em>"which practices does the constrained tutor make easier,"</em> not <em>"is the tutor as good as a teacher."</em>
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Framing</span>
+        <span class="rq-tag">Ethical anchor</span>
+      </div>
+    </li>
+
+    <li class="p3">
+      <p class="cite">
+        <span class="authors">Collins, A., Joseph, D., &amp; Bielaczyc, K.</span> (2004). <span class="title">Design Research: Theoretical and Methodological Issues.</span> <span class="venue">Journal of the Learning Sciences, 13(1), 15–42.</span>
+      </p>
+      <p class="annotation">
+        The canonical methodology citation for design-based research in learning sciences. Paper 03's two-arm pilot is a design-based study, not a causal experiment; this is the reference reviewers will expect to see in the methods section when the n is small and the intervention iterates during the study.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Methodology</span>
+      </div>
+    </li>
+
+    <li class="p3">
+      <p class="cite">
+        <span class="authors">Williamson, B., &amp; Eynon, R.</span> (2020). <span class="title">Historical Threads, Missing Links, and Future Directions in AI in Education.</span> <span class="venue">Learning, Media and Technology, 45(3), 223–235.</span>
+        <a href="https://doi.org/10.1080/17439884.2020.1798995">doi:10.1080/17439884.2020.1798995</a>
+      </p>
+      <p class="annotation">
+        Historicizes the current LLM-in-education moment. Williamson's argument that AIED has always been entangled with behaviorist assumptions is cited to motivate why an <em>anti-racist</em> learner-centered framing is a substantive departure, not rhetorical ornamentation.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">Framing</span>
+        <span class="rq-tag">Critical lens</span>
+      </div>
+    </li>
+
+    <li class="p3">
+      <p class="cite">
+        <span class="authors">Mollick, E. R., &amp; Mollick, L.</span> (2023). <span class="title">Using AI to Implement Effective Teaching Strategies in Classrooms: Five Strategies, Including Prompts.</span> <span class="venue">SSRN Working Paper.</span>
+        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4391243">SSRN:4391243</a>
+      </p>
+      <p class="annotation">
+        A reference example of prompt-engineered classroom tutors. The Mollicks' prompts are the baseline our constrained tutor improves upon: they scaffold pedagogy but do not operationalize any anti-racist learner-centered framework. Cited as the "state of the practice" that Paper 03 builds on.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ1 · Prior art</span>
+        <span class="rq-tag">Baseline</span>
+      </div>
+    </li>
+
+    <li class="p3">
+      <p class="cite">
+        <span class="authors">Birhane, A., Kasirzadeh, A., Leslie, D., &amp; Wachter, S.</span> (2023). <span class="title">Science in the Age of Large Language Models.</span> <span class="venue">Nature Reviews Physics, 5, 277–280.</span>
+        <a href="https://doi.org/10.1038/s42254-023-00581-4">doi:10.1038/s42254-023-00581-4</a>
+      </p>
+      <p class="annotation">
+        Caveats about LLMs as scientific collaborators apply directly to LLMs as modeling co-pilots. Cited in the risks section of Paper 03: the failure modes the authors flag (confabulation, authority laundering, reasoning short-circuits) are the exact behaviors our audit rubric's "violates" column is designed to catch.
+      </p>
+      <div class="rq-tags">
+        <span class="rq-tag">RQ3 · Failure modes</span>
+      </div>
+    </li>
+
+  </ol>
+
+  <p class="tot">6 refs · Paper 03</p>
+
+  <h2 id="gaps">What's missing</h2>
+  <div class="section-meta"><span class="cross-ink">●</span> Honest gaps in this list</div>
+  <ol class="refs">
+    <li class="cross">
+      <p class="cite"><span class="title">No empirical student-cognition work on coupled oscillators.</span></p>
+      <p class="annotation">
+        Paper 01 would be stronger with a citation to an existing study of student misconceptions around normal modes — if one exists. Currently searching the PER literature for a Rebello-style study. If none exists, Paper 01's pre/post instrument becomes more than a measurement: it's a contribution.
+      </p>
+      <div class="rq-tags"><span class="rq-tag">Open</span></div>
+    </li>
+    <li class="cross">
+      <p class="cite"><span class="title">No citation yet for "visible weights as pedagogy."</span></p>
+      <p class="annotation">
+        Paper 02's central move — show students what a trained weight matrix <em>looks like</em> — is not yet attributable to a specific published precedent. Candidate: Zeiler &amp; Fergus's feature-visualization work, but that is on convolutional filters, not dense MLPs. Still searching.
+      </p>
+      <div class="rq-tags"><span class="rq-tag">Open</span></div>
+    </li>
+    <li class="cross">
+      <p class="cite"><span class="title">No prior operationalization of the five anti-racist learner-centered objectives.</span></p>
+      <p class="annotation">
+        This is load-bearing <em>good news</em> for Paper 03: if no prior paper has converted Anderson (2024)'s five objectives into a behavioral audit rubric, then the 5×3 matrix in <a href="rubrics/ai-tutor-audit.html">rubrics/ai-tutor-audit.html</a> is a novel contribution. To verify before submission.
+      </p>
+      <div class="rq-tags"><span class="rq-tag">Open</span><span class="rq-tag">Verify novelty</span></div>
+    </li>
+  </ol>
+
+</main>
+
+<footer>
+  <div class="footer-row">
+    <a href="/research-lab/">← Modeling Bench</a>
+    <a href="/research-lab/derivations/mer-2-0.html">MER derivation →</a>
+    <a href="/research-lab/rubrics/ai-tutor-audit.html">Audit rubric →</a>
+    <a href="/research-lab/log/">Research log →</a>
+  </div>
+  <div>Working bibliography · curated by Henry Fan · last updated 2026-04-11 · CC BY 4.0</div>
+</footer>
+
+</body>
+</html>

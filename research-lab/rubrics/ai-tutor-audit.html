@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Tutor Audit Rubric — Paper 03 · The Modeling Bench</title>
+<meta name="description" content="A working 5×3 audit rubric operationalizing Jeff Anderson's five anti-racist learner-centered objectives into concrete LLM tutor behaviors that support, are neutral toward, or violate each objective. Center of contribution for Paper 03 of Henry Fan's research program.">
+<meta name="author" content="Henry Fan">
+<meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://fansofhenry.github.io/research-lab/rubrics/ai-tutor-audit.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Modeling Bench">
+<meta property="og:title" content="AI Tutor Audit Rubric — Paper 03">
+<meta property="og:description" content="A 5×3 rubric translating Anderson's five anti-racist learner-centered objectives into auditable LLM tutor behaviors.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📏</text></svg>">
+<script>
+(function(){try{var s=localStorage.getItem('lab-theme');var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));}catch(_){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f3; --bg-2: #f3f0e6; --surface: #ffffff; --border: #dcd8cd;
+    --ink: #1a1814; --ink-2: #4a4640; --ink-3: #6f6a62;
+    --p3: #065f46; --p3-bg: #f0fdf6; --p3-bd: #a7f3d0;
+    --good: #166534; --good-bg: #f0fdf4; --good-bd: #bbf7d0;
+    --mid:  #78716c; --mid-bg:  #f5f5f4; --mid-bd:  #d6d3d1;
+    --bad:  #9f1239; --bad-bg:  #fff1f2; --bad-bd:  #fecdd3;
+    --cross: #7c2d12; --cross-bg: #fff7ed; --cross-bd: #fed7aa;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #131110; --bg-2: #1a1815; --surface: #1f1d1a; --border: #2e2b26;
+    --ink: #e8e3da; --ink-2: #a8a39a; --ink-3: #948f85;
+    --p3: #6ee7b7; --p3-bg: #091a11; --p3-bd: #14432a;
+    --good: #86efac; --good-bg: #0b1d10; --good-bd: #14432a;
+    --mid:  #a8a29e; --mid-bg:  #1c1a17; --mid-bd:  #3f3d3a;
+    --bad:  #fda4af; --bad-bg:  #1a0a0d; --bad-bd:  #5a1722;
+    --cross: #fdba74; --cross-bg: #1a0f07; --cross-bd: #5a2b0d;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans); background: var(--bg); color: var(--ink);
+    line-height: 1.65; -webkit-font-smoothing: antialiased;
+  }
+  .skip-link { position: absolute; left: -9999px; top: 0; background: var(--p3); color: var(--bg); padding: 10px 16px; border-radius: 0 0 8px 0; font-family: var(--mono); font-size: 12px; font-weight: 600; text-decoration: none; z-index: 999; }
+  .skip-link:focus { left: 0; outline: 2px solid var(--ink); outline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--p3); outline-offset: 3px; border-radius: 3px; }
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+  .breadcrumb {
+    max-width: 1040px; margin: 0 auto; padding: 32px 28px 0;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--ink-3);
+  }
+  .breadcrumb a { color: var(--ink-2); text-decoration: none; border-bottom: 1px dotted var(--border); }
+  .breadcrumb a:hover { color: var(--p3); border-bottom-color: var(--p3); }
+  .breadcrumb .sep { margin: 0 10px; }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 24px 28px 96px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--p3); margin: 16px 0 10px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(34px, 5.8vw, 54px);
+    line-height: 1.06; letter-spacing: -0.01em;
+    margin: 0 0 18px;
+    max-width: 18ch;
+  }
+  .lede {
+    font-size: 18.5px; color: var(--ink-2);
+    max-width: 62ch; margin: 0 0 14px;
+  }
+  .lede em { color: var(--ink); font-style: italic; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .status-box {
+    display: grid; grid-template-columns: auto 1fr; gap: 6px 20px;
+    font-family: var(--mono); font-size: 12px;
+    background: var(--cross-bg);
+    border: 1px solid var(--cross-bd);
+    border-left: 3px solid var(--cross);
+    padding: 16px 20px;
+    margin: 26px 0 40px;
+    border-radius: 4px;
+  }
+  .status-box dt { color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; font-size: 10px; align-self: center; }
+  .status-box dd { margin: 0; color: var(--ink); }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: -0.005em;
+    margin: 52px 0 10px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+  h2 .num {
+    display: inline-block; width: 44px;
+    color: var(--ink-3); font-family: var(--mono); font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 17px;
+    margin: 28px 0 8px;
+  }
+  p { margin: 0 0 16px; color: var(--ink-2); max-width: 62ch; }
+  p strong { color: var(--ink); font-weight: 600; }
+  ul, ol { color: var(--ink-2); max-width: 62ch; }
+  li { margin-bottom: 8px; }
+
+  /* ============================================================
+     THE RUBRIC — 5×3 matrix
+     ============================================================ */
+  .rubric-wrap {
+    margin: 28px -14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table.rubric {
+    width: 100%;
+    min-width: 860px;
+    border-collapse: separate;
+    border-spacing: 4px;
+    margin: 0 14px;
+    font-size: 13.5px;
+  }
+  table.rubric th, table.rubric td {
+    vertical-align: top;
+    text-align: left;
+    padding: 14px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  table.rubric thead th {
+    background: var(--bg-2);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  table.rubric thead th.good-head { color: var(--good); }
+  table.rubric thead th.mid-head  { color: var(--mid); }
+  table.rubric thead th.bad-head  { color: var(--bad); }
+
+  table.rubric tbody th {
+    background: var(--p3-bg);
+    border-color: var(--p3-bd);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    width: 17%;
+  }
+  tbody th .obj-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--p3);
+    margin-bottom: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  tbody th .obj-gloss {
+    display: block;
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--ink-2);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  td.cell-good { background: var(--good-bg); border-color: var(--good-bd); }
+  td.cell-mid  { background: var(--mid-bg);  border-color: var(--mid-bd); }
+  td.cell-bad  { background: var(--bad-bg);  border-color: var(--bad-bd); }
+
+  td.cell-good strong { color: var(--good); }
+  td.cell-mid strong  { color: var(--mid); }
+  td.cell-bad strong  { color: var(--bad); }
+
+  td p { color: var(--ink); margin: 0 0 8px; font-size: 13.5px; line-height: 1.55; max-width: none; }
+  td p:last-child { margin-bottom: 0; }
+  td .behavior-label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  td.cell-good .behavior-label { color: var(--good); }
+  td.cell-mid .behavior-label  { color: var(--mid); }
+  td.cell-bad .behavior-label  { color: var(--bad); }
+
+  .scroll-hint {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    text-align: center;
+    margin-top: 8px;
+  }
+  @media (min-width: 960px) { .scroll-hint { display: none; } }
+
+  .scoring {
+    background: var(--p3-bg);
+    border: 1px solid var(--p3-bd);
+    border-left: 3px solid var(--p3);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .scoring h4 {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--p3); margin: 0 0 10px; font-weight: 600;
+  }
+  .scoring p { color: var(--ink); margin: 6px 0; }
+  .scoring code { font-family: var(--mono); font-size: 12px; background: var(--bg); padding: 2px 6px; border-radius: 3px; color: var(--ink); }
+
+  footer {
+    max-width: 1040px; margin: 56px auto 0;
+    padding: 28px 28px 0;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.05em;
+    color: var(--ink-3);
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+  footer a:hover { color: var(--p3); }
+  .footer-row { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 8px; }
+
+  @media (max-width: 560px) {
+    main, .breadcrumb, footer { padding-left: 18px; padding-right: 18px; }
+    main { padding-top: 16px; padding-bottom: 60px; }
+    h1 { font-size: clamp(28px, 9vw, 40px); }
+    h2 .num { display: block; width: auto; margin-bottom: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="breadcrumb">
+  <a href="/">Compound</a><span class="sep">›</span>
+  <a href="/research-lab/">Modeling Bench</a><span class="sep">›</span>
+  <a href="/research-lab/#paper-03">Paper 03</a><span class="sep">›</span>
+  Audit rubric
+</div>
+
+<main id="main-content">
+
+  <div class="eyebrow">§ Paper 03 · Instrument · Audit rubric v0</div>
+  <h1>Auditing a Modeling Co-Pilot Against Five Learner-Centered Objectives</h1>
+
+  <p class="lede">
+    The contribution of Paper 03 is not a chatbot. It is a <em>rubric</em>: a 5×3 matrix that translates Anderson's (2024) five anti-racist learner-centered objectives into concrete, observable LLM-tutor behaviors that a coder can tag as <strong>Supports</strong>, <strong>Neutral</strong>, or <strong>Violates</strong> the objective in question.
+  </p>
+  <p class="lede">
+    This page is the working first version of that rubric — the thing Paper 03's method section ships. It is the instrument the pilot study will use to compare a scoped "modeling co-pilot" against a default LLM baseline.
+  </p>
+
+  <dl class="status-box">
+    <dt>Status</dt><dd>Rubric v0 · working draft · not yet mentor-reviewed</dd>
+    <dt>Author</dt><dd>Henry Fan (student of Prof. Jeff Anderson)</dd>
+    <dt>For</dt><dd>Paper 03 of The Modeling Bench — Anti-Racist AI Tutoring</dd>
+    <dt>Basis</dt><dd>Anderson (2024) <em>PRIMUS</em>, <a href="https://doi.org/10.1080/10511970.2024.2369984" style="color:var(--p3);">doi:10.1080/10511970.2024.2369984</a></dd>
+  </dl>
+
+  <!-- ==================================================
+       §1 — HOW TO READ THE RUBRIC
+       ================================================== -->
+  <h2><span class="num">§1</span>How to read the rubric</h2>
+
+  <p>Each <strong>row</strong> is one of Anderson's five learner-centered objectives. Each <strong>column</strong> is a category of LLM behavior observed during a tutoring session: behavior that <em>supports</em> the objective, behavior that is <em>neutral</em> toward it, or behavior that <em>violates</em> it. A single session can produce many tagged turns; the rubric is applied per-turn, not per-session.</p>
+
+  <p>The cells contain <em>operationalized</em> behaviors — things a coder can literally see in a transcript. "The tutor volunteered a refusal to produce a final answer" is operationalized. "The tutor was respectful of the student's cultural background" is not — it cannot be tagged without additional interpretation and so is excluded from this rubric.</p>
+
+  <!-- ==================================================
+       §2 — THE RUBRIC
+       ================================================== -->
+  <h2><span class="num">§2</span>The rubric</h2>
+
+  <div class="rubric-wrap" role="region" aria-label="Five by three audit rubric" tabindex="0">
+  <table class="rubric">
+    <thead>
+      <tr>
+        <th scope="col">Objective</th>
+        <th scope="col" class="good-head">Supports</th>
+        <th scope="col" class="mid-head">Neutral</th>
+        <th scope="col" class="bad-head">Violates</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- ROW 1 — HUMANIZE -->
+      <tr>
+        <th scope="row">
+          <span class="obj-num">Obj 1</span>
+          Humanize the discipline
+          <span class="obj-gloss">Mathematics is a human activity made by people in historical and cultural contexts, not a timeless monolith.</span>
+        </th>
+        <td class="cell-good">
+          <p><span class="behavior-label">Supports:</span> Tutor attributes methods to their historical or cultural origin when the student asks "where does this come from?" (e.g., names al-Khwārizmī for completing the square; names Strang for the four-fundamental-subspaces framing).</p>
+          <p>Tutor treats the student's own framing as legitimate mathematical thinking before offering a reformulation ("your way of describing this as a spring fighting gravity is exactly right — let's build on it").</p>
+          <p>Tutor uses plural voice: <em>"one way to see this is…, another way is…"</em></p>
+        </td>
+        <td class="cell-mid">
+          <p><span class="behavior-label">Neutral:</span> Tutor answers factually without attribution when the student did not ask for origin. A session with no Obj-1 signal at all lands in this column.</p>
+        </td>
+        <td class="cell-bad">
+          <p><span class="behavior-label">Violates:</span> Tutor presents mathematics as a-historical ("this is just the standard formula").</p>
+          <p>Tutor erases the student's framing by rewording it into textbook language without acknowledgment.</p>
+          <p>Tutor uses singular authoritative voice: <em>"the correct approach is…"</em></p>
+        </td>
+      </tr>
+
+      <!-- ROW 2 — AUTHENTIC MODELING -->
+      <tr>
+        <th scope="row">
+          <span class="obj-num">Obj 2</span>
+          Authentic modeling
+          <span class="obj-gloss">Students do the full 8-step modeling cycle on open problems — not just the "solve" step on closed exercises.</span>
+        </th>
+        <td class="cell-good">
+          <p><span class="behavior-label">Supports:</span> When a student asks "what's the answer," tutor redirects to which of the 8 steps is currently unfinished ("you're at <em>verify</em> — what would convince you the answer is right?").</p>
+          <p>Tutor explicitly asks once per session "which step are you in?" and tags its responses accordingly.</p>
+          <p>Tutor refuses to produce a final answer when the student has not yet done the <em>state ideal model</em> step, and explains why.</p>
+        </td>
+        <td class="cell-mid">
+          <p><span class="behavior-label">Neutral:</span> Tutor offers worked examples alongside the student's own problem, without replacing it.</p>
+          <p>Tutor answers a narrow factual question (a definition, a formula) without forcing it through the 8 steps.</p>
+        </td>
+        <td class="cell-bad">
+          <p><span class="behavior-label">Violates:</span> Tutor produces a full end-to-end solution on first request.</p>
+          <p>Tutor conflates <em>state ideal</em> and <em>solve</em> — e.g., writes down equations without narrating what is being assumed.</p>
+          <p>Tutor skips <em>verify</em> and <em>transfer</em> entirely (these are the steps LLMs are worst at).</p>
+        </td>
+      </tr>
+
+      <!-- ROW 3 — TRANSFERABLE SKILLS -->
+      <tr>
+        <th scope="row">
+          <span class="obj-num">Obj 3</span>
+          Transferable skills
+          <span class="obj-gloss">"I teach students how to learn, and I do it using linear algebra." The content is the vehicle; the skill is the point.</span>
+        </th>
+        <td class="cell-good">
+          <p><span class="behavior-label">Supports:</span> Tutor names the meta-skill the student is practicing ("you just did the <em>state ideal model</em> move — that's the transferable skill here").</p>
+          <p>Tutor refuses to solve a second similar problem without first asking the student to articulate the general method.</p>
+          <p>Tutor ends each session with a "what did you learn how to <em>do</em>" prompt rather than a "what did you learn" prompt.</p>
+        </td>
+        <td class="cell-mid">
+          <p><span class="behavior-label">Neutral:</span> Tutor answers narrow content questions when the student explicitly asks for content, not method.</p>
+          <p>Tutor offers a worked example with standard exposition.</p>
+        </td>
+        <td class="cell-bad">
+          <p><span class="behavior-label">Violates:</span> Tutor solves every instance of a problem type without any metacognitive framing.</p>
+          <p>Tutor gives content-coverage summaries ("today we covered eigenvalues, next time eigenvectors").</p>
+          <p>Tutor treats each new problem as unrelated to previous problems in the session.</p>
+        </td>
+      </tr>
+
+      <!-- ROW 4 — STUDENT AGENCY -->
+      <tr>
+        <th scope="row">
+          <span class="obj-num">Obj 4</span>
+          Student agency
+          <span class="obj-gloss">Students decide what to work on, which direction to try next, when they are stuck. The tutor is a collaborator, not a driver.</span>
+        </th>
+        <td class="cell-good">
+          <p><span class="behavior-label">Supports:</span> Tutor asks before proposing a direction ("want me to check your algebra, or do you want to try first?").</p>
+          <p>Tutor offers two or three distinct next-step options rather than one, and names the tradeoffs.</p>
+          <p>Tutor surfaces its own uncertainty when it is about to confabulate and stops instead ("I'm not confident here — want me to show you where my reasoning gets shaky?").</p>
+        </td>
+        <td class="cell-mid">
+          <p><span class="behavior-label">Neutral:</span> Tutor waits for the student to type without prompting.</p>
+          <p>Tutor acknowledges a student's direction without endorsing or redirecting it.</p>
+        </td>
+        <td class="cell-bad">
+          <p><span class="behavior-label">Violates:</span> Tutor unilaterally rewrites the student's work without asking.</p>
+          <p>Tutor volunteers unrequested "better" approaches mid-session.</p>
+          <p>Tutor produces substantially more content than the student asked for (length-violation heuristic: &gt; 3× the length of the student's message).</p>
+        </td>
+      </tr>
+
+      <!-- ROW 5 — ASSESSMENT AS LEARNING -->
+      <tr>
+        <th scope="row">
+          <span class="obj-num">Obj 5</span>
+          Assessment as learning
+          <span class="obj-gloss">Evaluation is part of learning, not separate from it. Students self-assess against physical reality, not against a grade.</span>
+        </th>
+        <td class="cell-good">
+          <p><span class="behavior-label">Supports:</span> Tutor asks the student to predict their own error before computing ("what do you expect the answer to be? within what range?").</p>
+          <p>Tutor scaffolds self-checks against physical reality — in MER 2.0, e.g., "now predict the $\omega_3^2 - \omega_1^2$ to $\omega_2^2 - \omega_1^2$ ratio and measure it."</p>
+          <p>Tutor ends every session with a "what is my stuck point" prompt the student writes in their own words.</p>
+        </td>
+        <td class="cell-mid">
+          <p><span class="behavior-label">Neutral:</span> Tutor confirms correctness when the student explicitly asks "did I get this right?" — without volunteering a score.</p>
+        </td>
+        <td class="cell-bad">
+          <p><span class="behavior-label">Violates:</span> Tutor issues grades or letter assessments.</p>
+          <p>Tutor produces "one-shot final verdict" assessments without discussing how the student could verify the result themselves.</p>
+          <p>Tutor hides its own uncertainty, producing confident-sounding answers to questions it cannot actually check.</p>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+  <p class="scroll-hint">← swipe to see the full 5×3 rubric →</p>
+
+  <!-- ==================================================
+       §3 — HOW CODING WORKS
+       ================================================== -->
+  <h2><span class="num">§3</span>How turns are coded</h2>
+
+  <p>A session transcript is a list of (student, tutor) turn pairs. Each tutor turn is tagged independently against all five objectives:</p>
+
+  <ol>
+    <li><strong>Identify behaviors.</strong> For each row of the rubric, the coder flags any behavior in the tutor's turn that matches a Supports or Violates cell. Turns with no match for a given row are tagged <code>neutral</code> for that row.</li>
+    <li><strong>Tag the turn.</strong> A single turn can produce up to 10 tags (5 rows × 2 columns besides neutral). A clean "Supports" turn on one objective does not excuse a "Violates" on another.</li>
+    <li><strong>Aggregate per session.</strong> The session-level score for each objective is a tuple $(s, n, v)$ = count of supporting, neutral, and violating turns. A session is tagged <em>objective-positive</em> if $s \geq 2v$ and $s \geq 1$ on that objective.</li>
+    <li><strong>Aggregate per arm.</strong> The pilot has two arms (scoped co-pilot vs. default baseline). The contribution of the paper is whether the scoped arm is objective-positive on more objectives than the baseline arm, across the pooled sessions.</li>
+  </ol>
+
+  <div class="scoring">
+    <h4>Inter-rater reliability protocol</h4>
+    <p>Two independent coders (Henry and Jeff) tag a 20% random sample of transcripts in parallel. Target: Cohen's $\kappa \geq 0.7$ on each objective row. If $\kappa$ is below threshold on any row, the row's operationalization is revised before the full coding pass — this is a failure of the rubric, not of the coders, and the revised rubric is the paper's contribution.</p>
+    <p>The coding instrument itself is a simple two-column spreadsheet: <code>transcript_id, turn_id, obj_1_tag, obj_2_tag, obj_3_tag, obj_4_tag, obj_5_tag</code>, where each tag is exactly one of <code>supports</code> / <code>neutral</code> / <code>violates</code>.</p>
+  </div>
+
+  <!-- ==================================================
+       §4 — WHAT THIS RUBRIC DOES NOT DO
+       ================================================== -->
+  <h2><span class="num">§4</span>What this rubric does not do</h2>
+
+  <p>Honest limitations to flag in the Paper 03 discussion section:</p>
+
+  <ul>
+    <li><strong>It does not measure student learning.</strong> The rubric scores the tutor's behavior, not the student's. A separate pre/post content instrument is needed if we want claims about whether students learned more in the scoped arm.</li>
+    <li><strong>It assumes Anderson's five objectives are the right five.</strong> If a future version of the framework adds a sixth — for example, explicit positionality — the rubric needs a sixth row. The matrix is shaped by the framework, not intrinsic to the pedagogical question.</li>
+    <li><strong>It is language-biased.</strong> All behaviors in the Supports and Violates cells are described in English and assume a text-only transcript. A multimodal tutor (voice, handwriting) would need additional cells that this version does not have.</li>
+    <li><strong>It treats a long-silence tutor turn as Neutral.</strong> A tutor that simply fails to respond gets no Violates tag even when a silent tutor is clearly bad. Future revisions should add a "tutor silence in response to a sincere help request" Violates cell to Obj 4.</li>
+  </ul>
+
+  <!-- ==================================================
+       §5 — MENTOR REVIEW QUESTIONS
+       ================================================== -->
+  <h2><span class="num">§5</span>Questions for the Monday mentor call</h2>
+
+  <ol>
+    <li>Does Obj 1 (<em>Humanize the discipline</em>) feel right as I have phrased it, or is there closer language from the 2024 paper I should be quoting directly?</li>
+    <li>Is the <em>objective-positive</em> session criterion ($s \geq 2v$ and $s \geq 1$) reasonable, or does it let too many mediocre tutor turns count as "supporting"?</li>
+    <li>For the pilot, should the baseline arm be a plain default frontier LLM with no system prompt, or a frontier LLM with a "be a helpful math tutor" system prompt? The former is a stronger contrast; the latter is closer to what students actually use.</li>
+    <li>Is there an existing coding rubric in the math-ed literature I should be reading before shipping v1 of this one, so I don't reinvent something that already exists?</li>
+  </ol>
+
+</main>
+
+<footer>
+  <div class="footer-row">
+    <a href="/research-lab/">← Modeling Bench</a>
+    <a href="/research-lab/#paper-03">Paper 03</a>
+    <a href="/research-lab/bibliography.html">Bibliography</a>
+    <a href="/research-lab/derivations/mer-2-0.html">← MER derivation</a>
+  </div>
+  <div>Rubric v0 · Henry Fan · pre-mentor-review · CC BY 4.0 · last updated 2026-04-11</div>
+</footer>
+
+</body>
+</html>

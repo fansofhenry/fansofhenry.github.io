@@ -1,0 +1,114 @@
+{
+  "$schema": "https://fansofhenry.github.io/research-lab/log/schema.json",
+  "name": "The Modeling Bench — Public Research Log",
+  "description": "Git-committed research log for Henry Fan's three-paper program. Each entry is a durable record of what moved, what stuck, and which of Anderson's 8 modeling steps the work advanced. The in-page localStorage log on the main lab page is for frictionless capture; this file is the curated, mentor-visible history.",
+  "curator": "Henry Fan",
+  "license": "CC-BY-4.0",
+  "updated": "2026-04-11",
+  "entries": [
+    {
+      "date": "2026-04-10",
+      "paper": 0,
+      "step": "meta",
+      "title": "Started the Modeling Bench",
+      "body": "First commit of research-lab/index.html with the §00 Lab Brief, §01 Mentor & Lineage, and §02 The Three Papers sections. Framed the program around three first-author papers that deliberately extend written invitations from Jeff Anderson's published work: MER 2018, the under-development NN project in the Math 2BL S26 deliverables doc, and the 2024 anti-racist learner-centered objectives paper.",
+      "commit": "43f58f3"
+    },
+    {
+      "date": "2026-04-10",
+      "paper": 0,
+      "step": "meta",
+      "title": "Corrected §00 framing — mentee-led, not PI-run",
+      "body": "Rewrote §00 to make explicit that this is a mentee-led research program, not a funded academic lab. The 'Modeling Bench' name is a working metaphor for the bench where Jeff's hands-on verification ethos gets practiced, not an institutional claim. Henry is principal author; Jeff is research mentor and second author on every paper.",
+      "commit": "c7558d6"
+    },
+    {
+      "date": "2026-04-10",
+      "paper": 0,
+      "step": "meta",
+      "title": "Deep redesign — sidebar, per-paper color, dark mode",
+      "body": "Architecture pass on the lab page: sticky sidebar navigation, per-paper color identity (crimson/navy/forest), <details>-based accordion cards for each paper, full light/dark mode, mobile drawer. The colors exist to give a mentor a visual shortcut: any artifact in the lab carries its paper's color, so a reader can skim and know which paper a passage belongs to.",
+      "commit": "514b322"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 0,
+      "step": "meta",
+      "title": "Contrast pass — every text token clears WCAG AA",
+      "body": "Audited every text/background pair across light and dark surfaces against the 4.5:1 threshold. Tightened --ink-3 on light (#6f6a62 ≈ 5.3:1) and --sb-dim on the dark sidebar (#8a857c ≈ 5.1:1). Remapped the accent-as-text tokens in dark mode so venue tags and 'hours' labels stay legible against their accent backgrounds.",
+      "commit": "3e15a8f"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 0,
+      "step": "meta",
+      "title": "Keyboard and screen-reader a11y pass",
+      "body": "Skip-to-main-content link, landmark regions labeled, :focus-visible ring, prefers-reduced-motion honored. Icon buttons got aria-labels; decorative emoji got aria-hidden. Mobile drawer closes on Escape and returns focus to the menu button. The standard that every future page in this repo has to meet to ship.",
+      "commit": "f92c228"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 0,
+      "step": "meta",
+      "title": "Live 52-week Program Arc + Anderson 8-step legend",
+      "body": "Top of the lab page now shows a JS-computed progress bar from the 2026-04-10 start date through Apr 10 2027, with Wk 12 / Wk 26 / Wk 52 milestones. Below it, Anderson's 8 modeling steps (find → mathematize → state ideal → solve → analyze → verify → transfer → iterate) are displayed once as a legend and referenced everywhere else in the site so mentor emails can cite step numbers unambiguously.",
+      "commit": "fa3258e"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 0,
+      "step": "meta",
+      "title": "Log gains step tagging + paper filter chips",
+      "body": "The in-page localStorage research log now requires a step tag on every entry (drawn from the 8-step legend) and lets the reader filter entries by paper. The filter chip state persists across reload and the init path validates stored values against a whitelist, falling back to 'all' on unknown or missing state.",
+      "commit": "6d400c9"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 0,
+      "step": "meta",
+      "title": "Public doorway — about.html + Person JSON-LD on root",
+      "body": "Created /about.html as the public doorway for a cold visitor — potential PhD reviewer, new mentor, anyone following a link from the research lab without knowing the compound dashboard password. Lede explicitly frames Henry as a mentee, not a lab director. Added matching Person JSON-LD block to the root index so crawlers get the right author attribution even when the compound dashboard is gated.",
+      "commit": "7a30686"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 1,
+      "step": "find",
+      "title": "Paper 01 — scope locked at three masses, two springs",
+      "body": "Chose the three-identical-pendula / two-identical-springs geometry for the MER 2.0 extension instead of the mass-spring-chain-with-wall-anchors alternative. Reason: with no walls, the k_p I + k_c A_3 structure falls out cleanly, and the eigenvalue spectrum of A_3 has an exact closed form (0, 1, 3) that gives us a teacher-free dimensionless prediction. The walls would add two more parameters and hide the clean result.",
+      "commit": "local"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 1,
+      "step": "mathematize",
+      "title": "Paper 01 — wrote the 3-mass coupled oscillator derivation",
+      "body": "Published the working derivation at /research-lab/derivations/mer-2-0.html. It starts from Newton's second law on three coupled pendula, builds the tridiagonal stiffness matrix K_3 = k_p I + k_c A_3, diagonalizes A_3 (eigenvalues 0, 1, 3 with closed-form eigenvectors), and extracts the dimensionless prediction (ω3² - ω1²)/(ω2² - ω1²) = 3. The prediction is the paper's verifiability-floor contribution: a student at their kitchen table can falsify the eigenvalue theory against their own phone-camera data without knowing k_p, k_c, m, or L.",
+      "commit": "local"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 3,
+      "step": "state ideal",
+      "title": "Paper 03 — audit rubric v0 operationalized",
+      "body": "Built the 5×3 audit rubric at /research-lab/rubrics/ai-tutor-audit.html translating Anderson's five anti-racist learner-centered objectives into concrete observable LLM behaviors across Supports / Neutral / Violates columns. The rubric is the paper's central contribution: not the chatbot, the instrument that lets two coders independently tag tutor turns and reach inter-rater reliability on what counts as authentic-modeling support.",
+      "commit": "local"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 0,
+      "step": "transfer",
+      "title": "Annotated bibliography across all three papers",
+      "body": "Working bibliography at /research-lab/bibliography.html — 18 real references grouped by paper plus a 'What's missing' section that calls out three open gaps honestly. Each entry is tagged to the specific research question it supports, so a reviewer can trace a claim from the draft back to its source in one hop.",
+      "commit": "local"
+    },
+    {
+      "date": "2026-04-11",
+      "paper": 0,
+      "step": "meta",
+      "title": "Research log now git-backed",
+      "body": "Previously the log lived entirely in the visitor's localStorage, which meant a mentor reading the site couldn't see a single entry without being on Henry's laptop. This page is the fix: a curated, mentor-visible log committed to git, rendered from /research-lab/log/entries.json. The in-page localStorage log is still there for frictionless daily capture; this file is the version history worth showing anyone.",
+      "commit": "local"
+    }
+  ]
+}

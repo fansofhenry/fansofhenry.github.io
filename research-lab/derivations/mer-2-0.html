@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MER 2.0 — Three-Mass Extension Derivation · The Modeling Bench</title>
+<meta name="description" content="A working derivation for the three-mass extension of Anderson's Make Eigenvalues Resonate coupled-oscillator project. Matrix form, eigenmodes, and the dimensionless frequency-ratio prediction students can verify without a teacher.">
+<meta name="author" content="Henry Fan">
+<meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://fansofhenry.github.io/research-lab/derivations/mer-2-0.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Modeling Bench">
+<meta property="og:title" content="MER 2.0 — Three-Mass Extension Derivation">
+<meta property="og:description" content="Working derivation of a 3-DOF coupled-oscillator lab extending Anderson (2018) Make Eigenvalues Resonate. Includes a teacher-free verification test.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<script>
+(function(){try{var s=localStorage.getItem('lab-theme');var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));}catch(_){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root {
+    --bg: #faf8f3; --bg-2: #f3f0e6; --surface: #ffffff; --border: #dcd8cd;
+    --ink: #1a1814; --ink-2: #4a4640; --ink-3: #6f6a62;
+    --p1: #9b1c1c; --p1-bg: #fff7f7; --p1-bd: #fbd5d5;
+    --p2: #1e3a8a; --p2-bg: #f0f5ff; --p2-bd: #c7d7fd;
+    --cross: #7c2d12; --cross-bg: #fff7ed; --cross-bd: #fed7aa;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #131110; --bg-2: #1a1815; --surface: #1f1d1a; --border: #2e2b26;
+    --ink: #e8e3da; --ink-2: #a8a39a; --ink-3: #948f85;
+    --p1: #fca5a5; --p1-bg: #1f0f0f; --p1-bd: #5c2020;
+    --p2: #93b4fb; --p2-bg: #0d1525; --p2-bd: #1e3366;
+    --cross: #fdba74; --cross-bg: #1a0f07; --cross-bd: #5a2b0d;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans); background: var(--bg); color: var(--ink);
+    line-height: 1.68; -webkit-font-smoothing: antialiased;
+  }
+  .skip-link { position: absolute; left: -9999px; top: 0; background: var(--p1); color: var(--bg); padding: 10px 16px; border-radius: 0 0 8px 0; font-family: var(--mono); font-size: 12px; font-weight: 600; text-decoration: none; z-index: 999; }
+  .skip-link:focus { left: 0; outline: 2px solid var(--ink); outline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--p1); outline-offset: 3px; border-radius: 3px; }
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+  .breadcrumb {
+    max-width: 760px; margin: 0 auto; padding: 32px 28px 0;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--ink-3);
+  }
+  .breadcrumb a { color: var(--ink-2); text-decoration: none; border-bottom: 1px dotted var(--border); }
+  .breadcrumb a:hover { color: var(--p1); border-bottom-color: var(--p1); }
+  .breadcrumb .sep { margin: 0 10px; }
+
+  main { max-width: 760px; margin: 0 auto; padding: 24px 28px 96px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--p1); margin: 16px 0 10px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(34px, 5.8vw, 54px);
+    line-height: 1.06; letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+  .lede { font-size: 18.5px; color: var(--ink-2); max-width: 58ch; margin: 0 0 14px; }
+  .lede em { color: var(--ink); font-style: italic; }
+
+  .status-box {
+    display: grid; grid-template-columns: auto 1fr; gap: 6px 20px;
+    font-family: var(--mono); font-size: 12px;
+    background: var(--cross-bg);
+    border: 1px solid var(--cross-bd);
+    border-left: 3px solid var(--cross);
+    padding: 16px 20px;
+    margin: 26px 0 40px;
+    border-radius: 4px;
+  }
+  .status-box dt { color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; font-size: 10px; align-self: center; }
+  .status-box dd { margin: 0; color: var(--ink); }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: -0.005em;
+    margin: 56px 0 10px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+  h2 .num {
+    display: inline-block; width: 44px;
+    color: var(--ink-3); font-family: var(--mono); font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 17px;
+    margin: 32px 0 8px;
+    color: var(--ink);
+  }
+  p { margin: 0 0 16px; color: var(--ink-2); }
+  p strong { color: var(--ink); font-weight: 600; }
+
+  .fig {
+    margin: 22px 0 26px;
+    padding: 20px 22px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-align: center;
+  }
+  .fig svg { max-width: 100%; height: auto; }
+  .fig-cap {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    margin-top: 14px;
+    text-align: left;
+  }
+  .fig-cap strong { color: var(--ink); font-family: var(--sans); font-weight: 600; }
+
+  .math-display, mjx-container {
+    color: var(--ink);
+  }
+  mjx-container { margin: 18px 0 !important; }
+
+  .sidenote {
+    font-family: var(--mono);
+    font-size: 12px; line-height: 1.55;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-left: 3px solid var(--p1);
+    border-radius: 0 4px 4px 0;
+    color: var(--ink-3);
+    margin: 18px 0;
+  }
+  .sidenote strong { color: var(--ink); font-weight: 600; }
+
+  .prediction-box {
+    margin: 28px 0;
+    padding: 22px 24px;
+    background: var(--p1-bg);
+    border: 1px solid var(--p1-bd);
+    border-left: 3px solid var(--p1);
+    border-radius: 4px;
+  }
+  .prediction-box h4 {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--p1); margin: 0 0 8px; font-weight: 600;
+  }
+  .prediction-box p { color: var(--ink); margin: 6px 0; }
+  .prediction-box p strong { color: var(--p1); }
+
+  table.modes {
+    width: 100%; border-collapse: collapse;
+    margin: 18px 0 24px;
+    font-size: 14px;
+  }
+  table.modes th, table.modes td {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+  }
+  table.modes th {
+    background: var(--bg-2);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 600;
+  }
+  table.modes td { color: var(--ink-2); }
+  table.modes td strong { color: var(--ink); }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+    background: var(--bg-2);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+
+  footer {
+    max-width: 760px; margin: 56px auto 0;
+    padding: 28px 28px 0;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.05em;
+    color: var(--ink-3);
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+  footer a:hover { color: var(--p1); }
+  .footer-row { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 8px; }
+
+  @media (max-width: 560px) {
+    main, .breadcrumb, footer { padding-left: 18px; padding-right: 18px; }
+    main { padding-top: 16px; padding-bottom: 60px; }
+    h1 { font-size: clamp(28px, 9vw, 40px); }
+    h2 .num { display: block; width: auto; margin-bottom: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="breadcrumb">
+  <a href="/">Compound</a><span class="sep">›</span>
+  <a href="/research-lab/">Modeling Bench</a><span class="sep">›</span>
+  <a href="/research-lab/#paper-01">Paper 01</a><span class="sep">›</span>
+  Derivation
+</div>
+
+<main id="main-content">
+
+  <div class="eyebrow">§ Paper 01 · Derivation · MER 2.0</div>
+  <h1>A Three-Mass Coupled Pendulum Students Can Verify Without a Teacher</h1>
+
+  <p class="lede">
+    Anderson (2018) uses a <em>two</em>-mass spring-coupled pendulum to make eigenvalues physical. MER 2.0 extends the system to <em>three</em> masses, where the added mode gives us a dimensionless frequency ratio that a student can check against prediction without knowing any material constants.
+  </p>
+  <p class="lede">
+    This page is a working derivation — the math a Foothill Math 2B student should be able to follow with an eigenvalue-decomposition sheet and Newton's second law.
+  </p>
+
+  <dl class="status-box">
+    <dt>Status</dt><dd>Working draft · not yet mentor-reviewed</dd>
+    <dt>Author</dt><dd>Henry Fan (student of Prof. Jeff Anderson)</dd>
+    <dt>For</dt><dd>Paper 01 of The Modeling Bench — MER 2.0</dd>
+    <dt>Feedback</dt><dd>via mentor update, following the 8-step modeling structure</dd>
+  </dl>
+
+  <!-- ==================================================
+       §1 — SETUP
+       ================================================== -->
+  <h2><span class="num">§1</span>Physical setup</h2>
+
+  <p>Three identical pendula of mass $m$ and effective length $L$ hang from a shared horizontal rail. Two identical springs of stiffness $k_c$ couple pendulum 1 to pendulum 2, and pendulum 2 to pendulum 3. There is no spring between pendulum 1 and pendulum 3 directly. The only restoring force on each pendulum individually is gravity.</p>
+
+  <div class="fig">
+    <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" aria-labelledby="fig1-title" role="img">
+      <title id="fig1-title">Three pendula coupled by two springs</title>
+      <!-- rail -->
+      <line x1="30" y1="30" x2="530" y2="30" stroke="currentColor" stroke-width="3"/>
+      <g stroke="currentColor" stroke-width="1">
+        <line x1="30" y1="30" x2="20" y2="42"/><line x1="60" y1="30" x2="50" y2="42"/>
+        <line x1="90" y1="30" x2="80" y2="42"/><line x1="120" y1="30" x2="110" y2="42"/>
+        <line x1="150" y1="30" x2="140" y2="42"/><line x1="180" y1="30" x2="170" y2="42"/>
+        <line x1="210" y1="30" x2="200" y2="42"/><line x1="240" y1="30" x2="230" y2="42"/>
+        <line x1="270" y1="30" x2="260" y2="42"/><line x1="300" y1="30" x2="290" y2="42"/>
+        <line x1="330" y1="30" x2="320" y2="42"/><line x1="360" y1="30" x2="350" y2="42"/>
+        <line x1="390" y1="30" x2="380" y2="42"/><line x1="420" y1="30" x2="410" y2="42"/>
+        <line x1="450" y1="30" x2="440" y2="42"/><line x1="480" y1="30" x2="470" y2="42"/>
+        <line x1="510" y1="30" x2="500" y2="42"/>
+      </g>
+      <!-- pendulum 1 -->
+      <line x1="140" y1="30" x2="140" y2="150" stroke="currentColor" stroke-width="2"/>
+      <circle cx="140" cy="160" r="14" fill="currentColor" opacity="0.82"/>
+      <text x="140" y="195" font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor" text-anchor="middle">m₁</text>
+      <!-- pendulum 2 -->
+      <line x1="280" y1="30" x2="280" y2="150" stroke="currentColor" stroke-width="2"/>
+      <circle cx="280" cy="160" r="14" fill="currentColor" opacity="0.82"/>
+      <text x="280" y="195" font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor" text-anchor="middle">m₂</text>
+      <!-- pendulum 3 -->
+      <line x1="420" y1="30" x2="420" y2="150" stroke="currentColor" stroke-width="2"/>
+      <circle cx="420" cy="160" r="14" fill="currentColor" opacity="0.82"/>
+      <text x="420" y="195" font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor" text-anchor="middle">m₃</text>
+      <!-- spring 1-2 -->
+      <path d="M 154 160 L 164 155 L 174 165 L 184 155 L 194 165 L 204 155 L 214 165 L 224 155 L 234 165 L 244 155 L 254 165 L 266 160" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text x="210" y="143" font-family="IBM Plex Mono, monospace" font-size="11" fill="currentColor" text-anchor="middle">k꜀</text>
+      <!-- spring 2-3 -->
+      <path d="M 294 160 L 304 155 L 314 165 L 324 155 L 334 165 L 344 155 L 354 165 L 364 155 L 374 165 L 384 155 L 394 165 L 406 160" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text x="350" y="143" font-family="IBM Plex Mono, monospace" font-size="11" fill="currentColor" text-anchor="middle">k꜀</text>
+    </svg>
+    <p class="fig-cap"><strong>Figure 1.</strong> Three identical pendula coupled by two identical springs. The displacements $x_1$, $x_2$, $x_3$ are measured horizontally from each pendulum's equilibrium position. The derivation below uses the small-angle approximation so the restoring force from gravity is linear: each pendulum alone has effective stiffness $k_p = mg/L$.</p>
+  </div>
+
+  <!-- ==================================================
+       §2 — TWO-MASS REVIEW
+       ================================================== -->
+  <h2><span class="num">§2</span>Warm-up: the two-mass case</h2>
+
+  <p>Before adding the third pendulum, review the two-mass system Anderson (2018) uses in the MER project. Let $x_1$ and $x_2$ be the horizontal displacements of two coupled pendula, with small-angle restoring stiffness $k_p = mg/L$ each and a coupling spring of stiffness $k_c$ between them.</p>
+
+  <p>Newton's second law on each mass gives, in the small-angle limit:</p>
+
+  $$
+  \begin{aligned}
+  m\ddot{x}_1 &= -k_p\,x_1 - k_c(x_1 - x_2) = -(k_p + k_c)\,x_1 + k_c\,x_2 \\
+  m\ddot{x}_2 &= -k_p\,x_2 - k_c(x_2 - x_1) = -(k_p + k_c)\,x_2 + k_c\,x_1
+  \end{aligned}
+  $$
+
+  <p>In matrix form with $\mathbf{x} = (x_1, x_2)^\top$:</p>
+
+  $$
+  m\,\ddot{\mathbf{x}} = -K_2\,\mathbf{x},\qquad
+  K_2 = \begin{pmatrix} k_p + k_c & -k_c \\ -k_c & k_p + k_c \end{pmatrix}.
+  $$
+
+  <p>Try the standing-wave ansatz $\mathbf{x}(t) = \mathbf{v}\,e^{i\omega t}$. Substituting and cancelling the time factor:</p>
+
+  $$
+  \bigl(K_2 - m\omega^2 I\bigr)\,\mathbf{v} = \mathbf{0}.
+  $$
+
+  <p>So $\omega^2$ and $\mathbf{v}$ are an eigenvalue and eigenvector of $\frac{1}{m}K_2$. For the symmetric $2\times 2$ case above, the eigenvalues come out by inspection: the matrix $K_2$ splits as $k_p\,I + k_c\,A_2$ where</p>
+
+  $$
+  A_2 = \begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix}.
+  $$
+
+  <p>$A_2$ has eigenvalues $\mu = 0$ (eigenvector $(1, 1)^\top$) and $\mu = 2$ (eigenvector $(1, -1)^\top$), so the two-pendulum system has natural frequencies</p>
+
+  $$
+  \omega_1^2 = \frac{k_p}{m},\qquad \omega_2^2 = \frac{k_p + 2 k_c}{m}.
+  $$
+
+  <p>The $\omega_1$ mode is both pendula swinging in phase — the coupling spring stays at its natural length and contributes nothing, so the system oscillates at the bare pendulum frequency. The $\omega_2$ mode is the two pendula swinging exactly out of phase, stretching and compressing the spring maximally.</p>
+
+  <div class="sidenote">
+    <strong>Why Anderson (2018) stops here.</strong> Two modes are enough to teach the idea that eigenvectors <em>are physical things</em> and eigenvalues <em>are measurable frequencies</em>. But two modes don't give the student a way to check their model against their data without assuming a value for $k_p$ or $k_c$. The three-mass case below fixes that.
+  </div>
+
+  <!-- ==================================================
+       §3 — THREE-MASS DERIVATION
+       ================================================== -->
+  <h2><span class="num">§3</span>Three-mass stiffness matrix</h2>
+
+  <p>With three pendula and two coupling springs (Fig. 1), Newton's second law on each mass gives:</p>
+
+  $$
+  \begin{aligned}
+  m\ddot{x}_1 &= -k_p x_1 - k_c(x_1 - x_2) \\
+  m\ddot{x}_2 &= -k_p x_2 - k_c(x_2 - x_1) - k_c(x_2 - x_3) \\
+  m\ddot{x}_3 &= -k_p x_3 - k_c(x_3 - x_2)
+  \end{aligned}
+  $$
+
+  <p>Collecting terms, $m\,\ddot{\mathbf{x}} = -K_3\,\mathbf{x}$ with stiffness matrix</p>
+
+  $$
+  K_3 = \begin{pmatrix}
+  k_p + k_c & -k_c & 0 \\
+  -k_c & k_p + 2 k_c & -k_c \\
+  0 & -k_c & k_p + k_c
+  \end{pmatrix}.
+  $$
+
+  <p>Split as before: $K_3 = k_p\,I + k_c\,A_3$, where</p>
+
+  $$
+  A_3 = \begin{pmatrix} 1 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 1 \end{pmatrix}.
+  $$
+
+  <p>The eigenvalue problem reduces to diagonalizing $A_3$. Expanding the characteristic polynomial:</p>
+
+  $$
+  \det(A_3 - \mu I) = (1-\mu)\bigl[(2-\mu)(1-\mu) - 1\bigr] - (1-\mu).
+  $$
+
+  <p>Factor out $(1-\mu)$:</p>
+
+  $$
+  = (1-\mu)\bigl[(2-\mu)(1-\mu) - 2\bigr]
+  = (1-\mu)\bigl[\mu^2 - 3\mu\bigr]
+  = \mu\,(1-\mu)\,(\mu - 3).
+  $$
+
+  <p>The eigenvalues of $A_3$ are therefore $\mu = 0,\ 1,\ 3$, and the natural frequencies of the three-mass system are</p>
+
+  $$
+  \omega_1^2 = \frac{k_p}{m},\qquad
+  \omega_2^2 = \frac{k_p + k_c}{m},\qquad
+  \omega_3^2 = \frac{k_p + 3 k_c}{m}.
+  $$
+
+  <h3>The three eigenvectors (normal modes)</h3>
+
+  <p>Solving $(A_3 - \mu I)\,\mathbf{v} = \mathbf{0}$ at each eigenvalue gives three orthogonal modes:</p>
+
+  <table class="modes" aria-label="Three normal modes of the three-mass pendulum system">
+    <thead>
+      <tr>
+        <th>Mode</th>
+        <th>$\mu$</th>
+        <th>$\omega^2$</th>
+        <th>Eigenvector $\mathbf{v}$</th>
+        <th>Physical picture</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>$\omega_1$ — In-phase</strong></td>
+        <td>$0$</td>
+        <td>$k_p / m$</td>
+        <td>$(1,\ 1,\ 1)^\top / \sqrt{3}$</td>
+        <td>All three pendula swing together. Neither spring ever compresses or stretches — the bare pendulum frequency.</td>
+      </tr>
+      <tr>
+        <td><strong>$\omega_2$ — Antisymmetric (middle still)</strong></td>
+        <td>$1$</td>
+        <td>$(k_p + k_c) / m$</td>
+        <td>$(1,\ 0,\ -1)^\top / \sqrt{2}$</td>
+        <td>Outer pendula move exactly out of phase; the middle pendulum stays at rest. Each spring feels only one moving mass.</td>
+      </tr>
+      <tr>
+        <td><strong>$\omega_3$ — Breathing</strong></td>
+        <td>$3$</td>
+        <td>$(k_p + 3 k_c) / m$</td>
+        <td>$(1,\ -2,\ 1)^\top / \sqrt{6}$</td>
+        <td>Middle pendulum swings against the two outer pendula. Both springs stretch and compress together at maximum amplitude — highest frequency.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>A student can check orthogonality directly: the three eigenvectors above have zero pairwise dot products, which is the experimental guarantee that any initial condition can be decomposed into a sum of these three modes that evolve independently.</p>
+
+  <!-- ==================================================
+       §4 — PREDICTION
+       ================================================== -->
+  <h2><span class="num">§4</span>The teacher-free verification test</h2>
+
+  <p>The clean pedagogical payoff of the three-mass case is a <em>dimensionless</em> prediction that depends on no measured constants. Subtract $\omega_1^2$ from $\omega_2^2$ and $\omega_3^2$:</p>
+
+  $$
+  \omega_2^2 - \omega_1^2 = \frac{k_c}{m},\qquad
+  \omega_3^2 - \omega_1^2 = \frac{3 k_c}{m}.
+  $$
+
+  <p>Divide one by the other: everything that depends on $k_c$, $k_p$, $m$, and $L$ cancels.</p>
+
+  <div class="prediction-box">
+    <h4>Prediction — MER 2.0 central test</h4>
+    <p style="margin-bottom:10px;">For three identical pendula coupled by two identical springs, the three measured natural frequencies must satisfy:</p>
+    $$\boxed{\;\dfrac{\omega_3^2 - \omega_1^2}{\omega_2^2 - \omega_1^2} = 3.\;}$$
+    <p><strong>What the student measures:</strong> three natural frequencies from their phone-camera footage. <strong>What they compute:</strong> one dimensionless ratio. <strong>What they compare to:</strong> the integer 3.</p>
+    <p>No knowledge of $k_p$, $k_c$, $m$, or $L$ is required. A student at their kitchen table can verify — or falsify — the eigenvalue prediction without a teacher present. That is the <em>verifiability floor</em> the paper is about.</p>
+  </div>
+
+  <h3>What a good pilot looks like</h3>
+  <p>If the student's measured ratio lands in the range $[2.7,\ 3.3]$ (a 10% tolerance chosen to absorb spring nonlinearity, finite-amplitude corrections, and phone-video timing jitter), Paper 01 treats the pilot as a success. Systematic deviations — say, a measured ratio of $2.4$ across every group — would indicate a real physical effect we don't yet understand and would become the focus of the "Analyze" and "Verify" steps in Anderson's eight-step modeling process.</p>
+
+  <!-- ==================================================
+       §5 — MEASUREMENT PROTOCOL
+       ================================================== -->
+  <h2><span class="num">§5</span>Measurement protocol</h2>
+
+  <p>What the student actually does with the kit, distilled:</p>
+
+  <ol>
+    <li><strong>Mount</strong> the three pendula on a shared rail with a printed coordinate scale behind them.</li>
+    <li><strong>Record</strong> the pendula for 30 seconds at 60 frames per second with a phone on a tripod. Two runs: one excited in the in-phase mode, one excited in a mixed initial condition so that all three modes are present.</li>
+    <li><strong>Track</strong> the three bob positions through the MER 2.0 OpenCV pipeline to produce a CSV of $(t,\, x_1,\, x_2,\, x_3)$.</li>
+    <li><strong>FFT</strong> each displacement signal and locate the three peaks. (A student who has not yet seen Fourier transforms can use a simpler peak-spacing protocol: read the period off a few consecutive zero crossings.)</li>
+    <li><strong>Compute</strong> the ratio $(\omega_3^2 - \omega_1^2)/(\omega_2^2 - \omega_1^2)$ and compare to $3$.</li>
+  </ol>
+
+  <p>The entire measurement protocol uses no physics beyond "the bob goes back and forth at a frequency I can read off a timestamped camera," and no math beyond eigenvalue decomposition. That matches the Math 2B prerequisite exactly.</p>
+
+  <!-- ==================================================
+       §6 — WHAT I'M NOT SURE ABOUT
+       ================================================== -->
+  <h2><span class="num">§6</span>Open questions</h2>
+
+  <p>Things this derivation does <em>not</em> yet handle; items to discuss with Jeff in the Monday call:</p>
+
+  <ol>
+    <li><strong>Spring nonlinearity at finite amplitude.</strong> Real coil springs have a cubic term that shifts $\omega_3$ more than $\omega_1$. Does the $\pm 10\%$ tolerance swallow this, or do we need to derive a first-order correction?</li>
+    <li><strong>Asymmetric pendula.</strong> If the three pendulum lengths $L_1, L_2, L_3$ are not identical, the clean $3$ prediction collapses and we get a messier formula. The paper should report the measurable sensitivity and say how carefully the student needs to match pendulum lengths — mm? cm?</li>
+    <li><strong>Damping.</strong> The ansatz $\mathbf{x} = \mathbf{v}\,e^{i\omega t}$ assumes no damping. Air and pivot friction make the signal decay. For a 30-second video the decay is usually small enough that FFT still resolves the three peaks cleanly, but this needs empirical confirmation.</li>
+    <li><strong>The "find" step.</strong> Anderson's eight-step modeling process begins with <em>find</em> — something in the world that matters. The three-pendulum system is pedagogically clean but physically contrived. Is there a real coupled-oscillator story (a building on a shake table? a bridge? a diatomic molecule?) that makes the $\omega_3^2 - \omega_1^2 = 3(\omega_2^2 - \omega_1^2)$ prediction feel like it answers a question a student already had?</li>
+  </ol>
+
+</main>
+
+<footer>
+  <div class="footer-row">
+    <a href="/research-lab/">← Modeling Bench</a>
+    <a href="/research-lab/#paper-01">Paper 01</a>
+    <a href="/research-lab/bibliography.html">Bibliography</a>
+    <a href="/research-lab/rubrics/ai-tutor-audit.html">Audit rubric →</a>
+  </div>
+  <div>Working derivation · Henry Fan · pre-mentor-review · CC BY 4.0 · last updated 2026-04-11</div>
+</footer>
+
+</body>
+</html>
