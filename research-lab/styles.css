@@ -1005,6 +1005,36 @@ details[open].pid summary::after {
 .paper-card.p2-card .pulse-quote { border-left-color: var(--p2); }
 .paper-card.p3-card .pulse-quote { border-left-color: var(--p3); }
 
+/* Stalled pulse — the paper hasn't been logged in STALLED_DAYS+
+   days. Amber left border + a small warning pill at the top of
+   the pulse body. Amber is WCAG AA against both --bg-2 tones. */
+.paper-pulse.stalled {
+  border-left: 3px solid #b7791f;
+  padding-left: 19px;
+}
+[data-theme="dark"] .paper-pulse.stalled {
+  border-left-color: #d9a85d;
+}
+.pulse-stale-warn {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 3px 9px;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a4f0c;
+  background: #fdf2dc;
+  border: 1px solid #ead3a4;
+  border-radius: 3px;
+}
+[data-theme="dark"] .pulse-stale-warn {
+  color: #f4c77a;
+  background: #2a1f0e;
+  border-color: #5a4418;
+}
+
 /* Live status tag — when the log has entries for a paper, the
    static "Backlog" tag is replaced in-place by a live step label
    (e.g. "§3 State ideal") colored with the paper's accent. */
@@ -1237,6 +1267,35 @@ article.pi-card {
   border-left: none;
   padding-left: 0;
 }
+
+/* Last-exported footer — dim by default, amber if overdue or if
+   entries exist but no export has ever happened. The one place on
+   the page that nags about data integrity. */
+.log-export-note {
+  margin: 14px 0 0;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+.log-export-note [data-last-export] {
+  font-family: var(--mono);
+  color: var(--ink-2);
+}
+.log-export-note.warn {
+  padding: 8px 12px;
+  background: #fdf2dc;
+  border: 1px solid #ead3a4;
+  border-radius: var(--radius);
+  color: #7a4f0c;
+}
+.log-export-note.warn [data-last-export] { color: #7a4f0c; }
+[data-theme="dark"] .log-export-note.warn {
+  background: #2a1f0e;
+  border-color: #5a4418;
+  color: #f4c77a;
+}
+[data-theme="dark"] .log-export-note.warn [data-last-export] { color: #f4c77a; }
 
 .log-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .log-form button {

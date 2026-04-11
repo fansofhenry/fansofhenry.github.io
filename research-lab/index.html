@@ -765,6 +765,10 @@
 
       <ul class="log-feed" id="log-list" aria-live="polite"></ul>
 
+      <p class="log-export-note" id="log-export-note" aria-live="polite">
+        Last exported: <span data-last-export>never</span>. <span data-export-hint></span>
+      </p>
+
       <!-- Mentor-update draft dialog. Opens from #draft-mentor, pre-fills
            a markdown skeleton from the last 7 days of log entries grouped
            by paper. Native <dialog> gives Escape + focus trap for free. -->
@@ -1216,7 +1220,15 @@ modeling-bench-aitutor/          ← Paper 03 repo
 (function () {
   var KEY = 'research-lab-log-v1';
   var FILTER_KEY = 'research-lab-filter-v1';
+  var EXPORT_KEY = 'research-lab-last-export-v1';
   var VALID_FILTERS = { all: 1, 'paper-1': 1, 'paper-2': 1, 'paper-3': 1, lab: 1 };
+  /* A paper that hasn't been logged in this many days is flagged stale
+     in the pulse block. Matches the "3 weeks on one step is a blocker"
+     instinct from weekly-review.md but with a faster tripwire. */
+  var STALLED_DAYS = 7;
+  /* Data-integrity tripwire: users should export their localStorage
+     journal to git monthly. Older than this and the footer goes amber. */
+  var EXPORT_NAG_DAYS = 30;
   var form = document.getElementById('log-form');
   var list = document.getElementById('log-list');
   var exportBtn = document.getElementById('export-log');
@@ -1280,6 +1292,51 @@ modeling-bench-aitutor/          ← Paper 03 repo
     return days + 'd ago';
   }
 
+  /* ---- Last-export footer ----
+     The journal lives in localStorage. If the user never exports it,
+     clearing browser data wipes the research history. This footer
+     reminds them when the last snapshot was and turns amber after
+     EXPORT_NAG_DAYS days without one. */
+  function renderExportState() {
+    var noteEl = document.getElementById('log-export-note');
+    if (!noteEl) return;
+    var tsEl   = noteEl.querySelector('[data-last-export]');
+    var hintEl = noteEl.querySelector('[data-export-hint]');
+    var stored;
+    try { stored = localStorage.getItem(EXPORT_KEY); } catch (_) { stored = null; }
+    var ts = stored ? parseInt(stored, 10) : 0;
+    var entries = load();
+    if (!ts) {
+      if (!entries.length) {
+        noteEl.classList.remove('warn');
+        if (tsEl)   tsEl.textContent   = 'never';
+        if (hintEl) hintEl.textContent = 'Once you start logging, export a JSON snapshot monthly and commit it.';
+      } else {
+        noteEl.classList.add('warn');
+        if (tsEl)   tsEl.textContent   = 'never';
+        if (hintEl) hintEl.textContent = 'You have ' + entries.length +
+          (entries.length === 1
+            ? ' entry that only lives on this device. Export JSON and commit to git.'
+            : ' entries that only live on this device. Export JSON and commit to git.');
+      }
+      return;
+    }
+    var days = daysSince(ts);
+    var when = new Date(ts).toISOString().slice(0, 10);
+    if (tsEl) tsEl.textContent = when + ' (' + ageLabel(days) + ')';
+    if (days >= EXPORT_NAG_DAYS) {
+      noteEl.classList.add('warn');
+      if (hintEl) hintEl.textContent = 'More than ' + EXPORT_NAG_DAYS + ' days — time for a fresh snapshot.';
+    } else {
+      noteEl.classList.remove('warn');
+      if (hintEl) hintEl.textContent = '';
+    }
+  }
+  function markExported() {
+    try { localStorage.setItem(EXPORT_KEY, String(Date.now())); } catch (_) {}
+    renderExportState();
+  }
+
   /* ---- Paper state ----
      Reads the log and projects a per-paper summary into the three
      masthead pills (.ppill-stage), the paper-card status tags
@@ -1336,6 +1393,11 @@ modeling-bench-aitutor/          ← Paper 03 repo
       /* Paper pulse block */
       var pulse = document.querySelector('.paper-pulse[data-paper-pulse="' + key + '"]');
       if (pulse) {
+        /* Stalled flag: count>0 and last entry is 7+ days old. The empty
+           state IS the warning when count===0, so we don't double-tag it. */
+        var stalledDays = count > 0 ? daysSince(latest.ts) : 0;
+        var isStalled = count > 0 && stalledDays >= STALLED_DAYS;
+        pulse.classList.toggle('stalled', isStalled);
         var dotsHtml = '';
         for (var i = 1; i <= 8; i++) {
           dotsHtml += '<span class="pulse-dot' + (steps[String(i)] ? ' on' : '') +
@@ -1357,7 +1419,10 @@ modeling-bench-aitutor/          ← Paper 03 repo
             '</div>';
           return;
         }
-        var age = ageLabel(daysSince(latest.ts));
+        var staleWarn = isStalled
+          ? '<div class="pulse-stale-warn" role="status">Stale — ' + stalledDays + 'd without an entry</div>'
+          : '';
+        var age = ageLabel(stalledDays);
         var stepStr = latest.step && STEP_NAMES[latest.step]
           ? '§' + latest.step + ' ' + STEP_NAMES[latest.step]
           : 'untagged';
@@ -1373,7 +1438,7 @@ modeling-bench-aitutor/          ← Paper 03 repo
         var quote = whatShown
           ? '<blockquote class="pulse-quote">' + escapeHtml(whatShown) + '</blockquote>'
           : '';
-        pulse.innerHTML = head + dotsBlock + summary + quote;
+        pulse.innerHTML = head + dotsBlock + staleWarn + summary + quote;
       }
     });
   }
@@ -1382,6 +1447,7 @@ modeling-bench-aitutor/          ← Paper 03 repo
     var entries = load().slice().sort(function (a, b) { return b.ts - a.ts; });
     updateCounts(entries);
     renderPaperState();
+    renderExportState();
     var visible = filter === 'all' ? entries : entries.filter(function (e) { return e.paper === filter; });
 
     list.innerHTML = '';
@@ -1475,6 +1541,7 @@ modeling-bench-aitutor/          ← Paper 03 repo
     a.download = 'research-log-' + new Date().toISOString().slice(0, 10) + '.json';
     a.click();
     URL.revokeObjectURL(url);
+    markExported();
   });
 
   importBtn.addEventListener('click', function () {
