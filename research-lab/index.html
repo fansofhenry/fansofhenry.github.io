@@ -1429,6 +1429,32 @@ document.addEventListener('keydown', (ev) => {
   }
 });
 
+/* ---- Accordion expand/collapse all ----
+   Each .paper-body and .pi-body gets a small "Expand all / Collapse
+   all" button injected at the top. This is a JS progressive
+   enhancement — the underlying <details> elements work fine without it. */
+document.querySelectorAll('.paper-body, .pi-body').forEach(function (body) {
+  var details = body.querySelectorAll('details');
+  if (details.length < 2) return;
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'accordion-toggle';
+  btn.setAttribute('aria-pressed', 'false');
+  function sync() {
+    var allOpen = Array.from(details).every(function (d) { return d.open; });
+    btn.textContent = allOpen ? 'Collapse all' : 'Expand all (' + details.length + ')';
+    btn.setAttribute('aria-pressed', allOpen ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function () {
+    var allOpen = Array.from(details).every(function (d) { return d.open; });
+    details.forEach(function (d) { d.open = !allOpen; });
+    sync();
+  });
+  details.forEach(function (d) { d.addEventListener('toggle', sync); });
+  body.insertBefore(btn, body.firstChild);
+  sync();
+});
+
 /* ---- Program arc: compute current week from start date ---- */
 (function computeArc() {
   var START = new Date('2026-04-10T00:00:00');

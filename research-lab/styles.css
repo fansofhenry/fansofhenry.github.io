@@ -902,6 +902,26 @@ details[open].pid summary::after {
 .p2-card details.pd summary { border-left: 3px solid var(--p2-dim); }
 .p3-card details.pd summary { border-left: 3px solid var(--p3-dim); }
 
+/* Expand/Collapse all — JS-injected affordance at the top of each
+   paper and PI body. Tiny, quiet, keyboard-accessible. */
+.accordion-toggle {
+  background: none;
+  border: none;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  cursor: pointer;
+  padding: 2px 0 10px;
+  margin: 0 0 4px;
+  align-self: flex-start;
+  transition: color 0.12s;
+}
+.accordion-toggle:hover { color: var(--ink); }
+.accordion-toggle[aria-pressed="true"] { color: var(--p2); }
+
 /* ============================================================
    11. KANBAN
    ============================================================ */
