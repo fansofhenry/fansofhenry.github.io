@@ -749,6 +749,7 @@
         </label>
         <div class="log-btns">
           <button type="submit">Log entry</button>
+          <button type="button" id="draft-mentor" class="secondary">Draft mentor update</button>
           <button type="button" id="export-log" class="secondary">Export JSON</button>
           <button type="button" id="import-log" class="secondary">Import JSON</button>
         </div>
@@ -763,6 +764,25 @@
       </div>
 
       <ul class="log-feed" id="log-list" aria-live="polite"></ul>
+
+      <!-- Mentor-update draft dialog. Opens from #draft-mentor, pre-fills
+           a markdown skeleton from the last 7 days of log entries grouped
+           by paper. Native <dialog> gives Escape + focus trap for free. -->
+      <dialog id="mentor-dialog" class="mentor-dialog" aria-labelledby="mentor-dialog-title">
+        <form method="dialog" class="mentor-dialog-form">
+          <header class="mentor-dialog-head">
+            <h3 id="mentor-dialog-title">Draft mentor update</h3>
+            <button type="submit" class="mentor-dialog-x" value="close" aria-label="Close draft">&times;</button>
+          </header>
+          <p class="mentor-dialog-lede">Skeleton built from your log entries in the <strong>last 7 days</strong>, grouped by paper. <strong>Edit before sending</strong> — the ask, proposed answer, and next-week bullets are placeholders.</p>
+          <label for="mentor-dialog-text" class="visually-hidden">Generated mentor update markdown</label>
+          <textarea id="mentor-dialog-text" rows="22" spellcheck="false" aria-describedby="mentor-dialog-title"></textarea>
+          <div class="mentor-dialog-btns">
+            <button type="button" id="mentor-copy">Copy markdown</button>
+            <button type="submit" class="secondary" value="close">Close</button>
+          </div>
+        </form>
+      </dialog>
     </section>
 
     <!-- §05 EXPERIMENTS -->
@@ -1480,6 +1500,120 @@ modeling-bench-aitutor/          ← Paper 03 repo
     };
     input.click();
   });
+
+  /* ---- Mentor update draft generator ----
+     Reads the last 7 days of log entries, groups by paper, and emits
+     a markdown skeleton shaped like templates/mentor-update.md. The
+     ask / proposed answer / next-week bullets are intentionally left
+     as placeholders — the log tells you what moved, not what you want
+     to ask. Native <dialog> handles Escape and the focus trap. */
+  var draftBtn     = document.getElementById('draft-mentor');
+  var mentorDialog = document.getElementById('mentor-dialog');
+  var mentorText   = document.getElementById('mentor-dialog-text');
+  var mentorCopy   = document.getElementById('mentor-copy');
+
+  function buildMentorDraft() {
+    var now    = Date.now();
+    var weekMs = 7 * 24 * 60 * 60 * 1000;
+    var cutoff = now - weekMs;
+    var recent = load().filter(function (e) { return e.ts >= cutoff; });
+
+    /* Same start date as the program arc so week numbers agree. */
+    var START = new Date('2026-04-10T00:00:00').getTime();
+    var week  = Math.max(1, Math.min(52, Math.floor((now - START) / weekMs) + 1));
+
+    var groups = { 'paper-1': [], 'paper-2': [], 'paper-3': [], 'lab': [] };
+    recent.forEach(function (e) { if (groups[e.paper]) groups[e.paper].push(e); });
+    Object.keys(groups).forEach(function (k) {
+      groups[k].sort(function (a, b) { return b.ts - a.ts; });
+    });
+
+    function bullet(key, label) {
+      var items = groups[key];
+      if (!items.length) return '- ' + label + ': (no log entries this week)';
+      var latest = items[0];
+      var step = latest.step && STEP_NAMES[latest.step]
+        ? ' (§' + latest.step + ' ' + STEP_NAMES[latest.step] + ')'
+        : '';
+      var more = items.length > 1 ? ' [+' + (items.length - 1) + ' more this week]' : '';
+      return '- ' + label + ': ' + latest.what + step + more;
+    }
+
+    var movedLines = [
+      bullet('paper-1', 'P1'),
+      bullet('paper-2', 'P2'),
+      bullet('paper-3', 'P3')
+    ];
+    if (groups.lab.length) movedLines.push(bullet('lab', 'Lab'));
+
+    var lines = [
+      '**Subject:** [Modeling Bench] Wk' + week + ' — <the one ask in 6 words>',
+      '',
+      'Hi Jeff,',
+      '',
+      '**TL;DR (one sentence):** <what shipped this week and what I need from you, in one line>',
+      '',
+      '**The one ask:** <the single decision I need from you — bold it, bracket it, pick one>',
+      '',
+      '**My proposed answer:** <what I will do unless you push back — lets you reply with a single character if you agree>',
+      '',
+      '**What moved this week:**'
+    ].concat(movedLines).concat([
+      '',
+      '**What I\'m planning next week:**',
+      '- ',
+      '- ',
+      '- ',
+      '',
+      '**Links (no need to read unless you want to):**',
+      '- Latest draft: ',
+      '- Latest experiment: ',
+      '- Latest code: ',
+      '',
+      'Thanks Jeff —',
+      'Henry'
+    ]);
+    return lines.join('\n');
+  }
+
+  if (draftBtn && mentorDialog && mentorText) {
+    draftBtn.addEventListener('click', function () {
+      mentorText.value = buildMentorDraft();
+      if (typeof mentorDialog.showModal === 'function') {
+        mentorDialog.showModal();
+      } else {
+        mentorDialog.setAttribute('open', '');
+      }
+      /* Focus the textarea so the user can immediately start editing;
+         the native focus trap keeps Tab cycling inside the dialog. */
+      setTimeout(function () { mentorText.focus(); }, 0);
+    });
+  }
+
+  if (mentorCopy && mentorText) {
+    function flashCopied(msg) {
+      var original = 'Copy markdown';
+      mentorCopy.textContent = msg;
+      setTimeout(function () { mentorCopy.textContent = original; }, 1500);
+    }
+    mentorCopy.addEventListener('click', function () {
+      mentorText.select();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(mentorText.value).then(
+          function () { flashCopied('Copied'); },
+          function () {
+            var ok = false;
+            try { ok = document.execCommand('copy'); } catch (_) {}
+            flashCopied(ok ? 'Copied' : 'Copy failed');
+          }
+        );
+      } else {
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (_) {}
+        flashCopied(ok ? 'Copied' : 'Copy failed');
+      }
+    });
+  }
 
   applyFilter(filter);
 })();

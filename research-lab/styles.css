@@ -1456,6 +1456,128 @@ footer code { font-size: 11px; }
 }
 
 /* ============================================================
+   18b. MENTOR DIALOG — draft-from-log generator
+   Native <dialog> for the weekly mentor-update draft. Padded panel
+   on top of a dimmed backdrop; monospace textarea for the generated
+   markdown so column widths read cleanly. On narrow viewports the
+   dialog goes full-bleed so the textarea gets real estate to edit in.
+   ============================================================ */
+.mentor-dialog {
+  max-width: 720px;
+  width: calc(100vw - 48px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  color: var(--ink);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+.mentor-dialog::backdrop {
+  background: rgba(20, 18, 14, 0.55);
+}
+[data-theme="dark"] .mentor-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+.mentor-dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 24px 20px;
+  margin: 0;
+}
+.mentor-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.mentor-dialog-head h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.mentor-dialog-x {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--ink-2);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.mentor-dialog-x:hover { background: var(--bg); color: var(--ink); }
+.mentor-dialog-lede {
+  margin: 0;
+  font-size: 0.93rem;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.mentor-dialog textarea {
+  width: 100%;
+  min-height: 340px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--ink);
+  resize: vertical;
+  box-sizing: border-box;
+}
+.mentor-dialog textarea:focus {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+.mentor-dialog-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.mentor-dialog-btns button {
+  padding: 9px 18px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.mentor-dialog-btns button:hover { opacity: 0.85; }
+.mentor-dialog-btns #mentor-copy { background: var(--ink); color: var(--bg); }
+[data-theme="dark"] .mentor-dialog-btns #mentor-copy { background: #e8e3da; color: #131110; }
+.mentor-dialog-btns button.secondary {
+  background: var(--bg);
+  color: var(--ink-2);
+  border: 1px solid var(--border);
+}
+@media (max-width: 640px) {
+  .mentor-dialog {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+  .mentor-dialog-form {
+    height: 100%;
+    padding: 18px 18px 16px;
+  }
+  .mentor-dialog textarea { flex: 1; min-height: 200px; }
+}
+
+/* ============================================================
    19. PRINT
    A PhD committee member or mentor might want a paper copy of the
    lab brief. Hide all chrome, force light colors, open every accordion,
@@ -1475,7 +1597,7 @@ footer code { font-size: 11px; }
   html, body { background: #ffffff !important; color: #000000 !important; }
   .skip-link, .topbar, .sidebar, .mobile-overlay, .sb-foot,
   .arc-section, .accordion-toggle, .log-form, .log-filter,
-  .log-feed .delete { display: none !important; }
+  .log-feed .delete, .mentor-dialog { display: none !important; }
   .layout { display: block; }
   .main { display: block; }
   .main-content { background: #ffffff !important; }
@@ -1511,7 +1633,7 @@ footer code { font-size: 11px; }
   }
   section { page-break-before: auto; }
   h1, h2, h3, h4 { page-break-after: avoid; }
-  .paper-kanban, .workflow-grid, .template-grid, .papers-intro-grid {
+  .workflow-grid, .template-grid, .papers-intro-grid {
     page-break-inside: avoid;
   }
   pre { border: 1px solid #888 !important; }
