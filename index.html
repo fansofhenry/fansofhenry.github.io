@@ -1101,6 +1101,20 @@ html{scroll-behavior:smooth}
 #page-playbook .pb-pane-stat-label{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
 @media(max-width:700px){#page-playbook .pb-pane-stats{grid-template-columns:repeat(2,1fr)}}
 
+/* === Mentor note === warm italic aside at the top of each track pane */
+#page-playbook .pb-mentor{position:relative;margin:0 0 18px;padding:18px 22px 18px 26px;background:rgba(251,191,36,.06);border-left:3px solid var(--yellow);border-radius:0 10px 10px 0;font-family:Georgia,'Times New Roman',serif;font-style:italic;color:var(--tx);font-size:14px;line-height:1.72}
+#page-playbook .pb-mentor::before{content:"— Mentor note";display:block;font-family:-apple-system,'Segoe UI',system-ui,sans-serif;font-style:normal;font-size:10px;letter-spacing:.14em;color:var(--yellow);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+#page-playbook .pb-mentor strong{color:#fff;font-weight:600;font-style:italic}
+#page-playbook .pb-mentor em{font-style:normal;color:var(--dim)}
+#page-playbook .pb-mentor a{color:var(--accent);text-decoration:underline}
+
+/* === When you're stuck === escape hatch under each pane's today card */
+#page-playbook .pb-stuck{margin:0 0 18px;padding:14px 18px;background:var(--s2);border:1px dashed var(--border);border-radius:8px;font-size:12.5px;color:var(--dim);line-height:1.65}
+#page-playbook .pb-stuck-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);font-weight:700;margin-bottom:8px;font-family:-apple-system,system-ui,sans-serif}
+#page-playbook .pb-stuck ul{margin:4px 0 0 18px;padding:0}
+#page-playbook .pb-stuck li{margin-bottom:5px}
+#page-playbook .pb-stuck li strong{color:var(--tx);font-weight:600}
+
 /* Search bar */
 #page-playbook .pb-search-wrap{position:relative;margin-bottom:16px}
 #page-playbook .pb-search{width:100%;padding:11px 14px 11px 38px;border-radius:10px;border:1px solid var(--border);background:var(--s1);color:var(--tx);font-size:13px;outline:none;font-family:inherit;transition:all .15s}
@@ -2641,6 +2655,20 @@ body.mentor-view .sch-share-btn{display:none}
 <!-- ===== CLRS THEORY PANE ===== -->
 <div class="pb-pane" id="pb-clrs">
 
+<div class="pb-mentor">
+CLRS is not about finishing CLRS. It's about being able to re-derive heap sort on a whiteboard the second week of a grad algorithms course, while the rest of the room is still googling <em>"why did I never understand recurrences."</em> That fluency is the thing you are paying tuition for. Every morning at 7am, you are buying it one chapter at a time — <strong>the chapter isn't the point; the fluency is.</strong>
+</div>
+
+<div class="pb-stuck">
+<div class="pb-stuck-label">When you're stuck</div>
+<ul>
+<li><strong>Brain fog on a new proof?</strong> Do 10 min of Anki first. Review drags you back into the material without the activation cost.</li>
+<li><strong>Stuck on a recurrence?</strong> Close the book. Walk to the kitchen. Try it on paper, not in your head.</li>
+<li><strong>Chapter feels too hard?</strong> Drop to the MIT 6.006 lecture for that chapter — 30 min of Demaine beats 60 min of stuck.</li>
+<li><strong>No focus at all?</strong> Add one Anki card from yesterday. That's enough to keep the chain. Close the laptop.</li>
+</ul>
+</div>
+
 <div class="pb-today">
 <div class="pb-today-label">⚡ Today's CLRS Block · 7:00–8:00 AM</div>
 <div class="pb-today-text" id="pbClrsToday">Pick up where you left off in your current chapter.</div>
@@ -2742,6 +2770,20 @@ body.mentor-view .sch-share-btn{display:none}
 
 <!-- ===== CS BUILD PANE ===== -->
 <div class="pb-pane" id="pb-build">
+
+<div class="pb-mentor">
+The build block is where you become dangerous. Reading CLRS teaches you the vocabulary; building from scratch teaches you the grammar. The 5-phase capstone is designed so that by the time you apply to PhD programs, your GitHub tells a story — not <em>"I learned these topics"</em> but <strong>"I built the tools my future lab needs."</strong> Every edge-of-ability hour you log here is a sentence in that story. When you want to stop, stop. When you want to ship broken, ship broken — and write the one-line exit note so tomorrow-you knows where to pick up.
+</div>
+
+<div class="pb-stuck">
+<div class="pb-stuck-label">When you're stuck</div>
+<ul>
+<li><strong>Won't compile at 6:40pm?</strong> Commit the broken state with a message <code>"WIP stuck at X"</code> and close. You will solve it in the shower tomorrow.</li>
+<li><strong>Don't know what to build?</strong> Open yesterday's exit-note and do the "first action" line. Don't improvise at night.</li>
+<li><strong>20 min stuck is learning; 50 min stuck is punishment.</strong> Move the ladder down — simpler subtask — then climb back up tomorrow.</li>
+<li><strong>Can't start at all?</strong> Run yesterday's code, read the output, commit one cosmetic fix. You'll be back in the loop before you notice.</li>
+</ul>
+</div>
 
 <div class="pb-today">
 <div class="pb-today-label">⚡ Today's Build Block · 5:15–6:45 PM · 90 min</div>
@@ -2880,6 +2922,20 @@ body.mentor-view .sch-share-btn{display:none}
 <!-- ===== PHD PREP PANE ===== -->
 <div class="pb-pane" id="pb-phd">
 
+<div class="pb-mentor">
+This is the block that makes the other blocks matter. Papers and outreach are how a PhD hopeful stops being <em>an applicant</em> and becomes <strong>the candidate Dr. Porter has already emailed once</strong>. Thirty minutes a day, a pen in your hand, the same paper you predicted the abstract of — by month nine, the goal is that faculty recognize your name in the inbox. Most of your competition will not do this. You just have to.
+</div>
+
+<div class="pb-stuck">
+<div class="pb-stuck-label">When you're stuck</div>
+<ul>
+<li><strong>Can't read a paper?</strong> Read only abstract + figures + conclusion. That still counts. Log it.</li>
+<li><strong>Blank on the faculty email?</strong> Open the cold-email template in the reference drawer below, fill the two brackets, save as draft, send in the morning. Never draft from zero at night.</li>
+<li><strong>No time today?</strong> Add one Anki card from yesterday's paper. Chain preserved.</li>
+<li><strong>Too tired to think?</strong> Update one row in the faculty tracker. Admin work counts as a kept promise.</li>
+</ul>
+</div>
+
 <div class="pb-today">
 <div class="pb-today-label">⚡ Weekday PhD · inside Build → PhD block (5:15–6:45 PM, final 10 min micro-write) · Lunch Deep 12:00–1:30</div>
 <div class="pb-today-text" id="pbPhdToday">Today's rotation: see weekday focus below</div>
@@ -3017,6 +3073,20 @@ Best,<br>Henry Fan
 <!-- ===== PHD DEEP WRITE PANE ===== -->
 <div class="pb-pane" id="pb-write">
 
+<div class="pb-mentor">
+Sunday morning is the one block where your words are for a reader who isn't you. This is where the week's ideas stop being private — they get shape. Boice's nine-times-more finding is real, but it rests on a secret: the daily writes aren't the product; <strong>this Sunday block is.</strong> Treat it with the seriousness of a deadline even though no one is waiting for the file. Your future advisor is going to read something you write, one day — this block is the rehearsal for that moment.
+</div>
+
+<div class="pb-stuck">
+<div class="pb-stuck-label">When you're stuck</div>
+<ul>
+<li><strong>Blank on Sunday?</strong> Copy the best sentence from this week's micro-writes and polish <em>that one sentence</em>. Then the next. Polish, don't generate.</li>
+<li><strong>Rotation says Research Statement but you hate it today?</strong> Swap to Lit Review week. Sunday's goal is shipping polished prose, not obedience to a rotation.</li>
+<li><strong>Can't hit 400 words?</strong> Stop at 200. Commit with "short today" and pick up next Sunday. Shipped short beats unshipped long.</li>
+<li><strong>Anxious about quality?</strong> Read it out loud. If it sounds like you talking to Jeff, it's good enough to ship.</li>
+</ul>
+</div>
+
 <div class="pb-today">
 <div class="pb-today-label">⚡ Sunday Deep Write · 6:50–8:00 AM (70 min)</div>
 <div class="pb-today-text">Polish the week's micro-writes into 400-700 words of polished prose</div>
@@ -3080,6 +3150,20 @@ Best,<br>Henry Fan
 
 <!-- ===== YOUTUBE PANE ===== -->
 <div class="pb-pane" id="pb-youtube">
+
+<div class="pb-mentor">
+The channel is the one track where your growth is public. Everywhere else, progress is invisible until the acceptance letter or the published paper. Here, week 4 looks like week 4 and week 50 looks like week 50 — both on the same shelf, forever. That's a gift, and it's also the reason the single rule is <strong>ship.</strong> A published 7/10 beats a queued 9/10 every single time. Marisol doesn't need your best video. She needs <em>a</em> video — the one that tells her she's not alone.
+</div>
+
+<div class="pb-stuck">
+<div class="pb-stuck-label">When you're stuck</div>
+<ul>
+<li><strong>Don't know what to script?</strong> Open the first-12-weeks list below. Pick the next unchecked one. Write only the hook sentence and stop.</li>
+<li><strong>Tired to record?</strong> Record anyway — one take, no retakes. Tomorrow you're editing, not recording.</li>
+<li><strong>Edit feels tedious?</strong> Cut one minute of footage. Save. Close. Next session is a fresh edit.</li>
+<li><strong>Thumbnail paralysis?</strong> Use a text-only Canva template. Thumbnails can improve; unpublished videos can't.</li>
+</ul>
+</div>
 
 <div class="pb-today">
 <div class="pb-today-label">⚡ Today's YouTube Block · Tue–Fri 8:30–9:00 PM · Sat 4:00–5:30 PM</div>
@@ -3185,6 +3269,20 @@ Best,<br>Henry Fan
 
 <!-- ===== GRAD CS PANE ===== -->
 <div class="pb-pane" id="pb-grad">
+
+<div class="pb-mentor">
+This pane is the map, not the route. Ten grad-level courses you can self-teach is a menu, not a target. Pick three that touch what you actually want to research — for CS-Ed prep, that's usually <strong>ML + HCI + Algorithms</strong> — and skim the rest as reference. The goal is not to master everything before grad school. The goal is that when a professor drops a term in week two of a grad course, you don't spend lecture three googling it while everyone else is taking notes.
+</div>
+
+<div class="pb-stuck">
+<div class="pb-stuck-label">When you're stuck</div>
+<ul>
+<li><strong>Not actively on a self-study course?</strong> This pane is reference, not daily protocol. Use it on Sunday planning to pick next quarter's focus.</li>
+<li><strong>Too many courses, can't decide?</strong> Pick <em>one</em> and commit for six weeks. You cannot learn distributed systems and compilers in the same month.</li>
+<li><strong>Overwhelmed by the list?</strong> Cross out every course that doesn't serve HCI, ML, or Algorithms. The list is now short.</li>
+<li><strong>Lost the thread between this and your actual PhD work?</strong> Re-read the mentor note above. Remember: map, not route.</li>
+</ul>
+</div>
 
 <div class="pb-today">
 <div class="pb-today-label">⚡ Pre-Grad-School Excellence Track</div>
