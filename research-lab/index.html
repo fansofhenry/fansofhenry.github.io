@@ -45,20 +45,24 @@
 </head>
 <body class="layout">
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <!-- TOPBAR (mobile only) -->
 <div class="topbar">
   <a href="/" class="topbar-back">← Home</a>
-  <span>🔬 Modeling Bench</span>
-  <button id="menuBtn">☰</button>
+  <span><span aria-hidden="true">🔬</span> Modeling Bench</span>
+  <button id="menuBtn" type="button" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+    <span aria-hidden="true">☰</span>
+  </button>
 </div>
 <div class="mobile-overlay" id="overlay"></div>
 
 <!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar" aria-label="Lab navigation">
   <div class="sb-head">
     <a href="/" class="sb-back">← fansofhenry.github.io</a>
     <div class="sb-brand">
-      <span class="sb-icon">🔬</span>
+      <span class="sb-icon" aria-hidden="true">🔬</span>
       <div>
         <div class="sb-name">Modeling Bench</div>
         <div class="sb-ver">v0.1 · Henry Fan</div>
