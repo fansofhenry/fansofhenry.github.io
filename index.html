@@ -2258,9 +2258,13 @@ body.mentor-view .sch-share-btn{display:none}
   </tr>
   <tr>
     <td>9 PM</td>
-    <td colspan="5" rowspan="2"><div class="c c-build h2"><span class="label">🔧 Evening Project Work</span><span class="time">9:00 – 11:00 PM</span><span class="detail">Continue the day's build · execution &gt; novel theory · ship a commit before wind-down</span><span class="science">EXECUTION WINDOW · NOT PEAK COG</span></div></td>
-    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Evening Project Work</span><span class="time">9:00 – 11:00 PM</span><span class="detail">Long-form weekend build</span></div></td>
-    <td rowspan="2"><div class="c c-theory h2"><span class="label">📖 CLRS Retrieval · light work</span><span class="time">9:00 – 11:00 PM</span><span class="detail">9:00–9:30 hardest problem no notes · then light polish / reading</span><span class="science">INCUBATION ★</span></div></td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Build · post-mentor</span><span class="time">9:00 – 11:00 PM</span><span class="detail">Implement what Jeff just suggested. Ship the commitments from the call while fresh.</span><span class="science">EXECUTION ★</span></div></td>
+    <td rowspan="2"><div class="c c-phd h2"><span class="label">🎓 PhD · read + synthesize</span><span class="time">9:00 – 11:00 PM</span><span class="detail">45′ read paper → 45′ synthesize from memory → 3 Anki cards · 10 PM 5′ break</span><span class="science">LOW COG · NOT NOVEL THEORY</span></div></td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Build · mid-week</span><span class="time">9:00 – 11:00 PM</span><span class="detail">90′ code at edge of ability → 30′ polish + commit + README · 10 PM 5′ break</span><span class="science">EXECUTION ★</span></div></td>
+    <td rowspan="2"><div class="c c-phd h2"><span class="label">🎓 PhD · outreach + programs</span><span class="time">9:00 – 11:00 PM</span><span class="detail">1 faculty email OR 1 program deep-dive + faculty tracker update · low cog</span><span class="science">OUTPUT TASK</span></div></td>
+    <td rowspan="2"><div class="c c-phd h2"><span class="label">✍️ Deep Write · polish</span><span class="time">9:00 – 11:00 PM</span><span class="detail">Polish this week's micro-writes. No new material — shape what's there.</span><span class="science">EXECUTION · LOW COG</span></div></td>
+    <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Build · long-form</span><span class="time">9:00 – 11:00 PM</span><span class="detail">Highest-output evening of the week. Capstone project push.</span><span class="science">SECOND-WIND WINDOW</span></div></td>
+    <td rowspan="2"><div class="c c-theory h2"><span class="label">📖 Retrieval · light work</span><span class="time">9:00 – 11:00 PM</span><span class="detail">9:00–9:30 hardest problem no notes · then Sunday commitments prep for Jeff</span><span class="science">INCUBATION ★</span></div></td>
   </tr>
   <tr>
     <td>10 PM</td>
@@ -5468,9 +5472,53 @@ function pbSwitchPane(pane){
 // The single biggest missing learning-science piece. Retrieval practice is
 // the #1 predictor of durable learning (Karpicke & Blunt 2011). This adds
 // a tiny daily queue of cards across CLRS concepts and PhD paper claims.
+// Starter Mastery cards — seeded once on first visit so the queue isn't empty.
+// Covers CLRS Ch 1-3 fundamentals, canonical CS-Ed papers Jeff Anderson works
+// with, core learning-science principles, and the build-edge rule. Each seed
+// card is marked seed:true so Henry can delete or edit without guilt.
+const MASTERY_SEED=[
+  {pane:'clrs',front:'Why is insertion sort Θ(n²) worst case?',back:'Worst case is reverse-sorted input. Each of n elements shifts all prior elements → Σ(1+2+…+n−1) = n(n−1)/2 = Θ(n²).'},
+  {pane:'clrs',front:'Big-O vs Big-Θ vs Big-Ω — what\'s the difference?',back:'O = upper bound (≤). Ω = lower bound (≥). Θ = tight bound (both — same growth rate). Most problems ask for Θ because it\'s the strongest claim.'},
+  {pane:'clrs',front:'State the Master Theorem',back:'T(n) = aT(n/b) + f(n). Compare f(n) to n^(log_b a).\nCase 1: f smaller → Θ(n^log_b a)\nCase 2: equal → Θ(n^log_b a · log n)\nCase 3: f larger → Θ(f(n))'},
+  {pane:'clrs',front:'Merge sort recurrence + solution',back:'T(n) = 2T(n/2) + Θ(n) → Master Theorem Case 2 → Θ(n log n).'},
+  {pane:'clrs',front:'What is a loop invariant?',back:'A property that is (1) true before the loop starts, (2) maintained through each iteration, and (3) useful at termination. Used to prove correctness — the gold standard for algorithm proofs.'},
+  {pane:'clrs',front:'Why analyze asymptotically?',back:'Constant factors and lower-order terms don\'t matter at scale. Large n reveals the true shape of the function. A Θ(n²) solution dominated by a Θ(n log n) one is a fundamental architectural problem, not a constant-factor one.'},
+  {pane:'phd',front:'Porter, Bailey-Lee, Simon (2013) — central finding',back:'Peer instruction in CS1 halved DFW (drop/fail/withdraw) rates. SIGCSE classic for intervention-based equity work — replicable, scalable, empirically grounded.'},
+  {pane:'phd',front:'Margolis & Fisher (2002) — central claim',back:'Unlocking the Clubhouse: women leave CS because of culture (not ability or interest). CMU intervention: change curriculum + community → gender parity in 5 years. Proves culture is the intervenable variable.'},
+  {pane:'phd',front:'Lewis et al. (2016) "I Don\'t Code All Day" — what does it show?',back:'Students who don\'t fit the "24/7 hacker" stereotype disidentify from CS. Belonging is identity-contingent, not interest-contingent. Implication: identity interventions > interest interventions.'},
+  {pane:'phd',front:'Denny, Prather, Becker et al. (2024) CACM — thesis',back:'GenAI is reshaping CS education. Pedagogy must adapt to AI-assisted coding — not block it. Framework for integration, not prohibition. The key 2024-2026 paper.'},
+  {pane:'phd',front:'Karpicke & Blunt (2011) — retrieval practice',back:'Retrieving information from memory produces more durable learning than re-reading, concept mapping, or elaborative study. Testing IS learning — not measurement of learning. The #1 evidence-based technique.'},
+  {pane:'phd',front:'Bjork (1994) — desirable difficulty',back:'Making practice feel harder (interleaving, spacing, varying contexts, retrieval) produces better long-term retention even though short-term performance looks worse. Comfort = illusion of learning.'},
+  {pane:'build',front:'The edge-of-ability rule',back:'If you can\'t describe why you\'re stuck in one sentence → too far over (scope down). If you haven\'t been stuck today → too far under (scope up). Move the ladder.'},
+  {pane:'build',front:'What goes in exit-note.md at the end of a build session?',back:'(1) Git commit message of today\'s work. (2) Tomorrow\'s first action, exact and specific. (3) A new incubation question for sleep to process. Two minutes max.'}
+];
+function pbMasterySeed(){
+  if(!S.mastery||!Array.isArray(S.mastery.cards))return;
+  if(S.mastery.seeded)return;
+  if(S.mastery.cards.length>0){S.mastery.seeded=true;save();return}
+  const today=td();
+  MASTERY_SEED.forEach((c,i)=>{
+    // Stagger dues over the next 3 days so day 1 isn't overwhelming
+    const dueDate=new Date();dueDate.setDate(dueDate.getDate()+Math.floor(i/5));
+    S.mastery.cards.push({
+      id:'m_seed_'+i,
+      pane:c.pane,front:c.front,back:c.back,
+      created:today,
+      lastReviewed:'',
+      due:pbDateKey(dueDate),
+      ease:2.5,
+      interval:1,
+      reps:0,
+      seed:true
+    });
+  });
+  S.mastery.seeded=true;
+  save();
+}
 function pbMasteryInit(){
   if(!S.mastery)S.mastery={cards:[]};
   if(!Array.isArray(S.mastery.cards))S.mastery.cards=[];
+  pbMasterySeed();
 }
 function pbMasteryDueToday(){
   pbMasteryInit();
