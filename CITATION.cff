@@ -12,10 +12,12 @@ authors:
     given-names: "Henry"
     affiliation: "Foothill–De Anza Community College District"
     website: "https://fansofhenry.github.io"
+  # Jeff Anderson is listed as research mentor and second author on every
+  # paper in the program. The CFF schema has no explicit "role" field, so
+  # the relationship is documented here in a comment and on the lab page.
   - family-names: "Anderson"
     given-names: "Jeff"
     affiliation: "Foothill College"
-    role: "Research mentor and second author"
 repository-code: "https://github.com/fansofhenry/fansofhenry.github.io"
 url: "https://fansofhenry.github.io/research-lab/"
 keywords:
