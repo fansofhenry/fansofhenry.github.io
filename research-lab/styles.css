@@ -211,13 +211,23 @@ th { background: var(--bg-2); font-family: var(--sans); font-weight: 600; font-s
 .sb-back {
   display: block;
   font-size: 11px;
-  color: var(--sb-dim);
+  color: var(--sb-fg);
   letter-spacing: 0.04em;
   border-bottom: none;
   margin-bottom: 14px;
   transition: color 0.15s;
+  opacity: 0.75;
 }
-.sb-back:hover { color: var(--sb-fg); }
+.sb-back:hover { opacity: 1; }
+.topbar-back {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--sb-fg);
+  border-bottom: none;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+.topbar-back:hover { opacity: 1; }
 
 .sb-brand {
   display: flex;
