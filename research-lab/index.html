@@ -111,39 +111,40 @@
 <!-- MAIN PANE -->
 <div class="main">
 
-  <!-- MASTHEAD -->
-  <header class="mast">
-    <div class="content">
-      <div class="mast-eyebrow">HENRY FAN / RESEARCH LAB</div>
-      <h1>The Modeling Bench</h1>
-      <p class="mast-sub">Three first-author papers at the intersection of applied linear algebra, hands-on lab pedagogy, and CS education in the age of AI.</p>
-      <div class="mast-meta">
-        <span>Principal author: <strong>Henry Fan</strong></span>
-        <span>Mentor: <strong>Prof. Jeff Anderson</strong>, Foothill College</span>
-        <span>Started: <strong>2026-04-10</strong></span>
-        <span>Venues: <strong>PRIMUS · College Math Journal · J. Computing in Higher Ed</strong></span>
-      </div>
-      <div class="paper-pills">
-        <a href="#paper-01" class="ppill p1">
-          <span class="ppill-num">P01</span>
-          <span class="ppill-name">MER 2.0</span>
-          <span class="ppill-stage">Backlog</span>
-        </a>
-        <a href="#paper-02" class="ppill p2">
-          <span class="ppill-num">P02</span>
-          <span class="ppill-name">Matrices→Networks</span>
-          <span class="ppill-stage">Backlog</span>
-        </a>
-        <a href="#paper-03" class="ppill p3">
-          <span class="ppill-num">P03</span>
-          <span class="ppill-name">AI Tutor</span>
-          <span class="ppill-stage">Backlog</span>
-        </a>
-      </div>
-    </div>
-  </header>
-
   <main class="main-content" id="main-content" tabindex="-1">
+
+    <!-- MASTHEAD (inside <main> so the H1 lives in the main landmark) -->
+    <header class="mast">
+      <div class="content">
+        <div class="mast-eyebrow">HENRY FAN / RESEARCH LAB</div>
+        <h1>The Modeling Bench</h1>
+        <p class="mast-sub">Three first-author papers at the intersection of applied linear algebra, hands-on lab pedagogy, and CS education in the age of AI.</p>
+        <dl class="mast-meta">
+          <div><dt>Principal author</dt><dd>Henry Fan</dd></div>
+          <div><dt>Mentor</dt><dd>Prof. Jeff Anderson, Foothill College</dd></div>
+          <div><dt>Started</dt><dd><time datetime="2026-04-10">2026-04-10</time></dd></div>
+          <div><dt>Venues</dt><dd>PRIMUS · College Math Journal · J. Computing in Higher Ed</dd></div>
+        </dl>
+        <div class="paper-pills" aria-label="Papers in progress">
+          <a href="#paper-01" class="ppill p1">
+            <span class="ppill-num">P01</span>
+            <span class="ppill-name">MER 2.0</span>
+            <span class="ppill-stage">Backlog</span>
+          </a>
+          <a href="#paper-02" class="ppill p2">
+            <span class="ppill-num">P02</span>
+            <span class="ppill-name">Matrices→Networks</span>
+            <span class="ppill-stage">Backlog</span>
+          </a>
+          <a href="#paper-03" class="ppill p3">
+            <span class="ppill-num">P03</span>
+            <span class="ppill-name">AI Tutor</span>
+            <span class="ppill-stage">Backlog</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
     <div class="content">
 
     <!-- §00 MISSION -->

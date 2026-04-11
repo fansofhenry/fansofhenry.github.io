@@ -436,16 +436,27 @@ th { background: var(--bg-2); font-family: var(--sans); font-weight: 600; font-s
   margin: 0 0 20px;
   font-style: italic;
 }
+/* Masthead metadata — semantic <dl> rendered as an inline key/value row. */
 .mast-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 20px;
+  gap: 6px 22px;
   font-family: var(--mono);
   font-size: 12px;
   color: var(--sb-dim);
-  margin-bottom: 28px;
+  margin: 0 0 28px;
 }
-.mast-meta strong { color: #ccc7bc; font-weight: 600; }
+.mast-meta > div { display: inline-flex; gap: 6px; }
+.mast-meta dt {
+  color: var(--sb-dim);
+  font-weight: 400;
+}
+.mast-meta dt::after { content: ':'; margin-right: 2px; }
+.mast-meta dd {
+  margin: 0;
+  color: #ccc7bc;
+  font-weight: 600;
+}
 
 /* paper pills row */
 .paper-pills {
