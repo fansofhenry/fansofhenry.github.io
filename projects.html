@@ -210,9 +210,34 @@
     .grid { grid-template-columns: 1fr; }
     .section-title { font-size: .88rem; }
   }
+
+  /* ── a11y ───────────────────────────────────────── */
+  .skip-link {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--accent); color: #0d1017;
+    padding: 10px 16px; border-radius: 0 0 8px 0;
+    font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+    font-weight: 700; text-decoration: none; z-index: 999;
+  }
+  .skip-link:focus { left: 0; outline: 2px solid var(--tx); outline-offset: 2px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .card:hover { transform: none; }
+  }
 </style>
 </head>
 <body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <!-- ── HERO ─────────────────────────────────────────── -->
 <div class="header">
@@ -232,7 +257,7 @@
 </div>
 
 <!-- ── TABLE OF CONTENTS ────────────────────────────── -->
-<nav class="toc">
+<nav class="toc" aria-label="Sections" id="main-content">
   <a href="#system">⚡ The System</a>
   <a href="#education">🎓 CS Education</a>
   <a href="#research">🔬 Research</a>

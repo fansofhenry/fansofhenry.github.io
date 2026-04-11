@@ -130,12 +130,23 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--bg
 .mantra { font-family: 'Lora', serif; font-size: 11pt; font-style: italic; text-align: center; color: var(--ink2); padding: 20px; margin: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 
 .footer { text-align: center; padding: 40px 20px; font-size: 8pt; color: var(--ink3); border-top: 1px solid var(--line); margin-top: 40px; }
+
+/* a11y */
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-family:'JetBrains Mono',monospace;font-size:10pt;font-weight:700;text-decoration:none;z-index:999}
+.skip-link:focus{left:0;outline:2px solid var(--ink);outline-offset:2px}
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+@media print { .skip-link { display: none !important; } }
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <!-- ===== COVER ===== -->
-<div class="cover">
+<div class="cover" id="main-content">
   <h1>Dream Binder</h1>
   <h2>Horizons of Focus & Five-Year Plan</h2>
   <div class="cover-line"></div>

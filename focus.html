@@ -322,11 +322,21 @@ code:not(pre code){background:var(--bg3);padding:2px 6px;border-radius:4px;color
 .foot .reset{margin-top:12px;display:block;font-size:10px;color:var(--ink4);background:none;border:none;text-decoration:underline;margin-left:auto;margin-right:auto;font-family:'Outfit',sans-serif;cursor:pointer}
 
 [hidden]{display:none!important}
+
+/* ── a11y ───────────────────────────────────────── */
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--bg);padding:10px 16px;border-radius:0 0 8px 0;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;text-decoration:none;z-index:999}
+.skip-link:focus{left:0;outline:2px solid var(--ink);outline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
 
-<nav class="nav">
+<a class="skip-link" href="#top">Skip to main content</a>
+
+<nav class="nav" aria-label="Primary">
   <div class="nav-inner">
     <div class="nav-brand"><a href="index.html">Henry Fan <span>/</span> Focus</a></div>
     <div class="nav-tabs">

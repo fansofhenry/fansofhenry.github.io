@@ -1288,6 +1288,19 @@ body.mentor-view .sch-share-btn{display:none}
 #page-schedule .sch-now-link.secondary{background:transparent;color:var(--dim);border-color:var(--border)}
 #page-schedule .sch-now-link.secondary:hover{background:var(--s2);color:var(--tx);border-color:var(--dim)}
 
+/* a11y — round 2 */
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 <script>(function(){try{if(localStorage.getItem('systemv2_theme')==='light')document.documentElement.classList.add('light')}catch(e){}}());</script>
 </head>
