@@ -13,10 +13,11 @@
   --surface: #ffffff;
   --border:  #dcd8cd;
 
-  /* Ink */
+  /* Ink — three-tier hierarchy on light surfaces.
+     --ink-3 must stay ≥ 4.5:1 against --bg (#faf8f3); #6f6a62 ≈ 5.3:1. */
   --ink:   #1a1814;
   --ink-2: #4a4640;
-  --ink-3: #8a8480;
+  --ink-3: #6f6a62;
 
   /* Paper 01 — Crimson */
   --p1:    #9b1c1c;
@@ -39,7 +40,9 @@
   /* Sidebar */
   --sb-bg:  #131110;
   --sb-fg:  #ccc7bc;
-  --sb-dim: #6a6560;
+  /* --sb-dim is the tertiary-text color on dark surfaces. It must
+     stay above WCAG AA (4.5:1) against --sb-bg; #8a857c measures ~5.1:1. */
+  --sb-dim: #8a857c;
 
   /* Typography */
   --serif: 'DM Serif Display', Georgia, serif;
@@ -62,7 +65,8 @@
 
   --ink:   #e8e3da;
   --ink-2: #a8a39a;
-  --ink-3: #6a6560;
+  /* --ink-3 on dark surfaces must also clear 4.5:1; #948f85 ≈ 5.7:1 on --bg-2. */
+  --ink-3: #948f85;
 
   --p1-bg: #1f0f0f;
   --p1-bd: #5c2020;
@@ -70,6 +74,14 @@
   --p2-bd: #1e3366;
   --p3-bg: #091a11;
   --p3-bd: #14432a;
+
+  /* Accent-as-text remap. The crisp brand tones (#9b1c1c / #1e3a8a / #065f46)
+     are designed for white; paired with the dark accent backgrounds above they
+     drop below 3:1 and become unreadable. Swap them to the -dim variants in
+     dark mode so callout strong, venue tags, and "hours" labels stay legible. */
+  --p1: #fca5a5;
+  --p2: #93b4fb;
+  --p3: #6ee7b7;
 
   /* sidebar stays dark in both modes */
 }
@@ -351,7 +363,7 @@ th { background: var(--bg-2); font-family: var(--sans); font-weight: 600; font-s
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #6a6560;
+  color: var(--sb-dim);
   margin-bottom: 12px;
 }
 .mast h1 {
@@ -376,7 +388,7 @@ th { background: var(--bg-2); font-family: var(--sans); font-weight: 600; font-s
   gap: 6px 20px;
   font-family: var(--mono);
   font-size: 12px;
-  color: #6a6560;
+  color: var(--sb-dim);
   margin-bottom: 28px;
 }
 .mast-meta strong { color: #ccc7bc; font-weight: 600; }
