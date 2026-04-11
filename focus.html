@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus Blocks — Henry Fan</title>
+<meta name="description" content="Execution surface for margin-time blocks: YouTube, grad school prep, PhD research labs.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap">
+<script>
+MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{
+  --bg:#0d1017;--s1:#151923;--s2:#1c2231;--s3:#242c3d;
+  --border:#2a3348;--tx:#e2e5ef;--dim:#7a8299;--dim2:#555d73;
+  --accent:#6b8aff;--accent-g:rgba(107,138,255,.12);
+  --yt:#f87171;--yt-g:rgba(248,113,113,.12);--yt-b:rgba(248,113,113,.4);
+  --grad:#34d399;--grad-g:rgba(52,211,153,.12);--grad-b:rgba(52,211,153,.4);
+  --phd:#a78bfa;--phd-g:rgba(167,139,250,.12);--phd-b:rgba(167,139,250,.4);
+  --math:#fbbf24;--math-g:rgba(251,191,36,.12);
+  --ok:#22c55e;--ok-g:rgba(34,197,94,.14);
+  --r:12px;--rs:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Outfit',-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+code,pre,.mono{font-family:'JetBrains Mono',monospace;font-size:.88em}
+pre{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:14px 16px;overflow-x:auto;color:var(--tx);font-size:12px;line-height:1.55;margin:12px 0}
+code:not(pre code){background:var(--s2);padding:2px 6px;border-radius:4px;color:var(--accent);font-size:.86em}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,16,23,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 16px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:52px;gap:10px}
+.nav-brand{font-weight:700;font-size:15px;letter-spacing:-.02em;white-space:nowrap}
+.nav-brand a{color:var(--tx)}
+.nav-brand span{color:var(--accent)}
+.nav-tabs{display:flex;gap:2px;flex:1;justify-content:center;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{padding:6px 12px;border-radius:var(--rs);font-size:12px;font-weight:500;color:var(--dim);background:none;border:none;white-space:nowrap;flex-shrink:0;transition:all .15s}
+.nav-tab:hover{color:var(--tx);background:var(--s2)}
+.nav-tab.active{color:var(--accent);background:var(--accent-g)}
+.nav-home{padding:6px 10px;border-radius:var(--rs);font-size:12px;color:var(--dim);border:1px solid var(--border);white-space:nowrap}
+.nav-home:hover{color:var(--tx);text-decoration:none;border-color:var(--accent)}
+@media(max-width:600px){.nav-home{display:none}.nav-brand{font-size:14px}}
+
+/* layout */
+.wrap{max-width:1100px;margin:0 auto;padding:24px 20px 120px}
+@media(max-width:600px){.wrap{padding:16px 14px 100px}}
+
+/* === HERO === */
+.hero{margin-bottom:32px;padding:20px 0 8px}
+.hero .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+.hero h1{font-size:clamp(24px,5vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin-bottom:12px}
+.hero h1 em{font-family:'Lora',serif;font-style:italic;font-weight:500;color:var(--dim)}
+.hero .lede{font-size:clamp(14px,2vw,16px);color:var(--dim);max-width:720px;line-height:1.65}
+.hero .lede strong{color:var(--tx);font-weight:600}
+
+/* Current block chooser */
+.chooser{margin-top:24px;padding:20px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
+.chooser-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chooser-q{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.chooser-time{font-size:11px;color:var(--dim2);font-family:'JetBrains Mono',monospace}
+.chooser-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:700px){.chooser-grid{grid-template-columns:1fr}}
+.track-btn{padding:16px 18px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s2);color:var(--tx);text-align:left;transition:all .15s;display:block;text-decoration:none;font-family:inherit}
+.track-btn:hover{text-decoration:none;transform:translateY(-2px)}
+.track-btn.yt{border-color:var(--yt-b)}.track-btn.yt:hover,.track-btn.yt.active{background:var(--yt-g);border-color:var(--yt)}
+.track-btn.grad{border-color:var(--grad-b)}.track-btn.grad:hover,.track-btn.grad.active{background:var(--grad-g);border-color:var(--grad)}
+.track-btn.phd{border-color:var(--phd-b)}.track-btn.phd:hover,.track-btn.phd.active{background:var(--phd-g);border-color:var(--phd)}
+.track-btn .tb-icon{font-size:20px;margin-bottom:4px;display:block}
+.track-btn .tb-name{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.track-btn .tb-sub{font-size:11px;color:var(--dim);margin-top:2px;line-height:1.45}
+.track-btn .tb-active-flag{display:none;font-size:9px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:10px;margin-top:8px;letter-spacing:.08em;font-weight:700}
+.track-btn.active .tb-active-flag{display:inline-block}
+
+/* Last win banner */
+.last-win{margin-top:14px;padding:12px 16px;background:var(--ok-g);border-left:3px solid var(--ok);border-radius:0 var(--rs) var(--rs) 0;font-size:13px;display:none}
+.last-win.show{display:block}
+.last-win .lw-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ok);font-weight:700;margin-bottom:3px}
+.last-win .lw-text{color:var(--tx);font-style:italic;font-family:'Lora',serif}
+.last-win .lw-meta{font-size:11px;color:var(--dim);margin-top:3px}
+
+/* sections */
+.sec{margin-top:56px;scroll-margin-top:72px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;flex-wrap:wrap}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);letter-spacing:.1em}
+.sec h2{font-size:clamp(22px,4vw,30px);font-weight:700;letter-spacing:-.01em;line-height:1.15}
+.sec h2 em{font-family:'Lora',serif;font-style:italic;font-weight:500;color:var(--dim);font-size:.7em}
+.sec .sec-kicker{font-size:14px;color:var(--dim);margin-bottom:22px;max-width:780px;line-height:1.6}
+.sec-yt h2 span{color:#fca5a5}
+.sec-grad h2 span{color:#6ee7b7}
+.sec-phd h2 span{color:#c4b5fd}
+
+/* panels */
+.panel{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;margin-bottom:16px}
+@media(max-width:600px){.panel{padding:18px 18px}}
+.panel h3{font-size:17px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.panel h4{font-size:13px;font-weight:600;margin:16px 0 6px;color:var(--tx)}
+.panel h4:first-child{margin-top:0}
+.panel p{color:var(--dim);margin-bottom:10px;font-size:14px}
+.panel p strong{color:var(--tx);font-weight:600}
+.panel ul,.panel ol{margin:6px 0 12px 22px;color:var(--dim);font-size:14px}
+.panel li{margin-bottom:5px;line-height:1.6}
+.panel li strong{color:var(--tx);font-weight:600}
+.panel-kicker{font-size:12px;color:var(--dim);margin-bottom:14px;font-style:italic;font-family:'Lora',serif}
+
+/* action-first panel */
+.panel.action{background:linear-gradient(180deg,var(--s1) 0%,var(--s2) 100%);border-left:3px solid var(--accent)}
+.panel.action h3{color:var(--accent)}
+
+/* session block */
+.session{margin:12px 0;padding:14px 18px;background:var(--s2);border:1px dashed var(--border);border-radius:var(--rs)}
+.session-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-bottom:8px}
+.session ol{margin-left:18px;font-size:13.5px}
+.session ol li{margin-bottom:5px}
+.session strong.default{color:var(--accent)}
+
+/* done button + last wins log */
+.done-row{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.done-btn{padding:10px 18px;background:var(--accent);color:#fff;border:none;border-radius:var(--rs);font-size:13px;font-weight:600;letter-spacing:.02em;transition:all .15s}
+.done-btn:hover{opacity:.9;transform:translateY(-1px)}
+.done-btn:active{transform:translateY(0)}
+.log-toggle{background:none;border:none;color:var(--dim);font-size:11px;padding:6px 0;text-decoration:underline;letter-spacing:.04em}
+.log-toggle:hover{color:var(--tx)}
+.log-list{display:none;margin-top:12px;padding:12px 16px;background:var(--s2);border-radius:var(--rs);font-size:12px}
+.log-list.show{display:block}
+.log-list .log-empty{color:var(--dim2);font-style:italic}
+.log-list .log-item{padding:6px 0;border-bottom:1px solid var(--border);color:var(--dim)}
+.log-list .log-item:last-child{border-bottom:none}
+.log-list .log-item .li-text{color:var(--tx);font-family:'Lora',serif;font-style:italic}
+.log-list .log-item .li-meta{font-size:10px;color:var(--dim2);margin-top:2px;font-family:'JetBrains Mono',monospace}
+
+/* milestone ladder — checkable */
+.ladder{margin:14px 0}
+.rung{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border);cursor:pointer;user-select:none;transition:opacity .15s}
+.rung:last-child{border-bottom:none}
+.rung:hover{background:var(--s2);margin:0 -12px;padding-left:12px;padding-right:12px;border-radius:var(--rs);border-bottom:1px dashed transparent}
+.rung-check{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--dim);color:transparent;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all .15s}
+.rung.done .rung-check{background:var(--ok);border-color:var(--ok);color:#fff}
+.rung.done .rung-title,.rung.done .rung-desc{color:var(--dim2);text-decoration:line-through;text-decoration-color:var(--dim2)}
+.rung-body{flex:1}
+.rung-title{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:2px}
+.rung-desc{font-size:13px;color:var(--dim);line-height:1.5}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;margin:10px -2px 14px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+.tbl th{text-align:left;padding:8px 10px;background:var(--s2);color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-bottom:1px solid var(--border)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--dim);vertical-align:top}
+.tbl td strong{color:var(--tx)}
+
+/* lab card */
+.lab{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--phd);border-radius:var(--r);padding:26px 28px;margin-bottom:22px}
+@media(max-width:600px){.lab{padding:20px 18px}}
+.lab .lab-n{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--phd);letter-spacing:.12em;font-weight:600}
+.lab h3{font-size:clamp(18px,3vw,22px);font-weight:700;margin:4px 0 4px;letter-spacing:-.01em;line-height:1.2}
+.lab .lab-tag{display:inline-block;padding:3px 10px;background:var(--math-g);color:var(--math);border-radius:12px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.lab h4{font-size:11px;font-weight:700;margin:20px 0 8px;letter-spacing:.1em;text-transform:uppercase;color:var(--phd)}
+.lab p,.lab li{font-size:14px;color:var(--dim);line-height:1.7}
+.lab p{margin-bottom:10px}
+.lab p strong,.lab li strong{color:var(--tx);font-weight:600}
+.lab ul,.lab ol{margin:6px 0 12px 22px}
+.lab li{margin-bottom:5px}
+.math-box{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:12px 16px;margin:12px 0;font-size:13.5px;overflow-x:auto}
+.math-box .mb-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--math);font-weight:600;margin-bottom:4px}
+
+/* week selector + week cards */
+.week-tabs{display:flex;gap:6px;margin:8px 0 14px;flex-wrap:wrap}
+.week-tab{padding:8px 14px;border-radius:var(--rs);background:var(--s2);color:var(--dim);border:1px solid var(--border);font-size:12px;font-weight:600;transition:all .15s;letter-spacing:.02em}
+.week-tab:hover{color:var(--tx);border-color:var(--dim)}
+.week-tab.active{background:var(--phd-g);color:var(--phd);border-color:var(--phd-b)}
+.weeks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:820px){.weeks{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.weeks{grid-template-columns:1fr}}
+.week{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:14px;transition:all .2s;opacity:.45}
+.week.current{opacity:1;border-color:var(--phd-b);background:var(--phd-g)}
+.week-n{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--phd);font-weight:700;margin-bottom:5px}
+.week-title{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:5px;line-height:1.35}
+.week-body{font-size:12px;color:var(--dim);line-height:1.55}
+
+/* deliverable pills — checkable */
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.pill{padding:6px 12px;background:var(--s3);color:var(--dim);border-radius:14px;font-size:11px;font-family:'JetBrains Mono',monospace;border:1px solid transparent;user-select:none;transition:all .15s}
+.pill:hover{border-color:var(--dim)}
+.pill.done{background:var(--ok-g);color:var(--ok);border-color:var(--ok);text-decoration:line-through;text-decoration-color:rgba(34,197,94,.5)}
+
+/* footer */
+.foot{margin-top:70px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--dim2);text-align:center}
+.foot a{color:var(--dim)}
+.foot a:hover{color:var(--accent)}
+.foot .reset{margin-top:10px;display:block;font-size:10px;color:var(--dim2);background:none;border:none;text-decoration:underline;margin-left:auto;margin-right:auto}
+
+/* utility */
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><a href="index.html">Henry Fan <span>/</span> Focus</a></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-target="top">Now</button>
+      <button class="nav-tab" data-target="youtube">YouTube</button>
+      <button class="nav-tab" data-target="grad">Grad Prep</button>
+      <button class="nav-tab" data-target="labs">Labs</button>
+    </div>
+    <a class="nav-home" href="index.html">← The System</a>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+
+<!-- ============================================================== -->
+<!-- HERO                                                             -->
+<!-- ============================================================== -->
+<div class="hero">
+  <div class="eyebrow">Margin-time playbook · tap a block to begin</div>
+  <h1>When you sit down in a margin block,<br><em>this page tells you what to advance.</em></h1>
+  <p class="lede">
+    The Schedule says <strong>when</strong>. This page says <strong>what</strong>.
+    Tap the block you're in right now — the page remembers it, jumps you to the action, and logs your win when you're done.
+  </p>
+
+  <!-- Dynamic chooser -->
+  <div class="chooser" id="chooser">
+    <div class="chooser-head">
+      <div class="chooser-q">Which block are you in right now?</div>
+      <div class="chooser-time" id="nowTime">—</div>
+    </div>
+    <div class="chooser-grid">
+      <button class="track-btn yt" data-track="yt" data-section="youtube">
+        <span class="tb-icon">🎥</span>
+        <span class="tb-name">YouTube</span>
+        <div class="tb-sub">Animate a CS concept · ship a beat</div>
+        <span class="tb-active-flag">ACTIVE</span>
+      </button>
+      <button class="track-btn grad" data-track="grad" data-section="grad">
+        <span class="tb-icon">🎓</span>
+        <span class="tb-name">Grad Prep</span>
+        <div class="tb-sub">Read · derive · advance one program row</div>
+        <span class="tb-active-flag">ACTIVE</span>
+      </button>
+      <button class="track-btn phd" data-track="phd" data-section="labs">
+        <span class="tb-icon">🔬</span>
+        <span class="tb-name">PhD Research</span>
+        <div class="tb-sub">Derive · code · commit one lab week</div>
+        <span class="tb-active-flag">ACTIVE</span>
+      </button>
+    </div>
+    <!-- Most recent win from any track -->
+    <div class="last-win" id="lastWinBanner">
+      <div class="lw-label">Last win</div>
+      <div class="lw-text" id="lwText">—</div>
+      <div class="lw-meta" id="lwMeta">—</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================== -->
+<!-- YOUTUBE                                                          -->
+<!-- ============================================================== -->
+<section class="sec sec-yt" id="youtube">
+  <div class="sec-head"><span class="sec-num">TRACK 01</span></div>
+  <h2><span>YouTube Channel</span> — <em>animate the concepts, model the process</em></h2>
+  <p class="sec-kicker">A channel that animates CS ideas AND the metacognitive moves of a student engaging in highly effective project-based learning. The animations are the hook; the PBL voice is the moat.</p>
+
+  <!-- ACTION FIRST -->
+  <div class="panel action">
+    <h3>Do this now · 45 min</h3>
+    <p class="panel-kicker">Pick one. Don't try to do two — decision fatigue wins every time.</p>
+    <div class="session">
+      <div class="session-label">Default → fallback order</div>
+      <ol>
+        <li><strong class="default">Script beat</strong> — open the active script; advance one of <code>hook → wrong intuition → derivation → animation → artifact</code>. Stop when that beat reads clean out loud.</li>
+        <li><strong>Manim scene</strong> — one animation for the active script. One scene, &lt;60 sec runtime.</li>
+        <li><strong>Record take</strong> — one recorded pass. No re-recording today; you'll hate it less after sleep.</li>
+        <li><strong>Edit pass</strong> — 1 minute of footage, cuts locked.</li>
+        <li><strong>Ship</strong> — render, thumbnail, description, upload unlisted to Jeff, then public.</li>
+      </ol>
+    </div>
+    <div class="done-row">
+      <button class="done-btn" data-track="yt">✓ Done for today</button>
+      <button class="log-toggle" data-log="yt">last wins</button>
+    </div>
+    <div class="log-list" id="log-yt"><div class="log-empty">No wins logged yet. Close a session and tap ✓ Done for today.</div></div>
+  </div>
+
+  <!-- Positioning -->
+  <div class="panel">
+    <h3>Positioning &amp; voice</h3>
+    <p class="panel-kicker">Answer this in one sentence before the first video ships.</p>
+    <p><strong>Working tagline:</strong> "I animate CS concepts while thinking out loud about how I'd actually learn them — so you can steal the process, not just the answer."</p>
+    <p><strong>Who it's for:</strong> community-college CS students, career-switchers, and students who've "taken the class" but don't trust their understanding. Not for people who already have the concept — for the person still looking for a door in.</p>
+    <p><strong>What makes it not generic:</strong> most animated CS channels show the <em>what</em>. This one shows the <em>how I got here</em> — the derivation, the wrong turn, the checkpoint question, the artifact at the end. That's the project-based-learning DNA.</p>
+    <p><strong>Voice rules:</strong></p>
+    <ul>
+      <li><strong>Derive before compute.</strong> Never drop a formula without showing where it comes from.</li>
+      <li><strong>Build before import.</strong> If a library does it, first show the 10-line version you'd write.</li>
+      <li><strong>Name the confusion.</strong> Say the wrong intuition out loud before correcting it.</li>
+      <li><strong>Close with an artifact.</strong> Every video ends with a thing the viewer can run, fork, or open.</li>
+    </ul>
+  </div>
+
+  <!-- Milestone ladder: checkable -->
+  <div class="panel">
+    <h3>Milestone ladder — tap to mark done</h3>
+    <p class="panel-kicker">Each rung is small enough to finish in 1–3 margin blocks. State saves automatically.</p>
+    <div class="ladder" data-ladder="yt">
+      <div class="rung" data-rung="yt-0"><div class="rung-check">✓</div><div class="rung-body">
+        <div class="rung-title">Channel identity locked</div>
+        <div class="rung-desc">Channel name, handle, one-line description, avatar, banner. Write it in a doc you can't edit after Friday. Kills bikeshedding.</div>
+      </div></div>
+      <div class="rung" data-rung="yt-1"><div class="rung-check">✓</div><div class="rung-body">
+        <div class="rung-title">Tooling spike (one evening, no content)</div>
+        <div class="rung-desc">Install Manim Community Edition, get one example scene rendering. OBS for screen+webcam. Mic level. Defaults everywhere — don't spend two weeks on presets.</div>
+      </div></div>
+      <div class="rung" data-rung="yt-2"><div class="rung-check">✓</div><div class="rung-body">
+        <div class="rung-title">Script template + first script</div>
+        <div class="rung-desc">Five-beat template: <code>hook → wrong intuition → derivation → animation → artifact/CTA</code>. First topic: <em>"Why matrix multiplication is row × column — and why we define it that way."</em> Doubles as scaffolding for Lab 1.</div>
+      </div></div>
+      <div class="rung" data-rung="yt-3"><div class="rung-check">✓</div><div class="rung-body">
+        <div class="rung-title">Ship video 1 — ugly and shipped beats pretty and queued</div>
+        <div class="rung-desc">Record, rough cut, no b-roll drama, upload unlisted first. Send to Jeff for one round. Then publish.</div>
+      </div></div>
+      <div class="rung" data-rung="yt-4"><div class="rung-check">✓</div><div class="rung-body">
+        <div class="rung-title">Batch scripts 2–5</div>
+        <div class="rung-desc">Batching scripts is the single biggest velocity unlock. Each video after the first should need &lt;2 blocks of scripting.</div>
+      </div></div>
+      <div class="rung" data-rung="yt-5"><div class="rung-check">✓</div><div class="rung-body">
+        <div class="rung-title">Series 1 complete — "Seeing Linear Algebra" (10 videos)</div>
+        <div class="rung-desc">Ten 3–5 min videos, one LA concept each, each ending with a link to the matching lab below. Labs + videos become the same product: watch, then do.</div>
+      </div></div>
+      <div class="rung" data-rung="yt-6"><div class="rung-check">✓</div><div class="rung-body">
+        <div class="rung-title">Quarterly review — iterate voice</div>
+        <div class="rung-desc">At 10 videos, read watch-time curves honestly. Keep what worked. Kill the first 20 seconds of everything that lost people.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- Content bank -->
+  <div class="panel">
+    <h3>Series 1 content bank — "Seeing Linear Algebra"</h3>
+    <p class="panel-kicker">Ten topics feeding directly into the three labs in Track 03.</p>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>#</th><th>Working title</th><th>Core visual</th><th>Feeds lab</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Why matrix multiplication is row × column</strong></td><td>Basis vectors under a linear map, decomposed as dot products</td><td>Morphs</td></tr>
+        <tr><td>2</td><td><strong>An image is a matrix (and every filter is a function of it)</strong></td><td>Grayscale Lena beside a printed grid of numbers</td><td>All three</td></tr>
+        <tr><td>3</td><td><strong>Homogeneous coordinates, or: why we add a fake dimension</strong></td><td>2D translation becoming a 3×3 product</td><td>Morphs</td></tr>
+        <tr><td>4</td><td><strong>Forward vs. inverse warping — and the bug that teaches you which</strong></td><td>Rotated image with holes vs. clean inverse-warped version</td><td>Morphs</td></tr>
+        <tr><td>5</td><td><strong>What PCA actually does to a cloud of points</strong></td><td>2D Gaussian blob; axes rotating to principal directions</td><td>Eigenfaces, USPS</td></tr>
+        <tr><td>6</td><td><strong>Eigenvectors without the textbook</strong></td><td>A transformation whose action leaves certain arrows fixed</td><td>Eigenfaces</td></tr>
+        <tr><td>7</td><td><strong>The covariance trick — $X^\top X$ vs. $XX^\top$</strong></td><td>Tall-skinny vs. short-fat data matrix and their eigenproblems</td><td>Eigenfaces</td></tr>
+        <tr><td>8</td><td><strong>SVD as three honest steps: rotate, stretch, rotate</strong></td><td>Unit circle → ellipse → rotated ellipse</td><td>Eigenfaces, USPS</td></tr>
+        <tr><td>9</td><td><strong>Nearest neighbors, or: a 256-dim digit is still a point</strong></td><td>Flatten a 16×16 digit, plot its 2D PCA projection</td><td>USPS</td></tr>
+        <tr><td>10</td><td><strong>Confusion matrices, read like a chessboard</strong></td><td>10×10 grid; diagonals are wins; off-diagonals tell a story</td><td>USPS</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+
+<!-- ============================================================== -->
+<!-- GRAD SCHOOL PREP                                                 -->
+<!-- ============================================================== -->
+<section class="sec sec-grad" id="grad">
+  <div class="sec-head"><span class="sec-num">TRACK 02</span></div>
+  <h2><span>Grad School Prep</span> — <em>don't drown in the first semester</em></h2>
+  <p class="sec-kicker">Two jobs: pick the right programs, and arrive with enough technical fluency that coursework is learning, not survival. The PhD Tracker tab holds the program database; this page holds the <strong>study curriculum</strong> and the <strong>framework</strong> for deciding what rows go in that database.</p>
+
+  <!-- ACTION FIRST -->
+  <div class="panel action">
+    <h3>Do this now · 45–60 min</h3>
+    <p class="panel-kicker">Pick one. The default is always Read mode unless the rest are blocked.</p>
+    <div class="session">
+      <div class="session-label">Default → fallback order</div>
+      <ol>
+        <li><strong class="default">Read mode</strong> — open the day's chapter. Pen in hand. If you can't re-derive the key theorem on paper after 10 min, loop back.</li>
+        <li><strong>Exercise mode</strong> — 3 problems from the chapter. Not "read the solution" — finish or fail honestly.</li>
+        <li><strong>Program mode</strong> — advance one program row: read one faculty's last paper, update the fit narrative, or draft one outreach email.</li>
+        <li><strong>Anki mode</strong> — 3 cards per paper read this week. Clear the queue.</li>
+      </ol>
+    </div>
+    <div class="done-row">
+      <button class="done-btn" data-track="grad">✓ Done for today</button>
+      <button class="log-toggle" data-log="grad">last wins</button>
+    </div>
+    <div class="log-list" id="log-grad"><div class="log-empty">No wins logged yet.</div></div>
+  </div>
+
+  <!-- Program research framework -->
+  <div class="panel">
+    <h3>Program research framework</h3>
+    <p class="panel-kicker">Because "apply to good schools" is not a plan.</p>
+    <h4>Target split</h4>
+    <p>Build a list of <strong>8–12 programs</strong>, roughly 3 reach / 5 match / 3 safety. Two parallel tracks:</p>
+    <ul>
+      <li><strong>MS in CS (coursework or thesis):</strong> SJSU, SFSU, SCU, UC Davis, UC Irvine, Oregon State, Georgia Tech OMSCS, UIUC MCS, UT Austin MSCSO. Strong technical floor; lower stakes on "did you publish yet?"</li>
+      <li><strong>PhD in CS Education / Learning Sciences / HCI:</strong> what the PhD Tracker already targets. Candidate institutions to investigate (verify deadlines and research fit on the program site — these shift yearly): UW (Info School, CSE), Berkeley (EECS / GSE), Stanford (GSE, CS HCI), CMU (HCII, METALS), Michigan (EECS, UMSI), Georgia Tech (HCC), UC San Diego (Cog Sci, CSE/EdS), UC Irvine (Informatics), Indiana (Learning Sciences), Northwestern (Learning Sciences), Penn (GSE), Utah, NCSU.</li>
+    </ul>
+    <h4>For each program, capture 5 things</h4>
+    <ol>
+      <li><strong>3–5 faculty with live funding</strong> in your area. Read their last 3 papers. If you can't write one sentence about why the work matters, they don't go on the list.</li>
+      <li><strong>Admissions surface:</strong> deadline, GRE policy, required materials, funding model (TA/RA/fellowship), typical cohort size.</li>
+      <li><strong>Fit narrative:</strong> one paragraph answering "why this program, not a peer in the same tier." This is the seed of your SoP paragraph for that school.</li>
+      <li><strong>Contact strategy:</strong> who to email when (early fall for PhD, not a week before the deadline). What single question you'll ask that a 5-second skim of their site won't already answer.</li>
+      <li><strong>Red flags:</strong> PI not taking students, lab wound down, group moved institutions. Check recent publication activity; an inactive lab is worse than a rejection.</li>
+    </ol>
+    <h4>Where to verify</h4>
+    <ul>
+      <li><strong>CSRankings.org</strong> — research-area-weighted rankings; filter by HCI, software engineering education, etc.</li>
+      <li><strong>Program website</strong> — the one authoritative source for deadlines. Google is wrong half the time.</li>
+      <li><strong>Google Scholar profiles</strong> of target PIs. Sort by year. Note co-authors — often students you could email later.</li>
+      <li><strong>The GradCafe</strong> — last-year admit timing, funding signals, decision patterns. Noisy but useful.</li>
+      <li><strong>Twitter/Bluesky</strong> — many HCI/CS-Ed PIs announce openings there months before the deadline.</li>
+    </ul>
+  </div>
+
+  <!-- Self-directed curriculum -->
+  <div class="panel">
+    <h3>Self-directed core curriculum — survive grad courses</h3>
+    <p class="panel-kicker">By the time you sit in your first grad class, nothing in the syllabus should be a true first exposure. 9–12 month plan at ~1 hour/day of focused study. Feeds the 8h CS Theory + 6.5h CS Build blocks on the Schedule.</p>
+
+    <h4>Five pillars — open one book first per pillar</h4>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Pillar</th><th>Primary text</th><th>Why this one</th><th>Minimum dose</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Linear algebra</strong></td>
+          <td>Strang, <em>Introduction to Linear Algebra</em> (6e) + MIT 18.06 lectures</td>
+          <td>Teaches LA as four subspaces + a story about $A\mathbf{x}=\mathbf{b}$. Axler is purer but less useful as a first grad-course refresher.</td>
+          <td>Ch. 1–7, SVD and eigendecomposition. Feeds Labs 2 &amp; 3.</td>
+        </tr>
+        <tr>
+          <td><strong>Probability &amp; stats</strong></td>
+          <td>Blitzstein &amp; Hwang, <em>Intro to Probability</em> + Wasserman, <em>All of Statistics</em></td>
+          <td>Blitzstein for intuition; Wasserman is the pocket reference you'll open during every grad ML course.</td>
+          <td>Blitzstein Ch. 1–8, then Wasserman Ch. 1–10. Exercises matter — probability is not a spectator sport.</td>
+        </tr>
+        <tr>
+          <td><strong>Algorithms</strong></td>
+          <td>CLRS, <em>Introduction to Algorithms</em> (4e)</td>
+          <td>Grad algorithms = CLRS + randomized/approximation on top. Know the core cold.</td>
+          <td>Parts I–III (growth, divide-and-conquer, sorting), graphs, DP. Skip advanced data structures on first pass.</td>
+        </tr>
+        <tr>
+          <td><strong>Systems</strong></td>
+          <td>OSTEP (free online) for OS, then Bryant &amp; O'Hallaron, <em>CS:APP</em></td>
+          <td>OSTEP is friendly and surprisingly deep. CS:APP makes all systems courses stop feeling random.</td>
+          <td>OSTEP: one chapter each from virtualization, concurrency, persistence. CS:APP: 1–3, 6, 9.</td>
+        </tr>
+        <tr>
+          <td><strong>Machine learning</strong></td>
+          <td>Hastie, Tibshirani &amp; Friedman, <em>Elements of Statistical Learning</em> (free online)</td>
+          <td>The "adult book" of ML. Uses USPS digits as a running example — Lab 3 literally comes from Ch. 13.</td>
+          <td>Ch. 1–4, 7, 13, 14. Read once as a tourist, then redo the math in the chapters your labs touch.</td>
+        </tr>
+      </tbody>
+    </table></div>
+
+    <h4>Supplementary — CS Ed / Learning Sciences / HCI</h4>
+    <p>Because the PhD target is CS-Ed adjacent, the technical pillars aren't enough. Add a second stream while the first runs:</p>
+    <ul>
+      <li><strong>Sawyer (ed.), <em>The Cambridge Handbook of the Learning Sciences</em>.</strong> The field's canonical survey. One chapter per week.</li>
+      <li><strong>Fincher &amp; Robins (eds.), <em>The Cambridge Handbook of Computing Education Research</em>.</strong> Essential for reading your target faculty's papers.</li>
+      <li><strong>Creswell, <em>Research Design</em>.</strong> Qualitative, quantitative, mixed-methods — vocabulary to read CS Ed papers critically.</li>
+      <li><strong>Running paper diet:</strong> 1–2 papers/week logged in the PhD Tracker tab. Target venues: ICER, SIGCSE, CHI, L@S, JLS, Cognition and Instruction.</li>
+    </ul>
+
+    <h4>Weekly cadence</h4>
+    <div class="weeks">
+      <div class="week current"><div class="week-n">MON–TUE</div><div class="week-title">LA + Probability</div><div class="week-body">One chapter's reading + 3–5 exercises. Foundation everything else leans on.</div></div>
+      <div class="week current"><div class="week-n">WED</div><div class="week-title">Algorithms</div><div class="week-body">One CLRS section + implement from scratch in Python (not from memory of a library).</div></div>
+      <div class="week current"><div class="week-n">THU</div><div class="week-title">Systems</div><div class="week-body">OSTEP / CS:APP chapter or a hands-on project (pthread, cache-aware matmul, tiny shell).</div></div>
+      <div class="week current"><div class="week-n">FRI–SAT</div><div class="week-title">ML + paper</div><div class="week-body">ESL section + one paper from target-faculty reading list. Anki: 3 cards per paper.</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================== -->
+<!-- PHD LABS                                                         -->
+<!-- ============================================================== -->
+<section class="sec sec-phd" id="labs">
+  <div class="sec-head"><span class="sec-num">TRACK 03</span></div>
+  <h2><span>PhD Research Labs</span> — <em>three labs that braid linear algebra into real artifacts</em></h2>
+  <p class="sec-kicker">Three labs, designed to feed the <a href="research-lab/">Modeling Bench</a> with student-facing material and to seed content for the YouTube series. Same principle for each: <strong>derive the math, build the method from scratch, then benchmark against a library.</strong> Each lab is scoped as four 45-minute margin blocks, ending in a committable artifact.</p>
+
+  <!-- ACTION FIRST -->
+  <div class="panel action">
+    <h3>Do this now · 45 min</h3>
+    <p class="panel-kicker">Pick the lab + week you're currently in (set it on each lab below). During a block, do only that week's task.</p>
+    <div class="session">
+      <div class="session-label">Within any week's block</div>
+      <ol>
+        <li><strong class="default">Derive</strong> — write the week's key equation on paper, from memory if you can. If you can't, rebuild it from the textbook.</li>
+        <li><strong>Code</strong> — implement the week's task in a notebook. NumPy primitives only for the core step — no <code>sklearn</code> shortcuts.</li>
+        <li><strong>Verify</strong> — compare to the library (<code>np.linalg.svd</code>, <code>sklearn.decomposition.PCA</code>). Confirm agreement up to sign/ordering.</li>
+        <li><strong>Commit</strong> — push the notebook. One sentence in the commit: <em>what you learned</em>, not what you did.</li>
+      </ol>
+    </div>
+    <div class="done-row">
+      <button class="done-btn" data-track="phd">✓ Done for today</button>
+      <button class="log-toggle" data-log="phd">last wins</button>
+    </div>
+    <div class="log-list" id="log-phd"><div class="log-empty">No wins logged yet.</div></div>
+  </div>
+
+  <!-- ============ LAB 1 ============ -->
+  <div class="lab" id="lab-morphs">
+    <div class="lab-n">LAB 01 · 4 × 45 MIN</div>
+    <h3>Morphs &amp; Warps — images as functions you multiply</h3>
+    <div class="lab-tag">Linear algebra · Affine / projective maps · Interpolation</div>
+
+    <h4>Current week</h4>
+    <div class="week-tabs" data-week-for="morphs">
+      <button class="week-tab" data-w="1">Week 1</button>
+      <button class="week-tab" data-w="2">Week 2</button>
+      <button class="week-tab" data-w="3">Week 3</button>
+      <button class="week-tab" data-w="4">Week 4</button>
+    </div>
+
+    <div class="weeks" data-weeks-for="morphs">
+      <div class="week" data-w="1"><div class="week-n">WEEK 1</div><div class="week-title">Linear maps on a grid</div><div class="week-body">Build a 50×50 test grid image. Implement rotation, scaling, shear as $2\times 2$ matrices on pixel coordinates. Forward-warp naively, observe the holes. One-paragraph reflection on <em>why</em>.</div></div>
+      <div class="week" data-w="2"><div class="week-n">WEEK 2</div><div class="week-title">Homogeneous coords + inverse warp</div><div class="week-body">Rewrite every transform as a $3\times 3$. Implement inverse warping with bilinear interpolation. Verify by warping and un-warping — should recover original to sub-pixel error.</div></div>
+      <div class="week" data-w="3"><div class="week-n">WEEK 3</div><div class="week-title">Correspondence + Delaunay</div><div class="week-body">Pick two images. Annotate 20–40 corresponding landmarks. Delaunay-triangulate. Compute per-triangle affine warps toward an intermediate average mesh.</div></div>
+      <div class="week" data-w="4"><div class="week-n">WEEK 4</div><div class="week-title">Morph = warp + cross-dissolve</div><div class="week-body">At $t \in [0,1]$, warp both images toward the shape at $t$ and alpha-blend by $(1-t)$ and $t$. Render 30 frames. Export MP4. 300-word reflection.</div></div>
+    </div>
+
+    <h4>Motivation</h4>
+    <p>Every student has seen a rotated image; every student has computed a matrix-vector product. Almost none of them have connected the two. Lab 1 makes the connection viscerally: a warp is a matrix, and a morph is a warp plus a cross-dissolve. The lab produces a short face-morph animation — the same visual trick from early SIGGRAPH work and every music video from 1991.</p>
+
+    <h4>Linear algebra you will actually use</h4>
+    <ul>
+      <li><strong>Vectors as pixel coordinates.</strong> A point $(x, y)$ lives in $\mathbb{R}^2$; an image is a function $I: \mathbb{Z}^2 \to \mathbb{R}$.</li>
+      <li><strong>Linear maps.</strong> Rotation, scaling, shear — each a $2 \times 2$ matrix. Translation is affine, not linear.</li>
+      <li><strong>Homogeneous coordinates.</strong> Promote $(x,y) \to (x,y,1)$ and every affine map is a single $3 \times 3$ multiply. This is the payoff that makes "why did we add a 1?" click.</li>
+      <li><strong>Inverse maps + bilinear interpolation.</strong> Forward warping leaves holes; inverse warping plus interpolation does not. The bug teaches you which direction to iterate.</li>
+      <li><strong>Piecewise-affine warps.</strong> Triangulate two faces with corresponding landmarks; each triangle gets its own $3 \times 3$. The idea behind Beier–Neely without the field calculus.</li>
+    </ul>
+
+    <div class="math-box">
+      <div class="mb-label">The single equation the lab is organized around</div>
+      <p>A forward affine warp sends source pixel $\mathbf{p}_s = (x_s, y_s, 1)^\top$ to destination pixel $\mathbf{p}_d = A \mathbf{p}_s$, where</p>
+      <p>$$A = \begin{pmatrix} a_{11} & a_{12} & t_x \\ a_{21} & a_{22} & t_y \\ 0 & 0 & 1 \end{pmatrix}.$$</p>
+      <p>At render time you iterate over every destination pixel and ask "where did you come from?" — i.e., compute $\mathbf{p}_s = A^{-1}\mathbf{p}_d$ and sample $I$ there. That one inversion is why inverse warping has no holes.</p>
+    </div>
+
+    <h4>Deliverables — tap to mark done</h4>
+    <div class="pill-row" data-pills="morphs">
+      <span class="pill" data-pill="m-warpsPy">warps.py</span>
+      <span class="pill" data-pill="m-morphIpynb">morph.ipynb</span>
+      <span class="pill" data-pill="m-gridGallery">grid_warp_gallery.png</span>
+      <span class="pill" data-pill="m-morphMp4">morph.mp4</span>
+      <span class="pill" data-pill="m-reflection">reflection.md</span>
+    </div>
+
+    <h4>Common confusions — name them in the video script</h4>
+    <ul>
+      <li>"Why do we invert the matrix?" — Iterating over destination pixels is hole-free; inverting the map lets you <em>pull</em> source color.</li>
+      <li>"Is translation linear?" — No, it's affine. Homogeneous coordinates let you pretend otherwise, which is the point.</li>
+      <li>"Why bilinear, not nearest-neighbor?" — Bilinear is smooth in the source parameter; nearest-neighbor introduces aliasing that ruins the morph.</li>
+    </ul>
+
+    <h4>Extensions once the baseline ships</h4>
+    <ul>
+      <li>Projective (perspective) warps: drop the last-row constraint; recover the 8 DoF via a linear system.</li>
+      <li>Thin-plate-spline warps for smoother interpolation between landmarks.</li>
+      <li>Feature-based Beier–Neely morphing (line-segment fields instead of triangles).</li>
+    </ul>
+
+    <h4>Primary references</h4>
+    <ul>
+      <li>Beier &amp; Neely, <em>Feature-Based Image Metamorphosis</em>, SIGGRAPH 1992.</li>
+      <li>Szeliski, <em>Computer Vision: Algorithms and Applications</em>, Ch. 3 &amp; 8.</li>
+      <li>Strang, <em>Introduction to Linear Algebra</em>, Ch. 7 (linear transformations).</li>
+    </ul>
+  </div>
+
+  <!-- ============ LAB 2 ============ -->
+  <div class="lab" id="lab-eigenfaces">
+    <div class="lab-n">LAB 02 · 4 × 45 MIN</div>
+    <h3>Eigenfaces — faces as points in a 10,000-dimensional space</h3>
+    <div class="lab-tag">Linear algebra · PCA / SVD · Subspace projection</div>
+
+    <h4>Current week</h4>
+    <div class="week-tabs" data-week-for="eigen">
+      <button class="week-tab" data-w="1">Week 1</button>
+      <button class="week-tab" data-w="2">Week 2</button>
+      <button class="week-tab" data-w="3">Week 3</button>
+      <button class="week-tab" data-w="4">Week 4</button>
+    </div>
+    <div class="weeks" data-weeks-for="eigen">
+      <div class="week" data-w="1"><div class="week-n">WEEK 1</div><div class="week-title">Dataset + baseline</div><div class="week-body">Load Yale Faces / ORL / LFW subset. Grayscale, fixed size, vectorize. 1-NN-in-pixel-space baseline on a held-out split. This is the number to beat.</div></div>
+      <div class="week" data-w="2"><div class="week-n">WEEK 2</div><div class="week-title">Mean face + the Gram trick</div><div class="week-body">Compute and plot the mean face (uncanny). Form $X_c X_c^\top$, eigendecompose, lift to eigenfaces. Display top 20. Confirm <code>np.linalg.svd</code> agrees up to sign.</div></div>
+      <div class="week" data-w="3"><div class="week-n">WEEK 3</div><div class="week-title">Projection &amp; reconstruction</div><div class="week-body">Project held-out faces into $k$-dim face space for $k \in \{1,5,10,25,50,100\}$. Measure pixel-space MSE. Plot reconstruction error vs. $k$.</div></div>
+      <div class="week" data-w="4"><div class="week-n">WEEK 4</div><div class="week-title">Recognition + failure analysis</div><div class="week-body">1-NN classification in face space at several $k$. Plot accuracy vs. $k$. Pick three failure cases and name what went wrong. That paragraph makes the writeup research-grade.</div></div>
+    </div>
+
+    <h4>Motivation</h4>
+    <p>A grayscale face at 100×100 lives in $\mathbb{R}^{10{,}000}$. Almost all of that space is empty — faces occupy a thin submanifold of valid images. Lab 2 builds the tiny linear approximation of that submanifold (the "face space") and uses it to recognize, reconstruct, and imagine faces. The surprise every student gets: <strong>an eigenvector of the face covariance matrix is itself a face</strong>. You can literally plot it.</p>
+    <p>This lab is the pedagogy version of the <a href="research-lab/">Modeling Bench</a> Paper 2 (SVD on classification). The lab produces the student-facing artifact; the Modeling Bench pushes the research contribution.</p>
+
+    <h4>Linear algebra you will actually use</h4>
+    <ul>
+      <li><strong>Data matrix.</strong> $X \in \mathbb{R}^{n \times d}$ where each row is a flattened, mean-centered face. $d = \text{width} \times \text{height}$.</li>
+      <li><strong>Mean face + centering.</strong> $\bar{\mathbf{x}} = \frac{1}{n}\sum_i \mathbf{x}_i$; the centered matrix $X_c$ is the only object the rest of the lab cares about.</li>
+      <li><strong>Covariance &amp; eigendecomposition.</strong> $C = \frac{1}{n-1} X_c^\top X_c \in \mathbb{R}^{d \times d}$. Eigenvectors of $C$ are the eigenfaces.</li>
+      <li><strong>The $d \gg n$ trick.</strong> With $d=10{,}000$ and $n=400$, don't form the $10{,}000 \times 10{,}000$ covariance. Eigendecompose the $n \times n$ Gram matrix $X_c X_c^\top$ and lift via $X_c^\top$. That <em>is</em> SVD — the lab has you do it by hand first, then show NumPy agrees.</li>
+      <li><strong>Subspace projection &amp; reconstruction.</strong> A new face projects to $U_k^\top (\mathbf{y} - \bar{\mathbf{x}}) \in \mathbb{R}^k$; reconstruction is $\bar{\mathbf{x}} + U_k U_k^\top (\mathbf{y} - \bar{\mathbf{x}})$.</li>
+      <li><strong>Classification in face space.</strong> 1-NN on $k$-dimensional projections is embarrassingly effective.</li>
+    </ul>
+
+    <div class="math-box">
+      <div class="mb-label">The single equation the lab is organized around</div>
+      <p>Write $X_c = U \Sigma V^\top$ (SVD). The columns of $V$ are eigenfaces, and the top-$k$ reconstruction of a face $\mathbf{y}$ is</p>
+      <p>$$\hat{\mathbf{y}} = \bar{\mathbf{x}} + V_k V_k^\top (\mathbf{y} - \bar{\mathbf{x}}).$$</p>
+      <p>Increasing $k$ smoothly trades reconstruction error for dimensionality. Plotting that curve is one of the deliverables.</p>
+    </div>
+
+    <h4>Deliverables — tap to mark done</h4>
+    <div class="pill-row" data-pills="eigen">
+      <span class="pill" data-pill="e-py">eigenfaces.py</span>
+      <span class="pill" data-pill="e-meanface">mean_face.png</span>
+      <span class="pill" data-pill="e-top20">top20_eigenfaces.png</span>
+      <span class="pill" data-pill="e-reconCurve">reconstruction_curve.png</span>
+      <span class="pill" data-pill="e-accK">accuracy_vs_k.png</span>
+      <span class="pill" data-pill="e-failures">failure_cases.md</span>
+    </div>
+
+    <h4>Common confusions — name them in the video script</h4>
+    <ul>
+      <li>"Why subtract the mean?" — PCA finds directions of maximum <em>variance</em>, not magnitude. Without centering, the first component points at the mean.</li>
+      <li>"Why is the first eigenface ugly?" — It encodes the largest variation, which for most face sets is lighting, not identity. Good discovery moment.</li>
+      <li>"Isn't this just compression?" — Yes. Recognition-as-compression is the research insight: a face is "recognized" when its short code matches a short code you've seen.</li>
+      <li>"Why not the $d \times d$ covariance?" — You can, at 100M entries. The Gram trick is why eigenfaces was feasible on 1991 hardware.</li>
+    </ul>
+
+    <h4>Extensions</h4>
+    <ul>
+      <li>Fisherfaces: swap PCA for LDA. Frames PCA as unsupervised and LDA as supervised versions of the same projection idea.</li>
+      <li>Face morphing in face space: interpolate projected codes $\alpha \mathbf{c}_A + (1-\alpha)\mathbf{c}_B$ and reconstruct. Closes the loop with Lab 1.</li>
+      <li>Kernel PCA for a nonlinear face manifold — gateway to the ML track.</li>
+    </ul>
+
+    <h4>Primary references</h4>
+    <ul>
+      <li>Turk &amp; Pentland, <em>Eigenfaces for Recognition</em>, J. Cognitive Neuroscience, 1991.</li>
+      <li>Belhumeur, Hespanha &amp; Kriegman, <em>Eigenfaces vs. Fisherfaces</em>, PAMI 1997.</li>
+      <li>Hastie, Tibshirani &amp; Friedman, <em>ESL</em>, Ch. 14 (unsupervised learning).</li>
+    </ul>
+  </div>
+
+  <!-- ============ LAB 3 ============ -->
+  <div class="lab" id="lab-usps">
+    <div class="lab-n">LAB 03 · 4 × 45 MIN</div>
+    <h3>USPS handwritten digits — the smallest dataset that teaches every ML idea</h3>
+    <div class="lab-tag">Linear algebra · PCA · Nearest-neighbor · Linear classifiers</div>
+
+    <h4>Current week</h4>
+    <div class="week-tabs" data-week-for="usps">
+      <button class="week-tab" data-w="1">Week 1</button>
+      <button class="week-tab" data-w="2">Week 2</button>
+      <button class="week-tab" data-w="3">Week 3</button>
+      <button class="week-tab" data-w="4">Week 4</button>
+    </div>
+    <div class="weeks" data-weeks-for="usps">
+      <div class="week" data-w="1"><div class="week-n">WEEK 1</div><div class="week-title">Load, visualize, baseline</div><div class="week-body">Load USPS. Visualize 100 random digits. Split 7291 train / 2007 test (the canonical ESL split). Report pixel-NN accuracy as baseline.</div></div>
+      <div class="week" data-w="2"><div class="week-n">WEEK 2</div><div class="week-title">PCA compression</div><div class="week-body">PCA on the training set. Plot top 20 components as 16×16 images. Reconstruct at $k \in \{5,20,50,100\}$ next to originals. Plot cumulative variance.</div></div>
+      <div class="week" data-w="3"><div class="week-n">WEEK 3</div><div class="week-title">Least-squares classifier from scratch</div><div class="week-body">Solve the normal equations. Classify the test set. Compare raw pixels vs. PCA features. Run 1-NN in PCA space — does lower dimension help or hurt? Why?</div></div>
+      <div class="week" data-w="4"><div class="week-n">WEEK 4</div><div class="week-title">Confusion matrix + error analysis</div><div class="week-body">Build the 10×10 confusion matrix. Find the worst-confused pair (usually 4↔9 or 3↔5). Show 10 misclassified examples with the classifier's "thought" on each. 300-word analysis.</div></div>
+    </div>
+
+    <h4>Motivation</h4>
+    <p>The USPS digit set — ~9,298 hand-written digits at 16×16 grayscale — is the dataset Hastie, Tibshirani, and Friedman use as a running example in <em>Elements of Statistical Learning</em>. Small enough to fit in memory, rich enough to distinguish every classical method, and visual enough that an error analysis reads like a story. Lab 3 closes the trilogy by turning images into classifications instead of reconstructions.</p>
+    <p>This lab is the on-ramp to the <a href="research-lab/">Modeling Bench</a> Paper 2 on SVD-based classification: do the lab, then ask "what's the research contribution here?" That's the PhD question.</p>
+
+    <h4>Linear algebra you will actually use</h4>
+    <ul>
+      <li><strong>Images as vectors.</strong> Each 16×16 digit becomes a point in $\mathbb{R}^{256}$. The training set becomes $X \in \mathbb{R}^{n \times 256}$.</li>
+      <li><strong>Nearest-neighbor classification.</strong> Distance is $\|\mathbf{x}_i - \mathbf{x}_q\|^2$ — a dot product in disguise. 1-NN is linear algebra, not "AI."</li>
+      <li><strong>PCA for compression and visualization.</strong> Same mechanism as Lab 2 — top-$k$ directions, project, classify in the low-dim space. Watch accuracy vs. $k$.</li>
+      <li><strong>Linear classification via least squares.</strong> One-hot encode labels; solve $\min_W \|XW - Y\|_F^2$; classify by $\arg\max \mathbf{x}^\top W$. A grad-level ML result in ten lines.</li>
+      <li><strong>Confusion matrix as a matrix.</strong> A $10 \times 10$ integer matrix; $(i,j)$ is "true $i$, predicted $j$." Diagonals win; off-diagonals tell a story.</li>
+    </ul>
+
+    <div class="math-box">
+      <div class="mb-label">The single equation the lab is organized around</div>
+      <p>Given training data $X \in \mathbb{R}^{n \times d}$ and one-hot labels $Y \in \mathbb{R}^{n \times 10}$, the closed-form least-squares classifier is</p>
+      <p>$$W = (X^\top X)^{-1} X^\top Y,$$</p>
+      <p>and a new digit $\mathbf{x}$ is classified as $\arg\max_j (\mathbf{x}^\top W)_j$. Yes — a linear regression used as a classifier. Yes, it works better than it has any right to. The question the lab asks: <em>when does it fail, and why?</em></p>
+    </div>
+
+    <h4>Deliverables — tap to mark done</h4>
+    <div class="pill-row" data-pills="usps">
+      <span class="pill" data-pill="u-py">usps.py</span>
+      <span class="pill" data-pill="u-grid">digit_grid.png</span>
+      <span class="pill" data-pill="u-pcDigits">pc_digits.png</span>
+      <span class="pill" data-pill="u-reconGrid">reconstruction_grid.png</span>
+      <span class="pill" data-pill="u-confusion">confusion_matrix.png</span>
+      <span class="pill" data-pill="u-errors">error_analysis.md</span>
+    </div>
+
+    <h4>Common confusions — name them in the video script</h4>
+    <ul>
+      <li>"Why not a neural network?" — Because the LA version is 30 lines, trains in 100 ms, and hits ~87%. The gap to a CNN is the research question, not the starting point.</li>
+      <li>"Why is least-squares classification weird?" — The output is unbounded; labels are not. It works anyway because nearest-label is a projection.</li>
+      <li>"Why is 4 confused with 9?" — Because in 16×16 grayscale the loop of a 9 and the loop of a 4 share most of their mass. Teaches you to care about <em>representation</em>.</li>
+    </ul>
+
+    <h4>Extensions</h4>
+    <ul>
+      <li>Regularized least squares (ridge): add $\lambda I$ to $X^\top X$. Show stability.</li>
+      <li>Logistic regression via gradient descent; compare to closed-form least squares.</li>
+      <li>Tangent distance (Simard et al.): build invariance to small rotations/translations into the distance function itself. Beautiful linear-algebra-of-invariances result.</li>
+      <li>SVD-based class-subspace classifier: one subspace per digit, classify by projection residual. The natural stepping stone to the Modeling Bench Paper 2.</li>
+    </ul>
+
+    <h4>Primary references</h4>
+    <ul>
+      <li>Hastie, Tibshirani &amp; Friedman, <em>ESL</em>, Ch. 1, 4, 13.</li>
+      <li>Simard, LeCun, Denker &amp; Victorri, <em>Transformation Invariance in Pattern Recognition — Tangent Distance and Tangent Propagation</em>, 1998.</li>
+      <li>LeCun et al., <em>Gradient-Based Learning Applied to Document Recognition</em>, Proc. IEEE 1998.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="foot">
+  Focus Blocks · part of The System v4.1 · <a href="index.html">back to dashboard</a> · <a href="research-lab/">modeling bench</a> · <a href="teach_cs/">teach_cs</a>
+  <button class="reset" onclick="if(confirm('Reset all focus-page progress? This only clears local state on this browser.')){localStorage.removeItem('hf_focus_v1');location.reload();}">reset local progress</button>
+</div>
+
+</div>
+
+<script>
+// =============================================================
+// State: everything goes in a single localStorage key as JSON.
+// =============================================================
+const KEY = 'hf_focus_v1';
+const state = JSON.parse(localStorage.getItem(KEY) || '{}');
+state.rungs ||= {};
+state.pills ||= {};
+state.labWeek ||= {};
+state.logs ||= {yt:[], grad:[], phd:[]};
+state.activeTrack ||= null;
+function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
+
+// =============================================================
+// Clock in the chooser
+// =============================================================
+function updateClock(){
+  const d = new Date();
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const h = d.getHours(), m = String(d.getMinutes()).padStart(2,'0');
+  document.getElementById('nowTime').textContent = `${days[d.getDay()]} · ${h}:${m}`;
+}
+updateClock(); setInterval(updateClock, 30_000);
+
+// =============================================================
+// Current-block chooser
+// =============================================================
+document.querySelectorAll('.track-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const track = btn.dataset.track;
+    const section = btn.dataset.section;
+    state.activeTrack = track;
+    save();
+    document.querySelectorAll('.track-btn').forEach(b => b.classList.toggle('active', b.dataset.track === track));
+    document.getElementById(section).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+// Restore active on load
+if (state.activeTrack) {
+  document.querySelectorAll('.track-btn').forEach(b => b.classList.toggle('active', b.dataset.track === state.activeTrack));
+}
+
+// =============================================================
+// Milestone rungs — tap to toggle done
+// =============================================================
+document.querySelectorAll('.rung').forEach(rung => {
+  const id = rung.dataset.rung;
+  if (state.rungs[id]) rung.classList.add('done');
+  rung.addEventListener('click', () => {
+    rung.classList.toggle('done');
+    state.rungs[id] = rung.classList.contains('done');
+    save();
+  });
+});
+
+// =============================================================
+// Deliverable pills — tap to toggle
+// =============================================================
+document.querySelectorAll('.pill[data-pill]').forEach(pill => {
+  const id = pill.dataset.pill;
+  if (state.pills[id]) pill.classList.add('done');
+  pill.addEventListener('click', () => {
+    pill.classList.toggle('done');
+    state.pills[id] = pill.classList.contains('done');
+    save();
+  });
+});
+
+// =============================================================
+// Lab current-week selectors
+// =============================================================
+document.querySelectorAll('.week-tabs[data-week-for]').forEach(tabs => {
+  const lab = tabs.dataset.weekFor;
+  const weeks = document.querySelector(`.weeks[data-weeks-for="${lab}"]`);
+  const current = state.labWeek[lab] || 1;
+  function paint(w){
+    tabs.querySelectorAll('.week-tab').forEach(t => t.classList.toggle('active', +t.dataset.w === w));
+    weeks.querySelectorAll('.week').forEach(wk => wk.classList.toggle('current', +wk.dataset.w === w));
+  }
+  paint(current);
+  tabs.querySelectorAll('.week-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      const w = +t.dataset.w;
+      state.labWeek[lab] = w;
+      save();
+      paint(w);
+    });
+  });
+});
+
+// =============================================================
+// "Done for today" — prompt, log, render last win banner
+// =============================================================
+function fmtRel(ts){
+  const d = (Date.now() - ts) / 1000;
+  if (d < 60) return 'just now';
+  if (d < 3600) return `${Math.floor(d/60)}m ago`;
+  if (d < 86400) return `${Math.floor(d/3600)}h ago`;
+  return `${Math.floor(d/86400)}d ago`;
+}
+const trackNames = {yt:'YouTube', grad:'Grad Prep', phd:'PhD Research'};
+document.querySelectorAll('.done-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const track = btn.dataset.track;
+    const text = prompt(`One sentence: what did you move forward in this ${trackNames[track]} block?`);
+    if (!text || !text.trim()) return;
+    state.logs[track].unshift({ts: Date.now(), text: text.trim()});
+    state.logs[track] = state.logs[track].slice(0, 10);
+    save();
+    renderLog(track);
+    renderLastWin();
+    btn.textContent = '✓ Logged';
+    setTimeout(() => btn.textContent = '✓ Done for today', 1600);
+  });
+});
+
+// Toggle log visibility
+document.querySelectorAll('.log-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.getElementById(`log-${btn.dataset.log}`).classList.toggle('show');
+  });
+});
+
+function renderLog(track){
+  const box = document.getElementById(`log-${track}`);
+  const items = state.logs[track] || [];
+  if (!items.length) { box.innerHTML = '<div class="log-empty">No wins logged yet.</div>'; return; }
+  box.innerHTML = items.slice(0,5).map(it => `
+    <div class="log-item">
+      <div class="li-text">"${it.text.replace(/</g,'&lt;')}"</div>
+      <div class="li-meta">${fmtRel(it.ts)} · ${new Date(it.ts).toLocaleDateString()}</div>
+    </div>`).join('');
+}
+['yt','grad','phd'].forEach(renderLog);
+
+function renderLastWin(){
+  // Most recent log entry across all tracks
+  let latest = null, latestTrack = null;
+  ['yt','grad','phd'].forEach(t => {
+    const top = state.logs[t][0];
+    if (top && (!latest || top.ts > latest.ts)) { latest = top; latestTrack = t; }
+  });
+  const banner = document.getElementById('lastWinBanner');
+  if (!latest) { banner.classList.remove('show'); return; }
+  document.getElementById('lwText').textContent = `"${latest.text}"`;
+  document.getElementById('lwMeta').textContent = `${trackNames[latestTrack]} · ${fmtRel(latest.ts)}`;
+  banner.classList.add('show');
+}
+renderLastWin();
+
+// =============================================================
+// Scroll-spy for top nav
+// =============================================================
+const sections = ['top','youtube','grad','labs'];
+const tabs = document.querySelectorAll('.nav-tab[data-target]');
+tabs.forEach(t => t.addEventListener('click', () => {
+  const el = document.getElementById(t.dataset.target);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}));
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.target === e.target.id));
+    }
+  });
+}, {rootMargin: '-40% 0px -50% 0px'});
+sections.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+</script>
+
+</body>
+</html>
