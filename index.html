@@ -1200,6 +1200,38 @@ body.mentor-view .mentor-banner{display:block}
 .sch-share-btn{background:var(--accent);color:#fff;border:0;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.3px;display:inline-flex;align-items:center;gap:6px;transition:opacity .15s}
 .sch-share-btn:hover{opacity:.9}
 body.mentor-view .sch-share-btn{display:none}
+
+/* === Morning Surface · the first thing Henry reads at 6:30am === */
+#page-dashboard .morning-surface{position:relative;margin:0 0 24px;padding:26px 30px;border-radius:14px;background:linear-gradient(160deg,rgba(107,138,255,.11) 0%,rgba(167,139,250,.05) 55%,rgba(251,191,36,.04) 100%);border:1px solid rgba(107,138,255,.22);box-shadow:0 6px 24px rgba(13,16,23,.18)}
+#page-dashboard .morning-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:12px;font-family:-apple-system,system-ui,sans-serif}
+#page-dashboard .morning-line{font-size:clamp(20px,3.4vw,26px);font-weight:700;line-height:1.3;color:var(--tx);letter-spacing:-.01em;font-family:-apple-system,system-ui,sans-serif}
+#page-dashboard .morning-line em{font-style:italic;color:var(--dim);font-weight:500;font-family:Georgia,serif}
+#page-dashboard .morning-line strong{color:var(--accent);font-weight:700}
+#page-dashboard .morning-meta{font-size:11px;color:var(--dim);margin-top:10px;font-family:'JetBrains Mono',monospace;letter-spacing:.03em}
+
+#page-dashboard .morning-mentor{margin-top:22px;padding:18px 22px 18px 26px;background:rgba(251,191,36,.08);border-left:3px solid var(--yellow);border-radius:0 10px 10px 0;font-family:Georgia,'Times New Roman',serif;font-style:italic;color:var(--tx);font-size:14px;line-height:1.75}
+#page-dashboard .morning-mentor::before{content:"— Mentor note · " attr(data-day);display:block;font-family:-apple-system,system-ui,sans-serif;font-style:normal;font-size:10px;letter-spacing:.14em;color:var(--yellow);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+#page-dashboard .morning-mentor strong{color:#fff;font-weight:600;font-style:italic}
+#page-dashboard .morning-mentor em{font-style:normal;color:var(--dim)}
+
+#page-dashboard .morning-wins{margin-top:22px;padding-top:20px;border-top:1px dashed rgba(255,255,255,.09)}
+#page-dashboard .morning-wins-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:12px;font-family:-apple-system,system-ui,sans-serif}
+#page-dashboard .morning-wins-list{display:flex;flex-direction:column;gap:9px}
+#page-dashboard .morning-win{padding:11px 15px;background:rgba(52,211,153,.07);border-left:2px solid var(--green);border-radius:0 7px 7px 0;font-size:13px;color:var(--tx);font-family:Georgia,serif;font-style:italic;line-height:1.6}
+#page-dashboard .morning-win .mw-src{display:block;font-size:10px;font-style:normal;color:var(--dim);font-family:-apple-system,system-ui,sans-serif;margin-top:4px;letter-spacing:.04em;font-weight:500}
+#page-dashboard .morning-win.empty{color:var(--dim2);font-style:italic;background:none;border-left:1px dashed var(--border);padding-left:16px}
+
+/* Collapsible demotion for stale widgets */
+#page-dashboard details.dash-demoted{margin:14px 0 0;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:0;overflow:hidden}
+#page-dashboard details.dash-demoted > summary{cursor:pointer;list-style:none;padding:15px 20px;display:flex;align-items:center;gap:11px;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;font-weight:700;outline:none;user-select:none;font-family:-apple-system,system-ui,sans-serif;transition:color .15s}
+#page-dashboard details.dash-demoted > summary::-webkit-details-marker{display:none}
+#page-dashboard details.dash-demoted > summary::before{content:"▸";color:var(--dim2);transition:transform .18s;flex-shrink:0;font-size:12px}
+#page-dashboard details.dash-demoted[open] > summary::before{transform:rotate(90deg)}
+#page-dashboard details.dash-demoted > summary:hover{color:var(--tx)}
+#page-dashboard details.dash-demoted[open]{padding-bottom:4px}
+#page-dashboard details.dash-demoted > .card{margin:0 16px 14px;border-color:var(--border)}
+#page-dashboard details.dash-demoted > summary .dd-hint{font-size:10px;color:var(--dim2);text-transform:none;letter-spacing:.02em;font-style:italic;font-weight:500;font-family:Georgia,serif;margin-left:auto}
+
 </style>
 <script>(function(){try{if(localStorage.getItem('systemv2_theme')==='light')document.documentElement.classList.add('light')}catch(e){}}());</script>
 </head>
@@ -1347,6 +1379,21 @@ body.mentor-view .sch-share-btn{display:none}
 
 <!-- ==================== DASHBOARD ==================== -->
 <div class="page" id="page-dashboard">
+
+<!-- Morning Surface · arc position + day-of-week mentor note + unified wins feed -->
+<div class="morning-surface">
+  <div class="morning-eyebrow" id="mornEyebrow">— Loading —</div>
+  <div class="morning-line" id="mornLine">One moment…</div>
+  <div class="morning-meta" id="mornMeta"></div>
+  <div class="morning-mentor" id="mornMentor" data-day="today">The mentor note will load in a moment. If you see this for more than a couple of seconds, something's off — reload and tell me.</div>
+  <div class="morning-wins">
+    <div class="morning-wins-label">Last wins across the system</div>
+    <div class="morning-wins-list" id="mornWinsList">
+      <div class="morning-win empty">No wins logged yet. Close a session in Focus or Playbook and tap ✓ to add one.</div>
+    </div>
+  </div>
+</div>
+
 <div class="dash-hero">
 <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px">
 <div>
@@ -1522,6 +1569,10 @@ body.mentor-view .sch-share-btn{display:none}
 </div>
 </div>
 
+<!-- Weekly self-assessments · demoted to a collapsible so they don't crowd the morning surface -->
+<details class="dash-demoted">
+<summary>Weekly self-assessments · 6 Dimensions &amp; CVC 90-Day<span class="dd-hint">open on Sunday, not every morning</span></summary>
+
 <!-- 6 Dimensions of Learning (Conquering College) -->
 <div class="card">
 <div class="card-header"><h3 style="margin:0">6 Dimensions of Learning</h3><span class="badge b-orange">Conquering College</span></div>
@@ -1536,6 +1587,8 @@ body.mentor-view .sch-share-btn{display:none}
 <div id="d90Progress"></div>
 <div id="d90Milestones"></div>
 </div>
+
+</details>
 
 <!-- Dream Binder Quick View -->
 <div class="card" style="cursor:pointer" onclick="goPage('horizons')">
@@ -6905,5 +6958,167 @@ setInterval(function(){
   }
 },30000);
 </script>
+
+<!-- === Morning Surface renderer — cross-surface wins feed (Focus + Playbook) + day-of-week mentor note === -->
+<script>
+(function(){
+  const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const DAYS_SHORT=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const ARC_START=new Date('2026-04-20T00:00:00');
+  const ARC_MONTHS=18;
+
+  const MENTOR_NOTES={
+    0:{label:'Sunday',text:'This is the weekly review day. Before you open any block, answer three questions on paper: <strong>which one track is fragile this week?</strong> Which one is humming? Which one can rest? You don\'t have to fix all three — you have to know the answer. Then open the Playbook Overview and let it do its job.'},
+    1:{label:'Monday',text:'Tonight at 8pm is the Jeff Anderson mentor call. The single most useful thing you can do before then is write <strong>one honest sentence</strong> about what broke last week and what you want to fix. Mentors can\'t help with "everything is fine." They can help with "here is where I am stuck."'},
+    2:{label:'Tuesday',text:'Monday\'s mentor call is now in the rearview. Today\'s job is to pick the <strong>one thing Jeff said</strong> that felt uncomfortable, and do it before Wednesday. Feedback that doesn\'t reach a block by day two doesn\'t reach a block at all.'},
+    3:{label:'Wednesday · honesty check',text:'Midweek. Look at your blocks for Monday and Tuesday. <strong>Did the hard one ship?</strong> If yes, press the pace. If no, don\'t spiral — cut one ambitious thing from Thursday and roll it to next week. <em>Wednesday-you is allowed to re-plan the week; tired-Sunday-you is not.</em>'},
+    4:{label:'Thursday',text:'Today is the last full weekday for any PhD outreach email or faculty read you committed to this week. <strong>Friday belongs to ship-or-cut, not to starting new things.</strong> If an email is half-drafted in your head, save it as a Gmail draft tonight — then send Friday morning.'},
+    5:{label:'Friday · ship or cut',text:'Friday\'s job is simple: <strong>ship what\'s 80% done, cut what\'s 0% done.</strong> Half-built things go in the weekend park, labeled with one sentence about where they stopped. Anything still at "I\'ll start it" at 9pm Friday becomes next week\'s problem, not this week\'s shame.'},
+    6:{label:'Saturday',text:'Saturday is for the long blocks — the 90-min Project Build 1, the Deep Read, the Big Task that can\'t fit in a weekday margin. <strong>This is the day you make real progress on the capstone</strong>, not the day you tell yourself you\'ll "catch up" on five small blocks. One big thing beats five small things today.'}
+  };
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function fmtRel(ts){
+    const d=(Date.now()-ts)/1000;
+    if(d<60)return 'just now';
+    if(d<3600)return Math.floor(d/60)+'m ago';
+    if(d<86400)return Math.floor(d/3600)+'h ago';
+    const days=Math.floor(d/86400);
+    if(days===1)return 'yesterday';
+    if(days<7)return days+'d ago';
+    if(days<30)return Math.floor(days/7)+'w ago';
+    return Math.floor(days/30)+'mo ago';
+  }
+
+  function renderMorningSurface(){
+    try {
+      const now=new Date();
+      const day=now.getDay();
+      const dayName=DAYS_FULL[day];
+
+      // Arc math
+      const arcEnd=new Date(ARC_START);arcEnd.setMonth(arcEnd.getMonth()+ARC_MONTHS);
+      const totalDays=Math.round((arcEnd-ARC_START)/86400000);
+      const totalWeeks=Math.ceil(totalDays/7);
+      const elapsed=Math.floor((now-ARC_START)/86400000);
+
+      // Eyebrow
+      const eyebrow=document.getElementById('mornEyebrow');
+      if(eyebrow){
+        if(elapsed<0){
+          const daysUntil=Math.abs(elapsed);
+          eyebrow.textContent=`PRE-ARC · ${daysUntil} DAY${daysUntil===1?'':'S'} UNTIL START · ${dayName.toUpperCase()}`;
+        } else if(elapsed>=totalDays){
+          eyebrow.textContent=`POST-ARC · DAY ${elapsed} · ${dayName.toUpperCase()}`;
+        } else {
+          const weekNum=Math.floor(elapsed/7)+1;
+          eyebrow.textContent=`WEEK ${weekNum} OF ${totalWeeks} · DAY ${elapsed+1} · ${dayName.toUpperCase()}`;
+        }
+      }
+
+      // One-line hero
+      const line=document.getElementById('mornLine');
+      if(line){
+        if(elapsed<0){
+          const daysUntil=Math.abs(elapsed);
+          line.innerHTML=`<strong>${daysUntil} day${daysUntil===1?'':'s'}</strong> until the arc begins.<br><em>Use them to build the machinery, not to rush ahead.</em>`;
+        } else if(elapsed>=totalDays){
+          line.innerHTML=`The arc is complete.<br><em>Decide what the next 18 months are for.</em>`;
+        } else {
+          const weekNum=Math.floor(elapsed/7)+1;
+          line.innerHTML=`You are in <strong>week ${weekNum}</strong> of the arc.<br><em>The block that matters most today is the one you\'d skip first.</em>`;
+        }
+      }
+
+      // Meta
+      const meta=document.getElementById('mornMeta');
+      if(meta){
+        const time=now.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+        meta.textContent=`${DAYS_SHORT[day]} · ${time} · ${now.toLocaleDateString()}`;
+      }
+
+      // Day-of-week mentor note
+      const mentorBox=document.getElementById('mornMentor');
+      if(mentorBox){
+        const note=MENTOR_NOTES[day];
+        mentorBox.setAttribute('data-day',note.label);
+        mentorBox.innerHTML=note.text;
+      }
+
+      // Unified wins feed — reads Focus (hf_focus_v1) + Playbook (systemv2_gtd.pbTracks)
+      const winsList=document.getElementById('mornWinsList');
+      if(winsList){
+        const wins=[];
+
+        // Focus logs — shape: { logs: { yt:[], grad:[], phd:[] } }
+        try {
+          const focusState=JSON.parse(localStorage.getItem('hf_focus_v1')||'{}');
+          const focusLogs=focusState.logs||{};
+          const focusNames={yt:'Focus · YouTube',grad:'Focus · Grad Prep',phd:'Focus · PhD Research'};
+          Object.keys(focusLogs).forEach(track=>{
+            (focusLogs[track]||[]).forEach(item=>{
+              if(item&&item.ts&&item.text){
+                wins.push({ts:item.ts,text:item.text,source:focusNames[track]||('Focus · '+track)});
+              }
+            });
+          });
+        } catch(e){}
+
+        // Playbook exit notes — shape: systemv2_gtd.pbTracks[pane].exitHistory = [{date, note}]
+        try {
+          const sys=JSON.parse(localStorage.getItem('systemv2_gtd')||'{}');
+          const pbTracks=sys.pbTracks||{};
+          const pbNames={
+            clrs:'Playbook · CLRS',
+            build:'Playbook · CS Build',
+            phd:'Playbook · PhD Prep',
+            write:'Playbook · Deep Write',
+            youtube:'Playbook · YouTube',
+            grad:'Playbook · Grad CS',
+            overview:'Playbook · Overview'
+          };
+          Object.keys(pbTracks).forEach(pane=>{
+            const t=pbTracks[pane]||{};
+            const hist=Array.isArray(t.exitHistory)?t.exitHistory:[];
+            hist.forEach(entry=>{
+              if(entry&&entry.date&&entry.note){
+                // date is YYYY-MM-DD — normalize to noon-local so sort is stable
+                const d=new Date(entry.date+'T12:00:00');
+                if(!isNaN(d.getTime())){
+                  wins.push({ts:d.getTime(),text:entry.note,source:pbNames[pane]||('Playbook · '+pane)});
+                }
+              }
+            });
+          });
+        } catch(e){}
+
+        wins.sort((a,b)=>b.ts-a.ts);
+
+        if(wins.length===0){
+          winsList.innerHTML='<div class="morning-win empty">No wins logged yet. Close a session in Focus or Playbook and tap ✓ to add one.</div>';
+        } else {
+          winsList.innerHTML=wins.slice(0,5).map(w=>
+            `<div class="morning-win">"${esc(w.text)}"<span class="mw-src">${esc(w.source)} · ${fmtRel(w.ts)}</span></div>`
+          ).join('');
+        }
+      }
+    } catch(err){
+      console.error('morning surface render failed',err);
+    }
+  }
+
+  // Schedule initial render + keep it fresh every minute
+  function init(){
+    setTimeout(renderMorningSurface,150);
+    setInterval(renderMorningSurface,60000);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
+})();
+</script>
+
 </body>
 </html>
