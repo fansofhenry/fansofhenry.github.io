@@ -305,6 +305,24 @@ select.input{appearance:auto}
 #page-schedule .sch-header h1 span{color:var(--accent)}
 #page-schedule .sch-header .sub{font-size:.95rem;color:var(--dim);font-weight:400;letter-spacing:.2px;line-height:1.5}
 #page-schedule .sch-header .motto{font-size:.82rem;color:var(--dim);margin-top:14px;font-style:italic;border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:inline-block;padding:7px 20px;line-height:1.5}
+
+/* === 18-MONTH ARC HORIZON WIDGET === */
+#page-schedule .arc-horizon{background:linear-gradient(135deg,rgba(107,138,255,.08),rgba(167,139,250,.08));border:1px solid var(--accent);border-radius:14px;padding:18px 22px;margin-bottom:24px;position:relative;overflow:hidden}
+#page-schedule .arc-horizon::before{content:'';position:absolute;top:-30%;right:-10%;width:260px;height:260px;border-radius:50%;background:rgba(107,138,255,.05);pointer-events:none}
+#page-schedule .arc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;position:relative;flex-wrap:wrap}
+#page-schedule .arc-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+#page-schedule .arc-title{font-size:15px;font-weight:800;letter-spacing:-.01em;color:var(--tx);line-height:1.35}
+#page-schedule .arc-deadline{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx);opacity:.68;text-align:right;line-height:1.5}
+#page-schedule .arc-deadline strong{color:var(--accent);opacity:1;font-size:13px}
+#page-schedule .arc-progress-bar{height:8px;background:var(--s2);border-radius:4px;overflow:hidden;position:relative;margin-bottom:12px}
+#page-schedule .arc-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:4px;transition:width .4s ease}
+#page-schedule .arc-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;position:relative}
+#page-schedule .arc-stat{background:var(--s1);border:1px solid var(--border);border-radius:9px;padding:10px 13px}
+#page-schedule .arc-stat-label{font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx);opacity:.58;margin-bottom:3px}
+#page-schedule .arc-stat-value{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:800;color:var(--tx);line-height:1.2}
+#page-schedule .arc-stat-sub{font-size:10.5px;color:var(--tx);opacity:.65;margin-top:2px;line-height:1.4}
+#page-schedule .arc-phase{font-size:11.5px;color:var(--tx);opacity:.78;line-height:1.5;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);position:relative}
+#page-schedule .arc-phase strong{color:var(--accent);opacity:1;font-weight:700}
 #page-schedule .sch-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:22px;font-size:.82rem;color:var(--tx);opacity:.9}
 #page-schedule .sch-legend span{display:flex;align-items:center;gap:7px}
 #page-schedule .sch-legend .dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
@@ -1114,8 +1132,8 @@ body.mentor-view .sch-share-btn{display:none}
 <!-- Password Gate -->
 <div class="pw-gate" id="pwGate">
 <div class="pw-box">
-<h2>The System v2.0</h2>
-<p class="pw-sub">Enter passcode to continue</p>
+<h2>Compound</h2>
+<p class="pw-sub">Deep work on the long game</p>
 <input type="password" id="pwInput" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" autofocus>
 <div class="pw-msg" id="pwMsg"></div>
 </div>
@@ -1231,7 +1249,7 @@ body.mentor-view .sch-share-btn{display:none}
 </div>
 
 <nav class="nav"><div class="nav-inner">
-<div class="nav-brand">The System <span>v2.0</span></div>
+<div class="nav-brand" title="Deep work on the long game">Compound<span style="font-weight:400;font-size:11px;opacity:.55;margin-left:8px;letter-spacing:.3px">· the long game</span></div>
 <button class="hamburger" onclick="document.querySelector('.nav-tabs').classList.toggle('open')" aria-label="Menu">☰</button>
 <div class="nav-tabs">
 <button class="nav-tab" data-page="dashboard">📊 Dashboard <span class="kbd-hint">1</span></button>
@@ -1912,12 +1930,26 @@ body.mentor-view .sch-share-btn{display:none}
 
 <div class="mentor-banner">
   <strong>👋 You're viewing Henry Fan's weekly schedule · v4.1</strong>
-  <div class="mb-sub">Shared read-only view · The System v2.0 — Deliver excellence at work · Build mastery on the margins · Earn the PhD</div>
+  <div class="mb-sub">Shared read-only view · Compound · the long game — Deliver excellence at work · Build mastery on the margins · Earn the PhD</div>
+</div>
+
+<!-- === 18-MONTH ARC HORIZON === -->
+<div class="arc-horizon" id="arcHorizon">
+  <div class="arc-top">
+    <div>
+      <div class="arc-eyebrow">⏳ The 18-Month Arc</div>
+      <div class="arc-title" id="arcTitle">Loading arc...</div>
+    </div>
+    <div class="arc-deadline" id="arcDeadline">—</div>
+  </div>
+  <div class="arc-progress-bar"><div class="arc-progress-fill" id="arcFill" style="width:0%"></div></div>
+  <div class="arc-stats" id="arcStats"></div>
+  <div class="arc-phase" id="arcPhase">—</div>
 </div>
 
 <div class="sch-header">
-  <h1>THE SYSTEM <span>v4.1</span></h1>
-  <div class="sub">Project-Based Learning Science Edition — Redesigned for Consolidation & Transfer</div>
+  <h1>COMPOUND <span>v4.1</span></h1>
+  <div class="sub">Deep work on the 18-month arc · CS Ed PhD prep · Remote CVC analyst</div>
   <div class="motto">Deliver excellence at work. Build mastery on the margins. Earn the PhD.</div>
   <div style="margin-top:14px"><button class="sch-share-btn" onclick="schCopyMentorLink()">📤 Copy mentor share link</button></div>
 </div>
@@ -3182,7 +3214,7 @@ Best,<br>Henry Fan
 </div>
 
 <div class="footer">
-<strong>The System v2.0</strong> — GTD + PARA + CODE + Conquering College · CS Ed YouTube for Community College<br>
+<strong>Compound · the long game</strong> — Deep work on the 18-month arc · CS Ed research for community college students<br>
 Deliver excellence at work. Build mastery on the margins. Earn the PhD.<br>
 <span style="margin-top:4px;display:inline-block">Henry Fan · <span id="footerYear"></span></span>
 </div>
@@ -4606,6 +4638,66 @@ function renderNowBar(){
   document.getElementById('nowBarProgress').style.width=Math.min((elapsed/total)*100,100)+'%';
 }
 function dismissNowBar(){nowBarDismissed=true;document.getElementById('nowBar').classList.remove('show')}
+// === 18-MONTH ARC HORIZON ===
+// Pulls constraint awareness to the front: where are you in the arc,
+// how much runway is left, what phase of the roadmap you're in.
+const ARC_START='2026-04-01';           // remote CVC job start / arc begins
+const ARC_DEADLINE='2026-12-01';        // PhD applications close
+const ARC_END='2027-10-01';             // full arc ends (PhD enrollment)
+// Mapping of arc weeks to 18-month roadmap phases
+function arcPhaseForDate(d){
+  const m=d.getMonth(),y=d.getFullYear();
+  const k=y*12+m;
+  const apr26=2026*12+3;  // April 2026
+  const jul26=2026*12+6;  // July
+  const oct26=2026*12+9;  // October
+  const jan27=2027*12+0;
+  const apr27=2027*12+3;
+  const jul27=2027*12+6;
+  if(k<apr26)return{name:'Pre-arc',detail:'Arc hasn\'t started yet'};
+  if(k<jul26)return{name:'Months 1–3 · Foundations',detail:'12 Tier-1 papers read · draft RQ v1 · blog started · 1 faculty informal contact'};
+  if(k<oct26)return{name:'Months 4–6 · Build Up',detail:'25 papers synthesized · 2 faculty contacted · research statement v1 · program longlist (20) · ask recommenders'};
+  if(k<jan27)return{name:'Months 7–9 · CRITICAL',detail:'Research statement v3 · 5 faculty contacted · SoPs drafted · letters in motion · submit Dec 1–15'};
+  if(k<apr27)return{name:'Months 10–12',detail:'Interviews · visit days · polish Koli Calling or RESPECT 2027 submission'};
+  if(k<jul27)return{name:'Months 13–15',detail:'Decisions · pick program · submit first workshop paper'};
+  return{name:'Months 16–18',detail:'Onboarding · pre-read with new advisor · move logistics'};
+}
+function renderArcHorizon(){
+  const widget=document.getElementById('arcHorizon');if(!widget)return;
+  const now=new Date();
+  const start=new Date(ARC_START+'T00:00:00');
+  const deadline=new Date(ARC_DEADLINE+'T00:00:00');
+  const end=new Date(ARC_END+'T00:00:00');
+  const dayMs=86400000;
+  const totalArcDays=Math.round((end-start)/dayMs);
+  const elapsedDays=Math.max(0,Math.round((now-start)/dayMs));
+  const daysToDeadline=Math.max(0,Math.round((deadline-now)/dayMs));
+  const weeksToDeadline=Math.round(daysToDeadline/7);
+  const arcWeek=Math.max(1,Math.ceil(elapsedDays/7));
+  const totalWeeks=Math.round(totalArcDays/7);
+  const pctArc=Math.min(100,Math.max(0,Math.round((elapsedDays/totalArcDays)*100)));
+  const phase=arcPhaseForDate(now);
+  // Compute weekly learning hours committed (CS Theory 8 + CS Build 6.5 + PhD 6 + YouTube 3.5 = ~24h)
+  const weeklyHours=24;
+  const hoursRemaining=weeksToDeadline*weeklyHours;
+  $('arcTitle').textContent=`Week ${arcWeek} of ${totalWeeks} · ${phase.name}`;
+  $('arcDeadline').innerHTML=`📅 PhD apps close<br><strong>${daysToDeadline} days</strong><br>(${weeksToDeadline} weeks)`;
+  $('arcFill').style.width=pctArc+'%';
+  const stats=[
+    {label:'Days Until Apps',value:daysToDeadline,sub:weeksToDeadline+' weeks'},
+    {label:'Learning Runway',value:hoursRemaining+'h',sub:'~24h/wk committed'},
+    {label:'Arc Progress',value:pctArc+'%',sub:'of 18-month arc'},
+    {label:'Weeks In',value:arcWeek,sub:'of '+totalWeeks+' total'}
+  ];
+  $('arcStats').innerHTML=stats.map(s=>`<div class="arc-stat"><div class="arc-stat-label">${s.label}</div><div class="arc-stat-value">${s.value}</div><div class="arc-stat-sub">${s.sub}</div></div>`).join('');
+  $('arcPhase').innerHTML=`<strong>This phase →</strong> ${phase.detail}`;
+}
+// Re-render when Schedule page becomes visible + once at load
+setTimeout(renderArcHorizon,300);
+setInterval(()=>{
+  if(document.getElementById('page-schedule')?.classList.contains('active'))renderArcHorizon();
+},60000*15); // refresh every 15 min so day counters stay current
+
 function schCopyMentorLink(){
   const base=location.origin+location.pathname;
   const url=base+'?mentor=1#schedule';
@@ -5152,7 +5244,7 @@ function pbRenderOverview(){
   const grid=$('pbOverviewGrid');if(!grid)return;
   const todaysPanes=pbTodaysPanes();
   const todayKey=td();
-  // Preflight summary
+  // Preflight summary + This Week Narrative + Cognitive Load meter
   const pre=$('pbOvPreflight');
   if(pre){
     const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -5160,7 +5252,60 @@ function pbRenderOverview(){
     const todayList=[...todaysPanes].map(p=>PB_PANE_META[p]?.name).filter(Boolean);
     const cur=(typeof getCurrentSchedBlock==='function')?getCurrentSchedBlock():null;
     const curLabel=cur&&PB_PANE_FOR_BLOCK[cur.key]?` · 🟢 in <strong>${esc(cur.name)}</strong> right now`:'';
-    pre.innerHTML=`<div class="pb-ov-preflight"><div class="pb-ov-preflight-title">📅 ${dayNames[dow]} Preflight</div><div class="pb-ov-preflight-text">Today's learning blocks: <strong>${todayList.length?todayList.join(' · '):'(weekend rest)'}</strong>${curLabel}. Confirm each has a fresh next action before you close this panel.</div></div>`;
+
+    // Cognitive load: count tracks with a pending next action
+    let loadCount=0,activeNextActions=[];
+    for(const p of PB_ALL_PANES){
+      const t=pbGetTrack(p);
+      if(t.nextAction&&t.nextAction.length>3){
+        loadCount++;
+        activeNextActions.push({pane:p,meta:PB_PANE_META[p],next:t.nextAction});
+      }
+    }
+    const loadStatus=loadCount<=3?'ok':loadCount<=5?'warn':'over';
+    const loadColor=loadStatus==='ok'?'var(--green)':loadStatus==='warn'?'var(--yellow)':'var(--red)';
+    const loadMessage=loadStatus==='ok'?`${loadCount} active track${loadCount===1?'':'s'} — within cognitive capacity`
+      :loadStatus==='warn'?`${loadCount} active tracks — at working-memory limit (Miller's 7±2 for simple chunks, 3-4 for complex tasks)`
+      :`⚠️ ${loadCount} active tracks — over cognitive capacity. Park one or two. You can't deep-learn 6 things at once.`;
+
+    // This-Week Narrative: compute what's happened this week across all tracks
+    const weekStart=new Date();weekStart.setDate(weekStart.getDate()-weekStart.getDay());weekStart.setHours(0,0,0,0);
+    const weekStartKey=pbDateKey(weekStart);
+    let weekSessions=0,tracksWorked=new Set(),exitNotesThisWeek=[],progressSnapshots=[];
+    for(const p of PB_ALL_PANES){
+      const t=pbGetTrack(p);
+      const sessDays=(t.sessionDays||[]).filter(d=>d>=weekStartKey);
+      weekSessions+=sessDays.length;
+      if(sessDays.length>0)tracksWorked.add(p);
+      if(t.exitNote&&t.exitNoteDate&&t.exitNoteDate>=weekStartKey){
+        exitNotesThisWeek.push({pane:p,meta:PB_PANE_META[p],note:t.exitNote,date:t.exitNoteDate});
+      }
+      if(t.progress)progressSnapshots.push({pane:p,meta:PB_PANE_META[p],progress:t.progress,title:t.title||''});
+    }
+    const wkPanes=[...tracksWorked].map(p=>PB_PANE_META[p]?.name).filter(Boolean);
+    let narrative='';
+    if(weekSessions===0){
+      narrative='No sessions logged this week yet. Click <strong>▶ Start</strong> on any active track to begin — streaks build from a single session.';
+    }else{
+      narrative=`${weekSessions} session${weekSessions===1?'':'s'} logged across <strong>${wkPanes.length}</strong> track${wkPanes.length===1?'':'s'}: ${wkPanes.join(' · ')}.`;
+      if(progressSnapshots.length){
+        narrative+=' Current state: '+progressSnapshots.slice(0,3).map(s=>`${s.meta.icon} ${esc(s.progress)}`).join(' · ')+'.';
+      }
+      if(exitNotesThisWeek.length){
+        narrative+=` Most recent reflection (${exitNotesThisWeek[0].date}): <em>"${esc(exitNotesThisWeek[0].note.slice(0,160)+(exitNotesThisWeek[0].note.length>160?'…':''))}"</em>`;
+      }
+    }
+
+    pre.innerHTML=`<div class="pb-ov-preflight" style="border-color:${loadColor}">
+      <div class="pb-ov-preflight-title">📅 ${dayNames[dow]} Preflight · ⚖️ Cognitive Load</div>
+      <div class="pb-ov-preflight-text" style="margin-bottom:10px">Today's blocks: <strong>${todayList.length?todayList.join(' · '):'(weekend rest)'}</strong>${curLabel}</div>
+      <div class="pb-ov-preflight-text" style="padding:9px 12px;background:rgba(${loadStatus==='ok'?'52,211,153':loadStatus==='warn'?'251,191,36':'239,68,68'},.12);border-radius:7px;margin-bottom:10px;font-size:11.5px;color:${loadColor}">${loadMessage}</div>
+    </div>
+    <div class="pb-ov-preflight" style="background:linear-gradient(135deg,rgba(107,138,255,.08),rgba(167,139,250,.06));border-color:var(--accent);margin-top:12px">
+      <div class="pb-ov-preflight-title" style="color:var(--accent)">📣 This Week · one-paragraph narrative (mentor-ready)</div>
+      <div class="pb-ov-preflight-text" style="line-height:1.7">${narrative}</div>
+      <div style="margin-top:10px"><button onclick="pbCopyReport()" style="background:var(--accent);color:#fff;border:0;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">📋 Copy full report for Jeff</button></div>
+    </div>`;
   }
   grid.innerHTML=PB_ALL_PANES.map(p=>{
     const meta=PB_PANE_META[p];
