@@ -1243,6 +1243,29 @@ body.mentor-view .sch-share-btn{display:none}
 #page-schedule .sch-week-mentor strong{color:#fff;font-weight:600;font-style:italic}
 #page-schedule .sch-week-mentor em{font-style:normal;color:var(--dim)}
 
+/* Editable this-week override — hand-written note that appends to the phase mentor */
+#page-schedule .sch-week-override-row{display:flex;justify-content:flex-end;margin-top:12px;gap:8px}
+#page-schedule .sch-week-edit-btn{background:transparent;color:var(--dim);border:1px solid var(--border);padding:6px 12px;border-radius:6px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:-apple-system,system-ui,sans-serif;transition:all .15s}
+#page-schedule .sch-week-edit-btn:hover{color:var(--tx);border-color:var(--accent);background:rgba(107,138,255,.08)}
+#page-schedule .sch-week-override{margin-top:14px;padding:14px 18px 14px 22px;background:rgba(107,138,255,.1);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-family:Georgia,serif;font-style:italic;font-size:13.5px;line-height:1.72;color:var(--tx);display:none}
+#page-schedule .sch-week-override.show{display:block}
+#page-schedule .sch-week-override::before{content:"— This week specifically";display:block;font-family:-apple-system,system-ui,sans-serif;font-style:normal;font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:6px}
+#page-schedule .sch-week-override strong{color:#fff;font-weight:600;font-style:italic}
+#page-schedule .sch-week-editor{margin-top:14px;padding:14px 16px;background:var(--s1);border:1px solid var(--accent);border-radius:10px;display:none}
+#page-schedule .sch-week-editor.show{display:block}
+#page-schedule .sch-week-editor-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:8px;font-family:-apple-system,system-ui,sans-serif}
+#page-schedule .sch-week-editor textarea{width:100%;min-height:68px;background:var(--s2);border:1px solid var(--border);border-radius:7px;color:var(--tx);font-family:Georgia,serif;font-size:13.5px;padding:10px 14px;resize:vertical;line-height:1.6;outline:none;box-sizing:border-box}
+#page-schedule .sch-week-editor textarea:focus{border-color:var(--accent)}
+#page-schedule .sch-week-editor textarea::placeholder{color:var(--dim2);font-style:italic}
+#page-schedule .sch-week-editor-actions{display:flex;gap:8px;margin-top:10px;justify-content:flex-end}
+#page-schedule .sch-week-editor-btn{padding:7px 14px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.04em;cursor:pointer;font-family:-apple-system,system-ui,sans-serif;border:1px solid var(--border);transition:all .15s}
+#page-schedule .sch-week-editor-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+#page-schedule .sch-week-editor-btn.primary:hover{background:#5a78ee}
+#page-schedule .sch-week-editor-btn.secondary{background:transparent;color:var(--dim)}
+#page-schedule .sch-week-editor-btn.secondary:hover{color:var(--tx);border-color:var(--dim)}
+#page-schedule .sch-week-editor-btn.danger{background:transparent;color:var(--red)}
+#page-schedule .sch-week-editor-btn.danger:hover{color:#fff;background:var(--red);border-color:var(--red)}
+
 /* Live-now deep-link buttons — hand off from Schedule to Focus / Playbook */
 #page-schedule .sch-now-links{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 #page-schedule .sch-now-link{padding:9px 15px;background:rgba(107,138,255,.15);color:var(--accent);border:1px solid rgba(107,138,255,.32);border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.05em;text-decoration:none;transition:all .15s;cursor:pointer;font-family:-apple-system,system-ui,sans-serif;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
@@ -2099,6 +2122,21 @@ body.mentor-view .sch-share-btn{display:none}
   <div class="sch-week-eyebrow" id="schWeekEyebrow">— Loading —</div>
   <div class="sch-week-line" id="schWeekLine">—</div>
   <div class="sch-week-mentor" id="schWeekMentor">The weekly mentor note will load in a moment. If you see this for more than a couple of seconds, reload and tell me.</div>
+
+  <!-- Editable override: what's unique about THIS week (deadlines, travel, mentor out, etc.) -->
+  <div class="sch-week-override" id="schWeekOverride"></div>
+  <div class="sch-week-editor" id="schWeekEditor">
+    <div class="sch-week-editor-label">This week, specifically · one or two sentences</div>
+    <textarea id="schWeekEditorInput" placeholder="e.g. Jeff out of town Thu–Fri, move mentor call to Wed 8pm. Or: Paper 1 first draft due Sunday — cut everything else."></textarea>
+    <div class="sch-week-editor-actions">
+      <button class="sch-week-editor-btn danger" id="schWeekEditorClear" type="button">Clear</button>
+      <button class="sch-week-editor-btn secondary" id="schWeekEditorCancel" type="button">Cancel</button>
+      <button class="sch-week-editor-btn primary" id="schWeekEditorSave" type="button">Save</button>
+    </div>
+  </div>
+  <div class="sch-week-override-row">
+    <button class="sch-week-edit-btn" id="schWeekEditBtn" type="button">✏️ Edit this-week note</button>
+  </div>
 </div>
 
 <div class="sch-header">
@@ -7244,6 +7282,23 @@ function schOpenPlaybookForCurrentBlock(){
 (function(){
   const ARC_START=new Date('2026-04-20T00:00:00');
   const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const OVERRIDE_KEY='hf_week_thread';
+
+  function weekKeyFor(d){
+    // ISO-style Monday-keyed week identifier — YYYY-MM-DD of the week's Monday
+    const m=mondayOf(d);
+    return m.getFullYear()+'-'+String(m.getMonth()+1).padStart(2,'0')+'-'+String(m.getDate()).padStart(2,'0');
+  }
+  function loadOverrides(){
+    try{return JSON.parse(localStorage.getItem(OVERRIDE_KEY)||'{}');}catch(e){return {};}
+  }
+  function saveOverride(key,text){
+    const all=loadOverrides();
+    if(text&&text.trim()){all[key]=text.trim();}
+    else{delete all[key];}
+    localStorage.setItem(OVERRIDE_KEY,JSON.stringify(all));
+  }
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
   function mondayOf(d){
     const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());
@@ -7305,13 +7360,67 @@ function schOpenPlaybookForCurrentBlock(){
 
       const weekNum=elapsed<0?0:Math.floor(elapsed/7)+1;
       mentor.innerHTML=weekMentor(elapsed,weekNum);
+
+      // Editable override — render if a note exists for this week's Monday key
+      const overrideBox=document.getElementById('schWeekOverride');
+      if(overrideBox){
+        const key=weekKeyFor(now);
+        const all=loadOverrides();
+        const text=all[key];
+        if(text){
+          overrideBox.innerHTML=esc(text).replace(/\n/g,'<br>');
+          overrideBox.classList.add('show');
+        } else {
+          overrideBox.classList.remove('show');
+          overrideBox.textContent='';
+        }
+      }
     } catch(err){
       console.error('schedule week render failed',err);
     }
   }
 
+  function wireEditor(){
+    const editBtn=document.getElementById('schWeekEditBtn');
+    const editor=document.getElementById('schWeekEditor');
+    const input=document.getElementById('schWeekEditorInput');
+    const saveBtn=document.getElementById('schWeekEditorSave');
+    const cancelBtn=document.getElementById('schWeekEditorCancel');
+    const clearBtn=document.getElementById('schWeekEditorClear');
+    if(!editBtn||!editor||!input||!saveBtn||!cancelBtn||!clearBtn)return;
+
+    editBtn.addEventListener('click',()=>{
+      const key=weekKeyFor(new Date());
+      const all=loadOverrides();
+      input.value=all[key]||'';
+      editor.classList.add('show');
+      setTimeout(()=>input.focus(),50);
+    });
+    cancelBtn.addEventListener('click',()=>{
+      editor.classList.remove('show');
+    });
+    saveBtn.addEventListener('click',()=>{
+      const key=weekKeyFor(new Date());
+      saveOverride(key,input.value);
+      editor.classList.remove('show');
+      render();
+    });
+    clearBtn.addEventListener('click',()=>{
+      const key=weekKeyFor(new Date());
+      saveOverride(key,'');
+      input.value='';
+      editor.classList.remove('show');
+      render();
+    });
+    // Ctrl/Cmd+Enter to save, Esc to cancel
+    input.addEventListener('keydown',(e)=>{
+      if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();saveBtn.click();}
+      else if(e.key==='Escape'){e.preventDefault();cancelBtn.click();}
+    });
+  }
+
   function init(){
-    setTimeout(render,180);
+    setTimeout(()=>{render();wireEditor();},180);
     setInterval(render,60000);
   }
   if(document.readyState==='loading'){
