@@ -496,6 +496,197 @@ th { background: var(--bg-2); font-family: var(--sans); font-weight: 600; font-s
 }
 
 /* ============================================================
+   6b. PROGRAM ARC + 8-STEP MODELING SURFACE
+   A live progress bar computed on page load, plus a legend that
+   makes Anderson's 8-step modeling vocabulary first-class on the
+   page (referenced everywhere downstream: log entries, mentor
+   emails, draft section headings).
+   ============================================================ */
+.arc-section {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  padding: 26px 0 22px;
+}
+.arc-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 22px;
+  align-items: center;
+}
+.arc-label-col { padding-right: 8px; border-right: 1px solid var(--border); }
+.arc-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.arc-week {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-top: 4px;
+}
+.arc-pct {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-2);
+  margin-top: 3px;
+}
+
+.arc-track-col { min-width: 0; }
+.arc-track {
+  position: relative;
+  height: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: visible;
+}
+.arc-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2%;
+  background: linear-gradient(90deg, var(--p1), var(--p2) 50%, var(--p3));
+  border-radius: 999px 0 0 999px;
+  transition: width 0.6s ease-out;
+}
+.arc-cursor {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 2%;
+  width: 2px;
+  background: var(--ink);
+  box-shadow: 0 0 0 3px var(--surface);
+  transform: translateX(-1px);
+  transition: left 0.6s ease-out;
+}
+[data-theme="dark"] .arc-cursor {
+  background: #f0ece4;
+}
+.arc-ms {
+  position: absolute;
+  top: 22px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+.arc-ms i {
+  display: block;
+  width: 1px;
+  height: 6px;
+  margin: 0 auto 3px;
+  background: var(--ink-3);
+  opacity: 0.6;
+}
+.arc-ms-12 { left: 23.08%; } /* 12 / 52 */
+.arc-ms-26 { left: 50%; }    /* 26 / 52 */
+.arc-ms-52 { left: 100%; transform: translateX(-100%); text-align: right; }
+.arc-ms-52 i { margin-right: 0; }
+
+.arc-dates {
+  margin-top: 38px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+.arc-dates time { color: var(--ink-2); }
+
+/* ---- Anderson's 8-step track ---- */
+.eight-step { margin-top: 24px; }
+.eight-step-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.eight-step-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.eight-step-hint {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-3);
+  font-style: italic;
+}
+.eight-step-track {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+}
+.eight-step-track li {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 10px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  min-width: 0;
+}
+.eight-step-track .step-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+}
+.eight-step-track .step-name {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* A thin directional arrow between steps, as a ::after glyph on each li
+   except the last. Uses CSS only so it's visual and never read out loud. */
+.eight-step-track li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  width: 6px;
+  height: 1px;
+  background: var(--border);
+  transform: translateY(-0.5px);
+  pointer-events: none;
+}
+
+/* visually-hidden utility for screen-reader-only headings like #arc-heading */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
    7. MAIN CONTENT AREA
    ============================================================ */
 .main-content {
@@ -1100,6 +1291,17 @@ footer code { font-size: 11px; }
 
   .pi-head { flex-direction: column; gap: 10px; }
   .pi-num { font-size: 36px; }
+
+  /* Arc collapses to stacked layout. The cursor and milestones stay
+     visible; the 8-step track becomes a 4×2 grid so names stay legible. */
+  .arc-section { padding: 18px 0 16px; }
+  .arc-row { grid-template-columns: 1fr; gap: 14px; }
+  .arc-label-col { border-right: none; padding-right: 0; }
+  .arc-week { font-size: 19px; }
+  .arc-dates { margin-top: 34px; }
+  .eight-step-track { grid-template-columns: repeat(4, 1fr); }
+  .eight-step-track li:not(:last-child)::after { display: none; }
+  .eight-step-hint { display: none; }
 }
 
 @media (max-width: 480px) {

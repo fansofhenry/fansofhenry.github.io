@@ -249,6 +249,66 @@
       </div>
     </header>
 
+    <!-- ============================================================
+         PROGRAM ARC — a live, JS-computed 52-week bar + Anderson's
+         8-step modeling legend. The arc moves itself on every page
+         load so the site demonstrates currency, not just lists it.
+         ============================================================ -->
+    <section class="arc-section" aria-labelledby="arc-heading">
+      <div class="content">
+        <h2 id="arc-heading" class="visually-hidden">Twelve-month program arc</h2>
+
+        <div class="arc-row">
+          <div class="arc-label-col">
+            <div class="arc-eyebrow">Program Arc</div>
+            <div class="arc-week" id="arc-week-label">Week 1 of 52</div>
+            <div class="arc-pct" id="arc-pct-label">~2% elapsed</div>
+          </div>
+          <div class="arc-track-col">
+            <div class="arc-track"
+                 id="arc-track"
+                 role="progressbar"
+                 aria-label="Twelve-month program arc"
+                 aria-valuemin="0"
+                 aria-valuemax="52"
+                 aria-valuenow="1">
+              <div class="arc-fill" id="arc-fill"></div>
+              <div class="arc-cursor" id="arc-cursor" aria-hidden="true"></div>
+              <span class="arc-ms arc-ms-12" aria-hidden="true"><i></i>Wk 12 · submit window</span>
+              <span class="arc-ms arc-ms-26" aria-hidden="true"><i></i>Wk 26 · mid-year</span>
+              <span class="arc-ms arc-ms-52" aria-hidden="true"><i></i>Wk 52 · PhD apps</span>
+            </div>
+            <div class="arc-dates">
+              <time datetime="2026-04-10">Apr 10 2026</time>
+              <span aria-hidden="true">·</span>
+              <time datetime="2027-04-10">Apr 10 2027</time>
+            </div>
+          </div>
+        </div>
+
+        <!-- Anderson's 8-step modeling process.
+             This is the vocabulary Jeff uses to review every draft. The
+             site displays it once as a legend so mentor emails and the
+             research log can reference step numbers directly. -->
+        <div class="eight-step" aria-labelledby="eight-step-label">
+          <div class="eight-step-head">
+            <div class="eight-step-eyebrow" id="eight-step-label">Anderson's 8-Step Modeling Process</div>
+            <div class="eight-step-hint">Every paper maps to these steps. Every log entry can be tagged with the one it advanced.</div>
+          </div>
+          <ol class="eight-step-track">
+            <li><span class="step-num">1</span><span class="step-name">Find</span></li>
+            <li><span class="step-num">2</span><span class="step-name">Mathematize</span></li>
+            <li><span class="step-num">3</span><span class="step-name">State ideal</span></li>
+            <li><span class="step-num">4</span><span class="step-name">Solve</span></li>
+            <li><span class="step-num">5</span><span class="step-name">Analyze</span></li>
+            <li><span class="step-num">6</span><span class="step-name">Verify</span></li>
+            <li><span class="step-num">7</span><span class="step-name">Transfer</span></li>
+            <li><span class="step-num">8</span><span class="step-name">Iterate</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
     <div class="content">
 
     <!-- §00 MISSION -->
@@ -1296,6 +1356,36 @@ document.addEventListener('keydown', (ev) => {
     if (menuBtn) menuBtn.focus();
   }
 });
+
+/* ---- Program arc: compute current week from start date ---- */
+(function computeArc() {
+  var START = new Date('2026-04-10T00:00:00');
+  var END   = new Date('2027-04-10T00:00:00');
+  var now   = new Date();
+  var msWeek = 7 * 24 * 60 * 60 * 1000;
+  var totalWeeks = Math.round((END - START) / msWeek); /* 52 */
+  var elapsedWeeks = Math.floor((now - START) / msWeek);
+  /* Clamp to [1, totalWeeks] so the bar reads "Week 1" before the
+     start date and stops at 52 after it. */
+  var week = Math.max(1, Math.min(totalWeeks, elapsedWeeks + 1));
+  var pct = Math.max(0, Math.min(100, ((now - START) / (END - START)) * 100));
+
+  var weekLabel = document.getElementById('arc-week-label');
+  var pctLabel  = document.getElementById('arc-pct-label');
+  var fill      = document.getElementById('arc-fill');
+  var cursor    = document.getElementById('arc-cursor');
+  var track     = document.getElementById('arc-track');
+
+  if (weekLabel) weekLabel.textContent = 'Week ' + week + ' of ' + totalWeeks;
+  if (pctLabel)  pctLabel.textContent  = '~' + Math.round(pct) + '% elapsed';
+  if (fill)      fill.style.width      = pct + '%';
+  if (cursor)    cursor.style.left     = pct + '%';
+  if (track) {
+    track.setAttribute('aria-valuenow', String(week));
+    track.setAttribute('aria-label',
+      'Twelve-month program arc, week ' + week + ' of ' + totalWeeks);
+  }
+})();
 
 /* ---- Active section tracking ---- */
 const navLinks = document.querySelectorAll('.sb-link[href^="#"]');
