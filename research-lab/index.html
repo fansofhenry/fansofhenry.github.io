@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Henry Fan Research Lab — Applied Linear Algebra × CS Education</title>
+<meta name="description" content="Three-paper research program with Prof. Jeff Anderson (Foothill College). Henry Fan as principal author." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow">Henry Fan / Research Lab v0.1</div>
+    <h1>The Modeling Bench</h1>
+    <p class="sub">Three first-author papers at the intersection of applied linear algebra, hands-on lab pedagogy, and CS education in the age of AI.</p>
+    <div class="meta">
+      <span>Principal author: <strong>Henry Fan</strong></span>
+      <span>Mentor: <strong>Prof. Jeff Anderson</strong>, Foothill College</span>
+      <span>Started: <strong>2026-04-10</strong></span>
+      <span>Target venues: <strong>PRIMUS</strong> · College Math Journal · J. Computing in Higher Ed</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <ul>
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#mentor">Mentor &amp; Lineage</a></li>
+      <li><a href="#papers">The Three Papers</a></li>
+      <li><a href="#workflow">Weekly Workflow</a></li>
+      <li><a href="#log">Research Log</a></li>
+      <li><a href="#experiments">Experiments</a></li>
+      <li><a href="#video">Video Pipeline</a></li>
+      <li><a href="#templates">Templates</a></li>
+      <li><a href="#repo">Repo &amp; Git</a></li>
+      <li><a href="#targets">PhD Targets</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- =============== MISSION =============== -->
+<section id="mission">
+  <h2><span class="num">§00</span>PI Brief</h2>
+  <p class="lede">The lab exists to ship three publishable papers within twelve months while building the technical, narrative, and visual fluency needed to lead a CS-Education / Learning-Sciences PhD.</p>
+
+  <p>Henry runs this lab as principal investigator. Jeff Anderson is mentor and second author on all three projects: he provides domain heritage, journal taste, and corrective feedback; Henry drives scoping, experiments, drafting, code, hardware, video, and submission. The unit of work is the paper. Everything in this site exists to remove friction between an idea and a submitted manuscript.</p>
+
+  <div class="callout">
+    <strong>Operating principle.</strong> Every week, two things must move forward: <em>(a)</em> a measurable artifact in at least one paper (data, code, hardware photo, draft section), and <em>(b)</em> a five-minute mentor-ready update. If neither moved, the week is a regression — diagnose why before doing anything else.
+  </div>
+
+  <h4>Constraints we accept</h4>
+  <ul>
+    <li>Henry has a full-time CVC-OEI Application Support Analyst role at FHDA. Research is the second shift.</li>
+    <li>Jeff's time is precious. Mentor touchpoints are async-first, asks-only, and never longer than 10 minutes of his reading time.</li>
+    <li>No grant funding. All hardware budgets must justify against a $200/quarter cap.</li>
+  </ul>
+</section>
+
+<!-- =============== MENTOR =============== -->
+<section id="mentor">
+  <h2><span class="num">§01</span>Mentor &amp; Lineage</h2>
+  <p class="lede">Three of these papers are deliberate extensions of work Jeff has already published or has explicitly flagged as open in his Math 2BL deliverables doc. This is not speculative — we are stepping into invitations he has already issued in writing.</p>
+
+  <table>
+    <thead><tr><th>Anchor</th><th>Source</th><th>How we extend it</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Make Eigenvalues Resonate (MER)</td>
+        <td>Anderson (2018), <em>PRIMUS</em>, <a href="https://www.tandfonline.com/doi/full/10.1080/10511970.2018.1484400">10.1080/10511970.2018.1484400</a>. Jeff's Math 2BL S26 doc explicitly says: <em>"Project To-Do List: Under development (maybe you can help me develop this in spring 2026)?"</em></td>
+        <td>Paper 1 — open-hardware kit + computer-vision tracking + 3-DOF extension.</td>
+      </tr>
+      <tr>
+        <td>Neural Networks Towards Machine Learning</td>
+        <td>Math 2BL S26 deliverables doc, p.14: <em>"Underdevelopment. Come back later."</em> Project does not yet exist as either a curriculum or a paper.</td>
+        <td>Paper 2 — build the missing project from scratch with an SVD-first lens, validated against USPS digits.</td>
+      </tr>
+      <tr>
+        <td>LANA + the Anti-Racist Learner-Centered Objectives</td>
+        <td>Anderson (2024), <em>PRIMUS</em>, <a href="https://doi.org/10.1080/10511970.2024.2369984">10.1080/10511970.2024.2369984</a>; Anderson (2024) blog post on five anti-racist learner-centered objectives.</td>
+        <td>Paper 3 — design &amp; evaluate an AI modeling co-tutor scoped to Jeff's 8-step modeling process and audited against his anti-racist objectives.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>What Jeff cares about (read this before every mentor email)</h4>
+  <ul>
+    <li><strong>Hands-on verification.</strong> Every claim must be checkable by a student at a kitchen table. If a student cannot verify it without a teacher, it doesn't ship.</li>
+    <li><strong>Open access.</strong> Curriculum, code, hardware specs, and data should be free to remix. No paywalled supplements.</li>
+    <li><strong>Transferable skills over content coverage.</strong> "I teach students how to learn, and I do it using linear algebra." Frame contributions in those terms.</li>
+    <li><strong>Anti-racist, learner-centered framing.</strong> Jeff has five published learner-centered objectives. Every paper should make explicit which objective it serves.</li>
+    <li><strong>The "$25B eigenvector" tone.</strong> Jeff loves papers that make abstract LA concretely consequential — the way Bryan &amp; Leise framed PageRank. Match that storytelling register.</li>
+    <li><strong>The 8-step mathematical modeling process.</strong> Jeff's textbook frames every project as <em>find → mathematize → state ideal model → solve → analyze → verify → transfer → iterate</em>. Use these section labels in drafts so Jeff can review fluently.</li>
+  </ul>
+</section>
+
+<!-- =============== THE THREE PAPERS =============== -->
+<section id="papers">
+  <h2><span class="num">§02</span>The Three Papers</h2>
+  <p class="lede">Three independent contributions; one shared aesthetic. Each paper has a working title, abstract draft, methodology, risks, and a tiny kanban that the rest of this site updates.</p>
+
+  <div class="papers">
+
+    <!-- ============== PAPER 1 ============== -->
+    <article class="paper" id="paper-01">
+      <span class="tag">Paper 01</span>
+      <span class="tag alt">PRIMUS</span>
+      <span class="tag">Hardware + Curriculum</span>
+      <h3>MER 2.0 — An Open-Hardware, Computer-Vision Lab Kit for Coupled-Oscillator Modeling in Lower-Division Linear Algebra</h3>
+      <p class="working">Working title may shorten to: <em>"From Pendula to Eigenvalues: An $80 Lab Kit for Modeling Coupled Oscillators."</em></p>
+
+      <dl>
+        <dt>Abstract (draft v0)</dt>
+        <dd>Anderson (2018) introduced the <em>Make Eigenvalues Resonate</em> (MER) project as a hands-on bridge from introductory linear algebra to vibrations analysis using a spring-coupled pair of pendula. Six years later, the project still depends on ad-hoc hardware and bespoke video analysis, which limits adoption outside of Anderson's own classroom. We present MER 2.0: a fully reproducible, sub-$80 hardware bill of materials, an open-source OpenCV tracking pipeline that runs from any phone-recorded video, and a three-mass extension that lets students see — and verify by measurement — the eigenstructure of a system with multiple natural frequencies. We report a quarter-long pilot at Foothill College in which N students built the kit, fit eigenvalue-predicted frequencies to physical data within X% error, and self-reported gains on Anderson's five learner-centered objectives. We argue that low-cost reproducible hardware is the binding constraint on the spread of modeling-rich linear algebra labs, and offer MER 2.0 as a template for hardening other projects in the Math 2BL family (LANA, P-blocks).</dd>
+
+        <dt>Research questions</dt>
+        <dd>
+          <strong>RQ1.</strong> Can a sub-$80 BOM reproduce — within tolerable error — the same eigenvalue-vs-measurement comparisons that the original MER apparatus achieved?<br>
+          <strong>RQ2.</strong> Does adding a third mass (and therefore a third visible eigenmode) qualitatively improve students' intuition that eigenvalues are physical things, not just symbols?<br>
+          <strong>RQ3.</strong> What is the smallest hardware + software footprint that lets a community-college student verify their own model without a teacher present?
+        </dd>
+
+        <dt>Methodology — hybrid (engineering + classroom)</dt>
+        <dd>
+          (i) Design and bench-test a v2 hardware kit. (ii) Build the OpenCV pipeline as a single Python script + a Colab notebook with zero local install. (iii) Derive the 2-mass and 3-mass equations of motion, diagonalize, and validate predictions against tracked motion. (iv) Run a single-section pilot in Math 2BL Spring 2026 with pre/post survey on Anderson's learner-centered objectives. (v) Publish kit, code, and curriculum under CC-BY + MIT.
+        </dd>
+
+        <dt>Required math &amp; CS</dt>
+        <dd>Eigenvalue/eigenvector decomposition; small-angle linearization; coupled ODEs; OpenCV (BGS, optical flow, or color-blob tracking); basic statistics (RMSE, paired t-test); LaTeX.</dd>
+
+        <dt>Step-by-step execution plan</dt>
+        <dd>
+          <ol>
+            <li><strong>Wk 1–2.</strong> Reread Anderson (2018) end-to-end. Recreate the original 2-mass derivation by hand. Annotate every figure.</li>
+            <li><strong>Wk 3–4.</strong> Bench prototype: dowel + fishing line + neoprene springs + 3D-printed mass holders. Phone-camera recording on a tripod against a known scale. Cost ledger updated.</li>
+            <li><strong>Wk 5–6.</strong> OpenCV pipeline. Single Python script that ingests an .mp4 and outputs a CSV of (t, x1, x2, x3) plus a fitted-frequency JSON. Colab port.</li>
+            <li><strong>Wk 7.</strong> Derive 3-mass case symbolically (SymPy). Diagonalize. Compare to measured frequencies. Iterate on hardware until RMSE &lt; 5%.</li>
+            <li><strong>Wk 8.</strong> Lock the BOM. Photograph the kit. Write the curriculum sheet (student-facing 8-step modeling worksheet).</li>
+            <li><strong>Wk 9.</strong> Pilot in one Math 2BL section. Pre/post survey. Collect at least one student-built kit photo per group.</li>
+            <li><strong>Wk 10.</strong> Draft v1 of paper following PRIMUS structure (Motivation → Theory → Activity → Student Work → Reflection).</li>
+            <li><strong>Wk 11.</strong> Mentor-review pass with Jeff. Revisions.</li>
+            <li><strong>Wk 12.</strong> Submit to PRIMUS.</li>
+          </ol>
+        </dd>
+
+        <dt>Risks &amp; failure modes</dt>
+        <dd>
+          <em>Hardware drift.</em> Cheap springs have nonlinear and temperature-sensitive constants — RMSE may explode. Mitigation: characterize each spring before assembly; report uncertainty bounds. <br>
+          <em>Tracking failures.</em> Phone video at 30 fps may alias the higher modes. Mitigation: 60 fps minimum; verify Nyquist at design time. <br>
+          <em>IRB / consent.</em> Pre/post survey of students requires Foothill IRB exemption. Start the paperwork in Wk 1, not Wk 8. <br>
+          <em>Scope creep.</em> Resist the urge to also rewrite the LANA paper. Three-mass case is the ceiling.
+        </dd>
+
+        <dt>Publishable vs mediocre</dt>
+        <dd><strong>Mediocre:</strong> "Here is a cheaper version of MER, and students liked it." <strong>Publishable:</strong> "Here is the smallest verifiable footprint at which a student can check eigenvalue theory against the physical world without a teacher; here is the data; here is the BOM you can buy from Amazon today." The contribution is the <em>verifiability floor</em>, not the cost reduction.</dd>
+      </dl>
+
+      <div class="kanban">
+        <div class="col"><h5>Backlog</h5><ul><li>Hardware BOM v0</li><li>OpenCV pipeline v0</li><li>Wk 1 reread</li><li>IRB exemption form</li></ul></div>
+        <div class="col"><h5>In Progress</h5><ul><li>—</li></ul></div>
+        <div class="col"><h5>In Review</h5><ul><li>—</li></ul></div>
+        <div class="col"><h5>Done</h5><ul><li>—</li></ul></div>
+      </div>
+    </article>
+
+    <!-- ============== PAPER 2 ============== -->
+    <article class="paper" id="paper-02">
+      <span class="tag">Paper 02</span>
+      <span class="tag alt">PRIMUS</span>
+      <span class="tag">New Curriculum</span>
+      <h3>From Matrices to Networks — A Linear-Algebra-First, Hands-On Introduction to Neural Networks for Community College Students</h3>
+      <p class="working">Working title may shorten to: <em>"What the Network Saw: Teaching Neural Nets via Eigenanalysis of Trained Layers."</em></p>
+
+      <dl>
+        <dt>Abstract (draft v0)</dt>
+        <dd>The Math 2BL curriculum at Foothill College lists a "Neural Networks Towards Machine Learning" project that has been marked <em>under development</em> for several years. We present the first complete version of this project. Rather than treating neural networks as a separate paradigm bolted onto a linear algebra course, we frame a single-hidden-layer network as a sequence of matrix operations whose learned weight matrices have geometrically interpretable singular values. Students train a network on the USPS handwritten digit dataset, then perform an SVD on each weight matrix and visualize the top singular vectors as <em>eigen-strokes</em> that the network has learned to detect. We argue this inversion — train first, decompose second — gives community college students an honest, mechanistic account of what a neural network is doing without requiring multivariable calculus. We include a complete laboratory worksheet, a Colab notebook, an eight-step modeling rubric, and a small empirical study of student conceptual gains.</dd>
+
+        <dt>Research questions</dt>
+        <dd>
+          <strong>RQ1.</strong> Can a single-hidden-layer NN trained on USPS digits be unpacked using only Math 2B-level linear algebra (SVD, eigen-decomposition, basis change)?<br>
+          <strong>RQ2.</strong> Do students who follow the train-then-decompose path develop more correct mental models of "what the network learned" than students who follow a calculus-first backprop path?<br>
+          <strong>RQ3.</strong> What is the minimum-viable hands-on activity that gives a community college student a mechanistically honest first encounter with a neural network?
+        </dd>
+
+        <dt>Methodology — hybrid</dt>
+        <dd>
+          (i) Build the activity end-to-end as a Colab notebook (NumPy only — no PyTorch/TensorFlow for v1, to keep the linear algebra unobstructed). (ii) Train on USPS, achieve a baseline accuracy &gt;90%. (iii) Compute and visualize the SVD of W₁ as 16×16 grayscale "eigen-strokes." (iv) Build a paired worksheet that walks a student through the modeling process using Anderson's 8 steps. (v) Pilot with 6–10 Math 2BL students; compare against a control reading group that does the standard backprop tutorial. (vi) Score conceptual gains with a custom 10-item instrument we develop and pilot.
+        </dd>
+
+        <dt>Required math &amp; CS</dt>
+        <dd>SVD, eigenvalue/eigenvector, basis change, matrix-vector products as linear maps, gradient descent at the level of "we minimize loss by walking downhill," NumPy, Colab, basic data viz (matplotlib). Critically, <em>no</em> chain rule prerequisite.</dd>
+
+        <dt>Step-by-step execution plan</dt>
+        <dd>
+          <ol>
+            <li><strong>Wk 1–2.</strong> Read Strang <em>Linear Algebra and Learning from Data</em> §I.8 + Nielsen Ch. 1–3. Side-by-side notes on which steps require calculus.</li>
+            <li><strong>Wk 3.</strong> Build the NumPy-only training loop. Achieve &gt;90% USPS test accuracy.</li>
+            <li><strong>Wk 4.</strong> Compute SVD of trained W₁. Visualize top-16 left singular vectors as 16×16 images. Confirm they look like strokes/curves, not noise.</li>
+            <li><strong>Wk 5.</strong> Draft the 8-step modeling worksheet. Each step maps to a Math 2B concept.</li>
+            <li><strong>Wk 6.</strong> Build the conceptual instrument (10 items, mix of multiple-choice and short-answer). Pilot it on yourself + 2 friends.</li>
+            <li><strong>Wk 7–8.</strong> Run the pilot in Jeff's class. Collect pre/post.</li>
+            <li><strong>Wk 9.</strong> Score, analyze, write results section.</li>
+            <li><strong>Wk 10–11.</strong> Draft full paper. Mentor pass.</li>
+            <li><strong>Wk 12.</strong> Submit to PRIMUS.</li>
+          </ol>
+        </dd>
+
+        <dt>Risks &amp; failure modes</dt>
+        <dd>
+          <em>The "eigen-strokes" don't look like strokes.</em> If the SVD of W₁ produces noise, the central pedagogical claim collapses. Mitigation: prototype this in Wk 1 before committing. Fallback: use a deeper net and SVD the activations of the first layer instead of the weights. <br>
+          <em>n is too small for statistics.</em> A community-college pilot will give n &lt; 30. Treat this as design-based research, not RCT. Frame it as a <em>case study</em> per PRIMUS norms. <br>
+          <em>Reviewers ask "why no PyTorch."</em> Have a one-sentence answer: <em>NumPy keeps the linear algebra visible; PyTorch's autograd hides exactly the matrix structure we are trying to teach.</em>
+        </dd>
+
+        <dt>Publishable vs mediocre</dt>
+        <dd><strong>Mediocre:</strong> "Here is a Colab that trains an MLP on MNIST." <strong>Publishable:</strong> "Here is the first activity that lets a precalculus-only student look inside a trained network and see linear algebra primitives staring back. Here is the worksheet, the instrument, and the pilot data." The contribution is the <em>inversion</em>: decomposition as the first encounter, training as the means.</dd>
+      </dl>
+
+      <div class="kanban">
+        <div class="col"><h5>Backlog</h5><ul><li>NumPy training loop</li><li>SVD viz prototype</li><li>10-item instrument</li></ul></div>
+        <div class="col"><h5>In Progress</h5><ul><li>—</li></ul></div>
+        <div class="col"><h5>In Review</h5><ul><li>—</li></ul></div>
+        <div class="col"><h5>Done</h5><ul><li>—</li></ul></div>
+      </div>
+    </article>
+
+    <!-- ============== PAPER 3 ============== -->
+    <article class="paper" id="paper-03">
+      <span class="tag">Paper 03</span>
+      <span class="tag alt">JCHE / PRIMUS</span>
+      <span class="tag">CS Ed × AI</span>
+      <h3>Anti-Racist AI Tutoring in the Applied Modeling Classroom — A Design and Evaluation Framework</h3>
+      <p class="working">Working title may shorten to: <em>"Modeling Co-Pilots, Not Answer Vendors: Auditing an LLM Tutor Against Five Learner-Centered Objectives."</em></p>
+
+      <dl>
+        <dt>Abstract (draft v0)</dt>
+        <dd>Large language models have entered college mathematics classrooms faster than instructors have been able to evaluate them. Most off-the-shelf LLM tutors optimize for final-answer correctness, which directly undermines the goals of an authentic mathematical-modeling course where the verification, transfer, and iteration steps are the entire point. We present a design-based research study in which we constrain a frontier LLM to act as a <em>modeling co-tutor</em> scoped to Anderson's eight-step applied modeling process and audited against his five published anti-racist learner-centered objectives. We describe the system architecture (a thin web app with prompt scaffolding and refusal heuristics), the audit framework (a rubric mapping each learner-centered objective to LLM behaviors that satisfy or violate it), and a pilot with N Math 2BL students working on the LANA and MER projects. We find that the constrained tutor produces qualitatively different student artifacts than an unconstrained baseline: more verification work, more iteration steps logged, fewer unjustified final answers. We argue that the design question for AI in CS-and-math education is not <em>"will it cheat for students,"</em> but <em>"which student-led practices does the tutor make easier?"</em></dd>
+
+        <dt>Research questions</dt>
+        <dd>
+          <strong>RQ1.</strong> Can a frontier LLM be prompted to refuse final-answer requests and instead elicit student work in each of Anderson's eight modeling steps?<br>
+          <strong>RQ2.</strong> Do students using the constrained tutor produce artifacts that better satisfy Anderson's five anti-racist learner-centered objectives than students using an unconstrained baseline (e.g., default ChatGPT)?<br>
+          <strong>RQ3.</strong> What categories of LLM failure are most dangerous in an authentic modeling classroom, and how should they be flagged in real time?
+        </dd>
+
+        <dt>Methodology — design-based research</dt>
+        <dd>
+          (i) Build a scoped LLM tutor as a single-page web app calling the Anthropic / OpenAI API with a system prompt that encodes the 8 steps and refusal heuristics. (ii) Develop an audit rubric: a 5×3 matrix where rows are Anderson's learner-centered objectives and columns are <em>supports</em>, <em>neutral</em>, <em>violates</em>. (iii) Two-arm pilot with Math 2BL volunteers — constrained tutor vs. baseline LLM — on a shared LANA or MER task. (iv) Code the resulting student artifacts against the audit rubric. (v) Semi-structured interviews with 4–6 students about what the tutor made easier and what it foreclosed.
+        </dd>
+
+        <dt>Required math &amp; CS</dt>
+        <dd>LLM API integration (Anthropic SDK or OpenAI SDK); prompt engineering; design-based research methodology; qualitative coding (deductive, rubric-driven); enough linear algebra to evaluate the LANA/MER artifacts students produce. Web stack: vanilla JS + a serverless function for the API key, deployed on GitHub Pages + a tiny Cloudflare Worker.</dd>
+
+        <dt>Step-by-step execution plan</dt>
+        <dd>
+          <ol>
+            <li><strong>Wk 1–2.</strong> Operationalize Anderson's five learner-centered objectives into a 5×3 audit rubric. Get Jeff's sign-off in one async pass.</li>
+            <li><strong>Wk 3.</strong> Build the system prompt v0. Test against 20 hand-written student questions drawn from MER + LANA.</li>
+            <li><strong>Wk 4–5.</strong> Build the SPA. Logging baked in: every turn captured + tagged with which step of the 8-step process the student was in.</li>
+            <li><strong>Wk 6.</strong> Pilot dry run with one friendly Math 2BL student. Iterate the prompt.</li>
+            <li><strong>Wk 7–8.</strong> Recruit pilot. Run two-arm study. IRB exemption needed early.</li>
+            <li><strong>Wk 9.</strong> Code the artifacts against the rubric. Inter-rater reliability with Jeff on a 20% sample.</li>
+            <li><strong>Wk 10–11.</strong> Draft. Consider J. Computing in Higher Ed, PRIMUS, or Mathematical Thinking and Learning as targets.</li>
+            <li><strong>Wk 12.</strong> Submit.</li>
+          </ol>
+        </dd>
+
+        <dt>Risks &amp; failure modes</dt>
+        <dd>
+          <em>The tutor refuses too much and is unusable.</em> Mitigation: pilot the prompt against student questions in Wk 3, not Wk 7. Set a refusal-rate ceiling. <br>
+          <em>n is small &amp; selection-biased.</em> Frame as design-based research, not causal. Lean on the artifact analysis, not on hypothesis tests. <br>
+          <em>API key leakage.</em> Never put the API key in client-side code. Use a Cloudflare Worker proxy with a per-IP rate limit. <br>
+          <em>Model deprecation mid-study.</em> Pin the model snapshot. Document the exact ID in the methods section.
+        </dd>
+
+        <dt>Publishable vs mediocre</dt>
+        <dd><strong>Mediocre:</strong> "We prompted ChatGPT to be a math tutor and students liked it." <strong>Publishable:</strong> "We took a published, named, anti-racist learner-centered framework, operationalized it into a behavioral audit rubric, scoped a frontier LLM against an 8-step modeling process, and produced evidence that constraint quality matters more than model quality." The contribution is the <em>audit framework</em>, not the chatbot.</dd>
+      </dl>
+
+      <div class="kanban">
+        <div class="col"><h5>Backlog</h5><ul><li>Audit rubric v0</li><li>System prompt v0</li><li>SPA scaffold</li><li>IRB exemption</li></ul></div>
+        <div class="col"><h5>In Progress</h5><ul><li>—</li></ul></div>
+        <div class="col"><h5>In Review</h5><ul><li>—</li></ul></div>
+        <div class="col"><h5>Done</h5><ul><li>—</li></ul></div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="callout">
+    <strong>Why these three and not others.</strong> A longer list of seven candidates (image morphs/warps, Eigenfaces, P-block 2.0, Computer Graphics &amp; 3D Animations, Cubic Splines, GPS Least-Squares, an Anderson-curriculum effectiveness study) is preserved in <code>templates/long-list-of-candidates.md</code> for future quarters. The three above were chosen because each one is anchored to a specific written invitation from Jeff (a published paper to extend, an "under development" project to build, or a published framework to operationalize), and because together they span hardware, curriculum, and HCI — the three kinds of work an HCI/Learning Sciences PhD application needs to demonstrate.
+  </div>
+</section>
+
+<!-- =============== WORKFLOW =============== -->
+<section id="workflow">
+  <h2><span class="num">§03</span>Weekly Workflow</h2>
+  <p class="lede">Eight protected hours per week, distributed so no single paper starves and no single day eats Henry alive. The day-of-week assignments are templates, not laws.</p>
+
+  <div class="workflow">
+    <div class="day"><h4>Monday — Deep Work A</h4><div class="hours">06:00–07:30 · 1.5h</div><ul><li>Active paper drafting (the paper at the front of the queue this week)</li><li>One LaTeX commit minimum</li><li>End with a one-sentence "what's next"</li></ul></div>
+    <div class="day"><h4>Tuesday — Experiment / Code</h4><div class="hours">06:00–07:30 · 1.5h</div><ul><li>Write or run the next experiment</li><li>Commit raw output to <code>experiments/&lt;date&gt;/</code></li><li>Update the experiment ledger</li></ul></div>
+    <div class="day"><h4>Wednesday — Read &amp; Annotate</h4><div class="hours">06:00–07:00 · 1h</div><ul><li>One paper, one pass, one page of notes</li><li>Save into <code>reading/&lt;first-author-year&gt;.md</code></li></ul></div>
+    <div class="day"><h4>Thursday — Deep Work B</h4><div class="hours">06:00–07:30 · 1.5h</div><ul><li>Active drafting on the second paper in queue</li><li>Same rules as Monday</li></ul></div>
+    <div class="day"><h4>Friday — Mentor Touchpoint Prep</h4><div class="hours">06:00–06:45 · 0.75h</div><ul><li>Write the weekly mentor email (template below). Do not send yet.</li><li>Sit with it overnight; trim by 30%.</li></ul></div>
+    <div class="day"><h4>Saturday — Long Block</h4><div class="hours">08:00–10:00 · 2h</div><ul><li>The biggest single thing of the week (hardware build, multi-step experiment, full draft pass)</li><li>Send the trimmed mentor email at end of session</li></ul></div>
+    <div class="day"><h4>Sunday — Review &amp; Plan</h4><div class="hours">19:00–19:45 · 0.75h</div><ul><li>Weekly review (template below)</li><li>Update kanbans on each paper card</li><li>Set the queue order for next week</li></ul></div>
+    <div class="day"><h4>Always-on slack</h4><div class="hours">~1h floating</div><ul><li>Reading on commute</li><li>Voice memos for video scripts</li><li>Capture into Second Brain</li></ul></div>
+  </div>
+
+  <h4>Mentor protocol — keep Jeff's load under 10 min/week</h4>
+  <ol>
+    <li><strong>Async first, sync rare.</strong> One email per week, max one in-person meeting per month.</li>
+    <li><strong>Asks-only emails.</strong> Each email contains exactly one decision needed from Jeff, a TL;DR, and links — never an open-ended "thoughts?"</li>
+    <li><strong>Default to drafts.</strong> If you would normally ask "should I…?", instead send a working draft and ask "anything I should change before I commit?"</li>
+    <li><strong>Mentor budget.</strong> If you have used &gt;30 minutes of Jeff's time this month, the next ask must be a status update, not a question.</li>
+  </ol>
+</section>
+
+<!-- =============== LOG =============== -->
+<section id="log">
+  <h2><span class="num">§04</span>Research Log</h2>
+  <p class="lede">A persistent, paper-tagged journal. Entries live in <code>localStorage</code> on this device — they survive page reloads but should be exported to git monthly via <code>Export JSON</code>.</p>
+
+  <form class="log-form" id="log-form" autocomplete="off">
+    <label>Paper
+      <select name="paper" required>
+        <option value="paper-1">Paper 01 — MER 2.0</option>
+        <option value="paper-2">Paper 02 — Matrices to Networks</option>
+        <option value="paper-3">Paper 03 — AI Modeling Tutor</option>
+        <option value="lab">Lab-wide / cross-cutting</option>
+      </select>
+    </label>
+    <label>What moved (one sentence)
+      <input type="text" name="what" maxlength="240" placeholder="e.g. Bench-tested 3 spring stiffnesses; k=12 N/m gives cleanest 2nd mode." required />
+    </label>
+    <label>Notes / next step (optional)
+      <textarea name="notes" maxlength="1200" placeholder="Optional: link to commit, sketch of next step, mentor question..."></textarea>
+    </label>
+    <button type="submit">Log entry</button>
+    <button type="button" id="export-log" style="margin-left:12px; background:var(--accent-2);">Export JSON</button>
+    <button type="button" id="import-log" style="margin-left:12px; background:var(--accent-2);">Import JSON</button>
+  </form>
+
+  <ul class="log-list" id="log-list"></ul>
+</section>
+
+<!-- =============== EXPERIMENTS =============== -->
+<section id="experiments">
+  <h2><span class="num">§05</span>Experiment Tracker</h2>
+  <p class="lede">An experiment is anything that can fail and yield a number. Hardware bench tests, code runs, prompt evaluations, and survey pilots all count.</p>
+
+  <table>
+    <thead><tr><th>Naming</th><th>Storage</th><th>Required fields</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>EXP-&lt;paper&gt;-&lt;NN&gt;-&lt;slug&gt;</code><br>e.g. <code>EXP-01-03-spring-stiffness</code></td>
+        <td><code>~/research-lab/experiments/EXP-01-03-spring-stiffness/</code> in git</td>
+        <td>
+          <em>question</em> · <em>setup</em> · <em>what would falsify it</em> · <em>raw outputs</em> · <em>conclusion in one sentence</em>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Every experiment folder must contain a <code>README.md</code> populated from <a href="templates/experiment.md">templates/experiment.md</a>. If you cannot fill in <em>"what would falsify this,"</em> you do not yet have an experiment — you have a hope.</p>
+</section>
+
+<!-- =============== VIDEO =============== -->
+<section id="video">
+  <h2><span class="num">§06</span>YouTube &amp; Visualization Pipeline</h2>
+  <p class="lede">One companion video per paper, each in the 6–9 minute range. The video is not a marketing afterthought — it is a forcing function for clarity. If you cannot animate the core idea, you do not yet understand it.</p>
+
+  <table>
+    <thead><tr><th>Paper</th><th>Core visual insight</th><th>Tools</th><th>Animation ideas</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>P1 — MER 2.0</strong></td>
+        <td>An eigenvector is a <em>shape the system likes to vibrate in.</em> The shape is physical, not symbolic.</td>
+        <td>Manim (math), Blender (hardware shots), DaVinci Resolve (edit), Audacity (VO), Affinity Designer (thumbnails)</td>
+        <td>
+          (1) Phase-space animation of a 2-mass system: random initial condition, then projected onto each eigenmode, side by side.<br>
+          (2) Slow zoom from real pendulum footage → tracked dots → derived (x1,x2) trajectory → diagonalized (q1,q2) trajectory.<br>
+          (3) The diagonalization step animated as a literal rotation of the coordinate axes.<br>
+          (4) Transition: 2-mass → 3-mass, showing a third mode "appearing" as a new direction in state space.<br>
+          (5) Final: BOM laid out flat with prices, pan to a student running the Colab.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>P2 — Matrices to Networks</strong></td>
+        <td>The trained network is just a stack of matrices, and the SVD shows you what each layer "looked for."</td>
+        <td>Manim (math), 3Blue1Brown-style typography, NumPy + matplotlib captures, OBS for screen captures, DaVinci Resolve</td>
+        <td>
+          (1) A USPS digit getting flattened into a vector, then matrix-multiplied — show the matrix lighting up cell by cell.<br>
+          (2) Training animated as the loss surface dimming, with W₁ updating each frame.<br>
+          (3) The reveal: SVD of W₁, top-16 left singular vectors arranged as 16×16 images. The animation is just sorting them by σ — and the strokes <em>emerge</em>.<br>
+          (4) Show two networks side by side: one trained on USPS, one on Fashion-MNIST. The eigen-strokes look totally different. Visceral.<br>
+          (5) Closing: a precalculus student walks through one full SVD slide.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>P3 — AI Modeling Tutor</strong></td>
+        <td>An AI tutor's value is what it <em>refuses</em>, not what it answers.</td>
+        <td>Screen capture (OBS), After Effects or Manim for the rubric viz, DaVinci Resolve, lower-thirds in Affinity Designer</td>
+        <td>
+          (1) Split-screen: same student question to baseline ChatGPT vs. the constrained tutor. Show the conversation diverge.<br>
+          (2) The 5×3 audit rubric drawn live, color-filling cell by cell as the conversation progresses.<br>
+          (3) "8 steps" as a horizontal track at the bottom of the screen, lighting up in real time as the student moves through the modeling process with the tutor.<br>
+          (4) A failure case: the tutor giving a too-confident wrong answer, with the audit rubric instantly going red. Honest reporting.<br>
+          (5) Closing voiceover from a real student about what the tutor made easier.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Standard 7-minute video script structure</h4>
+  <ol>
+    <li><strong>0:00–0:20 — Hook.</strong> A single image or claim that would make a Math 2B student stop scrolling. No throat-clearing.</li>
+    <li><strong>0:20–1:00 — The question.</strong> What problem is this paper solving? Who has it? Why has nobody solved it yet?</li>
+    <li><strong>1:00–2:30 — The minimum linear algebra.</strong> The smallest set of LA concepts a viewer needs. Manim animation of one core idea.</li>
+    <li><strong>2:30–4:30 — The contribution.</strong> The hardware / code / framework, shown working. Real footage, real numbers.</li>
+    <li><strong>4:30–6:00 — What the data says.</strong> Pilot results, with honest uncertainty. Show the failure cases.</li>
+    <li><strong>6:00–6:30 — What this changes.</strong> One sentence about the bigger frame: classroom practice, equity, AI in education.</li>
+    <li><strong>6:30–7:00 — Call to action.</strong> Link to the paper, the GitHub, the Colab, and an invitation to remix.</li>
+  </ol>
+
+  <h4>Translating linear algebra into intuitive visuals — Henry's house rules</h4>
+  <ul>
+    <li><strong>Always show the basis.</strong> Vectors are nothing without an explicit coordinate system on screen. Animate the basis change, do not just write "let v = Px."</li>
+    <li><strong>Color = direction, brightness = magnitude.</strong> Lock this convention across all three videos so viewers transfer intuition between them.</li>
+    <li><strong>Diagonalization is a rotation.</strong> Whenever a matrix is diagonalized, animate the rotation. Never let "P⁻¹AP" be a static formula.</li>
+    <li><strong>Eigenvectors are arrows that survive.</strong> Animate by transforming a circle of vectors, then highlighting only the ones that did not change direction.</li>
+    <li><strong>SVD is two rotations and a stretch.</strong> Always animate UΣVᵀ in this geometric sequence, never as three matrices being multiplied.</li>
+    <li><strong>One whiteboard, one camera, one voice per video.</strong> Resist the temptation to over-edit. Production value comes from clarity of thought, not transitions.</li>
+  </ul>
+</section>
+
+<!-- =============== TEMPLATES =============== -->
+<section id="templates">
+  <h2><span class="num">§07</span>Templates</h2>
+  <p class="lede">Open in any markdown editor. Copy, fill, rename, commit. Each template is short on purpose — friction kills logging.</p>
+
+  <div class="templates">
+    <a href="templates/research-log.md"><strong>research-log.md</strong><span>Daily one-paragraph log entry. Use when something shifts in your understanding.</span></a>
+    <a href="templates/experiment.md"><strong>experiment.md</strong><span>The README that goes in every experiment folder. Includes "what would falsify this."</span></a>
+    <a href="templates/weekly-review.md"><strong>weekly-review.md</strong><span>Sunday review template. Five questions. ~15 minutes.</span></a>
+    <a href="templates/mentor-update.md"><strong>mentor-update.md</strong><span>The weekly email to Jeff. Asks-only, one decision per email.</span></a>
+    <a href="templates/paper-skeleton.md"><strong>paper-skeleton.md</strong><span>The PRIMUS-style section skeleton you instantiate on day one of any new paper.</span></a>
+    <a href="templates/video-script.md"><strong>video-script.md</strong><span>The 7-minute companion-video script template, mapped to the standard structure.</span></a>
+    <a href="templates/long-list-of-candidates.md"><strong>long-list-of-candidates.md</strong><span>The 4 paper directions we did <em>not</em> pick this round, kept warm for next quarter.</span></a>
+    <a href="templates/phd-targets.md"><strong>phd-targets.md</strong><span>The full faculty dossier: 5 primary + 5 honorable-mention PIs, verification checklist, first-email template. Pairs with §09 below.</span></a>
+  </div>
+</section>
+
+<!-- =============== REPO =============== -->
+<section id="repo">
+  <h2><span class="num">§08</span>Repo &amp; Git Strategy</h2>
+  <p class="lede">One repo per paper, one umbrella repo for the lab. Public from day one — Jeff's whole philosophy is open access.</p>
+
+  <pre>research-lab/                   ← this site (already in fansofhenry.github.io)
+├── index.html
+├── styles.css
+└── templates/
+
+modeling-bench-mer/              ← Paper 01 repo (separate, on GitHub)
+├── hardware/                    BOM.csv, photos/, stl/
+├── code/                        tracker.py, colab.ipynb
+├── data/                        runs/2026-MM-DD/...
+├── paper/                       primus-mer2.tex, figures/
+├── pilot/                       irb-exemption.pdf, survey.csv
+└── README.md
+
+modeling-bench-nnml/             ← Paper 02 repo
+├── notebooks/                   train_usps.ipynb, svd_viz.ipynb
+├── data/                        usps/
+├── instrument/                  10-item.pdf, scoring-key.md
+├── paper/
+└── README.md
+
+modeling-bench-aitutor/          ← Paper 03 repo
+├── app/                         spa/, worker/
+├── prompts/                     v0/, v1/, ...
+├── rubric/                      audit-5x3.md, examples/
+├── pilot/                       irb-exemption.pdf, transcripts/
+├── paper/
+└── README.md</pre>
+
+  <h4>Branch &amp; commit conventions</h4>
+  <ul>
+    <li>Trunk-based: <code>main</code> always builds. Long-running branches only for the paper draft itself (<code>paper/v1</code>, <code>paper/v2</code>).</li>
+    <li>Commit messages: <code>p1: bench v3 — 3-spring sweep, RMSE 4.7%</code> — paper tag, one-line story, key number.</li>
+    <li>Tag every submission: <code>git tag submitted-primus-2026-XX</code>.</li>
+    <li>Every Sunday: <code>git log --since="1 week ago" --oneline</code> goes into the weekly review.</li>
+  </ul>
+</section>
+
+<!-- =============== PHD TARGETS =============== -->
+<section id="targets">
+  <h2><span class="num">§09</span>PhD Program Targets</h2>
+  <p class="lede">The three papers are the vehicle; this section is the destination. Five primary faculty, ranked by how tightly their 2024-2026 research overlaps Papers 01/02/03. Full dossier, verification checklist, and first-email template live in <a href="templates/phd-targets.md">templates/phd-targets.md</a>.</p>
+
+  <div class="callout">
+    <strong>Field-wide caveat — read first.</strong> The CS-Education / Learning-Sciences PI community is in NSF turbulence. In June 2025 Amy Ko (UW iSchool) publicly stated she is unsure she will recruit for 2027-28 because a DOGE-driven NSF termination killed one of her grants and a postdoc line. This is not unique to her lab. Every PI below must be asked the same opening question in the first email: <em>"Are you planning to recruit a PhD student for Fall 2027, and is that cohort contingent on a specific grant renewal?"</em> A five-second skim of their site cannot answer this.
+  </div>
+
+  <h4>Selection criteria for this list</h4>
+  <ol>
+    <li>At least one first-authored or last-authored paper from the PI's group in 2024-2026 that overlaps a specific Paper 01/02/03 method or frame.</li>
+    <li>Live funding signal (active NSF / IES / foundation award or diversified institutional money — <em>not</em> a single DRK-12 hoping for renewal).</li>
+    <li>Lab is currently supervising PhD students and has placed a recent first-author student into a tenure-track job or research role.</li>
+    <li>Program houses a doctoral path a CS-Ed / HCI / Learning Sciences applicant can actually enter (not gate-kept by a CS theory qualifier).</li>
+  </ol>
+
+  <p><strong>Last verified:</strong> 2026-04-10. Re-verify each PI's active-award status against <a href="https://www.nsf.gov/awardsearch/">nsf.gov/awardsearch</a> before sending any email — this list is a starting point, not a fact.</p>
+
+  <div class="papers">
+
+    <!-- ============== PI 1 ============== -->
+    <article class="paper" id="pi-blikstein">
+      <span class="tag">Primary 01</span>
+      <span class="tag alt">Paper 01 + 02 fit</span>
+      <span class="tag warn">Reach</span>
+      <h3>Paulo Blikstein — Columbia Teachers College</h3>
+      <p class="working">TLTL + FabLearn · TC Communication, Media, and Learning Technologies Design (EdD / PhD)</p>
+      <dl>
+        <dt>Why #1</dt>
+        <dd>His June 2025 papers are <em>"Making to Empower Teacher Problem Posing and Design"</em> and <em>"Making Sensor Data Dear: Accessible Sensing Platforms as Conduits to Localized, Personally Meaningful Data Science."</em> That is a one-year-earlier version of Paper 01's $80 open-hardware + computer-vision-tracking story, written by someone else. FabLearn's constructionist / open-access / hands-on-verification ethos is a near-perfect overlay on Jeff's "kitchen-table checkable" and "anti-racist learner-centered" frames.</dd>
+        <dt>Live funding signal</dt>
+        <dd>2020 NSF DRK-12 Level-2, ~$2M, 3 years, for a technological ecosystem enabling students to build/test/compare their own ideas about science. Two books under contract with MIT Press for 2025-26. TLTL currently supervises ~13 PhDs and ~100 MS students.</dd>
+        <dt>Must verify before emailing</dt>
+        <dd>Whether the 2020 DRK-12 has been renewed or followed by a new DRK-12 / CAREER-scale award covering 2026-29. Search NSF AwardSearch for "Blikstein" with Active=true.</dd>
+        <dt>First read</dt>
+        <dd>Both June 2025 TLTL papers end-to-end. Pull one specific claim from each and draft the one-sentence "this is how Paper 01 extends your 2025 work" hook.</dd>
+        <dt>Links</dt>
+        <dd><a href="https://www.tc.columbia.edu/faculty/pb2755/">TC profile</a> · <a href="https://tltlab.org/publications-listing/">TLTL publications</a> · <a href="https://fablearn.org/">FabLearn</a></dd>
+      </dl>
+    </article>
+
+    <!-- ============== PI 2 ============== -->
+    <article class="paper" id="pi-wilkerson">
+      <span class="tag">Primary 02</span>
+      <span class="tag alt">Paper 02 fit</span>
+      <span class="tag warn">Reach</span>
+      <h3>Michelle Wilkerson — UC Berkeley Graduate School of Education</h3>
+      <p class="working">CoRE Lab · Education in Mathematics, Science, and Technology (EMST) doctoral program</p>
+      <dl>
+        <dt>Why she fits</dt>
+        <dd>Wilkerson's whole research program is about computational modeling as an <em>epistemic practice</em> — students building, critiquing, and rebuilding models as knowledge objects. Paper 02's move of reading an SVD of a trained weight matrix as an explanatory artifact is a textbook instance of her frame. She also collaborates with Blikstein + MIT on NSF DRK-12 A2S, so Blikstein + Wilkerson is a single ecosystem, not two independent bets.</dd>
+        <dt>Live funding signal</dt>
+        <dd>NSF DRK-12 Award 2010413 <em>"From Access to Sustainability"</em> (A2S), co-PI. <em>Writing Data Stories</em> (NSF, 2019-start). 2014 NSF CAREER.</dd>
+        <dt>Must verify before emailing</dt>
+        <dd>Is A2S 2010413 still within its funded window? Is Wilkerson on the 2026-27 GSE admissions faculty list?</dd>
+        <dt>First read</dt>
+        <dd>Her most recent A2S or <em>Writing Data Stories</em> paper from 2024-2025. Goal: one sentence explaining Paper 02's SVD move as computational-modeling epistemic practice in her sense — <em>not</em> as a CS-Ed intervention.</dd>
+        <dt>Links</dt>
+        <dd><a href="https://bse.berkeley.edu/michelle-hoda-wilkerson">Berkeley SoE</a> · <a href="https://www.ocf.berkeley.edu/~mwilkers/blog/2019/02/20/new-nsf-grant-writing-data-stories/">Writing Data Stories NSF grant</a> · <a href="https://tltlab.org/computational-modeling-in-science/">A2S project page</a></dd>
+      </dl>
+    </article>
+
+    <!-- ============== PI 3 ============== -->
+    <article class="paper" id="pi-guzdial">
+      <span class="tag">Primary 03</span>
+      <span class="tag alt">Paper 01 + 02 + 03 fit</span>
+      <span class="tag warn">Reach</span>
+      <h3>Mark Guzdial — University of Michigan</h3>
+      <p class="working">CSE + LSA Program in Computing for Arts and Sciences (PCAS)</p>
+      <dl>
+        <dt>Why he fits</dt>
+        <dd>His current NSF-funded work is <em>Task-Specific Programming</em> — "teaspoon languages," tiny DSLs that let a discrete-math class, a social-studies class, or a linear-algebra class get 20 minutes of computing without a full CS curriculum. That is a near-exact linguistic sibling of Jeff's "I teach students how to learn, and I do it using linear algebra." Henry's CVC-OEI day job and Math 2BL reality are the same problem: add a teaspoon of computing to a class that is not CS. Guzdial also ran the multi-state ECEP alliance, so he thinks at the 115-college infrastructure scale Henry already operates at.</dd>
+        <dt>Live funding signal</dt>
+        <dd>Active NSF grant <em>"Task-Specific Languages as Scaffolding for Programming in Discrete Mathematics Classes."</em> Past: multi-million ECEP alliance. Present at SIGCSE TS 2025.</dd>
+        <dt>Must verify before emailing</dt>
+        <dd>(a) Active students in his group, their thesis topics, their year — indicates what he actually funds. (b) Explicit PCAS vs CSE application path for an LS-leaning applicant. Read his <em>Computing Education Research Blog</em> to see what he cares about in a student.</dd>
+        <dt>First read</dt>
+        <dd>His most recent Teaspoon languages paper + 3 recent blog posts.</dd>
+        <dt>Links</dt>
+        <dd><a href="https://cse.engin.umich.edu/peoplenews/guzdial-mark">UMich CSE profile</a> · <a href="https://cse.engin.umich.edu/stories/nsf-grant-to-add-a-teaspoon-of-computing-to-non-cs-classes">Teaspoon NSF news</a></dd>
+      </dl>
+    </article>
+
+    <!-- ============== PI 4 ============== -->
+    <article class="paper" id="pi-disalvo">
+      <span class="tag">Primary 04</span>
+      <span class="tag alt">Paper 03 fit</span>
+      <span class="tag warn">Reach</span>
+      <h3>Betsy DiSalvo — Georgia Tech School of Interactive Computing</h3>
+      <p class="working">CAT Lab · Human-Centered Computing (HCC) PhD · currently Interim Chair of IC</p>
+      <dl>
+        <dt>Why she fits</dt>
+        <dd>DiSalvo founded DataWorks in 2020 — a paid data-wrangling workplace for young adults from minority communities — and her research thread is participatory design with Black and Latina learners in informal CS settings. Her <em>"maker-oriented learning for transfer and reflection"</em> NSF language is the exact frame Papers 01 and 03 need. Strongest anti-racist-learner-centered alignment on this list. Interim Chair = institutional pull to get students funded when others can't.</dd>
+        <dt>Live funding signal</dt>
+        <dd>Multiple NSF-funded CS-Ed projects (maker-oriented learning, DataWorks). Interim Chair = institutional permanence.</dd>
+        <dt>Must verify before emailing</dt>
+        <dd>Specific NSF award IDs underwriting DataWorks and the maker-oriented-learning project today (her GT Research profile links to them). 2024-2026 papers on the CAT Lab publications page with student first authors — indicates placement track.</dd>
+        <dt>First read</dt>
+        <dd>Her most recent 2024-2026 CAT Lab paper with a student first author. Pull one methodological move and write "Paper 03's LLM audit protocol adapts your [X] method to Jeff Anderson's five anti-racist objectives."</dd>
+        <dt>Links</dt>
+        <dd><a href="https://www.cc.gatech.edu/people/betsy-disalvo">GT IC profile</a> · <a href="https://research.gatech.edu/people/betsy-disalvo">GT Research profile</a> · <a href="https://betsydisalvo.com/">betsydisalvo.com</a></dd>
+      </dl>
+    </article>
+
+    <!-- ============== PI 5 ============== -->
+    <article class="paper" id="pi-koedinger">
+      <span class="tag">Primary 05</span>
+      <span class="tag alt">Paper 03 fit</span>
+      <span class="tag warn">Reach — hardest</span>
+      <h3>Ken Koedinger — Carnegie Mellon HCII</h3>
+      <p class="working">LearnLab · CMU HCII PhD · Simon Initiative scientific lead</p>
+      <dl>
+        <dt>Why he fits</dt>
+        <dd>Koedinger directs LearnLab. His PLUS project is hybrid human-AI tutoring for middle-school math, deployed in real classrooms around the country. Paper 03 is a younger sibling scoped to community college and audited against Jeff's five anti-racist objectives. Koedinger has been, for 25 years, the person in CS who cares whether the tutor <em>improves learning</em>, not whether students like it. LearnLab's funding is diversified across NSF + IES + Simon Initiative institutional money — a hedge against 2025 DOGE risk.</dd>
+        <dt>Live funding signal</dt>
+        <dd>PLUS deployed across multiple districts. LearnLab = scientific arm of CMU's Simon Initiative (post-NSF-center funding). 45+ grants lifetime, 250+ papers.</dd>
+        <dt>Must verify before emailing</dt>
+        <dd>(a) Does PLUS itself have an active NSF or IES award? Classroom-trial money is often IES. (b) Who is the day-to-day co-advisor? Koedinger often co-advises with Vincent Aleven or Bruce McLaren; the co-advisor matters more than the named PI on a CMU thesis.</dd>
+        <dt>First read</dt>
+        <dd>One 2024-2025 PLUS paper + one older Koedinger foundational paper on the KLI (Knowledge-Learning-Instruction) framework. KLI is the conceptual spine Paper 03's audit rubric should cite.</dd>
+        <dt>Links</dt>
+        <dd><a href="https://hcii.cmu.edu/people/ken-koedinger">CMU HCII profile</a> · <a href="https://learnlab.org/ken-koedinger/">LearnLab</a></dd>
+      </dl>
+    </article>
+
+  </div>
+
+  <h4>Honorable mentions — add these to complete a 3 reach / 5 match / 3 safety portfolio</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>PI</th>
+        <th>Institution / Program</th>
+        <th>Paper fit</th>
+        <th>Tier</th>
+        <th>Key signal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://pg.ucsd.edu/">Philip Guo</a></td>
+        <td>UC San Diego, Cognitive Science (joint Design Lab + CSE)</td>
+        <td>Paper 03</td>
+        <td>Reach</td>
+        <td>2025 O'Reilly piece <em>"Using Generative AI to Build Generative AI: Adding AI Chat to Python Tutor."</em> 20M+ users. Cog Sci admissions surface is friendlier than CSE.</td>
+      </tr>
+      <tr>
+        <td><a href="https://www.mccormick.northwestern.edu/research-faculty/directory/profiles/orourke-eleanor.html">Eleanor O'Rourke</a></td>
+        <td>Northwestern, joint CS + Learning Sciences</td>
+        <td>Paper 03</td>
+        <td>Reach</td>
+        <td>2021 NSF CAREER ($597,870, 5yr), <em>"Intelligent Learning Environments That Support the Practice of Programming"</em> — runs through ~2026. Joint CS/LS advising is rare.</td>
+      </tr>
+      <tr>
+        <td><a href="https://stevemacn.github.io/">Stephen MacNeil</a></td>
+        <td>Temple University, Computer &amp; Information Science</td>
+        <td>Paper 03</td>
+        <td><strong>Match</strong></td>
+        <td>Assistant prof. Active on LLMs in CS ed: buggy-code generation, recursion analogies, AI copilot pedagogy. Essential for the 3/5/3 split.</td>
+      </tr>
+      <tr>
+        <td><a href="https://siebelschool.illinois.edu/about/people/faculty/colleenl">Colleen Lewis</a></td>
+        <td>UIUC, Siebel School of Computing and Data Science</td>
+        <td>Paper 03</td>
+        <td>Reach</td>
+        <td>NSF CAREER + $500K NSF co-PI with Paul Bruno on CS-ed policy analysis. Strongest CS-teaching-plus-equity fit at a top-10 CS department.</td>
+      </tr>
+      <tr>
+        <td><a href="https://education.umd.edu/directory/david-weintrop">David Weintrop</a></td>
+        <td>University of Maryland, joint College of Education + iSchool</td>
+        <td>Paper 02</td>
+        <td>Reach</td>
+        <td>Active NSF CAREER 2141655 ($1.04M, 2022-2026), <em>"Situating Computational Learning Opportunities in the Digital Lives of High School Students."</em> Joint Ed + iSchool home is unusual and flexible.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>This week.</strong> (1) Read the 5 "first read" papers listed above — ≤1 day. If you cannot write a one-sentence hook per PI linking their 2024-2026 paper to Paper 01/02/03, they do not go on the SoP list. (2) Verify live-award status for each PI on <a href="https://www.nsf.gov/awardsearch/">nsf.gov/awardsearch</a> — record award #, title, end date in <code>templates/phd-targets.md</code>. (3) Draft the first-email template once (see phd-targets.md) and send to the top 5 in <strong>early September 2026</strong> — not in December when everyone panics.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Henry Fan Research Lab · v0.1 · Built 2026-04-10. The "Modeling Bench" name comes from Jeff Anderson's insistence that math models, like circuits, must be physically benched and verified.</p>
+    <p>Source: <code>fansofhenry.github.io/research-lab/</code>. License: code MIT, prose CC-BY 4.0.</p>
+  </div>
+</footer>
+
+<script>
+/* ---- minimal localStorage research log ---- */
+(function () {
+  var KEY = 'research-lab-log-v1';
+  var form = document.getElementById('log-form');
+  var list = document.getElementById('log-list');
+  var exportBtn = document.getElementById('export-log');
+  var importBtn = document.getElementById('import-log');
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; }
+    catch (_) { return []; }
+  }
+  function save(entries) {
+    localStorage.setItem(KEY, JSON.stringify(entries));
+  }
+  function fmt(ts) {
+    var d = new Date(ts);
+    return d.toISOString().slice(0, 16).replace('T', ' ');
+  }
+  function paperLabel(p) {
+    return ({
+      'paper-1': 'P1 · MER 2.0',
+      'paper-2': 'P2 · Matrices→Networks',
+      'paper-3': 'P3 · AI Tutor',
+      'lab':     'Lab'
+    })[p] || p;
+  }
+  function render() {
+    var entries = load().slice().sort(function (a, b) { return b.ts - a.ts; });
+    list.innerHTML = '';
+    if (entries.length === 0) {
+      list.innerHTML = '<li style="color:var(--ink-soft); font-style: italic; border-left:none; padding-left:0;">No entries yet. The first one is the hardest.</li>';
+      return;
+    }
+    entries.forEach(function (e) {
+      var li = document.createElement('li');
+      li.className = e.paper === 'lab' ? '' : e.paper;
+      li.innerHTML =
+        '<button class="delete" data-id="' + e.id + '" title="Delete">×</button>' +
+        '<span class="when">' + fmt(e.ts) + '</span>' +
+        '<span class="which">' + paperLabel(e.paper) + '</span>' +
+        '<span class="what">' + escapeHtml(e.what) + '</span>' +
+        (e.notes ? '<div style="margin-top:6px; color:var(--ink-soft); font-size:14px;">' + escapeHtml(e.notes).replace(/\n/g, '<br>') + '</div>' : '');
+      list.appendChild(li);
+    });
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var data = new FormData(form);
+    var entries = load();
+    entries.push({
+      id:    Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+      ts:    Date.now(),
+      paper: data.get('paper'),
+      what:  data.get('what'),
+      notes: data.get('notes') || ''
+    });
+    save(entries);
+    form.reset();
+    render();
+  });
+
+  list.addEventListener('click', function (ev) {
+    if (ev.target.classList.contains('delete')) {
+      var id = ev.target.getAttribute('data-id');
+      save(load().filter(function (e) { return e.id !== id; }));
+      render();
+    }
+  });
+
+  exportBtn.addEventListener('click', function () {
+    var blob = new Blob([JSON.stringify(load(), null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'research-log-' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  importBtn.addEventListener('click', function () {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = function () {
+      var file = input.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var imported = JSON.parse(reader.result);
+          if (!Array.isArray(imported)) throw new Error('not an array');
+          var existing = load();
+          var seen = {};
+          existing.concat(imported).forEach(function (e) { seen[e.id] = e; });
+          save(Object.values(seen));
+          render();
+        } catch (e) {
+          alert('Import failed: ' + e.message);
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

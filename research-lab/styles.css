@@ -1,0 +1,260 @@
+/* Henry Fan Research Lab — styles
+   Minimal academic feel: serif body, clean grid, no JS framework.
+*/
+
+:root {
+  --ink:        #14161a;
+  --ink-soft:   #3a3f47;
+  --paper:      #fbfaf7;
+  --paper-2:    #f3f0e8;
+  --rule:       #d8d3c5;
+  --accent:     #7a1f1f;
+  --accent-2:   #1f4e7a;
+  --good:       #2f6f3a;
+  --warn:       #b06a00;
+  --mono:       ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+  --serif:      "Iowan Old Style", "Charter", "Georgia", serif;
+  --sans:       "Inter", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--serif);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-2); text-decoration: none; border-bottom: 1px solid rgba(31,78,122,0.3); }
+a:hover { border-bottom-color: var(--accent-2); }
+code, pre, .mono { font-family: var(--mono); font-size: 0.92em; }
+pre {
+  background: var(--paper-2);
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  overflow-x: auto;
+  font-size: 0.85em;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+/* ---- Masthead ---- */
+.mast {
+  border-bottom: 2px solid var(--ink);
+  padding: 36px 0 24px;
+  margin-bottom: 32px;
+  background: linear-gradient(180deg, var(--paper-2), var(--paper));
+}
+.mast .eyebrow {
+  font-family: var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.mast h1 {
+  font-size: 42px;
+  margin: 6px 0 4px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.mast .sub {
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 18px;
+  margin: 0;
+}
+.mast .meta {
+  margin-top: 14px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.mast .meta span { margin-right: 18px; }
+
+/* ---- Nav ---- */
+nav.toc {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: 10px 0;
+  margin-bottom: 32px;
+}
+nav.toc ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 18px; flex-wrap: wrap; }
+nav.toc a { border-bottom: none; color: var(--ink-soft); }
+nav.toc a:hover { color: var(--accent); }
+
+/* ---- Sections ---- */
+section { margin-bottom: 56px; scroll-margin-top: 80px; }
+section h2 {
+  font-size: 28px;
+  margin: 0 0 6px;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 6px;
+  font-weight: 700;
+}
+section h2 .num {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--accent);
+  margin-right: 10px;
+  vertical-align: middle;
+}
+section h3 { font-size: 20px; margin: 28px 0 6px; }
+section h4 { font-size: 16px; font-family: var(--sans); margin: 18px 0 4px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+section .lede { font-style: italic; color: var(--ink-soft); margin: 0 0 24px; }
+
+/* ---- Paper cards ---- */
+.papers { display: grid; gap: 28px; }
+.paper {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--accent);
+  padding: 28px 32px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 18px 40px -28px rgba(0,0,0,0.18);
+}
+.paper .tag {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 8px;
+  margin-right: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.paper .tag.alt { background: var(--accent-2); }
+.paper .tag.warn { background: var(--warn); }
+.paper h3 { font-size: 24px; margin: 10px 0 4px; line-height: 1.25; }
+.paper .working { font-style: italic; color: var(--ink-soft); margin: 0 0 18px; }
+.paper dl { margin: 16px 0; }
+.paper dt {
+  font-family: var(--sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin-top: 14px;
+}
+.paper dd { margin: 4px 0 0 0; }
+
+.kanban { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; font-family: var(--sans); font-size: 12px; }
+.kanban .col { background: var(--paper-2); padding: 10px 12px; border-top: 3px solid var(--ink-soft); min-height: 80px; }
+.kanban .col h5 { margin: 0 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); font-weight: 600; }
+.kanban .col ul { margin: 0; padding-left: 16px; }
+.kanban .col li { margin-bottom: 4px; }
+
+/* ---- Workflow grid ---- */
+.workflow { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.workflow .day {
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 16px 20px;
+}
+.workflow .day h4 {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-size: 17px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+.workflow .day .hours { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.workflow .day ul { margin: 8px 0 0; padding-left: 18px; font-size: 14px; }
+
+/* ---- Log ---- */
+.log-form {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  padding: 16px 20px;
+  margin: 16px 0 24px;
+  font-family: var(--sans);
+}
+.log-form label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-top: 10px; }
+.log-form input, .log-form select, .log-form textarea {
+  width: 100%; padding: 8px 10px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  font-family: var(--sans); font-size: 14px;
+  margin-top: 4px;
+}
+.log-form textarea { min-height: 70px; resize: vertical; }
+.log-form button {
+  margin-top: 14px;
+  background: var(--ink); color: var(--paper);
+  border: none; padding: 10px 18px;
+  font-family: var(--sans); font-size: 13px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.log-form button:hover { background: var(--accent); }
+
+.log-list { list-style: none; padding: 0; margin: 0; }
+.log-list li {
+  border-left: 3px solid var(--rule);
+  padding: 10px 0 10px 16px;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+.log-list li.paper-1 { border-left-color: var(--accent); }
+.log-list li.paper-2 { border-left-color: var(--accent-2); }
+.log-list li.paper-3 { border-left-color: var(--good); }
+.log-list .when { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
+.log-list .which { font-family: var(--sans); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-left: 8px; }
+.log-list .what { display: block; margin-top: 4px; }
+.log-list .delete { float: right; background: none; border: none; color: var(--ink-soft); cursor: pointer; font-size: 12px; }
+.log-list .delete:hover { color: var(--accent); }
+
+/* ---- Templates list ---- */
+.templates { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; font-family: var(--sans); }
+.templates a {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 14px 18px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.templates a:hover { background: var(--paper-2); }
+.templates a strong { display: block; color: var(--ink); font-size: 15px; margin-bottom: 4px; }
+.templates a span { color: var(--ink-soft); font-size: 12px; }
+
+/* ---- Tables ---- */
+table {
+  width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-family: var(--sans); font-size: 13px;
+}
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { background: var(--paper-2); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.06em; color: var(--ink-soft); }
+
+/* ---- Footnote/callout ---- */
+.callout {
+  background: var(--paper-2);
+  border-left: 4px solid var(--accent);
+  padding: 14px 20px;
+  margin: 18px 0;
+  font-size: 15px;
+}
+.callout strong { color: var(--accent); }
+
+footer {
+  border-top: 2px solid var(--ink);
+  margin-top: 64px;
+  padding: 24px 0 64px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 720px) {
+  .mast h1 { font-size: 32px; }
+  .workflow { grid-template-columns: 1fr; }
+  .kanban { grid-template-columns: 1fr 1fr; }
+  .templates { grid-template-columns: 1fr; }
+}
