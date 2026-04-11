@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you reference this research program or its artifacts, please cite it as follows."
+title: "The Modeling Bench — A Three-Paper Research Program in Applied Linear Algebra and CS Education"
+abstract: >-
+  A mentee-led research program planning and executing three first-author
+  papers at the intersection of applied linear algebra, hands-on lab pedagogy,
+  and CS education in the age of AI. All three papers deliberately extend
+  written invitations from Jeff Anderson's published work at Foothill College.
+type: software
+authors:
+  - family-names: "Fan"
+    given-names: "Henry"
+    affiliation: "Foothill–De Anza Community College District"
+    website: "https://fansofhenry.github.io"
+  - family-names: "Anderson"
+    given-names: "Jeff"
+    affiliation: "Foothill College"
+    role: "Research mentor and second author"
+repository-code: "https://github.com/fansofhenry/fansofhenry.github.io"
+url: "https://fansofhenry.github.io/research-lab/"
+keywords:
+  - "CS education"
+  - "linear algebra pedagogy"
+  - "hands-on laboratory kits"
+  - "mathematical modeling"
+  - "AI tutoring"
+  - "anti-racist learning objectives"
+  - "community college"
+license: "CC-BY-4.0"
+references:
+  - type: article
+    authors:
+      - family-names: "Anderson"
+        given-names: "Jeffrey"
+    title: "Make Eigenvalues Resonate: A Coupled Oscillator Project for Lower-Division Linear Algebra"
+    journal: "PRIMUS"
+    year: 2018
+    doi: "10.1080/10511970.2018.1484400"
+  - type: article
+    authors:
+      - family-names: "Anderson"
+        given-names: "Jeffrey"
+    title: "Five Anti-Racist Learner-Centered Objectives for the Applied Mathematics Classroom"
+    journal: "PRIMUS"
+    year: 2024
+    doi: "10.1080/10511970.2024.2369984"

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fansofhenry.github.io/sitemap.xml
