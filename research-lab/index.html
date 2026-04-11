@@ -42,6 +42,110 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
+
+<!-- Structured data: the research program + its three papers.
+     Makes the lab legible to Google, Scholar crawlers, citation
+     graph tools, and any PhD-application signal-scanner that looks
+     for schema.org ResearchProject / CreativeWork markup. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchProject",
+  "name": "The Modeling Bench",
+  "alternateName": "Henry Fan Research Lab",
+  "description": "A three-paper first-author research program at the intersection of applied linear algebra, hands-on lab pedagogy, and CS education in the age of AI.",
+  "url": "https://fansofhenry.github.io/research-lab/",
+  "startDate": "2026-04-10",
+  "inLanguage": "en",
+  "founder": {
+    "@type": "Person",
+    "name": "Henry Fan",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Foothill-De Anza Community College District"
+    },
+    "url": "https://fansofhenry.github.io/",
+    "sameAs": "https://github.com/fansofhenry"
+  },
+  "member": [
+    {
+      "@type": "Person",
+      "name": "Henry Fan",
+      "jobTitle": "Principal author",
+      "url": "https://fansofhenry.github.io/"
+    },
+    {
+      "@type": "Person",
+      "name": "Jeff Anderson",
+      "jobTitle": "Research mentor and second author",
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": "Foothill College"
+      }
+    }
+  ],
+  "about": [
+    "Applied linear algebra",
+    "Mathematical modeling pedagogy",
+    "Hands-on laboratory curriculum",
+    "AI tutoring in mathematics education",
+    "Anti-racist learner-centered objectives"
+  ],
+  "hasPart": [
+    {
+      "@type": "CreativeWork",
+      "name": "MER 2.0 — Open-Hardware, Computer-Vision Lab Kit for Coupled-Oscillator Modeling in Lower-Division Linear Algebra",
+      "description": "Paper 01. A reproducible sub-$80 hardware kit and OpenCV tracking pipeline that extends Anderson (2018) 'Make Eigenvalues Resonate' to a three-mass case, piloted in Math 2BL at Foothill College. Target venue: PRIMUS.",
+      "url": "https://fansofhenry.github.io/research-lab/#paper-01",
+      "author": [
+        { "@type": "Person", "name": "Henry Fan" },
+        { "@type": "Person", "name": "Jeff Anderson" }
+      ],
+      "creativeWorkStatus": "Draft"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "From Matrices to Networks — A Linear-Algebra-First, Hands-On Introduction to Neural Networks for Community College Students",
+      "description": "Paper 02. A train-then-decompose introduction to neural networks using SVD of a single-hidden-layer network's weight matrices, designed for precalculus-only linear algebra students. Target venue: PRIMUS.",
+      "url": "https://fansofhenry.github.io/research-lab/#paper-02",
+      "author": [
+        { "@type": "Person", "name": "Henry Fan" },
+        { "@type": "Person", "name": "Jeff Anderson" }
+      ],
+      "creativeWorkStatus": "Draft"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Anti-Racist AI Tutoring in the Applied Modeling Classroom — A Design and Evaluation Framework",
+      "description": "Paper 03. A design-based research study of a scoped LLM modeling co-tutor audited against Anderson's five anti-racist learner-centered objectives and his eight-step modeling process. Target venue: J. Computing in Higher Ed / PRIMUS.",
+      "url": "https://fansofhenry.github.io/research-lab/#paper-03",
+      "author": [
+        { "@type": "Person", "name": "Henry Fan" },
+        { "@type": "Person", "name": "Jeff Anderson" }
+      ],
+      "creativeWorkStatus": "Draft"
+    }
+  ],
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Make Eigenvalues Resonate: A Coupled Oscillator Project for Lower-Division Linear Algebra",
+      "author": { "@type": "Person", "name": "Jeff Anderson" },
+      "datePublished": "2018",
+      "isPartOf": { "@type": "Periodical", "name": "PRIMUS" },
+      "identifier": "10.1080/10511970.2018.1484400"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Five Anti-Racist Learner-Centered Objectives for the Applied Mathematics Classroom",
+      "author": { "@type": "Person", "name": "Jeff Anderson" },
+      "datePublished": "2024",
+      "isPartOf": { "@type": "Periodical", "name": "PRIMUS" },
+      "identifier": "10.1080/10511970.2024.2369984"
+    }
+  ]
+}
+</script>
 </head>
 <body class="layout">
 
