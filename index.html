@@ -2118,7 +2118,7 @@ body.mentor-view .sch-share-btn{display:none}
     <!-- Deep links · hand off from Schedule to execution surfaces -->
     <div class="sch-now-links">
       <a class="sch-now-link" href="focus.html">🎯 Open Focus — what to do</a>
-      <a class="sch-now-link secondary" href="#" onclick="goPage('playbook');return false">📖 Open Playbook — session cockpit</a>
+      <a class="sch-now-link secondary" href="#" onclick="schOpenPlaybookForCurrentBlock();return false">📖 Open Playbook — session cockpit</a>
     </div>
   </div>
   <div class="sch-now-right">
@@ -7206,8 +7206,41 @@ setInterval(function(){
 })();
 </script>
 
-<!-- === Schedule week-thread renderer — phase-aware mentor voice above the weekly grid === -->
+<!-- === Schedule week-thread renderer + deep-link helpers === -->
 <script>
+// Exported globally so the inline onclick handler on the sch-now-link button
+// can reach it. Detects the currently-firing block from the Schedule's own
+// Live Now hero label and auto-selects the matching Playbook pane.
+function schOpenPlaybookForCurrentBlock(){
+  const paneFor = function(label){
+    const l = (label||'').toLowerCase();
+    if (l.includes('clrs') || l.includes('theory') || l.includes('retrieval')) return 'clrs';
+    if (l.includes('deep write') || l.includes('polish') || l.includes('micro-write')) return 'write';
+    if (l.includes('build') || l.includes('project') || l.includes('capstone')) return 'build';
+    if (l.includes('youtube') || l.includes('record') || l.includes('edit') || l.includes('script') || l.includes('🎬')) return 'youtube';
+    if (l.includes('grad cs') || l.includes('grad school') || l.includes('distributed') || l.includes('ostep')) return 'grad';
+    if (l.includes('phd') || l.includes('paper') || l.includes('outreach') || l.includes('faculty')) return 'phd';
+    return null;
+  };
+  let pane = null;
+  try {
+    // 1) Primary source: the Schedule's own Live Now hero label
+    const hero = document.getElementById('schNowBlock');
+    if (hero && hero.textContent) pane = paneFor(hero.textContent);
+    // 2) Fallback: ask getCurrentSchedBlock() directly if the function exists
+    if (!pane && typeof getCurrentSchedBlock === 'function') {
+      const cur = getCurrentSchedBlock();
+      if (cur) pane = paneFor(cur.name || cur.key || '');
+    }
+  } catch(e) { /* fall through */ }
+  if (typeof goPage === 'function') goPage('playbook');
+  else window.location.hash = '#playbook';
+  // Defer pbSwitchPane so the tab-switch layout settles first
+  if (pane && typeof pbSwitchPane === 'function') {
+    setTimeout(() => { try { pbSwitchPane(pane); } catch(e){} }, 120);
+  }
+}
+
 (function(){
   const ARC_START=new Date('2026-04-20T00:00:00');
   const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
