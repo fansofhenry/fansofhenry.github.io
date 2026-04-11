@@ -900,22 +900,22 @@ html{scroll-behavior:smooth}
 #page-playbook .pb-mission-btn-primary:hover{background:#fff;opacity:.92}
 
 /* === ACTIVE TRACK (primary block-entry card) === */
-#page-playbook .pb-track-card{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;border-radius:16px;padding:22px 26px;margin-bottom:18px;box-shadow:0 12px 40px rgba(107,138,255,.28);position:relative;overflow:hidden}
-#page-playbook .pb-track-card::before{content:'';position:absolute;top:-40%;right:-20%;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
-#page-playbook .pbt-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative}
-#page-playbook .pbt-icon-wrap{display:flex;align-items:center;gap:13px;flex:1;min-width:0}
-#page-playbook .pbt-icon{font-size:30px;flex-shrink:0;line-height:1}
+#page-playbook .pb-track-card{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:16px;box-shadow:0 10px 32px rgba(107,138,255,.24);position:relative;overflow:hidden}
+#page-playbook .pb-track-card::before{content:'';position:absolute;top:-40%;right:-20%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
+#page-playbook .pbt-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;position:relative}
+#page-playbook .pbt-icon-wrap{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+#page-playbook .pbt-icon{font-size:26px;flex-shrink:0;line-height:1}
 #page-playbook .pbt-meta{flex:1;min-width:0}
 #page-playbook .pbt-eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;opacity:.85;margin-bottom:4px;display:flex;align-items:center;gap:6px}
 #page-playbook .pbt-eyebrow .pbt-pulse{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulseDot 2s ease-in-out infinite;flex-shrink:0}
-#page-playbook .pbt-title{font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.3;word-break:break-word}
-#page-playbook .pbt-streak{font-size:11px;font-weight:800;padding:7px 13px;border-radius:20px;background:rgba(255,255,255,.22);flex-shrink:0;white-space:nowrap;letter-spacing:.3px}
-#page-playbook .pbt-next{background:rgba(255,255,255,.13);border-radius:10px;padding:12px 15px;margin-bottom:10px;border-left:3px solid rgba(255,255,255,.65);position:relative}
-#page-playbook .pbt-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.78;margin-bottom:4px}
+#page-playbook .pbt-title{font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.3;word-break:break-word}
+#page-playbook .pbt-streak{font-size:11px;font-weight:800;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.22);flex-shrink:0;white-space:nowrap;letter-spacing:.3px}
+#page-playbook .pbt-next{background:rgba(255,255,255,.13);border-radius:10px;padding:11px 14px;margin-bottom:10px;border-left:3px solid rgba(255,255,255,.65);position:relative}
+#page-playbook .pbt-label{font-size:9px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;opacity:.78;margin-bottom:4px}
 #page-playbook .pbt-value{font-size:13px;line-height:1.55;font-weight:500}
-#page-playbook .pbt-exit{background:rgba(0,0,0,.22);border-radius:10px;padding:11px 15px;margin-bottom:10px;border-left:3px solid rgba(251,191,36,.7);position:relative}
-#page-playbook .pbt-exit-text{font-size:12px;line-height:1.55;opacity:.95;font-style:italic;word-break:break-word}
-#page-playbook .pbt-primer{font-size:10.5px;opacity:.72;margin-bottom:14px;text-align:center;letter-spacing:.4px;line-height:1.6;position:relative}
+#page-playbook .pbt-exit{background:rgba(0,0,0,.2);border-radius:10px;padding:10px 14px;margin-bottom:10px;border-left:3px solid rgba(251,191,36,.7);position:relative}
+#page-playbook .pbt-exit-text{font-size:12px;line-height:1.5;opacity:.95;font-style:italic;word-break:break-word}
+#page-playbook .pbt-primer{font-size:9.5px;opacity:.62;margin-top:10px;text-align:center;letter-spacing:.3px;line-height:1.5;position:relative}
 #page-playbook .pbt-actions{display:flex;gap:8px;flex-wrap:wrap;position:relative}
 #page-playbook .pbt-btn{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 #page-playbook .pbt-btn:hover{background:rgba(255,255,255,.35)}
@@ -1312,24 +1312,9 @@ html{scroll-behavior:smooth}
 </div>
 </div>
 
-<!-- NOW indicator -->
-<div id="dNowBox" style="background:linear-gradient(135deg,var(--accent-g),var(--purple-g));border:1px solid var(--accent);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px;display:none">
-<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-<div>
-<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase">▶ Right Now</div>
-<div style="font-size:15px;font-weight:700;margin-top:2px" id="dNowName"></div>
-<div style="font-size:10px;color:var(--dim);margin-top:1px" id="dNowIf"></div>
-</div>
-<div style="text-align:right">
-<div style="font-size:18px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums" id="dNowTimer"></div>
-<div style="font-size:9px;color:var(--dim)" id="dNowNext"></div>
-</div>
-</div>
-</div>
-
-<!-- Learning Block Track card — surfaces the Playbook Active Track for the
-     current or upcoming learning block. Visible during CVC work hours too. -->
-<div id="dTrackCard" style="display:none;background:linear-gradient(135deg,rgba(107,138,255,.1),rgba(167,139,250,.08));border:1px solid var(--accent);border-radius:var(--rs);padding:14px 16px;margin-bottom:12px;transition:all .3s">
+<!-- Learning Block Track card — primary focus when a learning block is
+     current or upcoming. Uses Schedule data for accurate current/next. -->
+<div id="dTrackCard" style="display:none;background:linear-gradient(135deg,rgba(107,138,255,.1),rgba(167,139,250,.08));border:1px solid var(--accent);border-radius:var(--rs);padding:14px 16px;margin-bottom:10px;transition:all .3s">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px">
     <div style="flex:1;min-width:0">
       <div id="dNowTrackEyebrow" style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;margin-bottom:3px">▶ Your next action</div>
@@ -1345,6 +1330,15 @@ html{scroll-behavior:smooth}
     <button onclick="dNowEditTrack()" style="background:var(--s2);color:var(--tx);border:1px solid var(--border);padding:8px 15px;border-radius:7px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit">✏️ Edit</button>
     <button onclick="goPage('playbook')" style="background:transparent;color:var(--dim);border:1px solid var(--border);padding:8px 15px;border-radius:7px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit">Open Playbook →</button>
   </div>
+</div>
+
+<!-- Compact current-block strip — only the If/Then hint (block name + time are already in the global nowBar at top). Hides when dTrackCard is already showing the same block. -->
+<div id="dNowBox" style="display:none;padding:8px 12px;margin-bottom:12px;background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);font-size:11px;color:var(--dim);display:none">
+  <span id="dNowName" style="color:var(--tx);font-weight:700"></span>
+  <span style="opacity:.5;margin:0 6px">·</span>
+  <span id="dNowIf"></span>
+  <span id="dNowTimer" style="display:none"></span>
+  <span id="dNowNext" style="display:none"></span>
 </div>
 
 <!-- Energy Curve -->
@@ -2404,14 +2398,14 @@ html{scroll-behavior:smooth}
     <span class="pbt-timer-live-label">REMAINING</span>
   </div>
 
-  <div class="pbt-primer">📵 phone DND · 💬 close Slack · 💧 water · 🪟 one tab open · 🎧 headphones on</div>
-
   <div class="pbt-actions">
     <button class="pbt-btn pbt-btn-primary" onclick="pbtStartTrack()">▶ Start <span id="pbtDuration">60</span>-min block</button>
     <button class="pbt-btn" onclick="pbtOpenEdit()" title="Edit this track's focus and next action">✏️ Edit</button>
     <button class="pbt-btn" onclick="pbtLogExit()" title="Log an exit note — what you did, where you're stuck">📝 End</button>
     <a class="pbt-btn" id="pbtOpenUrl" href="#" target="_blank" rel="noopener" style="display:none">🔗 Resource</a>
   </div>
+
+  <div class="pbt-primer">📵 DND · 💬 Slack off · 💧 water · 🪟 one tab · 🎧 headphones</div>
 
   <!-- Inline exit note form — replaces the old prompt() dialog -->
   <div class="pbt-exit-form" id="pbtExitForm" style="display:none">
@@ -2423,8 +2417,8 @@ html{scroll-behavior:smooth}
     </div>
   </div>
 
-  <!-- 7-day session strip + rest day button -->
-  <div class="pbt-dots">
+  <!-- 7-day session strip + rest day button (hidden until you have data) -->
+  <div class="pbt-dots" id="pbtDotsWrap" style="display:none">
     <div style="display:flex;align-items:center;gap:8px">
       <span class="pbt-dots-label">Last 7</span>
       <div class="pbt-dots-row" id="pbtDots"></div>
@@ -2593,8 +2587,8 @@ html{scroll-behavior:smooth}
 <div class="pb-pane" id="pb-build">
 
 <div class="pb-today">
-<div class="pb-today-label">⚡ Today's Build Block · 5:15–6:45 PM</div>
-<div class="pb-today-text" id="pbBuildToday">Today: Mon/Wed/Fri = code project · Tue/Thu = hardware (Ben Eater)</div>
+<div class="pb-today-label">⚡ Today's Build Block · 5:15–6:45 PM · 90 min</div>
+<div class="pb-today-text" id="pbBuildToday">Mon/Wed/Fri = current capstone phase · Tue/Thu = Ben Eater 8-bit hardware · Sat 8:15–9:45 = Project Build 1 (long form)</div>
 <div class="pb-today-protocol">2-min entry: read yesterday's exit note → 50-min build at edge of ability → 10-min PhD micro-write → 2-min exit: git commit + tomorrow's first action + new incubation question.</div>
 </div>
 
@@ -2608,6 +2602,17 @@ html{scroll-behavior:smooth}
 <strong>6:19</strong> Walk away. Incubation does the rest.
 </div>
 <div class="pb-callout"><strong>The edge-of-ability rule:</strong> If you can't describe why you're stuck in one sentence, you're too far over. If you haven't been stuck today, you're too far under. Move the ladder.</div>
+</div>
+
+<div class="pb-card">
+<h3>🎯 Primary Narrative — 5-Phase CLRS Capstone <span class="pb-badge" style="background:var(--green-g);color:var(--green)">Schedule v4.1</span></h3>
+<p style="font-size:11px;color:var(--dim);margin-bottom:12px">This is the capstone arc the Schedule promotes. Each CLRS phase produces a real tool you can show in a PhD application. Code-project days (Mon/Wed/Fri + Sat) feed directly into whichever phase you're currently on.</p>
+<div class="pb-phase"><div class="pb-phase-num">1</div><div class="pb-phase-info"><div class="pb-phase-title">🏎️ Sorting Benchmark Visualizer</div><div class="pb-phase-meta">Weeks 1–8 · Python or web · Ch 2, 6, 7, 8</div><div class="pb-phase-desc">Visualize + benchmark every sorting algo side-by-side. Insertion · Merge · Heap · Quick · Counting · Radix. Watch O(n²) vs O(n log n) race in real time. Week 8 deliverable: polished README + live demo.</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">2</div><div class="pb-phase-info"><div class="pb-phase-title">🔍 Mini Search Engine</div><div class="pb-phase-meta">Weeks 9–16 · Zero dependencies · Ch 11, 12, 15</div><div class="pb-phase-desc">Hash table (chaining + open addressing) for the inverted index, BST for ranked retrieval, DP (edit distance) for fuzzy matching. Corpus: your PhD paper notes. Week 16: "Every data structure from scratch."</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">3</div><div class="pb-phase-info"><div class="pb-phase-title">🕸️ Research Network Mapper <span style="color:var(--accent);font-weight:700">★ PhD prep</span></div><div class="pb-phase-meta">Weeks 17–22 · Zotero + Semantic Scholar API · Ch 22, 23, 24</div><div class="pb-phase-desc">Citation graph of your paper database. BFS/DFS for traversal, Dijkstra for "shortest intellectual distance," MST for the field's skeleton. <strong>This tool IS your literature review infrastructure</strong> — cite it in your SoP.</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">4</div><div class="pb-phase-info"><div class="pb-phase-title">📄 Document Similarity Detector</div><div class="pb-phase-meta">Weeks 23–28 · Ch 32, 34, 35</div><div class="pb-phase-desc">Rabin-Karp fingerprinting + KMP for exact matching + Floyd-Warshall for thematic clusters. Run it on your 50+ paper synthesis corpus. Week 28: similarity matrix + cluster visualization.</div></div></div>
+<div class="pb-phase"><div class="pb-phase-num">5</div><div class="pb-phase-info"><div class="pb-phase-title">📦 Portfolio Integration</div><div class="pb-phase-meta">Weeks 29–30 · Consolidation</div><div class="pb-phase-desc">Unify all 4 projects into one GitHub portfolio with a master README. 2-page reflection. Blog post: "What I Learned Working Through CLRS in 30 Weeks." Updated on fansofhenry.github.io. This is the artifact PhD committees read.</div></div></div>
+<div class="pb-callout"><strong>Why phases not tiers:</strong> The tier ladder below is useful reference, but the 5-phase capstone is what the Schedule commits to. Every code-project day should push the current phase forward. When you finish a phase, move on — don't stall on the tiers.</div>
 </div>
 
 <div class="pb-card">
@@ -2733,6 +2738,14 @@ html{scroll-behavior:smooth}
 <strong>Thu — Outreach:</strong> Draft ONE cold email or faculty reply. Update your faculty tracker spreadsheet.<br>
 <strong>Fri — Program research:</strong> Deep-dive ONE program per week. Fill: deadline, faculty, materials, funding, fit notes.
 </div>
+</div>
+
+<div style="margin:24px 0 16px;padding:10px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--dim2);display:flex;align-items:center;gap:10px">
+  <span style="font-size:16px">📚</span>
+  <div style="flex:1">
+    <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin-bottom:2px">Reference material · not for in-block use</div>
+    <div style="font-size:11px;color:var(--dim);line-height:1.5">Everything above is what you do DURING a PhD block. Everything below (papers, faculty, programs, SoP template, 18-month roadmap) is reference — skim it on Sunday review, not at 5:15 PM.</div>
+  </div>
 </div>
 
 <div class="pb-card">
@@ -3940,20 +3953,27 @@ function renderDash(){
   if(!nextBlock){const next=blocks.filter(b=>!b.sec&&b.h1!==undefined&&b.h1>hour)[0];if(next)nextBlock=next}
   $('dSchedule').innerHTML=schedHtml;
 
-  // NOW indicator
+  // Render the Learning Block Track card first — uses Schedule data so it can
+  // preview the next learning block during CVC work hours too
+  dRenderNowTrack();
+  // Compact NOW hint strip — only shown when current block has a useful If/Then
+  // tip AND the Playbook track card isn't already on the same pane
   if(nowBlock){
-    $('dNowBox').style.display='block';
-    $('dNowName').textContent=nowBlock.n;
-    $('dNowIf').textContent=nowBlock.ifThen||'';
-    const minsLeft=Math.round((nowBlock.h2-hour)*60);
-    $('dNowTimer').textContent=minsLeft+'m left';
-    $('dNowNext').textContent=nextBlock?'Next: '+nextBlock.n.replace(/^[^\s]+ /,''):'Last block of the day';
+    const trackVisible=document.getElementById('dTrackCard')?.style.display!=='none';
+    const trackCardPane=document.getElementById('dTrackCard')?.dataset.pane;
+    const inLearningBlock=trackVisible&&trackCardPane&&(typeof getCurrentSchedBlock==='function')&&(()=>{
+      try{const cur=getCurrentSchedBlock();return cur&&PB_PANE_FOR_BLOCK[cur.key]===trackCardPane}catch(e){return false}
+    })();
+    if(inLearningBlock||!nowBlock.ifThen){
+      $('dNowBox').style.display='none';
+    }else{
+      $('dNowBox').style.display='';
+      $('dNowName').textContent=nowBlock.n;
+      $('dNowIf').textContent=nowBlock.ifThen||'';
+    }
   } else {
     $('dNowBox').style.display='none';
   }
-  // Render the Learning Block Track card independently — uses Schedule data
-  // so it can preview the next learning block during CVC work hours too
-  dRenderNowTrack();
 
   // MVD button state
   $('dMvdBtn').textContent=mvdMode?'Full Day':'Minimum Day';
@@ -4916,21 +4936,25 @@ function pbCalcStreak(t){
 
 function pbRenderDots(t){
   const el=$('pbtDots');if(!el)return;
+  const wrap=$('pbtDotsWrap');
   const sessions=new Set(t.sessionDays||[]);
   const rests=new Set(t.restDays||[]);
   const todayKey=td();
+  // Only show the strip once there's real data — hide the whole row on first use
+  const hasAny=sessions.size>0||rests.size>0;
+  if(wrap)wrap.style.display=hasAny?'':'none';
+  if(!hasAny){return}
   const dots=[];
   for(let i=6;i>=0;i--){
     const d=new Date();d.setDate(d.getDate()-i);
     const k=pbDateKey(d);
-    const dow=['S','M','T','W','T','F','S'][d.getDay()];
     let cls='pbt-dot';
     let title=k+' · ';
     if(sessions.has(k)){cls+=' pbt-dot-done';title+='session logged'}
     else if(rests.has(k)){cls+=' pbt-dot-rest';title+='rest day'}
     else title+='(nothing)';
     if(k===todayKey)cls+=' pbt-dot-today';
-    dots.push(`<div class="${cls}" title="${title}">${i===0?'':''}</div>`);
+    dots.push(`<div class="${cls}" title="${title}"></div>`);
   }
   el.innerHTML=dots.join('');
   // Rest button state
