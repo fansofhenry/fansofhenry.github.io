@@ -312,17 +312,25 @@ select.input{appearance:auto}
 #page-schedule .sch-stat{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:4px 12px;border-radius:18px;border:1px solid var(--border);background:var(--s1);color:var(--dim)}
 #page-schedule .sch-stat strong{color:var(--tx)}
 #page-schedule .schedule-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border);background:var(--s1);box-shadow:0 1px 3px rgba(0,0,0,.06)}
-#page-schedule table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:920px}
-#page-schedule thead th{background:var(--s2);color:var(--dim);padding:11px 6px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:.68rem;border-bottom:2px solid var(--border)}
-#page-schedule thead th:first-child{width:60px;border-right:2px solid var(--border)}
-#page-schedule td{border:1px solid var(--border);padding:0;vertical-align:top;height:52px;background:var(--s1)}
-#page-schedule td:first-child{background:var(--s2);text-align:center;vertical-align:middle;font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--dim2);font-weight:500;width:60px;border-right:2px solid var(--border)}
-#page-schedule .c{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:5px 8px;border-left:3px solid transparent;transition:box-shadow .15s}
+#page-schedule table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:760px}
+#page-schedule thead th{background:var(--s2);color:var(--dim);padding:11px 6px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:.72rem;border-bottom:2px solid var(--border)}
+#page-schedule thead th:first-child{width:64px;border-right:2px solid var(--border)}
+#page-schedule td{border:1px solid var(--border);padding:0;vertical-align:top;height:56px;background:var(--s1)}
+#page-schedule td:first-child{background:var(--s2);text-align:center;vertical-align:middle;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--dim2);font-weight:600;width:64px;border-right:2px solid var(--border)}
+#page-schedule .c{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:6px 9px;border-left:3px solid transparent;transition:box-shadow .15s}
 #page-schedule .c:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-#page-schedule .c .label{font-weight:600;font-size:.72rem;margin-bottom:1px}
-#page-schedule .c .time{font-size:.58rem;color:var(--dim2)}
-#page-schedule .c .detail{font-size:.55rem;color:var(--dim2);margin-top:2px}
-#page-schedule .c .science{font-size:.5rem;font-weight:600;letter-spacing:.4px;margin-top:2px}
+#page-schedule .c .label{font-weight:700;font-size:.78rem;margin-bottom:2px;line-height:1.25}
+#page-schedule .c .time{font-size:.66rem;color:var(--dim2);font-variant-numeric:tabular-nums}
+#page-schedule .c .detail{font-size:.62rem;color:var(--dim2);margin-top:3px;line-height:1.35}
+#page-schedule .c .science{font-size:.56rem;font-weight:700;letter-spacing:.4px;margin-top:3px;opacity:.85}
+@media(max-width:720px){
+  #page-schedule table{min-width:680px}
+  #page-schedule .c{padding:5px 7px}
+  #page-schedule .c .label{font-size:.7rem}
+  #page-schedule .c .time{font-size:.58rem}
+  #page-schedule .c .detail{display:none}
+  #page-schedule .c .science{display:none}
+}
 :root #page-schedule{--exercise:#34d399;--exercise-bg:rgba(52,211,153,.1);--theory:#6b8aff;--theory-bg:rgba(107,138,255,.1);--work:#fbbf24;--work-bg:rgba(251,191,36,.08);--build:#a78bfa;--build-bg:rgba(167,139,250,.1);--phd:#f472b6;--phd-bg:rgba(244,114,182,.1);--youtube:#fb923c;--youtube-bg:rgba(251,146,60,.1);--family:#fbbf24;--family-bg:rgba(251,191,36,.08);--rest:var(--dim);--rest-bg:var(--s2);--review:#2dd4bf;--review-bg:rgba(45,212,191,.1);--shutdown:#a78bfa;--shutdown-bg:rgba(167,139,250,.08);--warn:#fbbf24}
 :root.light #page-schedule{--exercise:#1a9a6e;--exercise-bg:#edf8f3;--theory:#2563eb;--theory-bg:#eef4ff;--work:#b8860b;--work-bg:#fdf8eb;--build:#7c3aed;--build-bg:#f3f0ff;--phd:#db2777;--phd-bg:#fdf0f6;--youtube:#dc4a2a;--youtube-bg:#fef0ed;--family:#c07c1a;--family-bg:#fef9ee;--rest:#78716c;--rest-bg:#f5f4f2;--review:#0f9488;--review-bg:#edfaf8;--shutdown:#5b4cdb;--shutdown-bg:#f3f1ff;--warn:#d97706}
 #page-schedule .c-exercise{background:var(--exercise-bg);border-left-color:var(--exercise)}
@@ -345,8 +353,8 @@ select.input{appearance:auto}
 #page-schedule .c-review .label,#page-schedule .c-review .science{color:var(--review)}
 #page-schedule .c-shutdown{background:var(--shutdown-bg);border-left-color:var(--shutdown)}
 #page-schedule .c-shutdown .label,#page-schedule .c-shutdown .science{color:var(--shutdown)}
-#page-schedule .c-sleep{background:var(--work-bg);border-left-color:var(--warn)}
-#page-schedule .c-sleep .label,#page-schedule .c-sleep .science{color:var(--warn)}
+#page-schedule .c-sleep{background:var(--shutdown-bg);border-left-color:var(--shutdown)}
+#page-schedule .c-sleep .label,#page-schedule .c-sleep .science{color:var(--shutdown)}
 #page-schedule .c-wind{background:var(--theory-bg);border-left-color:var(--theory)}
 #page-schedule .c-wind .label,#page-schedule .c-wind .science{color:var(--theory)}
 #page-schedule .h2{height:104px}#page-schedule .h3{height:156px}#page-schedule .h9{height:468px}#page-schedule .h10{height:520px}
@@ -1938,12 +1946,12 @@ html{scroll-behavior:smooth}
 <div class="track sch-changes">
   <div class="track-head">
     <span>7 Evidence-Based Upgrades</span>
-    <span class="meta">Net: +30 min sleep/night · +3.5h consolidation/wk · stronger transfer · PhD ↔ CS convergence</span>
+    <span class="meta">Net: +45 min sleep/night · +5.25h consolidation/wk · stronger transfer · PhD ↔ CS convergence</span>
   </div>
   <div class="track-body">
     <ul>
       <li><strong>5 phase capstone projects:</strong> Each CLRS phase produces a real tool — Sorting Visualizer → Mini Search Engine → Research Network Mapper → Document Similarity Detector → Portfolio. Phases 3–4 directly serve your PhD prep. <em>(Chi, 2009: elaboration through application creates richer, more transferable memory traces)</em></li>
-      <li><strong>+30 min sleep/night:</strong> YouTube moved to 8:30 PM. Screens off 9:15. Sleep at 10:00. = 7h 50m. Gains ~3.5h memory consolidation/week. <em>(Walker, 2017: each 90-min cycle lost costs ~20% of that cycle's consolidation)</em></li>
+      <li><strong>+45 min sleep/night:</strong> Wind-down 9:00 PM. Screens off 9:00. Sleep at 9:45 PM → 5:50 AM = 8h 5m. Gains ~5.25h memory consolidation/week vs v3.1's 7h 20m. <em>(Walker, 2017: each 90-min cycle lost costs ~20% of that cycle's consolidation)</em></li>
       <li><strong>Within-session interleaving:</strong> Every CLRS session now touches 2+ chapters. Last 10 min of each session = exercises from a different chapter. Builds discriminative contrast, not just familiarity. <em>(Rohrer, 2015: d=0.35 over blocked practice)</em></li>
       <li><strong>Incubation protocol:</strong> Evening sessions end with an unsolved question. Sleep processes it. Morning retrieval revisits. <em>(Wagner et al., 2004: 2.6x more likely to find insight after sleep)</em></li>
       <li><strong>Daily PhD micro-writing:</strong> 10-min writes in weekday PhD slots. Sunday polishes. Compounds to 50+ min/wk of additional writing. <em>(Boice, 1990: daily writers published 9x more than binge writers)</em></li>
@@ -2008,7 +2016,7 @@ html{scroll-behavior:smooth}
   <tr><td>2 PM</td></tr>
   <tr>
     <td>3 PM</td>
-    <td rowspan="2"><div class="c c-rest h2"><span class="label">🌿 Rest / Recovery</span><span class="time">1:30 – 4:00</span><span class="detail">Protected rest. Walk, nap, leisure reading. No deep work.</span><span class="science">DIMINISHING RETURNS GATE</span></div></td>
+    <td rowspan="2"><div class="c c-rest h2"><span class="label">🌿 Rest / Recovery</span><span class="time">1:30 – 4:00 PM</span><span class="detail">Protected rest · walk, nap, leisure reading</span><span class="science">DIMINISHING RETURNS GATE</span></div></td>
   </tr>
   <tr><td>4 PM</td></tr>
   <tr>
@@ -2030,21 +2038,21 @@ html{scroll-behavior:smooth}
     <td><div class="c c-family"><span class="label">🏠 Family Evening</span><span class="time">7:00 – 8:30</span></div></td>
   </tr>
   <tr>
-    <td>9 PM</td>
+    <td>8 PM</td>
     <td><div class="c c-phd"><span class="label">🎓 Mentor Call · Jeff Anderson</span><span class="time">8:00 – 8:40 PM PST</span><span class="detail">Weekly sync. Share progress, ask questions, align on next week. → Wind down 8:40–9:45.</span><span class="science">FEEDBACK LOOP · ACCOUNTABILITY ★</span></div></td>
     <td colspan="4"><div class="c c-youtube"><span class="label">🎬 YouTube</span><span class="time">8:30 – 9:00</span><span class="detail">Tue record · Wed edit · Thu publish · Fri script</span><span class="science">LOW LOAD · SCREENS END 9:00</span></div></td>
     <td><div class="c c-review"><span class="label">✅ GTD Review</span><span class="time">8:30 – 9:00</span><span class="science">METACOGNITION</span></div></td>
     <td><div class="c c-review"><span class="label">✅ Weekly Review</span><span class="time">8:30 – 9:00</span><span class="detail">GTD weekly: inboxes, areas, horizons, calendar</span><span class="science">METACOGNITION</span></div></td>
   </tr>
   <tr>
-    <td>10 PM</td>
+    <td>9 PM</td>
     <td colspan="5"><div class="c c-wind"><span class="label">🌙 Wind Down — No Screens</span><span class="time">9:00 – 9:45</span><span class="detail">Read fiction. Journal. Lights dim. Incubation questions percolating.</span><span class="science">MELATONIN ONSET PROTECTED</span></div></td>
     <td><div class="c c-wind"><span class="label">🌙 Wind Down</span><span class="time">9:00 – 9:45</span></div></td>
     <td><div class="c c-theory"><span class="label">📖 CLRS Retrieval → Wind Down</span><span class="time">9:00 – 9:45</span><span class="detail">9:00–9:30 hardest problem no notes · 9:30–9:45 lights dim</span><span class="science">INCUBATION ★</span></div></td>
   </tr>
   <tr>
-    <td>10 PM</td>
-    <td colspan="7"><div class="c c-sleep"><span class="label">😴 Sleep 9:45 PM → 5:50 AM = 8h 5m</span><span class="detail">5+ full sleep cycles. SWS replays today's learning. REM integrates with long-term memory. (+15 min vs v4.0)</span><span class="science">MEMORY CONSOLIDATION · INCUBATION ACTIVE</span></div></td>
+    <td>Sleep</td>
+    <td colspan="7"><div class="c c-sleep"><span class="label">😴 Sleep 9:45 PM → 5:50 AM = 8h 5m</span><span class="detail">5+ full sleep cycles. SWS replays today's learning. REM integrates with long-term memory.</span><span class="science">MEMORY CONSOLIDATION · INCUBATION ACTIVE</span></div></td>
   </tr>
 </tbody>
 </table>
@@ -2452,17 +2460,17 @@ html{scroll-behavior:smooth}
 <div id="pbTrackSearchResults" style="display:none;margin-bottom:14px"></div>
 
 <div class="pb-tabs">
-  <button class="pb-tab" data-pbtab="overview"><span class="pb-tab-icon">📊</span>All Tracks</button>
-  <button class="pb-tab active" data-pbtab="clrs"><span class="pb-tab-icon">📖</span>CLRS Theory</button>
+  <button class="pb-tab active" data-pbtab="overview"><span class="pb-tab-icon">📊</span>All Tracks</button>
+  <button class="pb-tab" data-pbtab="clrs"><span class="pb-tab-icon">📖</span>CLRS Theory</button>
   <button class="pb-tab" data-pbtab="build"><span class="pb-tab-icon">🔧</span>CS Build</button>
   <button class="pb-tab" data-pbtab="phd"><span class="pb-tab-icon">🎓</span>PhD Prep</button>
   <button class="pb-tab" data-pbtab="write"><span class="pb-tab-icon">✍️</span>PhD Deep Write</button>
   <button class="pb-tab" data-pbtab="youtube"><span class="pb-tab-icon">🎬</span>YouTube</button>
-  <button class="pb-tab" data-pbtab="grad"><span class="pb-tab-icon">🎯</span>Grad CS Excellence</button>
+  <button class="pb-tab" data-pbtab="grad"><span class="pb-tab-icon">🎯</span>Grad CS</button>
 </div>
 
 <!-- ===== OVERVIEW (ALL TRACKS) PANE ===== -->
-<div class="pb-pane" id="pb-overview">
+<div class="pb-pane active" id="pb-overview">
   <div class="pb-ov-header">
     <div>
       <div class="pb-ov-heading">All Tracks — Planning View</div>
@@ -2480,7 +2488,7 @@ html{scroll-behavior:smooth}
 </div>
 
 <!-- ===== CLRS THEORY PANE ===== -->
-<div class="pb-pane active" id="pb-clrs">
+<div class="pb-pane" id="pb-clrs">
 
 <div class="pb-today">
 <div class="pb-today-label">⚡ Today's CLRS Block · 7:00–8:00 AM</div>
@@ -2711,7 +2719,7 @@ html{scroll-behavior:smooth}
 <div class="pb-pane" id="pb-phd">
 
 <div class="pb-today">
-<div class="pb-today-label">⚡ Today's PhD Block · 6:15–6:45 PM (30 min)</div>
+<div class="pb-today-label">⚡ Weekday PhD · inside Build → PhD block (5:15–6:45 PM, final 10 min micro-write) · Lunch Deep 12:00–1:30</div>
 <div class="pb-today-text" id="pbPhdToday">Today's rotation: see weekday focus below</div>
 <div class="pb-today-protocol">Predict from title (2m) → read paper (20m) → synthesize from memory (5m) → 3 Anki cards (3m). Target: 2 papers/week → 50 in 6 months.</div>
 </div>
@@ -2900,9 +2908,9 @@ Best,<br>Henry Fan
 <div class="pb-pane" id="pb-youtube">
 
 <div class="pb-today">
-<div class="pb-today-label">⚡ Today's YouTube Block</div>
-<div class="pb-today-text" id="pbYtToday">Mon=script · Tue=record · Wed=edit · Thu=publish · Fri=plan</div>
-<div class="pb-today-protocol">Weekday 8:30-9:15 PM (45 min low-load creative). Saturday 4:00-5:30 PM (90 min big build).</div>
+<div class="pb-today-label">⚡ Today's YouTube Block · Tue–Fri 8:30–9:00 PM · Sat 4:00–5:30 PM</div>
+<div class="pb-today-text" id="pbYtToday">Tue=record · Wed=edit · Thu=publish · Fri=script</div>
+<div class="pb-today-protocol">Weekday 30 min low-load creative. Saturday 90 min big build. (Monday 8–8:40 PM is the Jeff Anderson mentor call — not a YouTube day.)</div>
 </div>
 
 <div class="pb-card">
