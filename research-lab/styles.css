@@ -1093,6 +1093,83 @@ article.pi-card {
 }
 .log-form textarea { min-height: 72px; resize: vertical; }
 
+/* Paper + step side-by-side on wide screens; stack on narrow. */
+.log-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.log-form-row label { margin-top: 0; }
+@media (max-width: 560px) {
+  .log-form-row { grid-template-columns: 1fr; }
+}
+
+/* ---- Filter chip row ---- */
+.log-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 16px 0 10px;
+}
+.log-chip {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 12px 5px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.log-chip:hover { background: var(--bg-2); color: var(--ink); }
+.log-chip.active { color: var(--ink); border-color: var(--ink-2); background: var(--bg-2); }
+.log-chip.p1.active { border-color: var(--p1); color: var(--p1); }
+.log-chip.p2.active { border-color: var(--p2); color: var(--p2); }
+.log-chip.p3.active { border-color: var(--p3); color: var(--p3); }
+.log-chip-count {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  background: var(--border);
+  color: var(--ink-2);
+  padding: 1px 6px;
+  border-radius: 999px;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* ---- Step tag inside a log entry ---- */
+.log-feed .step-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  padding: 1px 7px;
+  margin-left: 6px;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+}
+.log-feed .log-notes {
+  margin-top: 6px;
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.log-feed .log-empty {
+  color: var(--ink-3);
+  font-style: italic;
+  border-left: none;
+  padding-left: 0;
+}
+
 .log-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .log-form button {
   padding: 9px 18px;

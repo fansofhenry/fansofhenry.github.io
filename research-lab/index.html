@@ -740,14 +740,29 @@
       <p class="lede">A persistent, paper-tagged journal. Entries live in <code>localStorage</code> on this device — they survive page reloads but should be exported to git monthly via <code>Export JSON</code>.</p>
 
       <form class="log-form" id="log-form" autocomplete="off">
-        <label>Paper
-          <select name="paper" required>
-            <option value="paper-1">Paper 01 — MER 2.0</option>
-            <option value="paper-2">Paper 02 — Matrices to Networks</option>
-            <option value="paper-3">Paper 03 — AI Modeling Tutor</option>
-            <option value="lab">Lab-wide / cross-cutting</option>
-          </select>
-        </label>
+        <div class="log-form-row">
+          <label class="log-field log-field-paper">Paper
+            <select name="paper" required>
+              <option value="paper-1">Paper 01 — MER 2.0</option>
+              <option value="paper-2">Paper 02 — Matrices to Networks</option>
+              <option value="paper-3">Paper 03 — AI Modeling Tutor</option>
+              <option value="lab">Lab-wide / cross-cutting</option>
+            </select>
+          </label>
+          <label class="log-field log-field-step">Modeling step (optional)
+            <select name="step">
+              <option value="">— none —</option>
+              <option value="1">1 · Find</option>
+              <option value="2">2 · Mathematize</option>
+              <option value="3">3 · State ideal</option>
+              <option value="4">4 · Solve</option>
+              <option value="5">5 · Analyze</option>
+              <option value="6">6 · Verify</option>
+              <option value="7">7 · Transfer</option>
+              <option value="8">8 · Iterate</option>
+            </select>
+          </label>
+        </div>
         <label>What moved (one sentence)
           <input type="text" name="what" maxlength="240" placeholder="e.g. Bench-tested 3 spring stiffnesses; k=12 N/m gives cleanest 2nd mode." required />
         </label>
@@ -761,7 +776,15 @@
         </div>
       </form>
 
-      <ul class="log-feed" id="log-list"></ul>
+      <div class="log-filter" role="tablist" aria-label="Filter log by paper">
+        <button type="button" class="log-chip active" data-filter="all" role="tab" aria-selected="true">All <span class="log-chip-count" data-count="all">0</span></button>
+        <button type="button" class="log-chip p1" data-filter="paper-1" role="tab" aria-selected="false">P01 <span class="log-chip-count" data-count="paper-1">0</span></button>
+        <button type="button" class="log-chip p2" data-filter="paper-2" role="tab" aria-selected="false">P02 <span class="log-chip-count" data-count="paper-2">0</span></button>
+        <button type="button" class="log-chip p3" data-filter="paper-3" role="tab" aria-selected="false">P03 <span class="log-chip-count" data-count="paper-3">0</span></button>
+        <button type="button" class="log-chip lab" data-filter="lab" role="tab" aria-selected="false">Lab <span class="log-chip-count" data-count="lab">0</span></button>
+      </div>
+
+      <ul class="log-feed" id="log-list" aria-live="polite"></ul>
     </section>
 
     <!-- §05 EXPERIMENTS -->
@@ -1196,6 +1219,19 @@ modeling-bench-aitutor/          ← Paper 03 repo
   var list = document.getElementById('log-list');
   var exportBtn = document.getElementById('export-log');
   var importBtn = document.getElementById('import-log');
+  var filterBar = document.querySelector('.log-filter');
+  var filter = 'all';
+
+  var STEP_NAMES = {
+    '1': 'Find',
+    '2': 'Mathematize',
+    '3': 'State ideal',
+    '4': 'Solve',
+    '5': 'Analyze',
+    '6': 'Verify',
+    '7': 'Transfer',
+    '8': 'Iterate'
+  };
 
   function load() {
     try { return JSON.parse(localStorage.getItem(KEY)) || []; }
@@ -1216,16 +1252,41 @@ modeling-bench-aitutor/          ← Paper 03 repo
       'lab':     'Lab'
     })[p] || p;
   }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function updateCounts(entries) {
+    var counts = { all: entries.length, 'paper-1': 0, 'paper-2': 0, 'paper-3': 0, 'lab': 0 };
+    entries.forEach(function (e) { if (counts[e.paper] !== undefined) counts[e.paper]++; });
+    Object.keys(counts).forEach(function (k) {
+      var node = document.querySelector('.log-chip-count[data-count="' + k + '"]');
+      if (node) node.textContent = counts[k];
+    });
+  }
+
   function render() {
     var entries = load().slice().sort(function (a, b) { return b.ts - a.ts; });
+    updateCounts(entries);
+    var visible = filter === 'all' ? entries : entries.filter(function (e) { return e.paper === filter; });
+
     list.innerHTML = '';
-    if (entries.length === 0) {
-      list.innerHTML = '<li style="color:var(--ink-3); font-style: italic; border-left:none; padding-left:0;">No entries yet. The first one is the hardest.</li>';
+    if (visible.length === 0) {
+      var msg = filter === 'all'
+        ? 'No entries yet. The first one is the hardest.'
+        : 'No entries for this paper yet.';
+      list.innerHTML = '<li class="log-empty">' + msg + '</li>';
       return;
     }
-    entries.forEach(function (e) {
+    visible.forEach(function (e) {
       var li = document.createElement('li');
       li.className = e.paper === 'lab' ? '' : e.paper;
+      var stepTag = e.step && STEP_NAMES[e.step]
+        ? '<span class="step-tag" title="Anderson step ' + escapeHtml(e.step) + '">' +
+          '§' + escapeHtml(e.step) + ' ' + escapeHtml(STEP_NAMES[e.step]) + '</span>'
+        : '';
       /* id is an internal-only string but we still escape it because an
          imported JSON file could contain an arbitrary value. */
       li.innerHTML =
@@ -1234,14 +1295,24 @@ modeling-bench-aitutor/          ← Paper 03 repo
           '<span aria-hidden="true">×</span></button>' +
         '<span class="when">' + escapeHtml(fmt(e.ts)) + '</span>' +
         '<span class="which">' + escapeHtml(paperLabel(e.paper)) + '</span>' +
+        stepTag +
         '<span class="what">' + escapeHtml(e.what) + '</span>' +
-        (e.notes ? '<div style="margin-top:6px; color:var(--ink-3); font-size:13px;">' + escapeHtml(e.notes).replace(/\n/g, '<br>') + '</div>' : '');
+        (e.notes ? '<div class="log-notes">' + escapeHtml(e.notes).replace(/\n/g, '<br>') + '</div>' : '');
       list.appendChild(li);
     });
   }
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+
+  if (filterBar) {
+    filterBar.addEventListener('click', function (ev) {
+      var chip = ev.target.closest('.log-chip');
+      if (!chip) return;
+      filter = chip.getAttribute('data-filter');
+      filterBar.querySelectorAll('.log-chip').forEach(function (c) {
+        var active = c === chip;
+        c.classList.toggle('active', active);
+        c.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      render();
     });
   }
 
@@ -1253,6 +1324,7 @@ modeling-bench-aitutor/          ← Paper 03 repo
       id:    Date.now() + '-' + Math.random().toString(36).slice(2, 7),
       ts:    Date.now(),
       paper: data.get('paper'),
+      step:  data.get('step') || null,
       what:  data.get('what'),
       notes: data.get('notes') || ''
     });
