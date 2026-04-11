@@ -601,6 +601,113 @@ th { background: var(--bg-2); font-family: var(--sans); font-weight: 600; font-s
 }
 .arc-dates time { color: var(--ink-2); }
 
+/* ---- Today strip ----
+   Three cells between the arc row and the 8-step legend: today's
+   weekday, the active-or-next §03 Workflow ritual, and the next
+   mentor-call countdown. Populated live by JS. Subtle green accent
+   when a ritual is active ("has-active") or the mentor call is in
+   progress ("mentor-live") so the dashboard can tell Henry that
+   now is the time without yelling. */
+.today-strip {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.today-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.today-ritual-cell {
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+}
+.today-mentor-cell {
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+}
+.today-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.today-day {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.today-ritual-name {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.today-sub {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.35;
+}
+.today-strip.has-active .today-ritual-cell {
+  border-left-color: #2e7d52;
+}
+.today-strip.has-active .today-ritual-cell .today-eyebrow {
+  color: #2e7d52;
+}
+[data-theme="dark"] .today-strip.has-active .today-ritual-cell {
+  border-left-color: #6fb587;
+}
+[data-theme="dark"] .today-strip.has-active .today-ritual-cell .today-eyebrow {
+  color: #6fb587;
+}
+.today-strip.mentor-live .today-mentor-cell {
+  border-left-color: #b7791f;
+}
+.today-strip.mentor-live .today-mentor-cell .today-eyebrow {
+  color: #b7791f;
+}
+[data-theme="dark"] .today-strip.mentor-live .today-mentor-cell {
+  border-left-color: #d9a85d;
+}
+[data-theme="dark"] .today-strip.mentor-live .today-mentor-cell .today-eyebrow {
+  color: #d9a85d;
+}
+@media (max-width: 720px) {
+  .today-strip {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .today-ritual-cell,
+  .today-mentor-cell {
+    padding-left: 0;
+    padding-top: 12px;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+  .today-strip.has-active .today-ritual-cell {
+    border-top-color: #2e7d52;
+    border-left-color: transparent;
+  }
+  .today-strip.mentor-live .today-mentor-cell {
+    border-top-color: #b7791f;
+    border-left-color: transparent;
+  }
+}
+
 /* ---- Anderson's 8-step track ---- */
 .eight-step { margin-top: 24px; }
 .eight-step-head {

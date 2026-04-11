@@ -203,6 +203,13 @@
       <div class="sb-group-label">PhD</div>
       <a href="#targets" class="sb-link"><span class="sb-dot"></span>§09 PhD Targets</a>
     </div>
+    <div class="sb-group">
+      <div class="sb-group-label">Artifacts</div>
+      <a href="/research-lab/bibliography.html" class="sb-link"><span class="sb-dot"></span>📚 Bibliography</a>
+      <a href="/research-lab/derivations/mer-2-0.html" class="sb-link p1"><span class="sb-dot"></span>🧮 MER 2.0 derivation</a>
+      <a href="/research-lab/rubrics/ai-tutor-audit.html" class="sb-link p3"><span class="sb-dot"></span>📋 AI Tutor rubric</a>
+      <a href="/research-lab/log/" class="sb-link"><span class="sb-dot"></span>📓 Research log (git)</a>
+    </div>
   </nav>
   <div class="sb-foot">
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">
@@ -283,6 +290,28 @@
               <span aria-hidden="true">·</span>
               <time datetime="2027-04-10">Apr 10 2027</time>
             </div>
+          </div>
+        </div>
+
+        <!-- Today strip — live weekday + active/next §03 Workflow ritual
+             + next Monday 8 PM PT mentor call countdown. Populated by JS
+             on load and on visibilitychange so a tab left open overnight
+             doesn't lie about which day it is. -->
+        <div class="today-strip" id="today-strip" aria-live="polite">
+          <div class="today-cell today-date-cell">
+            <div class="today-eyebrow">Today</div>
+            <div class="today-day" data-today-day>—</div>
+            <div class="today-sub" data-today-date>—</div>
+          </div>
+          <div class="today-cell today-ritual-cell">
+            <div class="today-eyebrow" data-ritual-label>Next ritual</div>
+            <div class="today-ritual-name" data-ritual-name>—</div>
+            <div class="today-sub" data-ritual-when>—</div>
+          </div>
+          <div class="today-cell today-mentor-cell">
+            <div class="today-eyebrow">Mentor call</div>
+            <div class="today-ritual-name" data-mentor-count>—</div>
+            <div class="today-sub">Mondays 8 PM PT · Jeff Anderson</div>
           </div>
         </div>
 
@@ -1800,6 +1829,160 @@ document.querySelectorAll('.paper-body, .pi-body').forEach(function (body) {
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden) computeArc();
   });
+})();
+
+/* ---- Today strip — live weekday + §03 Workflow ritual + mentor
+   call countdown. Three cells, driven off the current local Date.
+   Re-runs on visibilitychange so a tab left open past midnight
+   updates the weekday. The RITUALS table mirrors §03 Workflow; if
+   the schedule there changes, update the array here too. ---- */
+(function () {
+  var strip = document.getElementById('today-strip');
+  if (!strip) return;
+
+  var DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS    = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  /* Minutes-of-day ranges. day: 0=Sun..6=Sat. Mirrors the §03 Workflow
+     day-cards verbatim. */
+  var RITUALS = [
+    { day: 1, start: 360, end: 450, name: 'Deep Work A',    hours: '06:00–07:30' },
+    { day: 2, start: 360, end: 450, name: 'Experiment / Code', hours: '06:00–07:30' },
+    { day: 3, start: 360, end: 420, name: 'Read & Annotate', hours: '06:00–07:00' },
+    { day: 4, start: 360, end: 450, name: 'Deep Work B',    hours: '06:00–07:30' },
+    { day: 5, start: 360, end: 405, name: 'Mentor Prep',    hours: '06:00–06:45' },
+    { day: 6, start: 480, end: 600, name: 'Long Block',     hours: '08:00–10:00' },
+    { day: 0, start: 1140, end: 1185, name: 'Weekly Review', hours: '19:00–19:45' }
+  ];
+
+  function fmtDuration(ms) {
+    if (ms <= 0) return 'now';
+    var mins = Math.floor(ms / 60000);
+    if (mins < 60) return mins + 'm';
+    var h = Math.floor(mins / 60);
+    var m = mins % 60;
+    if (h < 24) return m === 0 ? h + 'h' : h + 'h ' + m + 'm';
+    var d = Math.floor(h / 24);
+    var hh = h % 24;
+    return hh === 0 ? d + 'd' : d + 'd ' + hh + 'h';
+  }
+
+  function findActiveOrNextRitual(now) {
+    var nowDay = now.getDay();
+    var nowMin = now.getHours() * 60 + now.getMinutes();
+
+    /* Active? */
+    for (var i = 0; i < RITUALS.length; i++) {
+      var r = RITUALS[i];
+      if (r.day === nowDay && nowMin >= r.start && nowMin < r.end) {
+        var endDate = new Date(now);
+        endDate.setHours(Math.floor(r.end / 60), r.end % 60, 0, 0);
+        return { state: 'active', ritual: r, msLeft: endDate - now };
+      }
+    }
+
+    /* Next — scan 0..6 day offsets. */
+    for (var offset = 0; offset < 7; offset++) {
+      var targetDay = (nowDay + offset) % 7;
+      for (var j = 0; j < RITUALS.length; j++) {
+        var rr = RITUALS[j];
+        if (rr.day !== targetDay) continue;
+        if (offset === 0 && rr.end <= nowMin) continue; /* already finished today */
+        var target = new Date(now);
+        target.setDate(target.getDate() + offset);
+        target.setHours(Math.floor(rr.start / 60), rr.start % 60, 0, 0);
+        var msUntil = target - now;
+        if (msUntil > 0) {
+          return { state: 'upcoming', ritual: rr, msUntil: msUntil, target: target };
+        }
+      }
+    }
+    return null;
+  }
+
+  function nextMentorCall(now) {
+    var day = now.getDay();
+    var nowMin = now.getHours() * 60 + now.getMinutes();
+    /* Call runs Mon 20:00–20:40 local. During that window, mark as
+       in-progress. */
+    if (day === 1 && nowMin >= 1200 && nowMin < 1240) {
+      return { state: 'in-progress' };
+    }
+    /* Find next Monday 20:00. If today is Monday and we're before the
+       call start (nowMin < 1200), target is today at 20:00. Otherwise
+       roll forward to next week's Monday. */
+    var offset;
+    if (day === 1 && nowMin < 1200) {
+      offset = 0;
+    } else {
+      offset = (8 - day) % 7;
+      if (offset === 0) offset = 7; /* Monday after 20:40 */
+    }
+    var t = new Date(now);
+    t.setDate(t.getDate() + offset);
+    t.setHours(20, 0, 0, 0);
+    return { state: 'upcoming', target: t, msUntil: t - now };
+  }
+
+  function renderToday() {
+    var now = new Date();
+
+    /* Cell 1 — today's weekday + date */
+    var dayEl  = strip.querySelector('[data-today-day]');
+    var dateEl = strip.querySelector('[data-today-date]');
+    if (dayEl)  dayEl.textContent  = DAY_NAMES[now.getDay()];
+    if (dateEl) dateEl.textContent = MONTHS[now.getMonth()] + ' ' + now.getDate() + ' ' + now.getFullYear();
+
+    /* Cell 2 — active or next ritual */
+    var labelEl = strip.querySelector('[data-ritual-label]');
+    var nameEl  = strip.querySelector('[data-ritual-name]');
+    var whenEl  = strip.querySelector('[data-ritual-when]');
+    var found = findActiveOrNextRitual(now);
+    if (!found) {
+      if (labelEl) labelEl.textContent = 'Ritual';
+      if (nameEl)  nameEl.textContent  = '—';
+      if (whenEl)  whenEl.textContent  = '—';
+    } else if (found.state === 'active') {
+      if (labelEl) labelEl.textContent = 'Now';
+      if (nameEl)  nameEl.textContent  = found.ritual.name;
+      if (whenEl)  whenEl.textContent  = found.ritual.hours + ' · ends in ' + fmtDuration(found.msLeft);
+      strip.classList.add('has-active');
+    } else {
+      strip.classList.remove('has-active');
+      if (labelEl) labelEl.textContent = 'Next ritual';
+      if (nameEl)  nameEl.textContent  = found.ritual.name;
+      /* Compare calendar days (normalized to midnight) so a target
+         later today doesn't round up to "Tomorrow." */
+      var startOfToday  = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var startOfTarget = new Date(found.target.getFullYear(), found.target.getMonth(), found.target.getDate());
+      var diffDays = Math.round((startOfTarget - startOfToday) / 86400000);
+      var dayWord;
+      if (diffDays === 0)      dayWord = 'Today';
+      else if (diffDays === 1) dayWord = 'Tomorrow';
+      else                     dayWord = DAY_NAMES[found.ritual.day];
+      if (whenEl) whenEl.textContent = dayWord + ' ' + found.ritual.hours + ' · in ' + fmtDuration(found.msUntil);
+    }
+
+    /* Cell 3 — mentor call countdown */
+    var mentorEl = strip.querySelector('[data-mentor-count]');
+    if (mentorEl) {
+      var mc = nextMentorCall(now);
+      if (mc.state === 'in-progress') {
+        mentorEl.textContent = 'In progress';
+        strip.classList.add('mentor-live');
+      } else {
+        strip.classList.remove('mentor-live');
+        mentorEl.textContent = 'in ' + fmtDuration(mc.msUntil);
+      }
+    }
+  }
+
+  renderToday();
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) renderToday();
+  });
+  /* Tick every minute so the countdown doesn't visibly stale. Cheap. */
+  setInterval(renderToday, 60 * 1000);
 })();
 
 /* ---- Active section tracking ---- */
