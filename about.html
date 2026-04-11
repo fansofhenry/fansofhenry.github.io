@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Henry Fan</title>
+<meta name="description" content="Henry Fan — Application Support Analyst at CVC-OEI (Foothill–De Anza), mentee in a three-paper applied linear algebra research program with Jeff Anderson, aspiring PhD in CS education.">
+<meta name="author" content="Henry Fan">
+<meta name="theme-color" content="#131110">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://fansofhenry.github.io/about.html">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="fansofhenry.github.io">
+<meta property="og:title" content="About — Henry Fan">
+<meta property="og:description" content="Application Support Analyst at CVC-OEI, research mentee of Jeff Anderson, aspiring PhD in CS education.">
+<meta property="og:url" content="https://fansofhenry.github.io/about.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="About — Henry Fan">
+<meta name="twitter:description" content="Application Support Analyst at CVC-OEI, research mentee of Jeff Anderson, aspiring PhD in CS education.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #faf8f3;
+    --bg-2:  #f3f0e6;
+    --ink:   #1a1814;
+    --ink-2: #4a4640;
+    --ink-3: #8a857c;
+    --border:#dcd8cd;
+    --accent:#1e3a8a;
+    --accent-bg:#f0f5ff;
+    --rule:  #e6e1d4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:    #131110;
+      --bg-2:  #1a1815;
+      --ink:   #e8e3da;
+      --ink-2: #a8a39a;
+      --ink-3: #8a857c;
+      --border:#2e2b26;
+      --accent:#93b4fb;
+      --accent-bg:#0d1525;
+      --rule:  #262320;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    min-height: 100vh;
+    padding: 48px 24px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; }
+  .skip-link {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--accent); color: var(--bg);
+    padding: 10px 16px; border-radius: 0 0 8px 0;
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+    font-weight: 600; text-decoration: none; z-index: 999;
+  }
+  .skip-link:focus { left: 0; outline: 2px solid var(--ink); outline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+  .topnav {
+    display: flex; flex-wrap: wrap; gap: 8px 18px;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.06em;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 36px;
+  }
+  .topnav a { color: var(--ink-2); text-decoration: none; }
+  .topnav a:hover { color: var(--accent); }
+  .topnav a[aria-current="page"] { color: var(--ink); font-weight: 500; }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 14px;
+  }
+  h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 7vw, 60px);
+    line-height: 1.05; letter-spacing: -0.01em;
+    margin: 0 0 20px;
+  }
+  .lede {
+    font-size: 19px; color: var(--ink-2);
+    margin: 0 0 36px; max-width: 56ch;
+  }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-weight: 400;
+    font-size: 26px;
+    margin: 44px 0 14px;
+    letter-spacing: -0.005em;
+  }
+  p { margin: 0 0 16px; max-width: 64ch; color: var(--ink-2); }
+  p strong { color: var(--ink); font-weight: 600; }
+  a.inline { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px 22px;
+    margin: 8px 0 28px;
+    padding: 20px 24px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .facts dt {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-3);
+    align-self: center;
+  }
+  .facts dd { margin: 0; color: var(--ink); }
+
+  .papers {
+    list-style: none; padding: 0; margin: 14px 0 24px;
+    display: grid; gap: 14px;
+  }
+  .papers li {
+    padding: 16px 18px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+  }
+  .papers .paper-label {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 4px;
+  }
+  .papers .paper-title { color: var(--ink); font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .papers .paper-sub { color: var(--ink-2); font-size: 13.5px; }
+
+  .links {
+    margin: 36px 0 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+  }
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .links-grid a {
+    display: block;
+    padding: 16px 18px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color .15s, transform .15s;
+  }
+  .links-grid a:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .links-grid a:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
+  .links-grid .lbl {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 4px;
+  }
+  .links-grid .ttl { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+  .links-grid .sub { font-size: 13px; color: var(--ink-2); }
+
+  footer {
+    margin-top: 56px; padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.05em;
+    color: var(--ink-3);
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    body { padding: 32px 18px 60px; }
+    h1 { font-size: clamp(32px, 11vw, 44px); }
+    .lede { font-size: 17px; }
+    .facts { grid-template-columns: 1fr; gap: 4px 0; padding: 18px 20px; }
+    .facts dt { margin-top: 10px; }
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Henry Fan",
+    "url": "https://fansofhenry.github.io/about.html",
+    "jobTitle": "Application Support Analyst I",
+    "worksFor": {
+      "@type": "CollegeOrUniversity",
+      "name": "Foothill–De Anza Community College District",
+      "department": "California Virtual Campus — Online Education Initiative (CVC-OEI)"
+    },
+    "knowsAbout": [
+      "Applied linear algebra pedagogy",
+      "Hands-on laboratory kits",
+      "Community college CS education",
+      "Student information systems"
+    ],
+    "subjectOf": {
+      "@type": "ResearchProject",
+      "name": "The Modeling Bench",
+      "url": "https://fansofhenry.github.io/research-lab/"
+    }
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content">
+  <nav class="topnav" aria-label="Primary">
+    <a href="/research-lab/">🔬 Research Lab</a>
+    <a href="/projects.html">🚀 Projects</a>
+    <a href="/focus.html">🎯 Focus</a>
+    <a href="/">⚡ Compound</a>
+    <span aria-current="page">👋 About</span>
+  </nav>
+
+  <div class="eyebrow">About</div>
+  <h1>Henry Fan</h1>
+  <p class="lede">
+    I support the software that lets California community college students take classes across 116 campuses as if they were at one — and I'm learning to do research on how those students learn math and CS. <strong>A mentee, not a lab director.</strong>
+  </p>
+
+  <dl class="facts">
+    <dt>Role</dt>
+    <dd>Application Support Analyst I</dd>
+    <dt>Team</dt>
+    <dd>California Virtual Campus — Online Education Initiative (CVC-OEI)</dd>
+    <dt>Institution</dt>
+    <dd>Foothill–De Anza Community College District</dd>
+    <dt>Research mentor</dt>
+    <dd>Jeff Anderson (Foothill College)</dd>
+    <dt>Goal</dt>
+    <dd>PhD in CS education</dd>
+  </dl>
+
+  <h2>What I work on</h2>
+  <p>
+    By day, I'm on the CVC-OEI support team. Four student information systems, dozens of campuses, one cross-enrollment seam. The job lives at the intersection of <strong>data reconciliation and student experience</strong> — when a transfer record fails silently, a student's spring schedule breaks. That's the bug I care about.
+  </p>
+  <p>
+    The rest of my time goes into a research program I call <a class="inline" href="/research-lab/">The Modeling Bench</a>. It's three first-author papers written in close collaboration with <a class="inline" href="https://foothill.edu/directory/staff.php?rec_id=1601">Jeff Anderson</a>, all deliberately extending written invitations from his published work in <em>PRIMUS</em>.
+  </p>
+
+  <ul class="papers">
+    <li>
+      <div class="paper-label">Paper 01</div>
+      <div class="paper-title">Hands-on lab kit for eigenvalue intuition</div>
+      <div class="paper-sub">Physical coupled-oscillator kit that makes resonance legible before the algebra — extending Anderson (PRIMUS 2018).</div>
+    </li>
+    <li>
+      <div class="paper-label">Paper 02</div>
+      <div class="paper-title">AI tutoring without losing the lab</div>
+      <div class="paper-sub">How to put an LLM in a math classroom without collapsing the part where students struggle productively.</div>
+    </li>
+    <li>
+      <div class="paper-label">Paper 03</div>
+      <div class="paper-title">Anti-racist learner-centered objectives, in practice</div>
+      <div class="paper-sub">Translating Anderson's 2024 PRIMUS framework into concrete lab-week objectives and rubrics.</div>
+    </li>
+  </ul>
+
+  <h2>What this site is</h2>
+  <p>
+    <a class="inline" href="/">Compound</a> — the root URL — is my personal daily-driver dashboard. It's password-gated because it holds live task state. The public doorways are this page, <a class="inline" href="/research-lab/">the research lab</a>, <a class="inline" href="/projects.html">the project launchpad</a>, and the <a class="inline" href="/focus.html">focus playbook</a>. Everything is hand-written HTML, deployed via GitHub Pages, and intentionally built in public so my mentor can see the work accumulating.
+  </p>
+
+  <section class="links" aria-label="External links">
+    <div class="links-grid">
+      <a href="/research-lab/">
+        <div class="lbl">Mission hub</div>
+        <div class="ttl">🔬 The Modeling Bench</div>
+        <div class="sub">Three-paper research program</div>
+      </a>
+      <a href="https://github.com/fansofhenry">
+        <div class="lbl">Code</div>
+        <div class="ttl">GitHub</div>
+        <div class="sub">@fansofhenry</div>
+      </a>
+      <a href="https://github.com/fansofhenry/fansofhenry.github.io">
+        <div class="lbl">This site</div>
+        <div class="ttl">Source</div>
+        <div class="sub">MIT code · CC BY 4.0 prose</div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/">← back to the compound dashboard</a> &nbsp;·&nbsp;
+    <a href="/research-lab/">research lab →</a>
+  </footer>
+</main>
+</body>
+</html>
