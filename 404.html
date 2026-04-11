@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Not Found · fansofhenry.github.io</title>
+<meta name="description" content="The page you were looking for isn't here. Return to the hub or jump to the research lab.">
+<meta name="author" content="Henry Fan">
+<meta name="theme-color" content="#131110">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://fansofhenry.github.io/404.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #faf8f3;
+    --bg-2:  #f3f0e6;
+    --ink:   #1a1814;
+    --ink-2: #4a4640;
+    --ink-3: #8a857c;
+    --border:#dcd8cd;
+    --accent:#1e3a8a;
+    --accent-bg:#f0f5ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:    #131110;
+      --bg-2:  #1a1815;
+      --ink:   #e8e3da;
+      --ink-2: #a8a39a;
+      --ink-3: #8a857c;
+      --border:#2e2b26;
+      --accent:#93b4fb;
+      --accent-bg:#0d1525;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 640px;
+    width: 100%;
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 8vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0 0 20px;
+  }
+  .lede {
+    font-size: 18px;
+    color: var(--ink-2);
+    margin: 0 0 32px;
+    max-width: 52ch;
+  }
+  .lede em { color: var(--ink); font-style: normal; font-weight: 600; }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 28px;
+  }
+  a.route {
+    display: block;
+    padding: 18px 20px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  a.route:hover, a.route:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    outline: none;
+  }
+  a.route:focus-visible { box-shadow: 0 0 0 3px var(--accent-bg); }
+  .route-label {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+  .route-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .route-sub {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .hero-link {
+    background: var(--accent-bg);
+    border-color: var(--accent);
+  }
+  .hero-link .route-title { color: var(--accent); }
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--ink-3);
+    max-width: 640px;
+    width: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a.route { transition: none; }
+    a.route:hover, a.route:focus-visible { transform: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Error 404</div>
+  <h1>Not here.</h1>
+  <p class="lede">The page you were looking for doesn't exist — or it <em>did</em> and the work has moved. These routes are the ones that matter:</p>
+  <div class="card-grid">
+    <a class="route hero-link" href="/research-lab/">
+      <div class="route-label">Mission hub</div>
+      <div class="route-title">🔬 The Modeling Bench</div>
+      <div class="route-sub">Three-paper research program with Jeff Anderson</div>
+    </a>
+    <a class="route" href="/">
+      <div class="route-label">Daily driver</div>
+      <div class="route-title">⚡ Compound</div>
+      <div class="route-sub">Dashboard, schedule, playbook</div>
+    </a>
+    <a class="route" href="/focus.html">
+      <div class="route-label">Execution</div>
+      <div class="route-title">🎯 Focus Blocks</div>
+      <div class="route-sub">Margin-time deep work</div>
+    </a>
+    <a class="route" href="/projects.html">
+      <div class="route-label">Portfolio</div>
+      <div class="route-title">🚀 Project Launchpad</div>
+      <div class="route-sub">Builds in progress &amp; shipped</div>
+    </a>
+  </div>
+  <footer>
+    If you followed a link from outside this site and think it should have worked, the path you tried was: <code id="attempted-path">—</code>. Please let Henry know via <a href="https://github.com/fansofhenry/fansofhenry.github.io/issues/new">a GitHub issue</a>.
+  </footer>
+</main>
+<script>
+  try {
+    var p = document.getElementById('attempted-path');
+    if (p) p.textContent = location.pathname + location.search;
+  } catch (_) {}
+</script>
+</body>
+</html>
