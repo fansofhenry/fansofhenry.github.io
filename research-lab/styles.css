@@ -1406,3 +1406,65 @@ footer code { font-size: 11px; }
   .paper-pills { flex-direction: column; }
   .ppill { width: 100%; }
 }
+
+/* ============================================================
+   19. PRINT
+   A PhD committee member or mentor might want a paper copy of the
+   lab brief. Hide all chrome, force light colors, open every accordion,
+   and let the browser paginate naturally. Page-break rules try to keep
+   each paper card whole.
+   ============================================================ */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --bg-2: #fafafa;
+    --surface: #ffffff;
+    --ink: #000000;
+    --ink-2: #222222;
+    --ink-3: #555555;
+    --border: #bbbbbb;
+  }
+  html, body { background: #ffffff !important; color: #000000 !important; }
+  .skip-link, .topbar, .sidebar, .mobile-overlay, .sb-foot,
+  .arc-section, .accordion-toggle, .log-form, .log-filter,
+  .log-feed .delete { display: none !important; }
+  .layout { display: block; }
+  .main { display: block; }
+  .main-content { background: #ffffff !important; }
+  .mast { background: #ffffff !important; color: #000000 !important; padding: 0 0 20px; border-bottom: 2px solid #000; }
+  .mast h1, .mast-sub, .mast-eyebrow, .mast-meta, .mast-meta dt, .mast-meta dd {
+    color: #000000 !important;
+  }
+  .content { max-width: none; padding: 0; }
+  a {
+    color: #000 !important;
+    border-bottom: 1px solid #000 !important;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+  }
+  /* Force all accordions open so the printed copy has every section. */
+  details { border: none !important; }
+  details[class] > summary { list-style: none; color: #000 !important; }
+  details[class] > summary::after { content: '' !important; }
+  .pd-body, .pid-body { border-top: 1px solid #ccc; padding: 8px 0 12px; }
+  details:not([open]) > *:not(summary) { display: block !important; }
+  details > summary { pointer-events: none; }
+
+  article.paper-card, article.pi-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border: 1px solid #888 !important;
+    box-shadow: none !important;
+    margin: 18px 0;
+  }
+  section { page-break-before: auto; }
+  h1, h2, h3, h4 { page-break-after: avoid; }
+  .paper-kanban, .workflow-grid, .template-grid, .papers-intro-grid {
+    page-break-inside: avoid;
+  }
+  pre { border: 1px solid #888 !important; }
+}
