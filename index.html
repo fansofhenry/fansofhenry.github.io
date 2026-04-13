@@ -392,7 +392,7 @@ select.input{appearance:auto}
 #page-schedule .c-sleep .label,#page-schedule .c-sleep .science{color:var(--shutdown)}
 #page-schedule .c-wind{background:var(--theory-bg);border-left-color:var(--theory)}
 #page-schedule .c-wind .label,#page-schedule .c-wind .science{color:var(--theory)}
-#page-schedule .h2{min-height:104px}#page-schedule .h3{min-height:156px}#page-schedule .h9{min-height:468px}#page-schedule .h10{min-height:520px}
+#page-schedule .h2{min-height:104px}#page-schedule .h3{min-height:156px}#page-schedule .h5{min-height:260px}#page-schedule .h9{min-height:468px}#page-schedule .h10{min-height:520px}
 #page-schedule .sch-section-title{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:800;letter-spacing:1.5px;text-align:center;margin:44px 0 22px;color:var(--tx);display:flex;align-items:center;gap:16px;justify-content:center;text-transform:uppercase}
 #page-schedule .sch-section-title::before,#page-schedule .sch-section-title::after{content:'';flex:1;max-width:100px;height:1px;background:var(--border)}
 #page-schedule .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:32px}
@@ -2275,6 +2275,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   <div class="sch-stat"><strong>8h</strong> CS Theory</div>
   <div class="sch-stat"><strong>6.5h</strong> CS Build</div>
   <div class="sch-stat"><strong>6h</strong> PhD Prep</div>
+  <div class="sch-stat"><strong>4h</strong> Grad Prep <span style="opacity:.6">(Sun)</span></div>
   <div class="sch-stat"><strong>3.5h</strong> YouTube</div>
   <div class="sch-stat"><strong>40h</strong> CVC Work</div>
   <div class="sch-stat"><strong>1h</strong> Property Mgmt</div>
@@ -2338,12 +2339,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
     <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span></div></td>
     <td rowspan="9"><div class="c c-work h9"><span class="label">💼 CVC Work</span><span class="time">8:00 – 5:00</span></div></td>
     <td rowspan="2"><div class="c c-build h2"><span class="label">🔧 Project Build 1</span><span class="time">8:15 – 9:45</span><span class="detail">Phase capstone project</span><span class="science">90-MIN ULTRADIAN</span></div></td>
-    <td rowspan="9"><div class="c c-family h9"><span class="label">🏠 Family Day</span><span class="time">8 AM – 5 PM</span><span class="detail">Protected. Present.</span></div></td>
+    <td rowspan="2"><div class="c c-phd h2"><span class="label">🎓 Grad Prep</span><span class="time">8:00 – 10:00 AM</span><span class="detail">MS CS coursework prep · 90-min ultradian</span><span class="science">PEAK COGNITION</span></div></td>
   </tr>
   <tr><td>9 AM</td></tr>
   <tr>
     <td>10 AM</td>
     <td><div class="c c-rest"><span class="label">🚶 Break</span><span class="time">9:45 – 10:00</span><span class="detail">Walk. No screens.</span></div></td>
+    <td rowspan="5"><div class="c c-family h5"><span class="label">🏠 Family Day</span><span class="time">10 AM – 3 PM</span><span class="detail">Protected. Present. No phone.</span></div></td>
   </tr>
   <tr>
     <td>11 AM</td>
@@ -2358,6 +2360,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   <tr>
     <td>3 PM</td>
     <td rowspan="2"><div class="c c-rest h2"><span class="label">🌿 Rest / Recovery</span><span class="time">1:30 – 4:00 PM</span><span class="detail">Protected rest · walk, nap, leisure reading</span><span class="science">DIMINISHING RETURNS GATE</span></div></td>
+    <td rowspan="2"><div class="c c-phd h2"><span class="label">🎓 Grad Prep</span><span class="time">3:00 – 5:00 PM</span><span class="detail">MS CS coursework prep · second ultradian</span><span class="science">AFTERNOON FOCUS</span></div></td>
   </tr>
   <tr><td>4 PM</td></tr>
   <tr>
@@ -3239,8 +3242,8 @@ This is the block that makes the other blocks matter. Papers and outreach are ho
 <div class="pb-quote">
 <strong>Subject:</strong> Prospective PhD student — [specific paper title] question<br><br>
 Dear Dr. Porter,<br><br>
-I'm Henry Fan, an Application Support Analyst at CVC OEI Exchange and an adjunct CS instructor at [CC name]. I'm preparing applications for Fall 2027 PhD programs in CS Education.<br><br>
-Your 2013 "Halving Fail Rates" paper has shaped how I run my CS1 sections — I've adapted peer instruction for async online community college students and noticed that help-seeking patterns differ sharply from the synchronous case. This connects to your more recent work on AI-assisted learning, and I'm curious whether Copilot changes the peer-explanation dynamic you documented.<br><br>
+I'm Henry Fan, an Application Support Analyst at CVC OEI Exchange in the California Community Colleges system. I'm preparing applications for Fall 2027 PhD programs in CS Education.<br><br>
+Your 2013 "Halving Fail Rates" paper has shaped how I think about peer-instruction scaffolding for async CC CS courses. Working inside the CCC online-course reconciliation layer has given me a direct view of how async students seek help — the patterns appear to differ sharply from the synchronous case your work studied, and I'm curious whether Copilot changes the peer-explanation dynamic you documented.<br><br>
 Are you planning to take new PhD students for Fall 2027? I'd welcome a brief conversation about research fit, or any pointers for strengthening my preparation over the next year.<br><br>
 Best,<br>Henry Fan
 </div>
@@ -4811,7 +4814,9 @@ const SCHED_BLOCKS={
   sunday:[
     {key:'recovery',icon:'🚶',name:'Active Recovery',time:'5:50–6:50 AM',h1:5.83,h2:6.83,protocol:'Walk, yoga, or mobility. Parasympathetic dominance.'},
     {key:'phd_write',icon:'🎓',name:'PhD Deep Write',time:'6:50–8:00 AM',h1:6.83,h2:8,protocol:'PEAK COGNITION → hardest task. Polish week\'s micro-writes into prose.'},
-    {key:'family',icon:'🏠',name:'Family Day',time:'8:00 AM–5:00 PM',h1:8,h2:17,protocol:'Protected. Present. No work, no phone. Recovery is productive.'},
+    {key:'grad_prep_am',icon:'🎓',name:'Grad Prep (AM)',time:'8:00–10:00 AM',h1:8,h2:10,protocol:'MS CS coursework prep. 90-min ultradian at peak cognition. Problem sets, lecture notes, reading ahead.'},
+    {key:'family',icon:'🏠',name:'Family Day',time:'10:00 AM–3:00 PM',h1:10,h2:15,protocol:'Protected. Present. No work, no phone. Recovery is productive.'},
+    {key:'grad_prep_pm',icon:'🎓',name:'Grad Prep (PM)',time:'3:00–5:00 PM',h1:15,h2:17,protocol:'Second ultradian. MS CS coursework prep — problem sets, proofs, or paper-read for the week ahead.'},
     {key:'property_mgmt',icon:'🏘️',name:'Property Management',time:'5:00–6:00 PM',h1:17,h2:18,protocol:'1 hour batched. Admin, tenant comms, vendor calls, rent tracking. GTD: batch admin work weekly to reduce decision fatigue.'},
     {key:'dinner',icon:'🍽️',name:'Dinner / Family',time:'6:00–7:00 PM',h1:18,h2:19,protocol:'Family dinner. Fully present.'},
     {key:'family_evening',icon:'🏠',name:'Family Evening',time:'7:00–8:30 PM',h1:19,h2:20.5,protocol:'Protected. Present.'},
