@@ -1203,7 +1203,11 @@ body.mentor-view #dNowBox,
 body.mentor-view #schJumpNav,
 body.mentor-view #schNowHero,
 body.mentor-view .sch-changes,
+body.mentor-view #sch-changes,
 body.mentor-view #sch-actions,
+body.mentor-view .sch-week-editor,
+body.mentor-view .sch-week-override-row,
+body.mentor-view .sch-today-card,
 body.mentor-view .brand-right{display:none !important}
 body.mentor-view #page-schedule{display:block !important}
 body.mentor-view{background:var(--bg)}
@@ -2161,8 +2165,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 
 <div class="mentor-banner">
   <strong>👋 You're viewing Henry Fan's weekly schedule · v4.1</strong>
-  <div class="mb-sub">Shared read-only view · Compound · the long game — Deliver excellence at work · Build mastery on the margins · Earn the PhD</div>
+  <div class="mb-sub">Shared read-only view · <span id="mbUpdated">updated recently</span> · Deliver excellence at work · Build mastery on the margins · Earn the PhD</div>
 </div>
+<script>
+(function(){
+  // Show a coarse "updated N days ago" signal to the mentor so Jeff can
+  // see at a glance that the schedule is current. Uses the document's
+  // own Last-Modified header — GitHub Pages sets it per deploy.
+  try{
+    var lm=document.lastModified?new Date(document.lastModified):null;
+    if(!lm||isNaN(lm.getTime()))return;
+    var days=Math.max(0,Math.round((Date.now()-lm.getTime())/86400000));
+    var txt=days===0?'updated today':days===1?'updated yesterday':'updated '+days+' days ago';
+    var el=document.getElementById('mbUpdated');
+    if(el)el.textContent=txt+' · '+lm.toISOString().slice(0,10);
+  }catch(_){}
+})();
+</script>
 
 <!-- === 18-MONTH ARC HORIZON === -->
 <div class="arc-horizon" id="arcHorizon">
@@ -4422,7 +4441,7 @@ function renderDash(){
 
   // Schedule science notes
   const sciNotes=isWE?
-    (isSun?'<strong>Sunday rhythm:</strong> Deep work AM → responsibilities PM → weekly review → rest. Property mgmt batched per GTD (Allen, 2001).':
+    (isSun?'<strong>Sunday rhythm:</strong> Two grad-prep ultradians (AM + PM) bracket a protected family block. Property mgmt batched per GTD (Allen, 2001).':
     '<strong>Saturday rhythm:</strong> The Hui Cheng block. 3 uninterrupted hours when BDNF is highest. Use 90-min ultradian cycles with 15-min breaks (Lavie, 1985).')
     :'<strong>Weekday rhythm:</strong> Exercise primes neuroplasticity (Ratey). Morning CS uses peak System 2 (Kahneman). Evening CS leverages insight window (Wieth & Zacks). PhD spacing effect compounds daily (Cepeda).';
   $('dSchedNotes').innerHTML='📚 '+sciNotes;
