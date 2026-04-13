@@ -1240,6 +1240,15 @@ body.mentor-view .sch-share-btn{display:none}
 #page-dashboard .morning-win .mw-src{display:block;font-size:10px;font-style:normal;color:var(--dim);font-family:-apple-system,system-ui,sans-serif;margin-top:4px;letter-spacing:.04em;font-weight:500}
 #page-dashboard .morning-win.empty{color:var(--dim2);font-style:italic;background:none;border-left:1px dashed var(--border);padding-left:16px}
 
+/* NSF GRFP countdown ribbon · dashboard */
+#page-dashboard .grfp-ribbon{margin:0 0 14px;padding:14px 20px 14px 22px;border-radius:12px;background:linear-gradient(135deg,rgba(201,164,95,.14) 0%,rgba(201,164,95,.05) 60%,rgba(107,138,255,.04) 100%);border:1px solid rgba(201,164,95,.32);border-left:3px solid #c9a45f;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:3px;outline:none}
+#page-dashboard .grfp-ribbon:hover{border-color:#c9a45f;transform:translateY(-1px);box-shadow:0 4px 14px rgba(13,16,23,.2)}
+#page-dashboard .grfp-ribbon:focus-visible{box-shadow:0 0 0 2px #c9a45f}
+#page-dashboard .grfp-ribbon-eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#c9a45f;font-weight:800;font-family:-apple-system,system-ui,sans-serif}
+#page-dashboard .grfp-ribbon-line{font-size:15px;font-weight:700;color:var(--tx);line-height:1.4;font-family:-apple-system,system-ui,sans-serif}
+#page-dashboard .grfp-ribbon-line strong{color:#e8c27a}
+#page-dashboard .grfp-ribbon-meta{font-size:11px;color:var(--dim);font-family:-apple-system,system-ui,sans-serif;opacity:.78}
+
 /* Collapsible demotion for stale widgets */
 #page-dashboard details.dash-demoted{margin:14px 0 0;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:0;overflow:hidden}
 #page-dashboard details.dash-demoted > summary{cursor:pointer;list-style:none;padding:15px 20px;display:flex;align-items:center;gap:11px;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;font-weight:700;outline:none;user-select:none;font-family:-apple-system,system-ui,sans-serif;transition:color .15s}
@@ -1512,6 +1521,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 
 <!-- Streak Warning Banners -->
 <div id="streakWarnings"></div>
+
+<!-- NSF GRFP countdown ribbon · link to PhD pane -->
+<div id="grfpRibbon" class="grfp-ribbon" onclick="goPage('playbook');setTimeout(()=>pbSwitchPane('phd'),120)" role="button" tabindex="0" style="display:none">
+  <div class="grfp-ribbon-eyebrow">NSF GRFP · Fellowship Application Track</div>
+  <div class="grfp-ribbon-line" id="grfpRibbonLine">Calculating…</div>
+  <div class="grfp-ribbon-meta" id="grfpRibbonMeta">Tap to open the 6-step runway inside the PhD playbook</div>
+</div>
 
 <!-- Today's Blocks Hero -->
 <div id="allDoneBanner"></div>
@@ -3138,7 +3154,7 @@ The build block is where you become dangerous. Reading CLRS teaches you the voca
 <div class="pb-pane" id="pb-phd">
 
 <div class="pb-mentor">
-This is the block that makes the other blocks matter. Papers and outreach are how a PhD hopeful stops being <em>an applicant</em> and becomes <strong>the candidate Dr. Porter has already emailed once</strong>. Thirty minutes a day, a pen in your hand, the same paper you predicted the abstract of — by month nine, the goal is that faculty recognize your name in the inbox. Most of your competition will not do this. You just have to.
+This is the block that makes the other blocks matter. Papers and outreach are how a PhD hopeful stops being <em>an applicant</em> and becomes <strong>the candidate Dr. Porter has already emailed once</strong>. Thirty minutes a day, a pen in your hand, the same paper you predicted the abstract of — by month nine, the goal is that faculty recognize your name in the inbox. Most of your competition will not do this. You just have to. <strong>And running in parallel: the NSF GRFP personal statement (submit Oct 15, 2026)</strong> — card below. An awarded GRFP lands in every admit committee you care about before your SoP does.
 </div>
 
 <div class="pb-stuck">
@@ -3166,6 +3182,31 @@ This is the block that makes the other blocks matter. Papers and outreach are ho
 <strong>Thu — Outreach:</strong> Draft ONE cold email or faculty reply. Update your faculty tracker spreadsheet.<br>
 <strong>Fri — Program research:</strong> Deep-dive ONE program per week. Fill: deadline, faculty, materials, funding, fit notes.
 </div>
+</div>
+
+<div class="pb-card" style="border-left:3px solid #c9a45f;margin-top:20px">
+<h3>🎓 NSF GRFP · Fellowship Application Track</h3>
+<div class="pb-mentor" style="margin-bottom:14px">
+Three years of funding (~$37k/yr stipend + tuition) earned on a personal statement, a research plan, and three letters. GRFP runs in parallel with the December PhD apps — and if it hits, it's the single largest multiplier on your admit odds at every program in the longlist. Draft 1 of the personal statement already exists (April 12, 2026). The job now is keeping it moving without crowding out the weekday prep rotation above.
+</div>
+
+<div class="pb-today" style="margin-bottom:14px">
+<div class="pb-today-label">⚡ Submit deadline · Wed Oct 15, 2026</div>
+<div class="pb-today-text" id="grfpCountdown">Calculating days to submit…</div>
+<div class="pb-today-protocol">Research direction: <strong>Adaptive Learning Systems for Equitable CS Education</strong>. Anchored in Learning Code, ProjectBridge, the 30-week CLRS study, three open-source learning tools, and the CVC OEI reconciliation-layer vantage.</div>
+</div>
+
+<div class="pb-section-title">The 6-Step Runway</div>
+<ul class="pb-list">
+<li><strong>Step 1 — Personalize the hook</strong> <em>· this week (Apr 12–19)</em>. Replace the generic opener with one concrete moment from the last 12 months — a teaching moment, a reconciliation-layer bug, a student email. Quantify one thing. Keep the voice yours, not GPT's.</li>
+<li><strong>Step 2 — Fill the gaps</strong> <em>· by May 15</em>. SJSU specifics (courses, labs, GPA arc). Quantify student services reach, Learning Code audience, ProjectBridge scope. Explain the CVC OEI role in language a reviewer outside CS can parse.</li>
+<li><strong>Step 3 — Get feedback</strong> <em>· May 15 – Jun 15</em>. Four readers in one batch, not four rounds: Jeff Anderson (Strategic Deep Learning frame), Giorgio Lagna (CRISPR MESA), one reader outside CS, the SJSU writing center. Merge comments — don't serve each reviewer separately.</li>
+<li><strong>Step 4 — Draft the research plan</strong> <em>· Jun 1 – Jul 15</em>. Two pages. Sections: Motivation · Background · Aims · Timeline · IM/BI. Include one figure. The research plan is graded as hard as the personal statement — do not skimp because the personal statement felt like the "main" doc.</li>
+<li><strong>Step 5 — Secure letter writers</strong> <em>· formally ask by Jul 1</em>. Send each writer a packet: CV, current personal statement, current research plan, a half-page "what I hope you'll speak to." Recommenders write better letters when they know the frame you need.</li>
+<li><strong>Step 6 — Polish and submit</strong> <em>· Aug – Oct 15</em>. v5 by Aug 31 · v7 by Sept 30 · submit at least 72 hours before close. FastLane historically fails under load on deadline day — no last-day submissions.</li>
+</ul>
+
+<div class="pb-callout" style="margin-top:14px"><strong>Parallel, not additive:</strong> GRFP writing lives inside the existing Sunday Deep Write block (6:50–8:00 AM) — no new time is added to the week. Until submit, the 4-week rotation bends: Week A is the GRFP personal statement, Week B is the GRFP research plan, Weeks C/D stay as lit review / working paper. After Oct 15, the rotation snaps back to the original SoP / research statement cycle in time for the Dec 1–15 program deadlines.</div>
 </div>
 
 <details class="pb-ref-drawer" style="margin-top:24px">
@@ -3266,16 +3307,28 @@ Your 2013 "Halving Fail Rates" paper has shaped how I think about peer-instructi
 Are you planning to take new PhD students for Fall 2027? I'd welcome a brief conversation about research fit, or any pointers for strengthening my preparation over the next year.<br><br>
 Best,<br>Henry Fan
 </div>
-<div class="pb-callout"><strong>Timing:</strong> August-October 2026 is prime. Avoid December (apps review). Follow up ONCE after 2 weeks.</div>
+<div class="pb-callout" style="margin-bottom:10px"><strong>🎓 GRFP-fit variant:</strong> After Jul 1 (once letters are locked), a second version of this template works well — add one sentence about the GRFP personal statement topic (<em>"I'm currently drafting an NSF GRFP on adaptive learning systems for CS equity in async CC contexts, which is why your work on [X] is directly relevant…"</em>). Faculty read "GRFP-applicant" as a strong fit signal and reply at meaningfully higher rates.</div>
+<div class="pb-callout"><strong>Timing:</strong> Originally Aug–Oct is prime, BUT that window now overlaps the NSF GRFP polish sprint (v5 → v7 → submit Oct 15). Shift the primary cold-email push to <strong>late Jun–early Aug</strong>: earlier in the faculty-open-to-inquiries window, and leaves the Aug 15 – Oct 15 stretch clear for GRFP. Second push in <strong>late Oct–mid Nov</strong> after GRFP ships and before Dec 1–15 app deadlines. Avoid December (apps review). Follow up ONCE after 2 weeks.</div>
+</div>
+
+<div class="pb-card">
+<h3>🎓 GRFP Resources & Reference</h3>
+<div class="pb-resource"><span class="pb-resource-icon">🔗</span><div class="pb-resource-info"><div class="pb-resource-title">NSF GRFP official program page</div><div class="pb-resource-desc">Solicitation, eligibility, deadlines, field list — always read the current year's solicitation end-to-end before Step 2</div></div><a href="https://www.nsfgrfp.org/" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📄</span><div class="pb-resource-info"><div class="pb-resource-title">Alex Lang — example GRFP essays</div><div class="pb-resource-desc">Large bank of funded personal statements + research plans, sortable by field. Read 3 CS Ed / Learning Sciences winners before rewriting the hook (Step 1)</div></div><a href="https://www.alexhunterlang.com/nsf-fellowship" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📄</span><div class="pb-resource-info"><div class="pb-resource-title">Mallory Ladd / UT Knoxville GRFP guide</div><div class="pb-resource-desc">Annotated examples of how Intellectual Merit and Broader Impacts keywords should surface in each paragraph</div></div><a href="https://malloryladd.com/nsf-grfp-advice" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">📄</span><div class="pb-resource-info"><div class="pb-resource-title">NSF Merit Review Criteria — IM + BI language</div><div class="pb-resource-desc">The exact phrases reviewers are scoring against. Step 4 of the runway: verify your research plan literally uses "Intellectual Merit" and "Broader Impacts" as section headers or anchor phrases</div></div><a href="https://www.nsf.gov/funding/merit-review" target="_blank">Open ↗</a></div>
+<div class="pb-resource"><span class="pb-resource-icon">🔧</span><div class="pb-resource-info"><div class="pb-resource-title">NSF Research.gov application portal</div><div class="pb-resource-desc">The replacement for FastLane. Create the account in Step 5 — don't wait until October</div></div><a href="https://www.research.gov/" target="_blank">Open ↗</a></div>
+<div class="pb-callout" style="margin-top:12px"><strong>IM / BI reminder:</strong> Every GRFP is dual-scored on <strong>Intellectual Merit</strong> (does the work advance the field?) and <strong>Broader Impacts</strong> (does it reach beyond academia?). Henry's CC + CVC OEI reconciliation-layer background is a BI goldmine — explicit equity reach, underrepresented student population, statewide infrastructure. Do not bury that story in the personal statement's second half; it belongs in both documents, named by NSF's own language.</div>
 </div>
 
 <div class="pb-card">
 <h3>📅 18-Month Milestone Roadmap</h3>
+<div style="font-size:11.5px;opacity:.65;margin-bottom:10px">PhD-app track and GRFP track run in parallel. GRFP feeds the PhD apps — the personal statement mined here gets cannibalized into every SoP in December.</div>
 <ul class="pb-list">
-<li><strong>Month 1-3</strong> (Apr-Jun 2026): Zotero set up · 12 Tier-1 papers read · draft RQ v1 · blog started · contact 1 faculty informally</li>
-<li><strong>Month 4-6</strong> (Jul-Sep 2026): 25 papers synthesized · 2 faculty contacted · research statement v1 · finalize program longlist (20) · <strong>ask recommenders by Sep</strong></li>
-<li><strong>Month 7-9</strong> (Oct-Dec 2026) — CRITICAL: research statement v3 · 5 faculty contacted (2 warm replies) · SoPs drafted per program · letters in motion · <strong>submit Dec 1-15</strong></li>
-<li><strong>Month 10-12</strong> (Jan-Mar 2027): Interviews, visit days, polish paper submission (Koli Calling or RESPECT 2027 first-author target)</li>
+<li><strong>Month 1-3</strong> (Apr-Jun 2026): Zotero set up · 12 Tier-1 papers read · draft RQ v1 · blog started · contact 1 faculty informally · <span style="color:#c9a45f"><strong>GRFP:</strong> hook personalized · gaps filled by May 15 · feedback batch Jun 15 · research plan v1</span></li>
+<li><strong>Month 4-6</strong> (Jul-Sep 2026): 25 papers synthesized · 2 faculty contacted · research statement v1 · finalize program longlist (20) · <strong>ask PhD recommenders by Sep</strong> · <span style="color:#c9a45f"><strong>GRFP:</strong> research plan v3 done Jul 15 · letter writers locked Jul 1 · personal statement v5 by Aug 31 · v7 by Sept 30</span></li>
+<li><strong>Month 7-9</strong> (Oct-Dec 2026) — CRITICAL: <span style="color:#c9a45f"><strong>GRFP submit ≤ Oct 15</strong></span> · research statement v3 · 5 faculty contacted (2 warm replies) · SoPs drafted per program (mine GRFP personal statement for material) · letters in motion · <strong>submit PhD apps Dec 1-15</strong></li>
+<li><strong>Month 10-12</strong> (Jan-Mar 2027): Interviews, visit days, polish paper submission (Koli Calling or RESPECT 2027 first-author target) · <span style="color:#c9a45f">GRFP results announced ~early April</span></li>
 <li><strong>Month 13-15</strong> (Apr-Jun 2027): Decisions, pick program, submit first workshop paper</li>
 <li><strong>Month 16-18</strong> (Jul-Sep 2027): Onboarding, pre-read with new advisor, move logistics</li>
 </ul>
@@ -3320,11 +3373,12 @@ Sunday morning is the one block where your words are for a reader who isn't you.
 
 <div class="pb-card">
 <h3>📅 4-Week Writing Rotation</h3>
+<div class="pb-callout" style="margin-bottom:12px;border-left:3px solid #c9a45f"><strong>GRFP mode (until Oct 15, 2026):</strong> Week A becomes the <strong>GRFP Personal Statement</strong>. Week B becomes the <strong>GRFP Research Plan</strong>. Weeks C/D stay as-is — lit review and working paper work directly feeds the GRFP research plan's Background + Aims sections. After Oct 15, the rotation snaps back to the four artifacts below in time for Dec 1–15 PhD deadlines.</div>
 <ul class="pb-list">
-<li><strong>Week A — Research Statement:</strong> Polish 1 paragraph of your evolving research statement. Aim for sharp, citation-backed claims about WHAT you want to study and WHY.</li>
-<li><strong>Week B — Statement of Purpose:</strong> Draft a section of an SoP for ONE target program. Tailor: name 2 faculty, cite a specific paper of theirs, connect to your CC teaching.</li>
-<li><strong>Week C — Lit Review Mini-Synthesis:</strong> Write a 500-word piece connecting 3-5 papers you've read recently. THIS becomes a blog post (publishable!) + future paper.</li>
-<li><strong>Week D — Working Paper / Position Piece:</strong> Draft a section of a future SIGCSE submission OR a position paper (e.g., "AI in CC CS: A Pragmatic Framework").</li>
+<li><strong>Week A — Research Statement</strong> <em>(→ GRFP Personal Statement until Oct 15)</em>: Polish 1 paragraph of your evolving research statement. Sharp, citation-backed claims about WHAT you want to study and WHY. In GRFP mode: polish the hook, the SJSU specifics, or the CVC OEI reconciliation-layer framing — one paragraph per Sunday.</li>
+<li><strong>Week B — Statement of Purpose</strong> <em>(→ GRFP Research Plan until Oct 15)</em>: Draft a section of an SoP for ONE target program. Tailor: name 2 faculty, cite a specific paper of theirs, connect to your CC teaching. In GRFP mode: draft ONE section of the 2-page research plan (Motivation / Background / Aims / Timeline / IM / BI) per Sunday.</li>
+<li><strong>Week C — Lit Review Mini-Synthesis:</strong> Write a 500-word piece connecting 3-5 papers you've read recently. THIS becomes a blog post (publishable!) + future paper, AND directly feeds the GRFP research plan's Background section.</li>
+<li><strong>Week D — Working Paper / Position Piece:</strong> Draft a section of a future SIGCSE submission OR a position paper (e.g., "AI in CC CS: A Pragmatic Framework"). Doubles as GRFP research plan Aims content.</li>
 </ul>
 </div>
 
@@ -4243,6 +4297,24 @@ function copyWeeklySummary(){
 function renderDash(){
   const now=new Date(),h=now.getHours();
   $('dashGreet').textContent=(h<12?'Good morning':h<17?'Good afternoon':'Good evening')+', Henry';
+  // NSF GRFP ribbon — show while Oct 15, 2026 is in the future
+  {const ribbon=$('grfpRibbon'),line=$('grfpRibbonLine');
+  if(ribbon&&line){
+    const deadline=new Date(2026,9,15,17,0,0);
+    const daysLeft=Math.ceil((deadline.getTime()-Date.now())/86400000);
+    if(daysLeft>=-7){
+      ribbon.style.display='flex';
+      if(daysLeft>0){
+        const sundaysLeft=Math.max(0,Math.floor(daysLeft/7));
+        const phase=daysLeft>120?'Fill the gaps by May 15':daysLeft>90?'Feedback round · merge by Jun 15':daysLeft>60?'Research plan v3 by Jul 15 · letters by Jul 1':daysLeft>30?'Personal statement v5 by Aug 31':daysLeft>14?'v7 by Sept 30 · submit ≥ 72h early':'Final polish — submit now, not Oct 15';
+        line.innerHTML=`<strong>${daysLeft} day${daysLeft===1?'':'s'}</strong> to submit · ${sundaysLeft} Sunday Deep Write block${sundaysLeft===1?'':'s'} · ${phase}`;
+      } else if(daysLeft===0){
+        line.innerHTML=`<strong>Deadline today.</strong> Do not wait for the last hour — FastLane fails under load.`;
+      } else {
+        line.innerHTML=`Submitted. Results post ~early April 2027.`;
+      }
+    }
+  }}
   $('navDate').textContent=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
   const diff=Math.ceil((START-now)/864e5);
   if(diff>0)$('dashSub').textContent=diff+' days until CVC OEI Exchange.';
@@ -5355,11 +5427,11 @@ const PB_MISSIONS={
     {t:'Read Denny et al. (2024) "Computing Education in the Era of GenAI"',d:'CACM. The most important recent paper for current CS Ed research.',time:'30 min'},
     {t:'Read Goode, Margolis, Chapman (2014) "Curriculum is not enough"',d:'SIGCSE. ECS program theory. Critical equity reading.',time:'30 min'},
     {t:'Research 1 PhD program: deadlines, faculty, fit, funding',d:'Pick from: UW iSchool, UCSD CSE, UCSD CogSci, Berkeley, Stanford, CMU HCII, Northwestern.',time:'30 min'},
-    {t:'Sunday: Polish this week\'s 4 micro-writes into a 500-word piece',d:'Use peak cognition. Pick one focus: Research Statement OR SoP draft.',time:'70 min'}
+    {t:'Sunday: Polish GRFP personal statement OR research plan (priority until Oct 15, 2026)',d:'Use peak cognition. Week A = GRFP personal statement paragraph. Week B = GRFP research plan section. Weeks C/D = lit review / working paper (both feed the GRFP research plan).',time:'70 min'}
   ],
   write:[
-    {t:'Sunday Deep Write: Polish week\'s micro-writes → 500 words on Research Statement',d:'Week A of 4-week rotation. Sharp citation-backed claims about WHAT and WHY.',time:'70 min'},
-    {t:'Sunday Deep Write: Draft an SoP section for 1 target program',d:'Week B. Tailor: name 2 faculty, cite specific papers, connect to CC teaching.',time:'70 min'},
+    {t:'Sunday Deep Write: Polish GRFP personal statement paragraph (Week A · priority until Oct 15)',d:'Week A of 4-week rotation is in GRFP mode until Oct 15, 2026. Polish hook, SJSU specifics, or CVC OEI framing. One paragraph. Sharp, citation-backed, voice yours.',time:'70 min'},
+    {t:'Sunday Deep Write: Draft GRFP research plan section (Week B · priority until Oct 15)',d:'Week B of 4-week rotation is in GRFP mode until Oct 15, 2026. One section of the 2-page research plan: Motivation / Background / Aims / Timeline / IM / BI. Include one figure by Jul 15.',time:'70 min'},
     {t:'Sunday Deep Write: 500-word lit review synthesis (3-5 papers)',d:'Week C. Connects recent reading. THIS becomes a blog post / future paper.',time:'70 min'},
     {t:'Sunday Deep Write: Position paper section (e.g., "AI in CC CS")',d:'Week D. Working paper. Future SIGCSE submission seed.',time:'70 min'},
     {t:'Read Silvia "How to Write a Lot" Ch 1-2 (~30 pages)',d:'The productivity bible for academic writers. Boice\'s daily-writing research.',time:'30 min'},
@@ -6720,6 +6792,20 @@ function initPlaybook(){
   }
   const phdToday=$('pbPhdToday');
   if(phdToday)phdToday.textContent=`${dayNames[dow]} — ${phdRot[dow]}`;
+  const grfpEl=$('grfpCountdown');
+  if(grfpEl){
+    const deadline=new Date(2026,9,15,17,0,0); // Oct 15 2026, 5pm local as a conservative pre-deadline anchor
+    const msPerDay=86400000;
+    const daysLeft=Math.ceil((deadline.getTime()-Date.now())/msPerDay);
+    const weekendsLeft=Math.max(0,Math.floor(daysLeft/7));
+    if(daysLeft>0){
+      grfpEl.innerHTML=`<strong>${daysLeft} day${daysLeft===1?'':'s'}</strong> to submit · ~${weekendsLeft} Sunday Deep Write block${weekendsLeft===1?'':'s'} between now and close`;
+    } else if(daysLeft===0){
+      grfpEl.innerHTML=`<strong>Deadline today.</strong> Submission window closes 5pm ET — do not wait.`;
+    } else {
+      grfpEl.innerHTML=`Submitted (or missed) · reset this card after results post (~early April 2027)`;
+    }
+  }
   const buildToday=$('pbBuildToday');
   if(buildToday)buildToday.textContent=`${dayNames[dow]} — ${buildRot[dow]}`;
   const ytToday=$('pbYtToday');
