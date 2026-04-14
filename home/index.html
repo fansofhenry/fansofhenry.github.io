@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>26363 Esperanza Dr — Los Altos Hills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f8f6f1;
+      color: #3d3929;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Header ─── */
+    header {
+      background: linear-gradient(to right, #fffcf7, #fff);
+      padding: 18px 36px;
+      border-bottom: 1px solid #ebe8e1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: #2c2a22;
+    }
+    .header-left h1 span {
+      font-weight: 400;
+      font-style: italic;
+      color: #9c9785;
+    }
+    .header-left p {
+      margin-top: 1px;
+      color: #b5ae9e;
+      font-size: 0.78rem;
+      letter-spacing: 0.3px;
+    }
+    .header-pills {
+      display: flex;
+      gap: 8px;
+    }
+    .header-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 15px;
+      border-radius: 24px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid #ebe8e1;
+      background: #fff;
+      color: #6b6656;
+    }
+    .header-pill.green {
+      background: #f0faf0;
+      border-color: #c6e6c6;
+      color: #2d7a2d;
+    }
+    .header-pill .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4caf50;
+      animation: softPulse 2.5s ease-in-out infinite;
+    }
+
+    /* ─── Apply button ─── */
+    .apply-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border-radius: 24px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #5c4b28;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .apply-btn:hover {
+      background: #3d3929;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(92,75,40,0.25);
+    }
+    .apply-btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border-radius: 24px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: transparent;
+      color: #5c4b28;
+      border: 2px solid #d4cfc0;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .apply-btn-outline:hover {
+      border-color: #5c4b28;
+      background: #f5f0e8;
+    }
+    @keyframes softPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ─── Hero landing page ─── */
+    .hero {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      cursor: pointer;
+    }
+    .hero img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+      transition: transform 6s ease;
+    }
+    .hero:hover img { transform: scale(1.04); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(30,28,20,0.82) 0%, rgba(30,28,20,0.3) 50%, rgba(30,28,20,0.05) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 36px 40px;
+    }
+    .hero-overlay h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .hero-overlay p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.95rem;
+      max-width: 500px;
+    }
+    .hero-pills {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-pill {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Quick-nav cards on landing */
+    .quick-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .quick-nav .qn-card:nth-child(-n+2) {
+      grid-column: span 1;
+    }
+    @media (min-width: 769px) {
+      .quick-nav { grid-template-columns: repeat(5, 1fr); }
+      .quick-nav .qn-card:nth-child(-n+2) { grid-column: span 1; }
+    }
+    .qn-card {
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 14px;
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .qn-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(60,50,30,0.08);
+      border-color: #d4cfc0;
+    }
+    .qn-card .qn-icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
+    .qn-card h3 { font-size: 0.88rem; font-weight: 600; color: #3d3929; margin-bottom: 3px; }
+    .qn-card p { font-size: 0.74rem; color: #9c9785; line-height: 1.4; }
+
+    /* ─── Footer ─── */
+    .site-footer {
+      background: #fff;
+      border-top: 1px solid #ebe8e1;
+      padding: 28px 40px;
+      text-align: center;
+    }
+    .site-footer .ft-addr {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #3d3929;
+      margin-bottom: 4px;
+    }
+    .site-footer .ft-sub {
+      font-size: 0.78rem;
+      color: #b5ae9e;
+      margin-bottom: 12px;
+    }
+    .site-footer .ft-links {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .site-footer .ft-link {
+      padding: 5px 14px;
+      border-radius: 16px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: #f5f2ec;
+      color: #7a7464;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .site-footer .ft-link:hover { background: #ede4d4; color: #5c4b28; }
+
+    /* ─── Dual hero ─── */
+    .hero-duo {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .hero-duo .hero { margin-bottom: 0; }
+    .hero-duo .hero-small { border-radius: 20px; overflow: hidden; }
+    .hero-duo .hero-small img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 4s ease;
+    }
+    .hero-duo .hero-small:hover img { transform: scale(1.04); }
+
+    /* Amenity row on landing */
+    .amenity-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .amenity {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 24px;
+      font-size: 0.82rem;
+      color: #5c5647;
+      font-weight: 500;
+    }
+    .amenity .am-icon { font-size: 1rem; }
+
+    /* ─── Layout ─── */
+    .container {
+      display: flex;
+      min-height: calc(100vh - 66px);
+    }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      width: 260px;
+      min-width: 260px;
+      background: #fffcf7;
+      border-right: 1px solid #ebe8e1;
+      padding: 22px 0;
+      overflow-y: auto;
+      position: sticky;
+      top: 66px;
+      height: calc(100vh - 66px);
+    }
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #ddd8cd; border-radius: 3px; }
+    .sb-label {
+      padding: 0 22px 8px;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: #b5ae9e;
+      font-weight: 700;
+    }
+    .sb-divider {
+      height: 1px;
+      background: #f0ede6;
+      margin: 12px 22px;
+    }
+    .sb-btn {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 10px 22px;
+      border: none;
+      background: transparent;
+      color: #7a7464;
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: left;
+      gap: 10px;
+      border-left: 3px solid transparent;
+    }
+    .sb-btn:hover { background: #faf8f4; color: #3d3929; }
+    .sb-btn.active {
+      background: #f5f0e8;
+      color: #5c4b28;
+      border-left-color: #b8945a;
+      font-weight: 500;
+    }
+    .sb-btn .sb-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: #f5f2ec;
+      font-size: 0.78rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      color: #9c9785;
+    }
+    .sb-btn.active .sb-icon {
+      background: #ede4d4;
+      color: #7a6638;
+    }
+    .sb-btn .sb-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .sb-btn .sb-dot.open { background: #4caf50; }
+    .sb-btn .sb-dot.taken { background: #ccc; }
+    .sb-btn .sb-count {
+      margin-left: auto;
+      font-size: 0.7rem;
+      color: #c4bfb2;
+      font-weight: 500;
+    }
+    .sb-btn.dim { opacity: 0.42; }
+    .sb-btn.dim:hover { opacity: 0.65; }
+
+    /* ─── Main ─── */
+    .main {
+      flex: 1;
+      padding: 32px 42px 60px;
+      overflow-y: auto;
+      max-width: 1100px;
+    }
+
+    /* Fade-in */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeUp 0.3s ease-out forwards; }
+
+    /* Staggered photo entrance */
+    .photo-grid .photo-card {
+      opacity: 0;
+      animation: fadeUp 0.35s ease-out forwards;
+    }
+    .photo-grid .photo-card:nth-child(1) { animation-delay: 0.05s; }
+    .photo-grid .photo-card:nth-child(2) { animation-delay: 0.1s; }
+    .photo-grid .photo-card:nth-child(3) { animation-delay: 0.15s; }
+    .photo-grid .photo-card:nth-child(4) { animation-delay: 0.2s; }
+    .photo-grid .photo-card:nth-child(5) { animation-delay: 0.25s; }
+    .photo-grid .photo-card:nth-child(6) { animation-delay: 0.3s; }
+    .photo-grid .photo-card:nth-child(7) { animation-delay: 0.35s; }
+    .photo-grid .photo-card:nth-child(n+8) { animation-delay: 0.4s; }
+
+    /* Scroll hint on hero */
+    .scroll-hint {
+      display: flex;
+      justify-content: center;
+      margin: -14px 0 24px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint span {
+      font-size: 0.75rem;
+      color: #b5ae9e;
+      letter-spacing: 1px;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
+    /* ─── Page titles ─── */
+    .pg-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: #2c2a22;
+      margin-bottom: 4px;
+    }
+    .pg-sub {
+      font-size: 0.88rem;
+      color: #9c9785;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .pill {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-right: 5px;
+    }
+    .pill-warm { background: #f5f0e8; color: #8a7245; }
+    .pill-green { background: #edf7ed; color: #3a7a3a; }
+    .pill-red { background: #fdf0ef; color: #b05050; }
+
+    /* ─── Legend ─── */
+    .legend {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 26px;
+      padding: 11px 16px;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #ebe8e1;
+      font-size: 0.82rem;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; color: #7a7464; }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .legend-dot.g { background: #4caf50; }
+    .legend-dot.r { background: #ccc; }
+    .legend .lg-count { margin-left: auto; color: #b5ae9e; font-weight: 500; }
+
+    /* ─── Section headings ─── */
+    .sec-head {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #3d3929;
+      margin-bottom: 14px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid #f0ede6;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-head .si { font-size: 1.1rem; }
+
+    /* ─── Photo grid ─── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #eee;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      aspect-ratio: 4/3;
+    }
+    .photo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(60,50,30,0.14);
+    }
+    .photo-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .photo-card:hover img { transform: scale(1.04); }
+    .photo-card .overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 24px 13px 10px;
+      background: linear-gradient(transparent, rgba(30,28,20,0.65));
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    /* ─── Room sections ─── */
+    .room-sec { margin-bottom: 34px; }
+    .room-sec-head {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #6b6656;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f0ede6;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .room-sec-head span[onclick] {
+      transition: color 0.15s;
+    }
+    .room-sec-head span[onclick]:hover {
+      color: #5c4b28;
+      text-decoration: underline;
+    }
+    .room-sec-head .rs-count {
+      margin-left: auto;
+      font-size: 0.72rem;
+      color: #c4bfb2;
+    }
+    .room-sec.dim .photo-grid { opacity: 0.3; transition: opacity 0.25s; }
+    .room-sec.dim:hover .photo-grid { opacity: 0.6; }
+
+    /* ─── Welcome banner ─── */
+    .welcome-banner {
+      background: linear-gradient(135deg, #f7f3ec, #eee8dd);
+      border-radius: 16px;
+      padding: 30px 34px;
+      margin-bottom: 28px;
+      border: 1px solid #e6dfd2;
+    }
+    .welcome-banner h3 {
+      font-family: 'Playfair Display', serif;
+      color: #3d3929;
+      font-weight: 400;
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+    .welcome-banner p {
+      color: #7a7464;
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    /* ─── Host section ─── */
+    .host-section {
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 18px;
+      padding: 34px;
+      margin-bottom: 28px;
+    }
+    .host-top {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .host-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d4c4a0, #b8945a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .host-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: #2c2a22;
+      font-weight: 400;
+    }
+    .host-info p {
+      color: #9c9785;
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+    .host-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .host-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #f5f0e8;
+      color: #8a7245;
+    }
+    .host-body { line-height: 1.75; }
+    .host-body p {
+      color: #5c5647;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+    .host-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .host-hl {
+      background: #faf8f4;
+      border: 1px solid #f0ede6;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .host-hl .hl-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .host-hl h4 {
+      font-size: 0.85rem;
+      color: #3d3929;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .host-hl p {
+      font-size: 0.8rem;
+      color: #9c9785;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+
+    /* ─── Lightbox ─── */
+    .lightbox {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 1000;
+      background: rgba(44,42,34,0.92);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 82vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+      animation: fadeUp 0.2s ease-out;
+    }
+    .lightbox .lb-caption { margin-top: 14px; color: #d4cfc3; font-size: 0.88rem; }
+    .lightbox .lb-close {
+      position: absolute; top: 16px; right: 24px;
+      background: rgba(255,255,255,0.12); border: none;
+      color: #e8e3d8; font-size: 1.5rem;
+      width: 42px; height: 42px; border-radius: 50%;
+      cursor: pointer; transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1001;
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.25); }
+    .lightbox .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12); border: none;
+      color: #e8e3d8; font-size: 1.5rem;
+      width: 48px; height: 48px; border-radius: 50%;
+      cursor: pointer; transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.25); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      position: absolute; bottom: 20px;
+      color: rgba(255,255,255,0.4); font-size: 0.82rem; font-weight: 500;
+    }
+
+    /* ─── Neighborhood ─── */
+    .nbr-hero {
+      background: linear-gradient(135deg, #eef5ec, #f4f1e8);
+      border-radius: 16px;
+      padding: 34px;
+      margin-bottom: 28px;
+      border: 1px solid #dce8d8;
+    }
+    .nbr-hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 400; color: #2c2a22; margin-bottom: 8px;
+    }
+    .nbr-hero p { color: #6b7e62; font-size: 0.9rem; line-height: 1.7; }
+    .nbr-hero .loc-pill {
+      display: inline-block; margin-top: 12px;
+      padding: 5px 13px; background: rgba(76,175,80,0.1);
+      color: #3a7a3a; border-radius: 16px;
+      font-size: 0.78rem; font-weight: 600; margin-right: 6px;
+    }
+
+    .place-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px; margin-bottom: 34px;
+    }
+    .place-card {
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 14px; padding: 22px;
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+    .place-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(60,50,30,0.08); }
+    .place-card .pc-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+    .place-card h3 { font-size: 0.95rem; font-weight: 600; color: #3d3929; margin-bottom: 4px; }
+    .place-card .pc-dist {
+      font-size: 0.72rem; color: #6b8f3a; margin-bottom: 8px;
+      display: inline-block; background: #f0f7ec;
+      padding: 3px 9px; border-radius: 8px; font-weight: 600;
+    }
+    .place-card p { font-size: 0.84rem; color: #7a7464; line-height: 1.6; }
+    .place-card .pc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+    .place-card .pc-tag {
+      font-size: 0.67rem; padding: 3px 8px; border-radius: 6px;
+      background: #f5f2ec; color: #9c9785; font-weight: 600;
+    }
+
+    .bike-routes { display: grid; gap: 10px; margin-bottom: 34px; }
+    .route-card {
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 12px; padding: 16px 20px;
+      display: flex; align-items: center; gap: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .route-card:hover { transform: translateX(3px); box-shadow: 0 4px 16px rgba(60,50,30,0.06); }
+    .rt-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .rt-info h4 { color: #3d3929; font-weight: 600; font-size: 0.88rem; margin-bottom: 2px; }
+    .rt-info p { color: #9c9785; font-size: 0.8rem; line-height: 1.5; }
+    .rt-meta { margin-left: auto; text-align: right; flex-shrink: 0; }
+    .rt-meta .rt-dist { font-size: 1rem; color: #6b8f3a; font-weight: 700; }
+    .rt-meta .rt-time { font-size: 0.7rem; color: #b5ae9e; margin-top: 1px; }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px; margin-bottom: 34px;
+    }
+    .shop-chip {
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 10px; padding: 14px 10px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .shop-chip:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(60,50,30,0.06); }
+    .shop-chip .sc-icon { font-size: 1.3rem; display: block; margin-bottom: 6px; }
+    .shop-chip .sc-name { font-size: 0.8rem; color: #3d3929; font-weight: 600; }
+    .shop-chip .sc-type { font-size: 0.68rem; color: #b5ae9e; margin-top: 2px; }
+
+    .callout {
+      border-radius: 14px; padding: 20px 24px; margin-bottom: 22px;
+    }
+    .callout.sage {
+      background: linear-gradient(135deg, #f0f5ed, #f5f2ec);
+      border: 1px solid #dce8d8;
+    }
+    .callout.warm {
+      background: linear-gradient(135deg, #f8f3eb, #f5f0e8);
+      border: 1px solid #e6dfd2;
+    }
+    .callout h4 {
+      font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 6px; font-weight: 700;
+    }
+    .callout.sage h4 { color: #5a7a4a; }
+    .callout.warm h4 { color: #8a7245; }
+    .callout p { color: #6b6656; font-size: 0.86rem; line-height: 1.65; }
+
+    /* ─── Living Guide ─── */
+    .guide-hero {
+      background: linear-gradient(135deg, #eaf2e8, #f4f1e8);
+      border-radius: 16px;
+      padding: 34px;
+      margin-bottom: 28px;
+      border: 1px solid #d8e4d4;
+    }
+    .guide-hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 500; color: #2c2a22; margin-bottom: 6px;
+    }
+    .guide-hero p { color: #6b7e62; font-size: 0.9rem; line-height: 1.7; }
+
+    .guide-toc {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 30px;
+    }
+    .guide-toc a {
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 600;
+      background: #fff; color: #6b6656;
+      border: 1px solid #ebe8e1;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .guide-toc a:hover { background: #f5f0e8; color: #5c4b28; border-color: #d4cfc0; }
+
+    .guide-section { margin-bottom: 36px; }
+    .guide-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #2c2a22;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0ede6;
+      scroll-margin-top: 80px;
+    }
+
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .item-card {
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 12px;
+      padding: 18px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .item-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(60,50,30,0.06); }
+    .item-card .ic-head {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+    }
+    .item-card .ic-icon { font-size: 1.3rem; }
+    .item-card h4 { font-size: 0.88rem; font-weight: 600; color: #3d3929; }
+    .item-card p { font-size: 0.82rem; color: #7a7464; line-height: 1.55; }
+    .item-card .ic-tip {
+      margin-top: 8px; padding: 8px 12px;
+      background: #faf8f4; border-radius: 8px;
+      font-size: 0.76rem; color: #8a7245; font-style: italic;
+    }
+
+    .rule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+    .rule-card {
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .rule-card h4 {
+      font-size: 0.9rem; font-weight: 600; color: #3d3929;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .rule-card h4 .rc-icon { font-size: 1.1rem; }
+    .rule-card ul {
+      list-style: none; padding: 0;
+    }
+    .rule-card ul li {
+      font-size: 0.82rem; color: #5c5647; line-height: 1.6;
+      padding: 4px 0 4px 20px;
+      position: relative;
+    }
+    .rule-card ul li::before {
+      content: ''; position: absolute; left: 4px; top: 11px;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #d4cfc0;
+    }
+    .rule-card .rc-note {
+      margin-top: 10px; padding: 10px 14px;
+      background: #fdf8f0; border-radius: 8px;
+      border-left: 3px solid #e6c87a;
+      font-size: 0.78rem; color: #8a7245; line-height: 1.5;
+    }
+
+    .bucket-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .bucket-card {
+      background: #fff;
+      border: 1px solid #ebe8e1;
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .bucket-card h4 {
+      font-size: 0.85rem; font-weight: 600; color: #3d3929;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .bucket-card ul {
+      list-style: none; padding: 0;
+    }
+    .bucket-card ul li {
+      font-size: 0.8rem; color: #7a7464; line-height: 1.55;
+      padding: 3px 0 3px 18px; position: relative;
+    }
+    .bucket-card ul li::before {
+      content: ''; position: absolute; left: 2px; top: 10px;
+      width: 8px; height: 8px; border-radius: 2px;
+      border: 1.5px solid #c4bfb2;
+    }
+
+    .energy-schedule {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin: 10px 0;
+    }
+    .energy-time {
+      padding: 6px 14px;
+      background: #f5f0e8;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #8a7245;
+    }
+
+    /* ─── Mobile ─── */
+    .menu-toggle {
+      display: none;
+      position: fixed; bottom: 20px; right: 20px; z-index: 500;
+      width: 50px; height: 50px; border-radius: 14px;
+      background: #b8945a; border: none;
+      color: #fff; font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(184,148,90,0.35);
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed; left: -260px; top: 0;
+        height: 100vh; z-index: 400;
+        transition: left 0.3s ease; padding-top: 66px;
+      }
+      .sidebar.open { left: 0; }
+      .menu-toggle { display: flex; align-items: center; justify-content: center; }
+      .main { padding: 20px 18px; }
+      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+      header { padding: 14px 18px; }
+      .header-left h1 { font-size: 1.15rem; }
+      .header-pills .header-pill { display: none; }
+      .header-pills .apply-btn { font-size: 0.78rem; padding: 8px 16px; }
+      .place-grid { grid-template-columns: 1fr; }
+      .shop-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+      .nbr-hero, .welcome-banner, .host-section { padding: 22px; }
+      .route-card { flex-direction: column; text-align: center; gap: 10px; }
+      .rt-meta { margin-left: 0; text-align: center; }
+      .host-top { flex-direction: column; text-align: center; }
+      .host-highlights { grid-template-columns: 1fr; }
+      .hero img { height: 240px; }
+      .hero-overlay { padding: 20px; }
+      .hero-overlay h2 { font-size: 1.4rem; }
+      .quick-nav { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+      .item-grid, .rule-grid, .bucket-grid { grid-template-columns: 1fr; }
+      .guide-hero { padding: 22px; }
+      .hero-duo { grid-template-columns: 1fr; }
+      .hero-duo .hero-small { display: none; }
+      .site-footer { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left" style="cursor:pointer;" onclick="showRoom('welcome')">
+    <h1>26363 Esperanza Dr <span>Los Altos Hills</span></h1>
+    <p>Rooms for rent &middot; Living guide &middot; Neighborhood &middot; Meet your host</p>
+  </div>
+  <div class="header-pills">
+    <div class="header-pill green">
+      <div class="dot"></div>
+      4 rooms available
+    </div>
+    <a href="https://forms.gle/QG5dA3XahoxpiGUGA" target="_blank" rel="noopener" class="apply-btn">Apply Now</a>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="sidebar" id="sidebar">
+    <button class="sb-btn active" data-room="welcome" onclick="showRoom('welcome')" style="padding:14px 22px;">
+      <span class="sb-icon" style="background:#f0ede6; color:#b8945a; font-size:1rem;">&#9750;</span>
+      <strong style="color:#3d3929;">Welcome</strong>
+    </button>
+
+    <div class="sb-divider"></div>
+    <div class="sb-label">Property</div>
+    <button class="sb-btn" data-room="home" onclick="showRoom('home')">
+      <span class="sb-icon">&#8962;</span>
+      Property Photos
+      <span class="sb-count">15</span>
+    </button>
+
+    <div class="sb-divider"></div>
+    <div class="sb-label">Rooms</div>
+    <button class="sb-btn" data-room="all" onclick="showRoom('all')">
+      <span class="sb-icon">&#9783;</span>
+      All Rooms
+    </button>
+    <div id="room-buttons"></div>
+
+    <div class="sb-divider"></div>
+    <div class="sb-label">Explore</div>
+    <button class="sb-btn" data-room="guide" onclick="showRoom('guide')">
+      <span class="sb-icon" style="background:#e8f0f5; color:#4a8ab5;">&#128214;</span>
+      Living Guide
+    </button>
+    <button class="sb-btn" data-room="neighborhood" onclick="showRoom('neighborhood')">
+      <span class="sb-icon" style="background:#edf7ed; color:#4caf50;">&#9733;</span>
+      Neighborhood
+    </button>
+    <button class="sb-btn" data-room="host" onclick="showRoom('host')">
+      <span class="sb-icon" style="background:#f5f0e8; color:#b8945a;">&#9829;</span>
+      Your Host
+    </button>
+  </nav>
+
+  <main class="main" id="main-content"></main>
+</div>
+
+<footer class="site-footer">
+  <div class="ft-addr">26363 Esperanza Dr, Los Altos Hills</div>
+  <div class="ft-sub">We're glad you're here. Welcome home.</div>
+  <div class="ft-links">
+    <button class="ft-link" onclick="showRoom('welcome')">Home</button>
+    <button class="ft-link" onclick="showRoom('all')">Rooms</button>
+    <button class="ft-link" onclick="showRoom('guide')">Living Guide</button>
+    <button class="ft-link" onclick="showRoom('neighborhood')">Neighborhood</button>
+    <button class="ft-link" onclick="showRoom('host')">Your Host</button>
+    <a href="https://forms.gle/QG5dA3XahoxpiGUGA" target="_blank" rel="noopener" class="ft-link" style="background:#5c4b28; color:#fff;">Apply Now</a>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">&times;</button>
+  <button class="lb-nav lb-prev" onclick="navigateLightbox(-1)">&#8249;</button>
+  <button class="lb-nav lb-next" onclick="navigateLightbox(1)">&#8250;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-caption" id="lb-caption"></div>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+<button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+
+<script>
+  // ─── Data ───
+  const homePhotos = {
+    id: 0, folder: "0_HomeFotos", name: "Property Overview",
+    description: "Kitchen, bathrooms, pool, patio, and common areas",
+    photos: [
+      "Front Home View (2) (2).jpg","Back Home View (1) (2).JPG",
+      "Kitchen 1.JPG","Kitchen 3 (3).JPG","DiningTable.JPG",
+      "Bathroom 1 (2).JPG","Bathroom 2.JPG",
+      "Patio&BBQ (1).JPG","Stairs.JPG","GarageToilet (1).JPG",
+      "BathroomAppraisal.png","DiningRoomAppraisal.png",
+      "KitchenAppraisal.png","LaundryRoomAppraisal.png"
+    ]
+  };
+
+  const rooms = [
+    { id:1, folder:"1_RoomwithPatioView", name:"Patio View Room", desc:"Direct view of the patio and backyard", price:1400,
+      photos:["IMG_5041.JPG","IMG_5042.JPG","IMG_5043.JPG","IMG_5044.JPG"] },
+    { id:2, folder:"2_RoomwithFlowerTree", name:"Flower Tree Room", desc:"Cozy room with a flowering tree view", price:1400,
+      photos:["IMG_5511.jpg","IMG_5512.jpg","IMG_5513.jpg"] },
+    { id:3, folder:"3_SmallRoom", name:"Small Room", desc:"Compact and comfortable bedroom", price:1200,
+      photos:["2 Small Room Bed.JPG","Small Room's bedroom 1 (dup) (1).JPG","Small Room's bedroom 3 (1).JPG"] },
+    { id:4, folder:"4_RoomwPoolView", name:"Pool View Room", desc:"Overlooking the swimming pool", price:1400,
+      photos:["IMG_1334.JPG","IMG_1335.JPG","IMG_4878.JPG","IMG_4881.JPG"] },
+    { id:5, folder:"5_Masterbedroom", name:"Master Bedroom", desc:"Spacious suite with private en-suite bathroom and pool view", price:1700,
+      photos:["MasterBedroom_1.JPG","MasterBedroom_2.JPG","MasterBedroom_bathroom2.JPG","MasterBedroom_bathroom4.JPG","MasterBedroom_poolview6.JPG"] },
+    { id:6, folder:"6_RoomWindowOutdoorSunShade", name:"Sun Shade Room", desc:"Window facing the outdoor sun shade", price:1400,
+      photos:["Room6_foto1.JPG","Room6_foto2.JPG","Room6_foto3.JPG","Room6_foto4.JPG","Room6_foto5.JPG"] },
+    { id:7, folder:"7_RoomWindowToFrontYard", name:"Front Yard Room", desc:"Panoramic window to the front yard", price:1400,
+      photos:["PanoFromEntrance (1).JPG","PanoFromInsideRoom (2).JPG"] },
+    { id:8, folder:"8_GarageRoom", name:"Garage Room", desc:"Converted room with private patio access", price:1500,
+      photos:["GarageRoomPatio_5.JPG","GarageRoomViewintoRoom_1.JPG","GarageRoom_Bed_5.JPG","GarageroomViewfromBed_2.JPG","IMG_5634 (1).JPG","IMG_5945.JPG","OutsideView (1).JPG"] },
+    { id:9, folder:"9_TinyStudio", name:"Tiny Studio", desc:"Compact studio with private bathroom — ideal for a single occupant", price:1600,
+      photos:["TinyStudio_Wide4.JPG","TinyStudio_Wide5.JPG","Tinystudio_Wide1.JPG","Tinystudio_Wide2.JPG"] }
+  ];
+
+  const availableRooms = new Set([2, 5, 7, 9]);
+  const TOTAL_ROOMS = rooms.length;
+  const availCount = rooms.filter(r => availableRooms.has(r.id)).length;
+
+  let lightboxPhotos = [], lightboxIndex = 0;
+
+  // ─── Sidebar buttons ───
+  const btnBox = document.getElementById('room-buttons');
+  rooms.forEach(room => {
+    const avail = availableRooms.has(room.id);
+    const btn = document.createElement('button');
+    btn.className = 'sb-btn' + (avail ? '' : ' dim');
+    btn.dataset.room = room.id;
+    btn.onclick = () => showRoom(room.id);
+    btn.innerHTML = `
+      <span class="sb-icon">${room.id}</span>
+      ${room.name}
+      <span style="margin-left:auto; font-size:0.72rem; color:${avail ? '#3a7a3a' : '#b5ae9e'}; font-weight:600;">$${room.price}</span>
+      <span class="sb-dot ${avail ? 'open' : 'taken'}"></span>
+    `;
+    btnBox.appendChild(btn);
+  });
+
+  // ─── Helpers ───
+  function pp(folder, photo) { return encodeURI(folder + '/' + photo); }
+  function cn(n) {
+    return n.replace(/\.(jpg|jpeg|png|gif|webp)$/i,'').replace(/[_-]/g,' ')
+      .replace(/\s*\(\d+\)\s*/g,' ').replace(/IMG \d+/i,'Photo').replace(/Appraisal$/i,'').trim();
+  }
+  function peekGrid() {
+    const picks = [1,2,7,4,5,6]; // Back View, Kitchen, Patio&BBQ, Dining, Bathroom, Bathroom2
+    return picks.map(idx => {
+      const p = homePhotos.photos[idx];
+      return `<div class="photo-card" onclick="openLightbox(0,${idx})">
+        <img src="${pp(homePhotos.folder,p)}" alt="${cn(p)}" loading="lazy">
+        <div class="overlay">${cn(p)}</div>
+      </div>`;
+    }).join('');
+  }
+  function grid(data, rid) {
+    return data.photos.map((p,i) => `
+      <div class="photo-card" onclick="openLightbox(${rid},${i})">
+        <img src="${pp(data.folder,p)}" alt="${cn(p)}" loading="lazy">
+        <div class="overlay">${cn(p)}</div>
+      </div>`).join('');
+  }
+
+  // ─── Render ───
+  function showRoom(id) {
+    document.querySelectorAll('.sb-btn').forEach(b => b.classList.toggle('active', b.dataset.room == id));
+    const m = document.getElementById('main-content');
+    let h = '';
+
+    if (id === 'welcome') {
+      h = `<div class="fade-in">
+        <div class="hero-duo">
+          <div class="hero" onclick="showRoom('home')">
+            <img src="${pp(homePhotos.folder, homePhotos.photos[0])}" alt="Front of home">
+            <div class="hero-overlay">
+              <h2>Your New Home on Esperanza Dr</h2>
+              <p>Imagine morning coffee by the pool, sunset walks through oak-covered trails, and a host who has your back from day one.</p>
+              <div class="hero-pills">
+                <span class="hero-pill">Los Altos Hills, CA</span>
+                <span class="hero-pill">${availCount} rooms available</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-small" onclick="showRoom(5)">
+            <img src="${pp('5_Masterbedroom', 'MasterBedroom_poolview6.JPG')}" alt="Pool view from master bedroom">
+          </div>
+        </div>
+
+        <div class="scroll-hint"><span>&#9660; scroll to explore</span></div>
+
+        <div class="welcome-banner" style="text-align:center; margin-bottom:24px;">
+          <h3 style="font-style:italic; font-size:1.3rem;">This is the place you'll be glad you found</h3>
+          <p style="max-width:640px; margin:10px auto 0;">
+            Moving somewhere new &mdash; especially for an internship or a fresh start &mdash; can feel uncertain.
+            At 26363 Esperanza Dr, you'll have a real home: a beautiful property surrounded by nature,
+            shared spaces that actually feel welcoming, and a host who's helped dozens of people
+            settle into Silicon Valley life. You won't just have a room. You'll have someone in your corner.</p>
+        </div>
+
+        <div class="amenity-row" style="justify-content:center;">
+          <div class="amenity"><span class="am-icon">&#128075;</span> On-site host</div>
+          <div class="amenity"><span class="am-icon">&#127946;</span> Backyard pool</div>
+          <div class="amenity"><span class="am-icon">&#127860;</span> Full kitchen</div>
+          <div class="amenity"><span class="am-icon">&#128293;</span> Patio &amp; BBQ</div>
+          <div class="amenity"><span class="am-icon">&#128087;</span> Washer &amp; dryer</div>
+          <div class="amenity"><span class="am-icon">&#128663;</span> Free parking</div>
+          <div class="amenity"><span class="am-icon">&#128246;</span> WiFi</div>
+          <div class="amenity"><span class="am-icon">&#127795;</span> Trails nearby</div>
+          <div class="amenity"><span class="am-icon">&#129414;</span> Wildlife &amp; nature</div>
+        </div>
+
+        <div style="text-align:center; margin-bottom:28px;">
+          <a href="https://forms.gle/QG5dA3XahoxpiGUGA" target="_blank" rel="noopener" class="apply-btn" style="padding:13px 32px; font-size:0.92rem;">Apply for Housing</a>
+          <p style="font-size:0.76rem; color:#b5ae9e; margin-top:8px;">Takes just a few minutes &mdash; no commitment</p>
+        </div>
+
+        <div class="callout sage" style="margin-bottom:28px;">
+          <h4>A day in the life on Esperanza Dr</h4>
+          <p>You wake up to birdsong and oak-filtered sunlight. Grab coffee in the kitchen
+          and eat on the patio before heading to work. After your day, you swim a few laps or
+          read by the pool. In the evening, you bike to downtown Los Altos for dinner or
+          walk the trails at golden hour while deer graze on the hillside. Back home,
+          you chat with a fellow housemate before settling into your room. It's quiet.
+          It's peaceful. It feels like yours.</p>
+        </div>
+
+        <div class="sec-head"><span class="si">&#128204;</span> Explore</div>
+        <div class="quick-nav">
+          <div class="qn-card" onclick="showRoom('all')">
+            <span class="qn-icon">&#128209;</span>
+            <h3>Find Your Room</h3>
+            <p>${availCount} of ${TOTAL_ROOMS} rooms ready for you</p>
+          </div>
+          <div class="qn-card" onclick="showRoom('guide')">
+            <span class="qn-icon">&#128214;</span>
+            <h3>Living Guide</h3>
+            <p>Everything you need to feel at home from day one</p>
+          </div>
+          <div class="qn-card" onclick="showRoom('neighborhood')">
+            <span class="qn-icon">&#127795;</span>
+            <h3>Your New Neighborhood</h3>
+            <p>Trails, coffee shops, farmers markets &amp; hidden gems</p>
+          </div>
+          <div class="qn-card" onclick="showRoom('host')">
+            <span class="qn-icon">&#9829;</span>
+            <h3>Meet Henry</h3>
+            <p>Your host, advisor, and go-to person for anything</p>
+          </div>
+          <div class="qn-card" onclick="showRoom('home')">
+            <span class="qn-icon">&#127968;</span>
+            <h3>See the Home</h3>
+            <p>Pool, kitchen, patio &amp; all the shared spaces</p>
+          </div>
+        </div>
+
+        <div class="sec-head"><span class="si">&#10024;</span> Come on in &mdash; take a look around</div>
+        <div class="photo-grid">${peekGrid()}</div>
+      </div>`;
+    }
+
+    else if (id === 'home') {
+      h = `<div class="fade-in">
+        <h2 class="pg-title">The Home</h2>
+        <p class="pg-sub">Take a look around &mdash; these are the spaces you'll share and enjoy every day</p>
+        <div class="welcome-banner">
+          <h3>26363 Esperanza Dr, Los Altos Hills</h3>
+          <p>A pool for warm afternoons, a patio for morning coffee or evening BBQs, a full kitchen
+          for home-cooked meals, and quiet corners for reading or working. ${TOTAL_ROOMS} rooms total,
+          ${availCount} currently available.</p>
+        </div>
+        <div class="photo-grid">${grid(homePhotos,0)}</div>
+      </div>`;
+    }
+
+    else if (id === 'all') {
+      const av = rooms.filter(r => availableRooms.has(r.id));
+      const oc = rooms.filter(r => !availableRooms.has(r.id));
+      h = `<div class="fade-in">
+        <h2 class="pg-title">Find Your Room</h2>
+        <p class="pg-sub">Each room has its own character and view. Take a look and see which one feels right for you.</p>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot g"></span> Available &mdash; ready for you</div>
+          <div class="legend-item"><span class="legend-dot r"></span> Occupied</div>
+          <span class="lg-count">${availCount} of ${TOTAL_ROOMS} available</span>
+        </div>`;
+      h += `<div class="callout sage" style="margin-bottom:24px;">
+          <h4>Bathroom Situation</h4>
+          <p>The <strong>Master Bedroom</strong> and <strong>Tiny Studio</strong> each have their own private bathroom.
+          The remaining rooms share two full bathrooms. At full occupancy that's 7 people across 2 bathrooms,
+          but the house isn't always at capacity &mdash; in practice the ratio is often much more comfortable.</p>
+        </div>`;
+      h += `<div class="sec-head" style="color:#3a7a3a;border-color:#dce8d8;"><span class="si">&#10003;</span> Available &mdash; Move In Ready</div>`;
+      av.forEach(r => {
+        const pvt = r.id === 5 || r.id === 9;
+        h += `<div class="room-sec"><div class="room-sec-head">
+          <span style="cursor:pointer;" onclick="showRoom(${r.id})">Room ${r.id} &mdash; ${r.name}</span>
+          <span class="pill" style="background:#2c5e1a; color:#fff; font-weight:700; font-size:0.85rem;">$${r.price}/mo</span>
+          <span class="pill pill-green">Available</span>
+          ${pvt ? '<span class="pill pill-warm">Private Bath</span>' : '<span class="pill" style="background:#f0f0f0; color:#999;">Shared Bath</span>'}
+          <span class="rs-count">${r.photos.length} photos</span></div>
+          <p style="font-size:0.84rem; color:#7a7464; margin:-6px 0 12px; line-height:1.5;">${r.desc}</p>
+          <div class="photo-grid">${grid(r,r.id)}</div></div>`;
+      });
+      h += `<div style="text-align:center; margin:24px 0 32px;">
+        <a href="https://forms.gle/QG5dA3XahoxpiGUGA" target="_blank" rel="noopener" class="apply-btn-outline">Apply for a Room</a>
+      </div>`;
+      h += `<div class="sec-head" style="color:#9c9785;border-color:#f0ede6;margin-top:16px;"><span class="si">&mdash;</span> Occupied Rooms</div>`;
+      oc.forEach(r => {
+        const pvt = r.id === 5 || r.id === 9;
+        h += `<div class="room-sec dim"><div class="room-sec-head">
+          Room ${r.id} &mdash; ${r.name}
+          <span class="pill" style="background:#e8e5de; color:#7a7464; font-weight:600;">$${r.price}/mo</span>
+          <span class="pill pill-red">Occupied</span>
+          ${pvt ? '<span class="pill pill-warm">Private Bath</span>' : '<span class="pill" style="background:#f0f0f0; color:#999;">Shared Bath</span>'}
+          <span class="rs-count">${r.photos.length} photos</span></div>
+          <div class="photo-grid">${grid(r,r.id)}</div></div>`;
+      });
+      h += '</div>';
+    }
+
+    else if (id === 'guide') { h = buildGuide(); }
+    else if (id === 'neighborhood') { h = buildNeighborhood(); }
+    else if (id === 'host') { h = buildHost(); }
+
+    else {
+      const r = rooms.find(x => x.id == id);
+      const av = availableRooms.has(r.id);
+      h = `<div class="fade-in">
+        <p style="margin-bottom:14px;">
+          <span onclick="showRoom('all')" style="cursor:pointer; font-size:0.82rem; color:#9c9785; transition:color 0.15s;"
+            onmouseover="this.style.color='#5c4b28'" onmouseout="this.style.color='#9c9785'">&larr; All rooms</span>
+        </p>
+        <h2 class="pg-title">Room ${r.id} &mdash; ${r.name}</h2>
+        <p class="pg-sub">
+          <span class="pill" style="background:#2c5e1a; color:#fff; font-weight:700; font-size:0.88rem;">$${r.price}/mo</span>
+          <span class="pill pill-warm">${r.photos.length} photo${r.photos.length!==1?'s':''}</span>
+          <span class="pill ${av?'pill-green':'pill-red'}">${av?'Available':'Occupied'}</span>
+          ${r.id === 5 || r.id === 9 ? '<span class="pill pill-warm">Private Bathroom</span>' : ''}
+          ${r.desc}
+        </p>
+        ${(r.id !== 5 && r.id !== 9 && av) ? '<p style="font-size:0.82rem; color:#7a7464; margin:-16px 0 16px;">This room shares two full bathrooms with the other non-suite rooms.</p>' : ''}
+        ${av ? `<div class="callout sage" style="margin-bottom:20px;">
+          <h4>This room is available</h4>
+          <p>This could be yours. If you're interested or have questions, reach out to Henry &mdash; he's happy to tell you more, arrange a video tour, or help you plan your move-in.</p>
+        </div>` : ''}
+        <div class="photo-grid">${grid(r,r.id)}</div>
+        ${av ? `<div style="text-align:center; margin-top:28px;">
+          <div class="callout warm" style="display:inline-block; max-width:520px;">
+            <h4>Like what you see?</h4>
+            <p style="margin-bottom:14px;">Fill out a quick application and Henry will get back to you. He's happy to answer questions, arrange a video tour, or help you plan your move-in.</p>
+            <a href="https://forms.gle/QG5dA3XahoxpiGUGA" target="_blank" rel="noopener" class="apply-btn">Apply for This Room</a>
+          </div>
+        </div>` : ''}
+      </div>`;
+    }
+
+    m.innerHTML = h;
+    m.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.getElementById('sidebar').classList.remove('open');
+  }
+
+  // ─── Living Guide ───
+  function buildGuide() {
+    return `<div class="fade-in">
+      <div class="guide-hero">
+        <h2>Your Guide to Living Here</h2>
+        <p>Think of this as friendly advice from someone who wants you to have an amazing time.
+        Los Altos Hills is a special place &mdash; nature-rich, peaceful, and full of things to discover.
+        This guide covers what to pack, where to explore, and how we take care of the home together.
+        Whether you're here for 3 months or a year, this will help you live like a local.</p>
+      </div>
+
+      <div class="guide-toc">
+        <a href="#guide-bring">What to Bring</a>
+        <a href="#guide-about">About the Area</a>
+        <a href="#guide-essentials">Everyday Essentials</a>
+        <a href="#guide-nature">Parks &amp; Nature</a>
+        <a href="#guide-food">Food &amp; Markets</a>
+        <a href="#guide-shop">Shopping &amp; Fun</a>
+        <a href="#guide-bucket">Bucket List</a>
+        <a href="#guide-transport">Getting Around</a>
+        <a href="#guide-house">House Guidelines</a>
+        <a href="#guide-energy">Energy &amp; Safety</a>
+      </div>
+
+      <!-- WHAT TO BRING -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-bring">Suggested Items to Bring or Purchase</h3>
+        <p class="pg-sub" style="margin-bottom:16px;">Los Altos Hills is peaceful, beautiful, and nature-forward &mdash; a little preparation goes a long way toward staying safe, cozy, and happy.</p>
+        <div class="item-grid">
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#128294;</span><h4>Flashlight or Headlamp</h4></div>
+            <p>Los Altos Hills has limited streetlights. A flashlight or headlamp lets you enjoy evening walks without surprises.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#128690;</span><h4>Bike Safety Gear</h4></div>
+            <p>If you bike, please bring a bike lock, front &amp; rear lights (non-negotiable after sunset), and reflective or high-visibility gear. Bike lights are one of the best ~$50 investments you'll make here.</p>
+            <div class="ic-tip">Cardinal Bike Shop, Summit Bicycles, and Mike's Bikes all have great bikes on sale. Buy from them over Walmart &mdash; they can help repair &amp; maintain your bike too.</div>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#129507;</span><h4>Layers &amp; Warm Clothing</h4></div>
+            <p>Sunny afternoons can turn into chilly evenings quickly. A beanie, light gloves, and a warm layer will save you. Gloves are also great for biking in the cold.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#127782;</span><h4>Rain Gear</h4></div>
+            <p>A light rain jacket or poncho is your friend. Rain here tends to arrive politely&hellip; and then surprise you anyway.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#129406;</span><h4>Indoor &amp; Outdoor Slippers</h4></div>
+            <p>Shoes never touch indoor floors &mdash; especially carpet. Your slippers are tiny heroes that keep rooms clean and help maximize your security deposit return.</p>
+            <div class="ic-tip">Deep-cleaning carpet takes multiple multi-hour sessions per bedroom (not including steam-cleaner rental). Slippers save everyone time and money.</div>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#128703;</span><h4>Towels</h4></div>
+            <p>Please bring your own bath and hand towels &mdash; consider them part of your personal comfort kit.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#128167;</span><h4>Reusable Water Bottle</h4></div>
+            <p>Hydration is key, especially if you're walking, biking, or hiking the hills. Los Altos Hills tap water is perfectly drinkable.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT THE AREA -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-about">About Los Altos Hills</h3>
+        <div class="callout sage">
+          <h4>A Semi-Rural Paradise</h4>
+          <p>Los Altos Hills is a residential, semi-rural town known for open space preserves and quiet trails, proximity to Stanford, Palo Alto, and Mountain View, and a slower pace of life while still being close to world-class amenities. It's ideal for people who enjoy nature, reflection, and intentional living.</p>
+        </div>
+        <div class="amenity-row">
+          <div class="amenity"><span class="am-icon">&#127795;</span> Open Space Preserves</div>
+          <div class="amenity"><span class="am-icon">&#127891;</span> Near Stanford</div>
+          <div class="amenity"><span class="am-icon">&#128740;</span> Mountain Views</div>
+          <div class="amenity"><span class="am-icon">&#129414;</span> Wildlife</div>
+          <div class="amenity"><span class="am-icon">&#127748;</span> Quiet &amp; Peaceful</div>
+          <div class="amenity"><span class="am-icon">&#128187;</span> Heart of Silicon Valley</div>
+        </div>
+        <p style="font-size:0.85rem; color:#7a7464; margin-top:4px;">Also worth exploring: Cupertino Main, downtown Sunnyvale, Santana Row, and Redwood City.</p>
+      </div>
+
+      <!-- EVERYDAY ESSENTIALS -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-essentials">Everyday Essentials</h3>
+        <div class="item-grid">
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#128218;</span><h4>Los Altos Library</h4></div>
+            <p>A gem of the community. Great place to work, read, relax, or use basic printing and scanning services.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#128424;</span><h4>Printing &amp; Office</h4></div>
+            <p>Los Altos Library for basics. FedEx Office in Mountain View or Palo Alto for professional printing, shipping, and notary services.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#127963;</span><h4>Los Altos Community Center</h4></div>
+            <p>A hub for classes, events, and wellness activities. Check their schedule for what's happening during your stay.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PARKS & NATURE -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-nature">Parks, Nature &amp; Outdoor Living</h3>
+        <div class="callout sage">
+          <h4>Morning &amp; Sunset Tip</h4>
+          <p>Morning and sunset walks in Los Altos Hills are magical. The light through the oaks, the quiet trails, the occasional deer sighting &mdash; it's the kind of thing you'll remember long after you leave.</p>
+        </div>
+        <div class="place-grid">
+          <div class="place-card">
+            <span class="pc-icon">&#127794;</span><h3>Shoup Park</h3>
+            <span class="pc-dist">Nearby</span>
+            <p>One of the most beloved local parks. Redwood trees, creek-side benches &mdash; perfect for reading, journaling, or light walks.</p>
+          </div>
+          <div class="place-card">
+            <span class="pc-icon">&#127758;</span><h3>Rancho San Antonio Preserve</h3>
+            <span class="pc-dist">~2 miles</span>
+            <p>Hiking, deer sightings, and sweeping views. One of the Bay Area's most popular preserves.</p>
+          </div>
+          <div class="place-card">
+            <span class="pc-icon">&#128004;</span><h3>Hidden Villa</h3>
+            <span class="pc-dist">~3 miles</span>
+            <p>Farm animals, trail heads, and 1,600 acres of wilderness preserve. Great for all ages.</p>
+          </div>
+          <div class="place-card">
+            <span class="pc-icon">&#127800;</span><h3>Foothills Nature Preserve</h3>
+            <span class="pc-dist">Nearby</span>
+            <p>Lakes, rolling hills, and seasonal wildflowers. Beautiful for sunset walks.</p>
+          </div>
+          <div class="place-card">
+            <span class="pc-icon">&#128014;</span><h3>Westwind Barn &amp; Open Space</h3>
+            <span class="pc-dist">Nearby</span>
+            <p>Historic barn and peaceful trails. A quiet escape close to home.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOD & MARKETS -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-food">Farmers Markets &amp; Local Food</h3>
+        <div class="item-grid">
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#127819;</span><h4>California Ave Farmers Market</h4></div>
+            <p>A must-do experience. Fresh produce, local bread, honey, flowers, live music, and neighborhood vibe. Sundays, year-round, on California Ave in Palo Alto.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#127805;</span><h4>Los Altos Farmers Market</h4></div>
+            <p>Smaller and relaxed. Great for weekly essentials. Thursdays on State Street, May through September.</p>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <h4 style="font-size:0.88rem; color:#3d3929; margin-bottom:10px;">Budget-Friendly Eats Nearby</h4>
+          <div class="amenity-row">
+            <div class="amenity">Sajj</div>
+            <div class="amenity">Chipotle</div>
+            <div class="amenity">In-N-Out</div>
+            <div class="amenity">Poke House</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;">
+          <h4 style="font-size:0.88rem; color:#3d3929; margin-bottom:10px;">Caf&eacute; Culture</h4>
+          <div class="amenity-row">
+            <div class="amenity"><span class="am-icon">&#9749;</span> Los Altos Coffee Shop</div>
+            <div class="amenity"><span class="am-icon">&#9749;</span> Coupa Caf&eacute; (Palo Alto)</div>
+            <div class="amenity"><span class="am-icon">&#9749;</span> Red Rock Coffee (Mountain View)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHOPPING & FUN -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-shop">Shopping &amp; Entertainment</h3>
+        <div class="item-grid">
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#127981;</span><h4>Stanford Shopping Center</h4></div>
+            <p>Open-air mall with beautiful landscaping. High-end and everyday stores, great dining, pleasant for evening walks.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#127751;</span><h4>Santana Row (San Jose)</h4></div>
+            <p>More lively and urban. Restaurants, bars, boutiques, weekend energy and events. Great for social outings.</p>
+          </div>
+          <div class="item-card">
+            <div class="ic-head"><span class="ic-icon">&#127916;</span><h4>Movies &amp; Arts</h4></div>
+            <p>Stanford Theatre for classic films. Local live talks and events at Stanford or Foothill College.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUCKET LIST -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-bucket">Your Los Altos Hills Bucket List</h3>
+        <p class="pg-sub" style="margin-bottom:16px;">Don't just pass through &mdash; make this time count. These are the experiences past housemates have loved most.</p>
+        <div class="bucket-grid">
+          <div class="bucket-card">
+            <h4>&#127749; Daily &amp; Weekly Rituals</h4>
+            <ul>
+              <li>Quiet morning walk in Los Altos Hills</li>
+              <li>Read a book at Shoup Park</li>
+              <li>Visit a farmers market monthly</li>
+              <li>Work from the library or a caf&eacute;</li>
+            </ul>
+          </div>
+          <div class="bucket-card">
+            <h4>&#9968; Nature &amp; Exploration</h4>
+            <ul>
+              <li>Hike Rancho San Antonio</li>
+              <li>Sunset at Foothills Nature Preserve</li>
+              <li>Spot deer or wild turkeys on local roads</li>
+              <li>Visit Hidden Villa farm</li>
+            </ul>
+          </div>
+          <div class="bucket-card">
+            <h4>&#127961; Culture &amp; City Life</h4>
+            <ul>
+              <li>Afternoon in Palo Alto or Mountain View</li>
+              <li>Stanford public lecture or event</li>
+              <li>Explore Santana Row at night</li>
+            </ul>
+          </div>
+          <div class="bucket-card">
+            <h4>&#127869; Food Experiences</h4>
+            <ul>
+              <li>Try multiple farmers market vendors</li>
+              <li>Explore Asian, Mediterranean &amp; CA cuisine</li>
+              <li>Cook a seasonal meal with local produce</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- GETTING AROUND -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-transport">Getting Around</h3>
+        <div class="amenity-row">
+          <div class="amenity"><span class="am-icon">&#128663;</span> Waymo / RoboTaxi</div>
+          <div class="amenity"><span class="am-icon">&#128661;</span> Uber / Lyft</div>
+          <div class="amenity"><span class="am-icon">&#128651;</span> Public Transit</div>
+          <div class="amenity"><span class="am-icon">&#128690;</span> Biking</div>
+        </div>
+        <p style="font-size:0.84rem; color:#7a7464;">Your maps app will show public transit options. Biking is great for nearby destinations. Waymo is expanding in the area.</p>
+      </div>
+
+      <!-- HOUSE GUIDELINES -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-house">Taking Care of Our Home Together</h3>
+        <p class="pg-sub" style="margin-bottom:16px;">Perfection isn't expected &mdash; consideration is. These are the little things that keep the home comfortable and welcoming for everyone who lives here.</p>
+        <div class="rule-grid">
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#127859;</span> Kitchen</h4>
+            <ul>
+              <li>Do not pour grease or oil down the sink</li>
+              <li>Just because food can go down the disposal doesn't mean it should &mdash; bones, potato peels, corn husks, fruit pits, and coffee grounds go in the trash</li>
+              <li>Clean up spills immediately to prevent stains</li>
+              <li>Remove leftovers from the fridge after 1 week</li>
+              <li>Do not overload trash or recycling bins</li>
+            </ul>
+          </div>
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#128704;</span> Bathroom</h4>
+            <p style="font-size:0.82rem; color:#5c5647; margin-bottom:10px;">The Master Bedroom and Tiny Studio each have a private bath. The other rooms share two full bathrooms &mdash; at max capacity that's 7 people between them, though in practice the house is often below capacity.</p>
+            <ul>
+              <li>Only flush toilet paper</li>
+              <li>Do not pour oils, grease, or coffee grounds down the sink</li>
+              <li>Use the bathroom fan &amp; open the window to reduce moisture and mold</li>
+              <li>Wipe excess hair from sink and shower drain after use</li>
+            </ul>
+          </div>
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#128087;</span> Laundry</h4>
+            <ul>
+              <li>Clean the lint trap after each dryer use</li>
+              <li>Do not overload the washer with clothes or detergent &mdash; it damages the machine</li>
+              <li>Buy your own detergent and dryer sheets</li>
+            </ul>
+          </div>
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#129529;</span> Shared Spaces</h4>
+            <ul>
+              <li>Clean up after yourself in shared spaces</li>
+              <li>Empty the kitchen and shower drain catcher when full</li>
+              <li>Close doors quietly to avoid disturbing others</li>
+              <li>Main door: pull for full closure when exiting, push close after entering</li>
+            </ul>
+          </div>
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#128704;</span> Trash &amp; Recycling</h4>
+            <ul>
+              <li>Green bins: yard waste only (no compost program)</li>
+              <li>Recycling must be clean and free of food residue &mdash; dirty items go in trash</li>
+              <li>Contaminated recycling can result in the entire bin not being collected</li>
+            </ul>
+            <div class="rc-note">Pickup is Friday morning. I handle rolling bins to the curb Thursday evening or Friday early morning. Just use the garage bins.</div>
+          </div>
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#129414;</span> Wildlife</h4>
+            <ul>
+              <li>You may see lizards, squirrels, deer, wild turkeys, raccoons, possums, owls, or the occasional coyote</li>
+              <li>Common at dawn and dusk &mdash; they're part of life here</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENERGY & SAFETY -->
+      <div class="guide-section">
+        <h3 class="guide-section-title" id="guide-energy">Energy, Heating &amp; Safety</h3>
+
+        <div class="rule-grid">
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#128293;</span> Heating &amp; Space Heaters</h4>
+            <p style="font-size:0.82rem; color:#5c5647; margin-bottom:10px;">This is an older home. Its electrical system was not designed for high-wattage plug-in heating devices, which are a leading cause of household fires.</p>
+            <p style="font-size:0.82rem; color:#5c5647; font-weight:600; margin-bottom:6px;">Central heating runs:</p>
+            <div class="energy-schedule">
+              <span class="energy-time">7:00 AM &ndash; 9:30 AM</span>
+              <span class="energy-time">6:45 PM &ndash; 10:30 PM</span>
+            </div>
+            <p style="font-size:0.82rem; color:#5c5647; margin-top:8px;">Outside these hours, warm layers and cozy socks make a big difference. If you feel cold, please reach out to me first &mdash; I can provide an approved heater and review safe usage.</p>
+            <div class="rc-note">If a space heater is needed: plug directly into a wall outlet, never leave unattended or running while sleeping, and keep clear of bedding, curtains, and furniture.</div>
+          </div>
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#9889;</span> PG&amp;E Peak Energy Hours</h4>
+            <p style="font-size:0.82rem; color:#5c5647; margin-bottom:8px;">Peak electricity hours are <strong>4:00 PM &ndash; 9:00 PM</strong> daily. When possible, run these before 4pm or after 9pm:</p>
+            <ul>
+              <li>Oven</li>
+              <li>Washing machine</li>
+            </ul>
+            <p style="font-size:0.8rem; color:#7a7464; margin-top:6px;">The dryer is gas, so it's less of a concern. This helps manage utility costs.</p>
+          </div>
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#128267;</span> E-Bikes &amp; Battery Charging</h4>
+            <p style="font-size:0.82rem; color:#5c5647;">If shopping for an e-bike, we recommend models with detachable batteries. For safety, please charge e-bike batteries off-site when possible (e.g., at work). Check in with me if you need to coordinate a safe charging option.</p>
+          </div>
+          <div class="rule-card">
+            <h4><span class="rc-icon">&#128680;</span> General Safety</h4>
+            <ul>
+              <li>Turn off lights, heaters, or appliances when not in use</li>
+              <li>Do not leave candles or open flames unattended</li>
+              <li>Close doors quietly to avoid disturbing others</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIVING WELL -->
+      <div class="guide-section">
+        <div class="callout warm" style="text-align:center;">
+          <h4>Living Well in Los Altos Hills</h4>
+          <p style="max-width:600px; margin:0 auto;">Los Altos Hills is best enjoyed when you slow down. Many residents prioritize walks, reflection, and time outdoors. They limit noise and light pollution and respect shared spaces and nature. You'll get the most out of your stay by embracing the calm.</p>
+        </div>
+      </div>
+
+      <!-- FINAL -->
+      <div class="guide-section">
+        <div class="host-section" style="text-align:center;">
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:500; color:#2c2a22; margin-bottom:12px; font-style:italic;">You're not just renting a room &mdash; you're joining a home.</h3>
+          <p style="font-size:0.9rem; color:#5c5647; max-width:620px; margin:0 auto; line-height:1.75;">
+            Over the years, something special has happened here. People who arrived as strangers
+            became friends. They shared meals, explored the neighborhood together, and supported
+            each other through the intensity of internship life. Many still keep in touch long after
+            they've moved on.</p>
+          <p style="font-size:0.9rem; color:#5c5647; max-width:620px; margin:8px auto 0; line-height:1.75;">
+            I encourage you to say hello, share a meal, or invite someone on a walk. These small
+            moments are often the ones you remember most.</p>
+          <p style="font-size:0.95rem; color:#8a7245; margin-top:18px; font-weight:500;">Welcome to Esperanza Dr. We're glad you're here.</p>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // ─── Neighborhood ───
+  function buildNeighborhood() {
+    return `<div class="fade-in">
+      <div class="nbr-hero">
+        <h2>Your New Neighborhood</h2>
+        <p>You're not just moving into a house &mdash; you're moving into one of the most beautiful
+        communities in Silicon Valley. Quiet trails, oak-covered hills, friendly neighbors,
+        and a charming downtown just a mile away. Here's what's waiting for you.</p>
+        <span class="loc-pill">26363 Esperanza Dr</span>
+        <span class="loc-pill">1 mi to Downtown</span>
+        <span class="loc-pill">1 mi to Tesla Deer Creek</span>
+        <span class="loc-pill">Silicon Valley</span>
+      </div>
+
+      <div class="sec-head"><span class="si">&#127963;</span> Within Walking &amp; Driving Distance</div>
+      <div class="place-grid">
+        <div class="place-card">
+          <span class="pc-icon">&#9889;</span><h3>Tesla Deer Creek</h3>
+          <span class="pc-dist">~1 mile</span>
+          <p>Tesla showroom and service center right around the corner. Browse the latest models or get your vehicle serviced.</p>
+          <div class="pc-tags"><span class="pc-tag">EV</span><span class="pc-tag">Auto</span><span class="pc-tag">Tech</span></div>
+        </div>
+        <div class="place-card">
+          <span class="pc-icon">&#127795;</span><h3>Hidden Villa</h3>
+          <span class="pc-dist">~3 miles</span>
+          <p>1,600-acre nonprofit farm and wilderness preserve in the Santa Cruz Mountain foothills. Hiking trails, organic farm, and wildlife programs.</p>
+          <div class="pc-tags"><span class="pc-tag">Hiking</span><span class="pc-tag">Nature</span><span class="pc-tag">Farm</span><span class="pc-tag">Family</span></div>
+        </div>
+        <div class="place-card">
+          <span class="pc-icon">&#127891;</span><h3>Stanford University</h3>
+          <span class="pc-dist">~6 miles</span>
+          <p>World-class campus open to visitors. Cantor Arts Center, the Dish trail, Hoover Tower, and gorgeous bike-friendly paths.</p>
+          <div class="pc-tags"><span class="pc-tag">Biking</span><span class="pc-tag">Arts</span><span class="pc-tag">Education</span><span class="pc-tag">The Dish</span></div>
+        </div>
+        <div class="place-card">
+          <span class="pc-icon">&#127758;</span><h3>Rancho San Antonio</h3>
+          <span class="pc-dist">~2 miles</span>
+          <p>One of the Bay Area's most popular preserves. Miles of trails through grasslands, oak woodlands, and creekside paths.</p>
+          <div class="pc-tags"><span class="pc-tag">Trails</span><span class="pc-tag">Wildlife</span><span class="pc-tag">Free</span></div>
+        </div>
+        <div class="place-card">
+          <span class="pc-icon">&#127860;</span><h3>Downtown Los Altos</h3>
+          <span class="pc-dist">~1 mile</span>
+          <p>Charming village downtown with boutiques, restaurants, coffee shops, and a weekly Thursday farmers' market.</p>
+          <div class="pc-tags"><span class="pc-tag">Dining</span><span class="pc-tag">Shopping</span><span class="pc-tag">Farmers Market</span></div>
+        </div>
+        <div class="place-card">
+          <span class="pc-icon">&#127946;</span><h3>Local Parks</h3>
+          <span class="pc-dist">Walking distance</span>
+          <p>Shoup Park (with Redwood Grove), McKenzie Park, and Lincoln Park. Perfect for picnics, playgrounds, and strolls.</p>
+          <div class="pc-tags"><span class="pc-tag">Parks</span><span class="pc-tag">Playgrounds</span><span class="pc-tag">Redwoods</span></div>
+        </div>
+      </div>
+
+      <div class="sec-head"><span class="si">&#128692;</span> Biking Routes from the Property</div>
+      <div class="bike-routes">
+        <div class="route-card"><span class="rt-icon">&#128692;</span>
+          <div class="rt-info"><h4>Los Altos to Stanford</h4><p>Scenic ride via Stevens Creek Trail. Mostly flat with bike lanes.</p></div>
+          <div class="rt-meta"><div class="rt-dist">~6 mi</div><div class="rt-time">30-40 min</div></div>
+        </div>
+        <div class="route-card"><span class="rt-icon">&#127796;</span>
+          <div class="rt-info"><h4>Stevens Creek Trail Loop</h4><p>Paved trail through parks and wetlands, Cupertino to Mountain View.</p></div>
+          <div class="rt-meta"><div class="rt-dist">~8 mi</div><div class="rt-time">40-50 min</div></div>
+        </div>
+        <div class="route-card"><span class="rt-icon">&#9968;</span>
+          <div class="rt-info"><h4>Foothills to Hidden Villa</h4><p>Challenging climb into Los Altos Hills with rewarding views.</p></div>
+          <div class="rt-meta"><div class="rt-dist">~6 mi</div><div class="rt-time">35-50 min</div></div>
+        </div>
+        <div class="route-card"><span class="rt-icon">&#127749;</span>
+          <div class="rt-info"><h4>Rancho San Antonio Loop</h4><p>Bike to the preserve, lock up, and hit the trails.</p></div>
+          <div class="rt-meta"><div class="rt-dist">~4 mi</div><div class="rt-time">20-25 min</div></div>
+        </div>
+      </div>
+
+      <div class="sec-head"><span class="si">&#9749;</span> Downtown Los Altos &mdash; Just 1 Mile Away</div>
+      <div class="callout sage">
+        <h4>Thursday Farmers' Market</h4>
+        <p>Every Thursday evening, May through September, on State Street. Fresh produce, artisan goods, live music, and real community spirit &mdash; all walkable from the property.</p>
+      </div>
+      <div class="shop-grid">
+        <div class="shop-chip"><span class="sc-icon">&#127790;</span><div class="sc-name">Safeway</div><div class="sc-type">Grocery</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#128138;</span><div class="sc-name">CVS Pharmacy</div><div class="sc-type">Pharmacy</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#9749;</span><div class="sc-name">Red Rock Coffee</div><div class="sc-type">Coffee Shop</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#127861;</span><div class="sc-name">Voyager Craft Coffee</div><div class="sc-type">Coffee &amp; Tea</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#127843;</span><div class="sc-name">Draeger's Market</div><div class="sc-type">Gourmet Grocery</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#127838;</span><div class="sc-name">Manresa Bread</div><div class="sc-type">Bakery</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#127835;</span><div class="sc-name">Chef Chu's</div><div class="sc-type">Chinese</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#127834;</span><div class="sc-name">Sumika</div><div class="sc-type">Japanese Grill</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#127829;</span><div class="sc-name">Los Altos Grill</div><div class="sc-type">American</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#127846;</span><div class="sc-name">Bump + Grind</div><div class="sc-type">Coffee &amp; Treats</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#128218;</span><div class="sc-name">Los Altos Library</div><div class="sc-type">Library</div></div>
+        <div class="shop-chip"><span class="sc-icon">&#127915;</span><div class="sc-name">Bus Stop Films</div><div class="sc-type">Cinema</div></div>
+      </div>
+
+      <div class="callout warm">
+        <h4>Great for Commuters</h4>
+        <p>Easy access to I-280 and Highway 85. Minutes from Apple, Google, Meta, and dozens of tech campuses. Caltrain stations in Mountain View and San Antonio are a short ride away.</p>
+      </div>
+    </div>`;
+  }
+
+  // ─── Your Host ───
+  function buildHost() {
+    return `<div class="fade-in">
+      <h2 class="pg-title">Meet Henry</h2>
+      <p class="pg-sub">The person who'll make sure you feel at home from the moment you arrive</p>
+
+      <div class="host-section">
+        <div class="host-top">
+          <div class="host-avatar">&#9733;</div>
+          <div class="host-info">
+            <h3>Henry &mdash; Seasoned Host &amp; Resident Advisor</h3>
+            <p>26363 Esperanza Dr, Los Altos Hills, California</p>
+            <div class="host-badges">
+              <span class="host-badge">&#9733; Experienced Host</span>
+              <span class="host-badge">&#9829; Resident Advisor</span>
+              <span class="host-badge">&#127968; Los Altos Local</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="host-body">
+          <p>I live here too. I'm not a distant landlord &mdash; I'm the person who'll help you
+          carry your bags in on move-in day, show you the best coffee spot downtown, and
+          make sure you have everything you need to feel settled. This is my home, and when
+          you live here, it becomes yours too.</p>
+
+          <p>Over the years, I've helped multiple interns who found themselves in uncomfortable
+          living situations mid-internship &mdash; unresponsive landlords, isolating environments,
+          basic needs that went unmet. Hearing their stories made me even more committed to
+          being the kind of host I'd want if I were in their shoes: present, thoughtful, and
+          genuinely invested in your experience.</p>
+
+          <p>I anticipate what you'll need before you have to ask. Whether it's directions to
+          the nearest grocery store, gear for a weekend hike at Hidden Villa, advice on your
+          commute, or just a friendly conversation after a long day &mdash; I've been there,
+          and I'm glad to help. Your comfort and wellbeing matter to me.</p>
+        </div>
+
+        <div class="host-highlights">
+          <div class="host-hl">
+            <span class="hl-icon">&#128075;</span>
+            <div>
+              <h4>I'm Right Here</h4>
+              <p>Something come up? You won't be texting a landlord who takes three days to reply. I live here &mdash; just knock.</p>
+            </div>
+          </div>
+          <div class="host-hl">
+            <span class="hl-icon">&#127919;</span>
+            <div>
+              <h4>Already Thought of That</h4>
+              <p>From move-in essentials to your first grocery run, I've hosted enough people to know what you'll need before you realize it.</p>
+            </div>
+          </div>
+          <div class="host-hl">
+            <span class="hl-icon">&#128161;</span>
+            <div>
+              <h4>Your Local Guide</h4>
+              <p>Best trails, hidden restaurants, commute shortcuts, weekend plans &mdash; ask me anything. I love sharing this area.</p>
+            </div>
+          </div>
+          <div class="host-hl">
+            <span class="hl-icon">&#129309;</span>
+            <div>
+              <h4>Been There for Others</h4>
+              <p>I've helped interns leave bad housing situations mid-internship. I know what matters, and I don't take it for granted.</p>
+            </div>
+          </div>
+          <div class="host-hl">
+            <span class="hl-icon">&#127946;</span>
+            <div>
+              <h4>A Home, Not a Rental</h4>
+              <p>Pool, patio, full kitchen, BBQ &mdash; this is a place to actually live, not just sleep. Use it. Enjoy it.</p>
+            </div>
+          </div>
+          <div class="host-hl">
+            <span class="hl-icon">&#127793;</span>
+            <div>
+              <h4>You'll Make Friends Here</h4>
+              <p>Past housemates have formed real friendships and still keep in touch. There's something about this place.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warm">
+        <h4>What past housemates have said</h4>
+        <p>"Moving across the country for an internship was stressful, but Henry made the transition so much easier. He had everything ready and even drove me around the neighborhood on my first day. It genuinely felt like home." &mdash; Former intern housemate</p>
+      </div>
+
+      <div class="callout sage">
+        <h4>Community at Esperanza Dr</h4>
+        <p>My favorite part of hosting is not just the individual connections, but the shared sense of community
+        that forms within the home. Over the years, I've seen residents support one another, form friendships,
+        and continue to reconnect long after their stay. I encourage you to take the opportunity to meet others,
+        share meals, or just say hello &mdash; these small interactions often lead to meaningful memories.</p>
+      </div>
+    </div>`;
+  }
+
+  // ─── Lightbox ───
+  function openLightbox(rid, idx) {
+    const d = rid === 0 ? homePhotos : rooms.find(r => r.id === rid);
+    lightboxPhotos = d.photos.map(p => ({ src: pp(d.folder,p), caption: `${d.name} \u2014 ${cn(p)}` }));
+    lightboxIndex = idx;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function navigateLightbox(dir) {
+    lightboxIndex = (lightboxIndex + dir + lightboxPhotos.length) % lightboxPhotos.length;
+    updateLightbox();
+  }
+  function updateLightbox() {
+    const item = lightboxPhotos[lightboxIndex];
+    document.getElementById('lb-img').src = item.src;
+    document.getElementById('lb-caption').textContent = item.caption;
+    document.getElementById('lb-counter').textContent = `${lightboxIndex+1} / ${lightboxPhotos.length}`;
+  }
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key==='Escape') closeLightbox();
+    if (e.key==='ArrowLeft') navigateLightbox(-1);
+    if (e.key==='ArrowRight') navigateLightbox(1);
+  });
+  document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target.id==='lightbox') closeLightbox();
+  });
+  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+  // ─── Init ───
+  showRoom('welcome');
+</script>
+
+</body>
+</html>
