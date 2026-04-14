@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CVC OEI Onboarding Checklist — Henry Fan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+:root{--bg:#0d1017;--s1:#151923;--s2:#1c2231;--s3:#242c3d;--border:#2a3348;--tx:#e2e5ef;--dim:#7a8299;--dim2:#555d73;--accent:#6b8aff;--accent-g:rgba(107,138,255,.12);--green:#34d399;--green-g:rgba(52,211,153,.1);--yellow:#fbbf24;--yellow-g:rgba(251,191,36,.1);--r:12px;--rs:8px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;min-height:100vh;padding:20px}
+.container{max-width:800px;margin:0 auto}
+h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.sub{font-size:13px;color:var(--dim);margin-bottom:24px}
+.back{font-size:12px;color:var(--accent);text-decoration:none;display:inline-block;margin-bottom:16px}
+.back:hover{text-decoration:underline}
+.progress-bar{height:8px;background:var(--s3);border-radius:4px;margin-bottom:24px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:4px;transition:width .4s ease;width:0}
+.progress-text{font-size:12px;color:var(--dim);margin-bottom:8px;display:flex;justify-content:space-between}
+.section{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;margin-bottom:16px}
+.section-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
+.b-pre{background:var(--accent-g);color:var(--accent)}
+.b-day1{background:var(--green-g);color:var(--green)}
+.b-week1{background:var(--yellow-g);color:var(--yellow)}
+.b-ongoing{background:rgba(167,139,250,.12);color:#a78bfa}
+.item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.item:last-child{border-bottom:none}
+.item:hover{background:var(--s2);margin:0 -8px;padding-left:8px;padding-right:8px;border-radius:6px}
+.item-chk{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);background:none;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s;cursor:pointer}
+.item-chk:hover{border-color:var(--accent)}
+.item-chk.done{background:var(--green);border-color:var(--green)}
+.item-chk.done::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+.item-text{flex:1;font-size:13px}
+.item-text.done{text-decoration:line-through;color:var(--dim)}
+.item-hint{font-size:11px;color:var(--dim2);margin-top:2px}
+
+.template-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);margin-bottom:12px;overflow:hidden}
+.template-header{padding:12px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;transition:background .1s}
+.template-header:hover{background:var(--s3)}
+.template-body{display:none;padding:0 16px 16px;font-size:12px;color:var(--dim);line-height:1.7}
+.template-body.show{display:block}
+.template-body pre{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px 16px;font-family:'SF Mono','JetBrains Mono',monospace;font-size:11px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;color:var(--tx);margin-top:8px;cursor:pointer;position:relative}
+.template-body pre:hover::after{content:'Click to copy';position:absolute;top:6px;right:8px;font-size:9px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:6px}
+.template-body pre.copied::after{content:'Copied ✓';background:var(--green)}
+
+.drive-tree{font-family:'SF Mono','JetBrains Mono',monospace;font-size:12px;line-height:1.8;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px 20px;color:var(--dim);overflow-x:auto}
+.drive-tree strong{color:var(--tx)}
+
+.toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;padding:10px 20px;border-radius:var(--rs);font-size:12px;font-weight:600;z-index:300;opacity:0;transform:translateY(10px);transition:all .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+.celebration{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.85);align-items:center;justify-content:center;text-align:center}
+.celebration.show{display:flex}
+.celebration h2{font-size:36px;font-weight:800;background:linear-gradient(135deg,var(--green),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:12px}
+.celebration p{color:var(--dim);font-size:14px;margin-top:8px}
+.celebration button{margin-top:20px;padding:12px 28px;background:var(--green);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+
+@media print{body{background:#fff;color:#000;padding:40px}.section{border:1px solid #ccc;background:#fff}.item-chk{border-color:#ccc}.template-card,.toast,.celebration,.back,.progress-bar{display:none!important}}
+@media(max-width:600px){body{padding:12px}h1{font-size:22px}.section{padding:16px}}
+</style>
+</head>
+<body>
+
+<div class="container">
+<a class="back" href="/">← Back to The System v2.0</a>
+<h1>🚀 CVC OEI Onboarding</h1>
+<div class="sub">Gmail · Google Workspace · Jira · Basecamp · Day 1 Checklist<br>Application Support Analyst I · Starting April 20, 2026</div>
+
+<div class="progress-text"><span id="progLabel">0 of 0 complete</span><span id="progPct">0%</span></div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+<!-- PRE-DAY 1 -->
+<div class="section">
+<div class="section-title">📧 Gmail & Google Workspace Setup <span class="section-badge b-pre">Before April 20</span></div>
+<div class="checklist" data-group="gmail">
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Log into hfan@cvc.edu Gmail</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Set up email signature</div><div class="item-hint">Settings → General → Signature</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Enable keyboard shortcuts</div><div class="item-hint">Settings → General → Keyboard shortcuts ON. Key: e=archive, r=reply, c=compose</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Enable Templates</div><div class="item-hint">Settings → Advanced → Templates → Enable</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Create all 10 email templates</div><div class="item-hint">See templates below. Compose → ⋮ → Templates → Save draft as template</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Set up Multiple Inboxes</div><div class="item-hint">Settings → Inbox type → Multiple Inboxes. Section 1: label:@action, Section 2: label:@waiting-for, Section 3: is:starred</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Create Gmail labels: @action, @waiting-for, @reference, @read-later</div><div class="item-hint">Color: red for @action, yellow for @waiting-for, blue for @reference, gray for @read-later</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Create Gmail filters for Jira notifications</div><div class="item-hint">From: contains "jira" or "atlassian" → Label: Jira, Skip inbox</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Create Gmail filters for Basecamp notifications</div><div class="item-hint">From: contains "basecamp" → Label: Basecamp, Skip inbox</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Set profile photo across all Google apps</div></div></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">📅 Google Calendar Setup <span class="section-badge b-pre">Before April 20</span></div>
+<div class="checklist" data-group="cal">
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Set working hours to 8:00 AM – 5:00 PM</div><div class="item-hint">Settings → Working hours. People will see you're unavailable outside these times.</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Block personal dev time as "Busy"</div><div class="item-hint">6:00-8:00 AM (exercise + CS) and 5:15-6:45 PM (build + PhD) recurring M-F</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Add recurring Friday 4:50 PM "Weekly Reflection" (10 min)</div><div class="item-hint">GTD @work review. What shipped? What's carrying over? Monday priorities?</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Color-code: meetings (blue), focus time (green), 1-on-1s (purple)</div></div></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">🔧 Jira & Basecamp <span class="section-badge b-pre">Before April 20</span></div>
+<div class="checklist" data-group="tools">
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Log into Jira — explore boards, filters, ticket statuses</div><div class="item-hint">Note the workflow: Open → In Progress → Waiting → Resolved → Closed (or similar)</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Log into Basecamp — read existing threads</div><div class="item-hint">Look for onboarding docs, team intros, pinned posts</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Set Google Chat notification schedule (8 AM–5 PM only)</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Set auto-DND status after 5 PM</div></div></div>
+</div>
+</div>
+
+<!-- DAY 1 -->
+<div class="section">
+<div class="section-title">📁 Google Drive Structure <span class="section-badge b-day1">Day 1 Morning</span></div>
+<div class="checklist" data-group="drive">
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Create the full folder structure (see below)</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Start "Questions Log" doc — first entry today</div><div class="item-hint">Every question you ask + the answer. This becomes your personal knowledge base.</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Create "Ticket Log" spreadsheet</div><div class="item-hint">Columns: Date, College, Issue, Resolution, Time-to-resolve, Notes</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Create "College Contact Sheet" spreadsheet</div><div class="item-hint">Columns: College, District, SIS Platform, IT Contact, Registrar Contact, Notes</div></div></div>
+</div>
+<div class="drive-tree">
+<strong>📁 CVC OEI Exchange/</strong><br>
+├── 📁 00_Onboarding/<br>
+├── 📁 01_Knowledge Base/<br>
+│&nbsp;&nbsp;&nbsp;├── 📄 Questions Log<br>
+│&nbsp;&nbsp;&nbsp;├── 📄 Common Issues & Solutions<br>
+│&nbsp;&nbsp;&nbsp;├── 📄 SIS Platform Notes<br>
+│&nbsp;&nbsp;&nbsp;└── 📄 Troubleshooting Decision Tree<br>
+├── 📁 02_Tickets & Cases/<br>
+│&nbsp;&nbsp;&nbsp;├── 📁 Open/<br>
+│&nbsp;&nbsp;&nbsp;└── 📁 Resolved/<br>
+├── 📁 03_College Directory/<br>
+├── 📁 04_Meeting Notes/<br>
+│&nbsp;&nbsp;&nbsp;├── 📁 1-on-1s/<br>
+│&nbsp;&nbsp;&nbsp;├── 📁 Team Meetings/<br>
+│&nbsp;&nbsp;&nbsp;└── 📁 Vendor Calls/<br>
+├── 📁 05_SOPs & Processes/<br>
+├── 📁 06_Templates/<br>
+├── 📁 07_Training/<br>
+├── 📁 08_90 Day Plan/<br>
+└── 📁 09_Weekly Reports/
+</div>
+</div>
+
+<!-- WEEK 1 -->
+<div class="section">
+<div class="section-title">🎯 Week 1 Priorities <span class="section-badge b-week1">April 20–24</span></div>
+<div class="checklist" data-group="week1">
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Send self-introduction email to team</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Schedule 1-on-1s with key colleagues (15 min each)</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Learn the Jira ticket workflow end-to-end</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Document first 10 entries in Knowledge Base</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Process every email with GTD: action / waiting / reference / trash</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Send first weekly status report to manager (Friday)</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Write 30-day self-assessment template</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Under-promise, over-deliver on first ticket response times</div></div></div>
+</div>
+</div>
+
+<!-- ONGOING -->
+<div class="section">
+<div class="section-title">🔄 Daily Habits <span class="section-badge b-ongoing">Ongoing</span></div>
+<div class="checklist" data-group="ongoing">
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Start each workday: process work inbox (5 min)</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">End each workday: update @waiting-for, clear inbox</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Log every question + answer in Knowledge Base</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Friday 4:50 PM: 10-min weekly reflection</div></div></div>
+<div class="item" onclick="toggle(this)"><button class="item-chk"></button><div><div class="item-text">Archive aggressively — inbox is not storage</div></div></div>
+</div>
+</div>
+
+<!-- EMAIL TEMPLATES -->
+<div class="section">
+<div class="section-title">📝 Email Templates <span class="section-badge b-pre">Copy → Gmail</span></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">1. Ticket Acknowledgment <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: Re: [Issue] — Received, Looking Into It
+
+Hi [Name],
+
+Thank you for reporting this. I've received your request and am looking into it now.
+
+I'll follow up within [4 hours / end of day / tomorrow] with an update or resolution. If anything changes on your end in the meantime, please let me know.
+
+Best,
+Henry Fan
+Application Support Analyst I
+CVC OEI Exchange</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">2. Need More Information <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: Re: [Issue] — Quick Question to Help Resolve This
+
+Hi [Name],
+
+Thanks for reaching out. To troubleshoot this efficiently, I need a few details:
+
+1. Which college is affected? (Name + SIS platform if known)
+2. When did you first notice the issue?
+3. Can you share a screenshot or the student ID (if applicable)?
+4. Have you seen this before, or is this new?
+
+Once I have these, I can dig in right away.
+
+Best,
+Henry Fan
+Application Support Analyst I
+CVC OEI Exchange</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">3. Status Update <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: Update: [Issue Summary] — [In Progress / Escalated / Resolved]
+
+Hi [Name/Team],
+
+Quick update on the issue reported [date]:
+
+• Status: [In Progress / Escalated to vendor / Awaiting campus response]
+• Root cause: [Brief description or "Under investigation"]
+• Impact: [X students / X colleges affected]
+• Next step: [What's happening next + expected timeline]
+• ETA: [Date/time or "Will update by EOD Friday"]
+
+I'll keep you posted. Let me know if you have questions.
+
+Best,
+Henry Fan</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">4. Escalation Handoff <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: Escalation: [Issue Summary] — P[1/2] — [X] Students Affected
+
+Hi [Escalation Contact / Vendor],
+
+I'm escalating the following issue that requires [vendor intervention / senior review]:
+
+• Issue: [1-2 sentence summary]
+• Affected: [College(s), # of students, SIS platform]
+• Timeline: First reported [date], [X] hours/days unresolved
+• What I've tried: [Steps taken so far]
+• Logs/evidence: [Attached or linked]
+
+This is impacting [enrollment / canvas access / financial aid] for [X] students.
+
+Happy to jump on a call if faster.
+
+Henry Fan
+Application Support Analyst I
+CVC OEI Exchange</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">5. Resolution / Ticket Closed <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: Re: [Issue] — Resolved ✓
+
+Hi [Name],
+
+Good news — this issue is now resolved.
+
+• Root cause: [Brief explanation]
+• Fix applied: [What was done]
+• Verification: [How we confirmed it's working]
+
+If you notice anything else or this comes back, don't hesitate to reach out.
+
+Best,
+Henry Fan</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">6. Student-Facing (Reassuring) <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: Re: Your Cross-Enrollment Question
+
+Hi [Student Name],
+
+Thank you for reaching out. I want you to know this is not a problem with your enrollment — your registration is valid and on file.
+
+[Brief explanation in plain language]
+
+Here's what to do next:
+1. [Specific action step]
+2. [Specific action step]
+
+If you run into any issues, email me back and I'll make sure you're taken care of.
+
+You're on the right track — don't worry.
+
+Best,
+Henry Fan
+CVC OEI Exchange Support</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">7. Campus IT Diagnostic <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: CVC Exchange — Diagnostic Request for [College Name]
+
+Hi [IT Contact],
+
+We're seeing [brief issue] affecting cross-enrollment at [College Name]. A few diagnostic questions:
+
+1. Any recent changes to your SIS configuration or API credentials?
+2. Errors in your [Banner/PeopleSoft/Colleague] integration logs?
+3. When was the last successful data sync with the Exchange?
+4. Has your SSL certificate been renewed recently?
+
+If you can share logs or screenshots, that would help me narrow this down. Happy to do a 15-min call if easier.
+
+Thank you,
+Henry Fan
+Application Support Analyst I
+CVC OEI Exchange</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">8. Registrar Communication <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: CVC Exchange — Enrollment Confirmation for [College Name]
+
+Dear [Registrar Name],
+
+I'm writing to confirm enrollment status for [X] cross-enrolled students at [College Name] through the CVC OEI Exchange.
+
+All enrollments processed between [date range] are valid and reflected in the Exchange system.
+
+For your records:
+• Students affected: [X]
+• Courses: [List or "all sections"]
+• Current status: [Confirmed / Pending resolution]
+
+Please don't hesitate to reach out if your office has questions.
+
+Best regards,
+Henry Fan
+Application Support Analyst I
+CVC OEI Exchange</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">9. Self-Introduction (Week 1) <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: Hello from Henry — New Application Support Analyst
+
+Hi [Name / Team],
+
+I'm Henry Fan, the new Application Support Analyst at CVC OEI Exchange starting April 20th.
+
+A little about me: I come from a background in community college education and technical support. I'm passionate about making systems work smoothly for students and campuses.
+
+I'd love to set up a brief intro chat in my first couple weeks — even 15 minutes would be great. What works for your schedule?
+
+Looking forward to working with you.
+
+Best,
+Henry Fan
+Application Support Analyst I
+CVC OEI Exchange</pre></div></div>
+
+<div class="template-card"><div class="template-header" onclick="toggleTemplate(this)">10. Weekly Status Report (Friday) <span>▼</span></div><div class="template-body"><pre onclick="copyPre(this)">Subject: Weekly Update — Henry Fan — Week of [Date]
+
+Hi [Manager],
+
+COMPLETED:
+• [Ticket/task 1]
+• [Ticket/task 2]
+• [Ticket/task 3]
+
+IN PROGRESS:
+• [Ticket/task with expected completion]
+
+BLOCKED / WAITING:
+• [Item + who/what it's waiting on]
+
+QUESTIONS:
+• [Anything you need guidance on]
+
+NEXT WEEK PRIORITIES:
+1. [Top priority]
+2. [Second priority]
+3. [Third priority]
+
+Let me know if you'd like me to adjust anything.
+
+Henry</pre></div></div>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="celebration" id="celebration" onclick="this.classList.remove('show')">
+<div><div style="font-size:60px">🚀</div><h2>All Set!</h2><p>You're ready for Day 1 at CVC OEI Exchange.</p><button onclick="document.getElementById('celebration').classList.remove('show')">Let's go →</button></div>
+</div>
+
+<script>
+const K='cvc_onboarding';
+let state;
+try{state=JSON.parse(localStorage.getItem(K))||{}}catch(e){state={}}
+
+function toggle(item){
+  const chk=item.querySelector('.item-chk');
+  const txt=item.querySelector('.item-text');
+  const key=txt.textContent.trim().slice(0,40);
+  state[key]=!state[key];
+  localStorage.setItem(K,JSON.stringify(state));
+  chk.classList.toggle('done',state[key]);
+  txt.classList.toggle('done',state[key]);
+  updateProgress();
+}
+
+function updateProgress(){
+  const all=document.querySelectorAll('.item');
+  const done=document.querySelectorAll('.item-chk.done');
+  const pct=all.length?Math.round(done.length/all.length*100):0;
+  document.getElementById('progLabel').textContent=`${done.length} of ${all.length} complete`;
+  document.getElementById('progPct').textContent=pct+'%';
+  document.getElementById('progFill').style.width=pct+'%';
+  if(done.length===all.length&&all.length>0){
+    document.getElementById('celebration').classList.add('show');
+  }
+}
+
+function restore(){
+  document.querySelectorAll('.item').forEach(item=>{
+    const txt=item.querySelector('.item-text');
+    const chk=item.querySelector('.item-chk');
+    const key=txt.textContent.trim().slice(0,40);
+    if(state[key]){chk.classList.add('done');txt.classList.add('done')}
+  });
+  updateProgress();
+}
+
+function toggleTemplate(header){
+  const body=header.nextElementSibling;
+  body.classList.toggle('show');
+  header.querySelector('span').textContent=body.classList.contains('show')?'▲':'▼';
+}
+
+function copyPre(pre){
+  navigator.clipboard.writeText(pre.textContent).then(()=>{
+    pre.classList.add('copied');
+    const t=document.getElementById('toast');
+    t.textContent='Copied to clipboard!';t.classList.add('show');
+    setTimeout(()=>{t.classList.remove('show');pre.classList.remove('copied')},1500);
+  });
+}
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+
+restore();
+</script>
+</body>
+</html>
