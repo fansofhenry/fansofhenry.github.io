@@ -261,10 +261,166 @@ pre code { background: none; padding: 0; color: var(--text); }
 @media (max-width: 640px) {
   .hero h2 { font-size: 24px; }
   .ref-grid { grid-template-columns: 1fr; }
+  .kb-grid { grid-template-columns: 1fr; }
+  .progress-checklist { grid-template-columns: 1fr; }
+  .progress-item .pi-detail { padding-left: 0; }
   .header-inner { flex-direction: column; align-items: flex-start; }
   .int-map .node { min-width: unset; width: 100%; }
   .workflow-step { min-width: unset; width: 100%; }
 }
+
+/* ── Decision Tree ── */
+.decision-tree { margin: 20px 0; }
+.decision-tree .dt-root {
+  font-weight: 700; font-size: 18px; color: var(--text);
+  margin-bottom: 16px; text-align: center;
+}
+.dt-cards { display: flex; flex-direction: column; gap: 10px; }
+.dt-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; transition: all 0.2s;
+}
+.dt-card summary {
+  cursor: pointer; padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+  font-weight: 600; font-size: 15px; list-style: none; user-select: none;
+  transition: all 0.15s;
+}
+.dt-card summary::-webkit-details-marker { display: none; }
+.dt-card summary .dt-icon { font-size: 20px; flex-shrink: 0; width: 32px; text-align: center; }
+.dt-card summary .dt-arrow {
+  margin-left: auto; color: var(--text-dim); font-size: 12px;
+  transition: transform 0.2s;
+}
+.dt-card[open] summary .dt-arrow { transform: rotate(90deg); }
+.dt-card summary:hover { background: var(--surface-2); }
+.dt-card .dt-body {
+  padding: 16px 18px; border-top: 1px solid var(--border);
+  background: var(--surface-2); font-size: 14px; color: var(--text-muted);
+}
+.dt-card .dt-body .dt-flow {
+  font-family: var(--mono); font-size: 13px; color: var(--accent-light);
+  margin: 8px 0; padding: 10px 14px; background: rgba(13,148,136,0.08);
+  border-radius: 4px;
+}
+
+/* ── Progress Tracker ── */
+.progress-tracker { margin: 20px 0; }
+.progress-bar-group { display: flex; flex-direction: column; gap: 14px; margin: 16px 0; }
+.progress-item { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.progress-item .pi-label {
+  font-weight: 600; font-size: 14px; min-width: 100px; color: var(--text);
+}
+.progress-item .pi-bar-wrap {
+  flex: 1; min-width: 180px; height: 20px; background: var(--surface-2);
+  border-radius: 10px; border: 1px solid var(--border); overflow: hidden;
+  position: relative;
+}
+.progress-item .pi-bar {
+  height: 100%; border-radius: 10px; transition: width 0.4s ease;
+}
+.progress-item .pi-pct {
+  font-family: var(--mono); font-size: 12px; color: var(--text-muted);
+  min-width: 40px; text-align: right;
+}
+.progress-item .pi-detail { font-size: 12px; color: var(--text-dim); width: 100%; padding-left: 114px; }
+.progress-checklist {
+  margin: 16px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+}
+.progress-checklist label {
+  font-size: 13px; display: flex; align-items: center; gap: 8px;
+  cursor: pointer; padding: 6px 10px; border-radius: 4px;
+  transition: background 0.15s; color: var(--text-muted);
+}
+.progress-checklist label:hover { background: var(--surface-2); }
+.progress-checklist input[type="checkbox"] {
+  accent-color: var(--accent-light); width: 16px; height: 16px;
+}
+
+/* ── Anti-patterns ── */
+.antipattern-grid { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.ap-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--red); border-radius: var(--radius);
+  padding: 14px 18px; transition: border-color 0.15s;
+}
+.ap-card:hover { border-left-color: var(--orange); }
+.ap-card .ap-header {
+  display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px;
+}
+.ap-card .ap-x { color: var(--red); font-weight: 800; font-size: 16px; flex-shrink: 0; }
+.ap-card .ap-title { font-weight: 600; font-size: 14px; color: var(--text); }
+.ap-card .ap-desc { font-size: 13px; color: var(--text-muted); padding-left: 26px; }
+
+/* ── Routine Timeline ── */
+.routine-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 16px 0; }
+.routine-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px;
+}
+.routine-card .rc-time {
+  font-family: var(--mono); font-size: 12px; font-weight: 600;
+  color: var(--accent-light); text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.routine-card ul { margin: 0 0 0 18px; }
+.routine-card li { font-size: 13px; color: var(--text-muted); margin-bottom: 5px; }
+.routine-card li strong { color: var(--text); }
+
+/* ── Keyboard shortcut cards ── */
+.kb-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 16px 0; }
+.kb-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+}
+.kb-card h5 {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+.kb-card.kb-postman h5 { color: var(--orange); }
+.kb-card.kb-jira h5 { color: var(--blue); }
+.kb-card.kb-basecamp h5 { color: var(--green); }
+.kb-card ul { list-style: none; margin: 0; padding: 0; }
+.kb-card li {
+  font-size: 12px; font-family: var(--mono); color: var(--text-muted);
+  padding: 4px 0; border-bottom: 1px solid var(--border);
+}
+.kb-card li:last-child { border-bottom: none; }
+.kb-card li kbd {
+  background: var(--surface-2); border: 1px solid var(--border-light);
+  border-radius: 3px; padding: 1px 5px; font-size: 11px;
+  font-family: var(--mono); color: var(--text); margin-right: 4px;
+}
+
+/* ── Copy Button ── */
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  padding: 6px 14px; border: 1px solid var(--border-light);
+  border-radius: 4px; background: var(--surface-2); color: var(--accent-light);
+  cursor: pointer; transition: all 0.15s; margin: 8px 0;
+}
+.copy-btn:hover { background: var(--accent-bg); border-color: var(--accent); }
+.copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+/* ── Playbook timeline ── */
+.pb-timeline { margin: 12px 0; padding-left: 18px; border-left: 2px solid var(--border-light); }
+.pb-timeline .pb-step {
+  position: relative; padding: 8px 0 8px 16px; font-size: 13px; color: var(--text-muted);
+}
+.pb-timeline .pb-step::before {
+  content: ''; position: absolute; left: -24px; top: 14px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--surface-2); border: 2px solid var(--accent);
+}
+.pb-timeline .pb-step strong { color: var(--text); }
+.pb-tool-badge {
+  display: inline-block; font-family: var(--mono); font-size: 10px;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 6px; border-radius: 3px; margin-right: 4px;
+}
+.pb-tool-badge.tb-postman { background: var(--orange-bg); color: var(--orange); }
+.pb-tool-badge.tb-jira { background: var(--blue-bg); color: var(--blue); }
+.pb-tool-badge.tb-basecamp { background: var(--green-bg); color: var(--green); }
 
 /* ── Print ── */
 @media print {
@@ -284,6 +440,10 @@ pre code { background: none; padding: 0; color: var(--text); }
   .callout.info { background: #eff6ff; }
   a { color: #0D9488; }
   .site-footer { border-color: #ddd; color: #666; }
+  .dt-card, .ap-card, .routine-card, .kb-card { background: #fafafa; border-color: #ddd; }
+  .ap-card { border-left-color: #c00; }
+  .dt-card .dt-body { background: #f5f5f5; }
+  .copy-btn { display: none; }
 }
 </style>
 </head>
@@ -298,10 +458,13 @@ pre code { background: none; padding: 0; color: var(--text); }
       <span class="subtitle">Postman &middot; Jira &middot; Basecamp &mdash; Best Practices for Application Support</span>
     </div>
     <nav class="header-nav">
+      <a href="#decision-tree">Decision Tree</a>
       <a href="#postman">Postman</a>
       <a href="#jira">Jira</a>
       <a href="#basecamp">Basecamp</a>
+      <a href="#playbooks">Playbooks</a>
       <a href="#integration">Integration</a>
+      <a href="#routines">Routines</a>
       <a href="#reference">Quick Ref</a>
     </nav>
   </div>
@@ -312,6 +475,214 @@ pre code { background: none; padding: 0; color: var(--text); }
   <div class="container">
     <h2>Three tools. <span>One workflow.</span></h2>
     <p>The CVC OEI Exchange connects 116 California community colleges through a complex web of SIS integrations, Canvas LMS syncs, and identity management APIs. When something breaks, students lose course access. This guide documents the three operational tools that keep the Exchange running &mdash; and how they work together.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     DECISION TREE: What Tool Do I Use?
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="decision-tree">
+  <div class="container">
+    <span class="section-badge badge-ref">Start Here</span>
+    <h3 class="section-title">What Tool Do I Use?</h3>
+    <p class="section-lead">Start here. Based on what just landed on your desk, follow the path to the right tool.</p>
+
+    <div class="decision-tree">
+      <div class="dt-root">I just received a&hellip;</div>
+      <div class="dt-cards">
+
+        <details class="dt-card">
+          <summary>
+            <span class="dt-icon">&#9888;</span>
+            <span>Technical issue (API error, sync failure)</span>
+            <span class="dt-arrow">&#9654;</span>
+          </summary>
+          <div class="dt-body">
+            <div class="dt-flow">POSTMAN first &rarr; diagnose the API layer &rarr; isolate root cause &rarr; update JIRA ticket</div>
+            <p><strong>Why Postman first?</strong> You need to confirm the failure is real and identify the exact layer before you write anything in Jira. A 401 vs a 500 leads to completely different next steps.</p>
+            <p><strong>Steps:</strong></p>
+            <ol>
+              <li>Open Postman &mdash; run the relevant health check or enrollment lookup</li>
+              <li>Capture the response: status code, error body, response time</li>
+              <li>Open the Jira ticket (or create one) and attach your Postman evidence</li>
+              <li>Set priority based on scope (single student = P3, multiple = P2, college-wide = P1)</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="dt-card">
+          <summary>
+            <span class="dt-icon">&#128203;</span>
+            <span>Support ticket from a college</span>
+            <span class="dt-arrow">&#9654;</span>
+          </summary>
+          <div class="dt-body">
+            <div class="dt-flow">JIRA first &rarr; read ticket details &rarr; if API-related &rarr; POSTMAN &rarr; update JIRA</div>
+            <p><strong>Why Jira first?</strong> The college coordinator has already described the problem. Read it fully before touching any tool. Understand what they are seeing, what students are affected, and what they have already tried.</p>
+            <p><strong>Steps:</strong></p>
+            <ol>
+              <li>Open the Jira ticket &mdash; read the full description and any attachments</li>
+              <li>Move the ticket to "In Progress" immediately (SLA clock is running)</li>
+              <li>If the issue is API-related, open Postman to reproduce and diagnose</li>
+              <li>If it is a configuration or user-error issue, respond directly in the ticket</li>
+              <li>Attach all evidence and update the ticket before moving to the next issue</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="dt-card">
+          <summary>
+            <span class="dt-icon">&#128172;</span>
+            <span>Team discussion / strategic question</span>
+            <span class="dt-arrow">&#9654;</span>
+          </summary>
+          <div class="dt-body">
+            <div class="dt-flow">BASECAMP &rarr; Message Board &rarr; @mention relevant people</div>
+            <p><strong>Why Basecamp?</strong> Strategic discussions need a permanent, searchable home. Slack and email lose context. Basecamp Message Board posts create a lasting record that the team can reference months later.</p>
+            <p><strong>Steps:</strong></p>
+            <ol>
+              <li>Navigate to the appropriate Basecamp project (e.g., "CCCID Merge Fix" or "CRM Overhaul")</li>
+              <li>Create a new Message Board post with a clear, specific title</li>
+              <li>@mention only people who need to weigh in or take action</li>
+              <li>If the discussion produces a decision, pin the post for future reference</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="dt-card">
+          <summary>
+            <span class="dt-icon">&#128680;</span>
+            <span>Emergency / multiple colleges down</span>
+            <span class="dt-arrow">&#9654;</span>
+          </summary>
+          <div class="dt-body">
+            <div class="dt-flow">JIRA P1 &rarr; POSTMAN rapid diagnostic &rarr; BASECAMP emergency thread &rarr; email comms</div>
+            <p><strong>All three tools, fast.</strong> A P1 is all-hands-on-deck. Speed matters more than polish. Get the ticket created, confirm the scope with Postman, and coordinate response via Basecamp.</p>
+            <p><strong>Steps:</strong></p>
+            <ol>
+              <li>Create or escalate the Jira ticket to <span class="priority p1">P1 CRITICAL</span></li>
+              <li>Run Postman health checks across affected colleges &mdash; determine the blast radius</li>
+              <li>Post to the Basecamp emergency project: what is down, how many affected, what you know so far</li>
+              <li>Update Jira and Basecamp every 15-30 minutes until resolved</li>
+              <li>After resolution: write the post-incident summary in both Jira and Basecamp</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="dt-card">
+          <summary>
+            <span class="dt-icon">&#128202;</span>
+            <span>Weekly status / reporting</span>
+            <span class="dt-arrow">&#9654;</span>
+          </summary>
+          <div class="dt-body">
+            <div class="dt-flow">JIRA dashboard &rarr; export metrics &rarr; BASECAMP weekly update</div>
+            <p><strong>Jira is the data source. Basecamp is the communication layer.</strong> Pull your numbers from Jira, synthesize them into a human-readable update, and share on Basecamp.</p>
+            <p><strong>Steps:</strong></p>
+            <ol>
+              <li>Open your Jira dashboard &mdash; review resolved tickets, aging tickets, SLA compliance</li>
+              <li>Run JQL for weekly metrics: <code>resolved >= startOfWeek() AND assignee = currentUser()</code></li>
+              <li>Export or screenshot the relevant charts</li>
+              <li>Write a Basecamp Message Board post: "Week of [date] &mdash; Support Summary"</li>
+              <li>Include: tickets resolved, patterns observed, blockers, next week's focus</li>
+            </ol>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LEARNING PROGRESS TRACKER
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="progress-tracker">
+  <div class="container">
+    <span class="section-badge badge-ref">Your Progress</span>
+    <h3 class="section-title">Learning Progress Tracker</h3>
+    <p class="section-lead">Check off concepts as you learn them. Your progress is saved in your browser (localStorage).</p>
+
+    <div class="progress-tracker">
+      <div class="progress-bar-group">
+        <div class="progress-item">
+          <span class="pi-label" style="color: var(--orange);">Postman</span>
+          <div class="pi-bar-wrap">
+            <div class="pi-bar" id="bar-postman" style="width: 0%; background: var(--orange);"></div>
+          </div>
+          <span class="pi-pct" id="pct-postman">0%</span>
+        </div>
+        <div class="progress-item">
+          <span class="pi-label" style="color: var(--blue);">Jira</span>
+          <div class="pi-bar-wrap">
+            <div class="pi-bar" id="bar-jira" style="width: 0%; background: var(--blue);"></div>
+          </div>
+          <span class="pi-pct" id="pct-jira">0%</span>
+        </div>
+        <div class="progress-item">
+          <span class="pi-label" style="color: var(--green);">Basecamp</span>
+          <div class="pi-bar-wrap">
+            <div class="pi-bar" id="bar-basecamp" style="width: 0%; background: var(--green);"></div>
+          </div>
+          <span class="pi-pct" id="pct-basecamp">0%</span>
+        </div>
+      </div>
+
+      <details>
+        <summary>Postman Concepts (0/<span id="postman-total">10</span> learned)</summary>
+        <div class="detail-body">
+          <div class="progress-checklist" data-tool="postman">
+            <label><input type="checkbox" data-id="pm-1"> HTTP methods &amp; when to use each</label>
+            <label><input type="checkbox" data-id="pm-2"> Status codes in CVC context</label>
+            <label><input type="checkbox" data-id="pm-3"> OAuth2 client credentials flow</label>
+            <label><input type="checkbox" data-id="pm-4"> Pre-request scripts for auto-refresh</label>
+            <label><input type="checkbox" data-id="pm-5"> Workspace &amp; collection organization</label>
+            <label><input type="checkbox" data-id="pm-6"> Environment variables (staging vs prod)</label>
+            <label><input type="checkbox" data-id="pm-7"> Writing test assertions</label>
+            <label><input type="checkbox" data-id="pm-8"> Daily diagnostic workflow</label>
+            <label><input type="checkbox" data-id="pm-9"> Newman CLI &amp; automation</label>
+            <label><input type="checkbox" data-id="pm-10"> Saving examples with Jira ticket IDs</label>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Jira Concepts (0/<span id="jira-total">10</span> learned)</summary>
+        <div class="detail-body">
+          <div class="progress-checklist" data-tool="jira">
+            <label><input type="checkbox" data-id="ji-1"> Ticket lifecycle &amp; state transitions</label>
+            <label><input type="checkbox" data-id="ji-2"> Resolved vs Closed (SLA impact)</label>
+            <label><input type="checkbox" data-id="ji-3"> Writing effective ticket summaries</label>
+            <label><input type="checkbox" data-id="ji-4"> Description template with evidence</label>
+            <label><input type="checkbox" data-id="ji-5"> Priority levels (P1-P4) and SLA targets</label>
+            <label><input type="checkbox" data-id="ji-6"> JQL power queries</label>
+            <label><input type="checkbox" data-id="ji-7"> Dashboards &amp; gadget configuration</label>
+            <label><input type="checkbox" data-id="ji-8"> Automation rules</label>
+            <label><input type="checkbox" data-id="ji-9"> Linking Postman evidence to tickets</label>
+            <label><input type="checkbox" data-id="ji-10"> Components &amp; labels for trend analysis</label>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Basecamp Concepts (0/<span id="basecamp-total">10</span> learned)</summary>
+        <div class="detail-body">
+          <div class="progress-checklist" data-tool="basecamp">
+            <label><input type="checkbox" data-id="bc-1"> Projects vs Message Board vs Campfire</label>
+            <label><input type="checkbox" data-id="bc-2"> When to use Message Board vs Campfire</label>
+            <label><input type="checkbox" data-id="bc-3"> Async communication best practices</label>
+            <label><input type="checkbox" data-id="bc-4"> @mention etiquette</label>
+            <label><input type="checkbox" data-id="bc-5"> Emergency project protocol</label>
+            <label><input type="checkbox" data-id="bc-6"> Automatic Check-ins</label>
+            <label><input type="checkbox" data-id="bc-7"> Notification configuration</label>
+            <label><input type="checkbox" data-id="bc-8"> Docs &amp; Files for knowledge base</label>
+            <label><input type="checkbox" data-id="bc-9"> Pinning important decisions</label>
+            <label><input type="checkbox" data-id="bc-10"> Integration with Jira &amp; Postman workflow</label>
+          </div>
+        </div>
+      </details>
+    </div>
+
   </div>
 </section>
 
@@ -680,6 +1051,281 @@ newman run HealthCheckSuite.postman_collection.json \
 
         <h4>HTML Report Generation</h4>
         <p>The <code>htmlextra</code> reporter generates rich, shareable HTML reports with pass/fail summary, response times, and detailed request/response bodies. Share these in Basecamp for team visibility during incidents.</p>
+      </div>
+    </details>
+
+    <!-- 1.8b Postman Collection Templates -->
+    <details>
+      <summary>1.8b &mdash; Ready-to-Import Collection Templates</summary>
+      <div class="detail-body">
+        <h4>Morning Health Check Collection</h4>
+        <p>Copy the JSON below and import it into Postman via <strong>Import &rarr; Raw Text</strong>. This gives you 5 pre-built requests for your daily morning diagnostic routine.</p>
+        <pre><code id="collection-health">{
+  "info": {
+    "name": "CVC Morning Health Check",
+    "_postman_id": "health-check-001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Token Refresh",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+        ],
+        "url": { "raw": "{{auth_url}}", "host": ["{{auth_url}}"] },
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            { "key": "grant_type", "value": "client_credentials" },
+            { "key": "client_id", "value": "{{client_id}}" },
+            { "key": "client_secret", "value": "{{client_secret}}" },
+            { "key": "scope", "value": "enrollments.read colleges.read canvas.read" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Exchange Gateway Health",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/health", "host": ["{{base_url}}"], "path": ["api","health"] }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Gateway is healthy', function() {",
+            "  pm.expect(pm.response.json().status).to.eql('healthy');",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "3. Banner Colleges Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/colleges?sisType=banner&fields=id,name,status,lastSync", "host": ["{{base_url}}"], "path": ["api","colleges"] }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('All Banner colleges responding', function() {",
+            "  var colleges = pm.response.json().data;",
+            "  var degraded = colleges.filter(c => c.status !== 'healthy');",
+            "  if (degraded.length > 0) {",
+            "    console.warn('DEGRADED:', degraded.map(c => c.name));",
+            "  }",
+            "  pm.expect(pm.response.code).to.eql(200);",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "4. PeopleSoft Colleges Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/colleges?sisType=peoplesoft&fields=id,name,status,lastSync", "host": ["{{base_url}}"], "path": ["api","colleges"] }
+      }
+    },
+    {
+      "name": "5. Pending Enrollments (last 24h)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/enrollments?status=pending&createdAfter={{yesterday}}", "host": ["{{base_url}}"], "path": ["api","enrollments"] }
+      },
+      "event": [{
+        "listen": "prerequest",
+        "script": {
+          "exec": [
+            "var yesterday = new Date(Date.now() - 86400000).toISOString();",
+            "pm.environment.set('yesterday', yesterday);"
+          ]
+        }
+      }, {
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Pending count is reasonable', function() {",
+            "  var count = pm.response.json().data.length;",
+            "  console.log('Pending enrollments (24h):', count);",
+            "  pm.expect(count).to.be.below(500);",
+            "});"
+          ]
+        }
+      }]
+    }
+  ]
+}</code></pre>
+        <button class="copy-btn" onclick="copyCollection('collection-health', this)">&#128203; Copy Collection JSON</button>
+
+        <h4>Enrollment Diagnostic Collection</h4>
+        <p>The full enrollment lifecycle diagnostic &mdash; from student lookup through Canvas roster verification. Use this when investigating enrollment sync failures.</p>
+        <pre><code id="collection-enrollment">{
+  "info": {
+    "name": "CVC Enrollment Diagnostic",
+    "_postman_id": "enrollment-diag-001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Lookup Student by CCCID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/students/{{student_cccid}}", "host": ["{{base_url}}"], "path": ["api","students","{{student_cccid}}"] }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Student found', function() {",
+            "  pm.expect(pm.response.code).to.eql(200);",
+            "  pm.environment.set('student_id', pm.response.json().data.id);",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "2. Check for Duplicate CCCIDs",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/students/search?cccid={{student_cccid}}&includeInactive=true", "host": ["{{base_url}}"], "path": ["api","students","search"] }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('No duplicate CCCIDs', function() {",
+            "  var results = pm.response.json().data;",
+            "  if (results.length > 1) {",
+            "    console.warn('DUPLICATE CCCID DETECTED:', results.length, 'records');",
+            "  }",
+            "  pm.expect(results.length).to.eql(1);",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "3. Get Enrollment Records",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/enrollments?studentId={{student_id}}&term={{term_code}}", "host": ["{{base_url}}"], "path": ["api","enrollments"] }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Enrollments returned', function() {",
+            "  var enrollments = pm.response.json().data;",
+            "  console.log('Total enrollments:', enrollments.length);",
+            "  enrollments.forEach(e => console.log(e.enrollmentId, e.status, e.collegeId));",
+            "  pm.environment.set('enrollment_id', enrollments[0]?.enrollmentId);",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "4. Check College SIS Health",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/colleges/{{college_id}}/health", "host": ["{{base_url}}"], "path": ["api","colleges","{{college_id}}","health"] }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('College SIS is healthy', function() {",
+            "  var health = pm.response.json();",
+            "  console.log('Status:', health.status, '| Last sync:', health.lastSync);",
+            "  pm.expect(health.status).to.eql('healthy');",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "5. Verify Canvas Roster",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/canvas/courses/{{canvas_course_id}}/roster", "host": ["{{base_url}}"], "path": ["api","canvas","courses","{{canvas_course_id}}","roster"] }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Student appears in Canvas roster', function() {",
+            "  var roster = pm.response.json().data;",
+            "  var found = roster.find(s => s.cccid === pm.environment.get('student_cccid'));",
+            "  if (!found) console.error('STUDENT NOT IN CANVAS ROSTER');",
+            "  pm.expect(found).to.not.be.undefined;",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "6. Check SIS Import Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/api/canvas/courses/{{canvas_course_id}}/sis-import-status", "host": ["{{base_url}}"], "path": ["api","canvas","courses","{{canvas_course_id}}","sis-import-status"] }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('SIS import completed', function() {",
+            "  var status = pm.response.json();",
+            "  console.log('Last import:', status.lastRun, '| Status:', status.result);",
+            "  pm.expect(status.result).to.eql('success');",
+            "});"
+          ]
+        }
+      }]
+    }
+  ]
+}</code></pre>
+        <button class="copy-btn" onclick="copyCollection('collection-enrollment', this)">&#128203; Copy Collection JSON</button>
+
+        <div class="callout info">
+          <strong>After importing:</strong> Make sure your environment has <code>base_url</code>, <code>auth_url</code>, <code>client_id</code>, <code>client_secret</code>, <code>student_cccid</code>, <code>college_id</code>, <code>term_code</code>, and <code>canvas_course_id</code> variables configured. The pre-request scripts and tests will handle the rest.
+        </div>
       </div>
     </details>
 
@@ -1079,6 +1725,193 @@ component = Identity AND created >= -90d ORDER BY created DESC</code></pre>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════════
+     INCIDENT PLAYBOOKS
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="playbooks">
+  <div class="container">
+    <span class="section-badge badge-integration">Playbooks</span>
+    <h3 class="section-title">Interactive Incident Playbooks</h3>
+    <p class="section-lead">Five real-world scenarios walked through end-to-end across all three tools. Follow along minute by minute.</p>
+
+    <!-- Playbook 1: Expired OAuth -->
+    <details>
+      <summary>Playbook 1 &mdash; Expired OAuth Credentials (401 at a Banner College)</summary>
+      <div class="detail-body">
+        <h4>Scenario</h4>
+        <p><strong>Monday 8:15 AM</strong> &mdash; "Students can't access Canvas at Riverside City College." A P2 Jira ticket lands in your queue. The college coordinator reports that students enrolled over the weekend cannot see their courses.</p>
+
+        <h4>The Alert</h4>
+        <p>Jira ticket <code>CVC-4892</code> created by the college coordinator at 8:02 AM. Priority set to P2. Students affected: ~30. SIS platform: Banner (Ethos adapter).</p>
+
+        <h4>Minute-by-Minute Timeline</h4>
+        <div class="pb-timeline">
+          <div class="pb-step"><strong>8:15</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Read ticket CVC-4892. Move to "In Progress." Note the college ID (062), SIS type (Banner), and student count (~30).</div>
+          <div class="pb-step"><strong>8:17</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Run college health check: <code>GET {{base_url}}/api/colleges/062/health</code>. Response: <code>{"status": "degraded", "sisAdapter": "banner-ethos", "lastSync": "2026-04-04T22:00:00Z"}</code>. Last sync was Friday night &mdash; nothing synced all weekend.</div>
+          <div class="pb-step"><strong>8:19</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Check pending enrollments: <code>GET {{base_url}}/api/enrollments?collegeId=062&status=pending</code>. Result: 32 pending records created Saturday/Sunday. Confirms the weekend sync failure.</div>
+          <div class="pb-step"><strong>8:21</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Test the Banner adapter directly: <code>GET {{base_url}}/api/colleges/062/adapter/status</code>. Response: <code>401 Unauthorized</code> with error body <code>{"code": "SIS_AUTH_EXPIRED", "message": "OAuth token for college 062 expired at 2026-04-04T03:00:00Z"}</code>. Root cause identified: expired OAuth credentials.</div>
+          <div class="pb-step"><strong>8:24</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Update ticket with findings: attach Postman screenshots, add comment: "Root cause: Banner adapter OAuth token expired Friday 3 AM. 32 enrollments stuck pending since Saturday. Need credential rotation." Set component to <code>SSO/Auth</code>, label <code>banner</code>.</div>
+          <div class="pb-step"><strong>8:26</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Move to "Waiting on Vendor" &mdash; contact Riverside IT to rotate the OAuth client credentials in their Banner instance.</div>
+          <div class="pb-step"><strong>8:28</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Post in the team project Campfire: "FYI: Riverside (062) Banner OAuth expired Friday. 32 students affected. Waiting on college IT for credential rotation. Ticket CVC-4892."</div>
+          <div class="pb-step"><strong>10:45</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Riverside IT confirms credentials rotated. Update ticket.</div>
+          <div class="pb-step"><strong>10:47</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Re-run adapter status check. Response: <code>200 OK, {"status": "healthy"}</code>. Confirm enrollments are now processing.</div>
+          <div class="pb-step"><strong>11:15</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Verify Canvas roster: all 32 students now appear. Sync lag was ~30 minutes after credential fix.</div>
+          <div class="pb-step"><strong>11:20</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Resolve ticket CVC-4892. Resolution note: "Banner OAuth credentials expired Friday 3 AM UTC. 32 enrollments stuck pending for ~60 hours. Riverside IT rotated credentials at 10:45 AM. All enrollments synced and students have Canvas access. Recommend: set up credential expiry alerting for this college."</div>
+        </div>
+
+        <h4>Post-Incident</h4>
+        <ul>
+          <li>Update knowledge base: add Riverside City College to the "colleges with short-lived OAuth tokens" list</li>
+          <li>Create a P4 follow-up ticket: "Implement OAuth token expiry monitoring for Banner colleges"</li>
+          <li>Note the pattern &mdash; if this is the 3rd Banner college this month, escalate to a Basecamp message board post about systemic OAuth management</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Playbook 2: Duplicate CCCID -->
+    <details>
+      <summary>Playbook 2 &mdash; Duplicate CCCID (409 Conflict, Student Has Multiple Accounts)</summary>
+      <div class="detail-body">
+        <h4>Scenario</h4>
+        <p><strong>Tuesday 1:30 PM</strong> &mdash; A student at Foothill College contacts support: "I'm enrolled in a cross-enrolled course but Canvas says I'm not registered." Jira ticket <code>CVC-4901</code> created. P3 priority, single student.</p>
+
+        <h4>The Alert</h4>
+        <p>Jira ticket from the college coordinator includes the student name and CCCID. The student applied through CCCApply twice with slightly different information, creating two identity records.</p>
+
+        <h4>Minute-by-Minute Timeline</h4>
+        <div class="pb-timeline">
+          <div class="pb-step"><strong>1:30</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Read ticket CVC-4901. Move to "In Progress." Note the student CCCID: <code>AAA1234</code>.</div>
+          <div class="pb-step"><strong>1:32</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Look up student: <code>GET {{base_url}}/api/students/AAA1234</code>. Response: 200 OK. Record exists.</div>
+          <div class="pb-step"><strong>1:33</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Search for duplicates: <code>GET {{base_url}}/api/students/search?email=student@email.com&includeInactive=true</code>. Response: TWO records found &mdash; <code>AAA1234</code> (active, created 2025-08) and <code>BBB5678</code> (active, created 2026-01).</div>
+          <div class="pb-step"><strong>1:36</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Check enrollments for both CCCIDs. <code>AAA1234</code> has 0 enrollments this term. <code>BBB5678</code> has the cross-enrollment &mdash; status: <code>active</code>. The enrollment is linked to the wrong CCCID.</div>
+          <div class="pb-step"><strong>1:39</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Check Canvas roster for the course. The student appears under <code>BBB5678</code> but their college login is tied to <code>AAA1234</code>. Canvas SSO mismatch = they can see the course exists but get an access error.</div>
+          <div class="pb-step"><strong>1:42</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Update ticket: "Duplicate CCCID confirmed. Student has AAA1234 (2025-08, Foothill primary) and BBB5678 (2026-01, CCCApply re-application). Enrollment is on BBB5678 but Canvas SSO is on AAA1234. Need CCCID merge: keep AAA1234 as primary, merge BBB5678 into it." Attach all Postman evidence.</div>
+          <div class="pb-step"><strong>1:44</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Set component to <code>Identity</code>. Add label <code>cccid-merge</code>. Move to "Waiting on Vendor" if the merge requires CCCTech intervention, or handle internally if your team has merge access.</div>
+          <div class="pb-step"><strong>1:46</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Check if there is an existing Basecamp thread about CCCID merge process. There is &mdash; reference it. If this is a new pattern (e.g., 5 duplicates this week from Foothill), post a new message board discussion.</div>
+          <div class="pb-step"><strong>3:00</strong> &mdash; Merge completed (either by your team or CCCTech). <span class="pb-tool-badge tb-postman">Postman</span> Verify: <code>GET {{base_url}}/api/students/AAA1234</code> now shows the merged record. Enrollment is now on AAA1234. Canvas roster updated.</div>
+          <div class="pb-step"><strong>3:10</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Resolve ticket. Resolution: "Duplicate CCCID (BBB5678) merged into primary (AAA1234). Enrollment and Canvas access restored. Student confirmed access at 3:05 PM."</div>
+        </div>
+
+        <h4>Post-Incident</h4>
+        <ul>
+          <li>Update knowledge base: document the exact merge steps and which team performs them</li>
+          <li>If Foothill College has recurring duplicates, flag it to the college coordinator &mdash; their CCCApply intake process may need improvement</li>
+          <li>Do NOT ignore 409 conflicts &mdash; they cascade into Canvas sync failures if left unresolved</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Playbook 3: Canvas Roster Sync Failure -->
+    <details>
+      <summary>Playbook 3 &mdash; Canvas Roster Sync Failure (Students Enrolled but Not in Canvas)</summary>
+      <div class="detail-body">
+        <h4>Scenario</h4>
+        <p><strong>Wednesday 9:00 AM</strong> &mdash; An instructor at De Anza College reports that 12 cross-enrolled students show as "enrolled" in the SIS but are not appearing in their Canvas course. Jira ticket <code>CVC-4915</code>, P2.</p>
+
+        <h4>The Alert</h4>
+        <p>The instructor emailed the college coordinator, who created the Jira ticket. The course CRN and Canvas course ID are included. Term: Spring 2026.</p>
+
+        <h4>Minute-by-Minute Timeline</h4>
+        <div class="pb-timeline">
+          <div class="pb-step"><strong>9:00</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Read ticket CVC-4915. Move to "In Progress." Note: De Anza (014), PeopleSoft SIS, Canvas course ID 45678, 12 students.</div>
+          <div class="pb-step"><strong>9:03</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Check college health: <code>GET {{base_url}}/api/colleges/014/health</code>. Response: <code>{"status": "healthy", "lastSync": "2026-04-09T06:00:00Z"}</code>. College is healthy and synced this morning.</div>
+          <div class="pb-step"><strong>9:05</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Get enrollments for the course: <code>GET {{base_url}}/api/enrollments?collegeId=014&courseCrn=CRN12345&term=SP2026</code>. Response: 12 records, all status <code>active</code>, all created 2+ days ago. The Exchange has the enrollments and they look correct.</div>
+          <div class="pb-step"><strong>9:08</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Check Canvas roster: <code>GET {{base_url}}/api/canvas/courses/45678/roster</code>. Response: roster has 25 students, but NONE of the 12 cross-enrolled students appear. The gap is between Exchange and Canvas.</div>
+          <div class="pb-step"><strong>9:10</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Check SIS import status: <code>GET {{base_url}}/api/canvas/courses/45678/sis-import-status</code>. Response: <code>{"lastRun": "2026-04-09T06:05:00Z", "result": "failed", "errors": ["SIS import CSV contained invalid section IDs for 12 records"]}</code>. Root cause found: the SIS import to Canvas is failing because the section IDs in the enrollment records do not match valid Canvas sections.</div>
+          <div class="pb-step"><strong>9:14</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Update ticket: "Enrollments are active in the Exchange but Canvas SIS import is failing. Error: invalid section IDs. The Canvas course sections may have been recreated or renamed. Need Canvas admin to verify section mapping." Attach Postman evidence. Set component to <code>Canvas</code>.</div>
+          <div class="pb-step"><strong>9:16</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Move to "Waiting on Vendor" &mdash; need De Anza Canvas admin to confirm section structure.</div>
+          <div class="pb-step"><strong>9:18</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Post in team Campfire: "De Anza Canvas roster sync failure affecting 12 students. SIS import failing on section IDs. Waiting on Canvas admin. CVC-4915."</div>
+          <div class="pb-step"><strong>11:00</strong> &mdash; Canvas admin confirms sections were restructured last week. Section IDs updated in the Exchange mapping. <span class="pb-tool-badge tb-postman">Postman</span> Trigger a manual sync and verify roster now includes all 12 students.</div>
+          <div class="pb-step"><strong>11:15</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Resolve ticket. Resolution: "Canvas course sections were restructured, causing section ID mismatch in SIS import. Canvas admin updated section structure, Exchange mapping corrected. All 12 students now appear in Canvas roster. Recommend: add section ID validation to pre-sync checks."</div>
+        </div>
+
+        <h4>Post-Incident</h4>
+        <ul>
+          <li>Update knowledge base: document the Canvas section ID mismatch scenario and resolution steps</li>
+          <li>Create P4 ticket: "Add section ID validation to Canvas SIS import pre-check"</li>
+          <li>Notify the Canvas team about the importance of communicating section restructuring before making changes</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Playbook 4: Mass Enrollment Failure -->
+    <details>
+      <summary>Playbook 4 &mdash; Mass Enrollment Failure During Peak Registration (P1 Emergency)</summary>
+      <div class="detail-body">
+        <h4>Scenario</h4>
+        <p><strong>Thursday 7:45 AM &mdash; First day of open enrollment for Summer 2026.</strong> Multiple colleges reporting simultaneously: enrollment submissions are failing. Within 15 minutes, 8 colleges have reported issues. This is a P1.</p>
+
+        <h4>The Alert</h4>
+        <p>Your Jira dashboard lights up: 8 new tickets in 15 minutes, all reporting enrollment failures. Your morning health check (Postman) already flagged 429 and 500 errors across multiple colleges.</p>
+
+        <h4>Minute-by-Minute Timeline</h4>
+        <div class="pb-timeline">
+          <div class="pb-step"><strong>7:45</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Morning health check results: 14 colleges returning 429 (rate limiting), 3 colleges returning 500 (internal server errors). This is not isolated &mdash; it is systemic.</div>
+          <div class="pb-step"><strong>7:48</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Create P1 ticket: <code>CVC-4930</code> "CRITICAL: Mass enrollment failure across 14+ colleges &mdash; 429/500 errors during Summer 2026 registration." Assign to yourself. Link the 8 individual college tickets as related.</div>
+          <div class="pb-step"><strong>7:50</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Post to emergency project: "P1 ACTIVE: Mass enrollment failure. 14+ colleges hitting 429 rate limits, 3 with 500 errors. Summer registration opened at 7 AM and traffic is overwhelming the Exchange API. Tracking in CVC-4930. Updates every 15 minutes." @mention team lead and infrastructure contact.</div>
+          <div class="pb-step"><strong>7:53</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Run targeted diagnostics: <code>GET {{base_url}}/api/health</code> &mdash; gateway is up but response time is 8,400ms (normal: &lt;500ms). <code>GET {{base_url}}/api/enrollments/rate-limit-status</code> &mdash; current rate: 2,400 req/min (capacity: 1,000 req/min). The API is being hammered at 2.4x capacity.</div>
+          <div class="pb-step"><strong>7:58</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Update CVC-4930: "Confirmed: API receiving 2,400 req/min against 1,000 req/min capacity. Gateway response time degraded to 8.4s. Infrastructure team notified to scale up." Add label <code>capacity-incident</code>.</div>
+          <div class="pb-step"><strong>8:00</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Update emergency thread: "Confirmed capacity issue. 2.4x normal load. Infrastructure scaling up API instances. ETA for improvement: 20-30 minutes. Colleges should advise students to retry in 30 min."</div>
+          <div class="pb-step"><strong>8:05</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Add comment with exact error counts per college. Create a tracking table. Move individual college tickets to "Waiting on Vendor" (the vendor here is your own infrastructure team).</div>
+          <div class="pb-step"><strong>8:25</strong> &mdash; Infrastructure team confirms additional API instances deployed. <span class="pb-tool-badge tb-postman">Postman</span> Re-check: response time down to 1,200ms, 429 errors dropping. Still elevated but improving.</div>
+          <div class="pb-step"><strong>8:30</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Update: "Scaling complete. Response times improving (8.4s down to 1.2s). 429 errors decreasing. Monitoring closely. Next update at 9:00 AM."</div>
+          <div class="pb-step"><strong>9:00</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Health check: all colleges returning 200. Response time: 380ms. Rate: 1,800 req/min against new capacity of 3,000 req/min. System stable.</div>
+          <div class="pb-step"><strong>9:05</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Check for stuck enrollments: <code>GET {{base_url}}/api/enrollments?status=failed&createdAfter=2026-04-10T14:00:00Z</code>. 847 failed enrollments need to be reprocessed.</div>
+          <div class="pb-step"><strong>9:30</strong> &mdash; Failed enrollments requeued by infrastructure team. <span class="pb-tool-badge tb-postman">Postman</span> Verify: failed count dropping as reprocessing completes.</div>
+          <div class="pb-step"><strong>10:00</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Resolve CVC-4930 and all linked tickets. Resolution: "Peak registration traffic exceeded API capacity (2.4x limit). Infrastructure scaled API instances from 4 to 12. 847 failed enrollments reprocessed. All colleges operational by 9:00 AM. Total impact: ~90 minutes of degraded service." Log 2.5 hours of time.</div>
+          <div class="pb-step"><strong>10:05</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Post incident resolved message. Schedule post-incident review for Friday. Create a Message Board post: "Post-Incident: Summer 2026 Registration Day Capacity Failure" with full timeline and recommendations.</div>
+        </div>
+
+        <h4>Post-Incident</h4>
+        <ul>
+          <li>Friday post-incident review: document in Basecamp what happened, why, and what changes are needed</li>
+          <li>Create P2 follow-up ticket: "Implement auto-scaling for registration peak periods"</li>
+          <li>Create P3 ticket: "Add rate limit dashboard to Postman monitoring collection"</li>
+          <li>Update the capacity planning document with actual peak traffic numbers</li>
+          <li>Recommend pre-scaling before Fall 2026 registration based on this data</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Playbook 5: SIS Maintenance Not Communicated -->
+    <details>
+      <summary>Playbook 5 &mdash; SIS Scheduled Maintenance Not Communicated (503 Errors, Surprise Outage)</summary>
+      <div class="detail-body">
+        <h4>Scenario</h4>
+        <p><strong>Wednesday 2:00 PM</strong> &mdash; Three colleges on the same Colleague SIS instance are all returning 503 errors. No one on the Exchange team was notified of any maintenance. The colleges' IT teams are unreachable.</p>
+
+        <h4>The Alert</h4>
+        <p>Your midday Postman check flags 503 errors for College of the Canyons (019), Antelope Valley (001), and Citrus (020). All three use Colleague hosted by the same district. No Jira tickets from the colleges yet &mdash; they may not even know.</p>
+
+        <h4>Minute-by-Minute Timeline</h4>
+        <div class="pb-timeline">
+          <div class="pb-step"><strong>2:00</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Midday health check: three Colleague colleges returning 503. <code>GET {{base_url}}/api/colleges/019/health</code> &rarr; <code>503 Service Unavailable</code>. Same for 001 and 020.</div>
+          <div class="pb-step"><strong>2:03</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Check if it is just the Exchange or also the SIS directly (if you have direct adapter access): <code>GET {{base_url}}/api/colleges/019/adapter/status</code> &rarr; <code>503</code> with message "upstream service unavailable." This is the SIS itself, not the Exchange.</div>
+          <div class="pb-step"><strong>2:05</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Create P2 ticket: <code>CVC-4940</code> "503 errors &mdash; Colleague SIS unavailable for Canyons/Antelope Valley/Citrus &mdash; possible unannounced maintenance." Component: <code>Data Sync</code>. Label: <code>colleague</code>.</div>
+          <div class="pb-step"><strong>2:07</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Check the maintenance calendar in Basecamp Schedule &mdash; nothing listed for today. Check Message Board &mdash; no announcement from the district. This is an unannounced outage.</div>
+          <div class="pb-step"><strong>2:10</strong> &mdash; <span class="pb-tool-badge tb-basecamp">Basecamp</span> Post to team Campfire: "Three Colleague colleges (019, 001, 020) returning 503. No maintenance announcement found. Attempting to reach district IT. CVC-4940." @mention whoever has the district IT contact.</div>
+          <div class="pb-step"><strong>2:12</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Check: how many enrollments are affected? <code>GET {{base_url}}/api/enrollments?collegeId=019,001,020&status=pending&createdAfter=2026-04-09T20:00:00Z</code>. Result: 18 pending enrollments that cannot be processed. Move ticket to "Waiting on Vendor."</div>
+          <div class="pb-step"><strong>2:15</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Email the district IT contact directly (outside of Jira/Basecamp &mdash; this is urgent and they may not be in either system). "We are seeing 503 errors from your Colleague SIS. Is there scheduled maintenance? 18 student enrollments are blocked."</div>
+          <div class="pb-step"><strong>2:45</strong> &mdash; District IT responds: "Yes, we are performing a database upgrade. Expected completion: 4:00 PM. We forgot to notify external partners. Apologies."</div>
+          <div class="pb-step"><strong>2:47</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Update ticket: "Confirmed: scheduled Colleague DB upgrade, unannounced. ETA 4:00 PM. 18 enrollments will auto-process once SIS is back." <span class="pb-tool-badge tb-basecamp">Basecamp</span> Update Campfire and post on Message Board: "Colleague maintenance for Canyons/AV/Citrus until 4 PM. District IT forgot to notify us. Process issue &mdash; let's discuss how to prevent this."</div>
+          <div class="pb-step"><strong>4:15</strong> &mdash; <span class="pb-tool-badge tb-postman">Postman</span> Re-check: all three colleges returning 200. Health: "healthy." Pending enrollments processing.</div>
+          <div class="pb-step"><strong>4:30</strong> &mdash; <span class="pb-tool-badge tb-jira">Jira</span> Resolve ticket. Resolution: "Colleague SIS scheduled maintenance (unannounced) from ~1:30 PM to 4:00 PM. 18 enrollments were delayed but auto-processed after restoration. No data loss. Root cause: district IT did not notify CVC Exchange team of maintenance window."</div>
+        </div>
+
+        <h4>Post-Incident</h4>
+        <ul>
+          <li>Create a Basecamp Message Board post: "Process improvement: How do we ensure college/district IT teams notify us before SIS maintenance?"</li>
+          <li>Propose: add a shared maintenance calendar that district IT teams can update, or require 48-hour advance notice via a standard form</li>
+          <li>Create P3 ticket: "Add 503 auto-detection and alerting for multi-college outages from the same SIS instance"</li>
+          <li>Update the district contact list to include an emergency/maintenance notification email for the Exchange team</li>
+          <li>Document this scenario in the knowledge base as a communication failure pattern</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
      SECTION 4: TOOL INTEGRATION MAP
      ════════════════════════════════════════════════════════════════════════ -->
 <section class="tool-section" id="integration">
@@ -1122,6 +1955,139 @@ component = Identity AND created >= -90d ORDER BY created DESC</code></pre>
     <div class="callout">
       <strong>The key principle:</strong> Jira is the spine. Everything connects back to the ticket. Postman evidence goes into the ticket. Basecamp strategy discussions reference the ticket. If a supervisor asks "what happened with that Sacramento City issue?", the answer is always: "Here's the ticket."
     </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     DAILY & WEEKLY ROUTINES
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="routines">
+  <div class="container">
+    <span class="section-badge badge-ref">Routines</span>
+    <h3 class="section-title">Your Daily &amp; Weekly Routines</h3>
+    <p class="section-lead">Structure your day around these time-based checkpoints across all three tools. Consistency prevents fires.</p>
+
+    <details open>
+      <summary>Morning Routine (8:00 &ndash; 8:15 AM)</summary>
+      <div class="detail-body">
+        <div class="routine-grid">
+          <div class="routine-card">
+            <div class="rc-time" style="color: var(--blue);">Jira &mdash; 8:00 AM</div>
+            <ul>
+              <li><strong>Open your personal dashboard</strong> &mdash; check for overnight P1/P2 tickets</li>
+              <li>Review any tickets that were updated overnight (by reporters or other time zones)</li>
+              <li>Check the "Unassigned" filter &mdash; grab any urgent tickets before standup</li>
+              <li>Update your board filters if any new components or labels were added</li>
+            </ul>
+          </div>
+          <div class="routine-card">
+            <div class="rc-time" style="color: var(--orange);">Postman &mdash; 8:05 AM</div>
+            <ul>
+              <li><strong>Run the Morning Health Check collection</strong> (see section 1.8b)</li>
+              <li>Scan results for any non-200 responses or degraded colleges</li>
+              <li>If Newman is set up, check the overnight report instead</li>
+              <li>Note any colleges with stale <code>lastSync</code> timestamps (&gt;12 hours old)</li>
+            </ul>
+          </div>
+          <div class="routine-card">
+            <div class="rc-time" style="color: var(--green);">Basecamp &mdash; 8:10 AM</div>
+            <ul>
+              <li><strong>Check for overnight messages</strong> &mdash; especially in the emergency project</li>
+              <li>Respond to any Automatic Check-in prompts</li>
+              <li>Scan Message Board posts from yesterday afternoon that you may have missed</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Midday Check (12:00 PM)</summary>
+      <div class="detail-body">
+        <div class="routine-grid">
+          <div class="routine-card">
+            <div class="rc-time">Midday review &mdash; 15 minutes</div>
+            <ul>
+              <li><strong>Process Jira queue</strong> &mdash; update any tickets that have gone stale since morning</li>
+              <li><strong>Check SLA timers</strong> on open P1/P2 tickets &mdash; are any approaching the deadline?</li>
+              <li>Post status updates on anything blocking other team members</li>
+              <li>If you are waiting on a college or vendor, check for responses and follow up if needed</li>
+              <li>Run a quick Postman check on any colleges you flagged this morning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>End-of-Day (4:45 &ndash; 5:00 PM)</summary>
+      <div class="detail-body">
+        <div class="routine-grid">
+          <div class="routine-card">
+            <div class="rc-time">Close-out &mdash; 15 minutes</div>
+            <ul>
+              <li><strong>Update ALL Jira tickets</strong> with current state &mdash; even if the update is "no change, still waiting on vendor response"</li>
+              <li><strong>Log time</strong> on every ticket you touched today</li>
+              <li>Write tomorrow's first action in each ticket comment: "Next: follow up with Riverside IT on credential rotation"</li>
+              <li><strong>Close browser tabs</strong> &mdash; this is attention residue clearing. Start tomorrow fresh, not overwhelmed by 47 open tabs.</li>
+              <li>If a P1/P2 is active, ensure someone on the team knows the current state before you log off</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Friday Routine</summary>
+      <div class="detail-body">
+        <div class="routine-grid">
+          <div class="routine-card">
+            <div class="rc-time" style="color: var(--blue);">Jira &mdash; Weekly Reporting</div>
+            <ul>
+              <li>Run JQL: <code>assignee = currentUser() AND resolved >= startOfWeek()</code> &mdash; how many did you resolve?</li>
+              <li>Run JQL: <code>status = "In Progress" AND updated < -3d</code> &mdash; any aging tickets?</li>
+              <li>Check SLA compliance: what percentage of tickets were resolved within target?</li>
+              <li>Export resolution rate data for manager's weekly report</li>
+            </ul>
+          </div>
+          <div class="routine-card">
+            <div class="rc-time" style="color: var(--green);">Basecamp &mdash; Weekly Summary</div>
+            <ul>
+              <li>Write a Message Board post: "Week of [date] &mdash; Support Summary"</li>
+              <li>Include: tickets resolved, patterns observed, blockers, next week priorities</li>
+              <li>Review any open discussion threads and add your input before the weekend</li>
+            </ul>
+          </div>
+          <div class="routine-card">
+            <div class="rc-time" style="color: var(--orange);">Postman &mdash; Collection Review</div>
+            <ul>
+              <li>Review your collections &mdash; any new endpoints to add based on this week's tickets?</li>
+              <li>Update any saved examples with fresh data</li>
+              <li>Check if environment variables are still correct (staging URL changes, token rotation)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Monthly Maintenance</summary>
+      <div class="detail-body">
+        <div class="routine-grid">
+          <div class="routine-card">
+            <div class="rc-time" style="color: var(--purple);">Monthly cleanup &mdash; 1 hour</div>
+            <ul>
+              <li><strong>Postman collection cleanup</strong> &mdash; remove outdated requests, update documentation strings, archive completed diagnostic examples</li>
+              <li><strong>Jira dashboard review</strong> &mdash; are your saved filters still useful? Remove clutter, add new filters for emerging patterns</li>
+              <li><strong>Basecamp archive</strong> &mdash; move completed projects to archive. Keep active project list clean and focused</li>
+              <li><strong>Knowledge base audit</strong> &mdash; review documented fixes. Are any now automated? Are any outdated? Update or remove stale entries</li>
+              <li><strong>Trend analysis</strong> &mdash; run JQL for 30-day trends by SIS platform, component, and college. Look for systemic patterns worth escalating</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
   </div>
 </section>
 
@@ -1192,6 +2158,53 @@ component = Identity AND created >= -90d ORDER BY created DESC</code></pre>
       </div>
     </div>
 
+    <!-- Keyboard Shortcuts -->
+    <h4 style="margin-top: 24px; margin-bottom: 4px; font-size: 20px; font-weight: 700; letter-spacing: -0.3px;">Keyboard Shortcuts</h4>
+    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">Memorize these to move faster. Print this card and keep it at your desk.</p>
+    <div class="kb-grid">
+      <div class="kb-card kb-postman">
+        <h5>Postman</h5>
+        <ul>
+          <li><kbd>Ctrl</kbd>+<kbd>Enter</kbd> Send request</li>
+          <li><kbd>Ctrl</kbd>+<kbd>S</kbd> Save request</li>
+          <li><kbd>Ctrl</kbd>+<kbd>N</kbd> New request</li>
+          <li><kbd>Ctrl</kbd>+<kbd>E</kbd> Toggle environment</li>
+          <li><kbd>Ctrl</kbd>+<kbd>/</kbd> Show keyboard shortcuts</li>
+          <li><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> Environment quick look</li>
+          <li><kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>C</kbd> Open console</li>
+          <li><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> Search collections</li>
+          <li><kbd>Ctrl</kbd>+<kbd>Tab</kbd> Next tab</li>
+          <li><kbd>Ctrl</kbd>+<kbd>W</kbd> Close tab</li>
+        </ul>
+      </div>
+      <div class="kb-card kb-jira">
+        <h5>Jira</h5>
+        <ul>
+          <li><kbd>C</kbd> Create issue</li>
+          <li><kbd>G</kbd> then <kbd>D</kbd> Go to dashboard</li>
+          <li><kbd>G</kbd> then <kbd>B</kbd> Go to board</li>
+          <li><kbd>J</kbd> / <kbd>K</kbd> Navigate down / up</li>
+          <li><kbd>O</kbd> Open selected issue</li>
+          <li><kbd>A</kbd> Assign to me</li>
+          <li><kbd>M</kbd> Comment on issue</li>
+          <li><kbd>.</kbd> Open actions menu</li>
+          <li><kbd>/</kbd> Open quick search</li>
+          <li><kbd>E</kbd> Edit issue</li>
+        </ul>
+      </div>
+      <div class="kb-card kb-basecamp">
+        <h5>Basecamp</h5>
+        <ul>
+          <li colspan="2" style="color: var(--text-dim); font-style: italic; font-family: var(--sans); padding: 8px 0;">Basecamp intentionally has minimal keyboard shortcuts &mdash; it is designed for async, mouse-driven interaction.</li>
+          <li><kbd>Ctrl</kbd>+<kbd>K</kbd> Quick jump (search)</li>
+          <li><kbd>Ctrl</kbd>+<kbd>B</kbd> Bold in editor</li>
+          <li><kbd>Ctrl</kbd>+<kbd>I</kbd> Italic in editor</li>
+          <li><kbd>Ctrl</kbd>+<kbd>Enter</kbd> Submit message</li>
+          <li style="color: var(--text-dim); font-style: italic; font-family: var(--sans); padding: 4px 0;">Tip: Use browser bookmarks for quick access to key projects instead of shortcuts.</li>
+        </ul>
+      </div>
+    </div>
+
     <!-- Ticket Lifecycle Mini-Diagram -->
     <div class="ref-card" style="margin-top: 14px;">
       <h5>Ticket Lifecycle</h5>
@@ -1213,6 +2226,101 @@ component = Identity AND created >= -90d ORDER BY created DESC</code></pre>
   </div>
 </section>
 
+<!-- ════════════════════════════════════════════════════════════════════════
+     ANTI-PATTERNS
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="anti-patterns">
+  <div class="container">
+    <span class="section-badge" style="background: var(--red-bg); color: var(--red);">Caution</span>
+    <h3 class="section-title">What NOT to Do &mdash; Lessons from the Field</h3>
+    <p class="section-lead">Ten anti-patterns that will cost you credibility, break metrics, or create more work. Learn from others' mistakes.</p>
+
+    <div class="antipattern-grid">
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't skip the Postman diagnostic and just email the campus IT team asking "is it broken?"</span>
+        </div>
+        <div class="ap-desc">You lose credibility fast. The college IT team expects you to have already done your homework. Run the health check, check the status code, and come to them with specifics: "We are seeing a 401 on your Banner adapter &mdash; can you verify the OAuth credentials?" vs "Something seems wrong, can you check?"</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't close a Jira ticket as "Closed" &mdash; use "Resolved"</span>
+        </div>
+        <div class="ap-desc">SLA metrics are computed from Open to Resolved. Skipping to Closed distorts the SLA calculation and makes it impossible to accurately report resolution times to leadership. "Closed" is a terminal state that should happen automatically after the reporter confirms the fix.</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't run POST/PUT/DELETE on Production without explicit team approval</span>
+        </div>
+        <div class="ap-desc">A misfire against production can create phantom enrollments, drop students from courses, or corrupt identity records. Write operations on production require verbal or written approval from the team lead. Use staging for all testing. This is a fireable offense at most organizations.</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't write Jira tickets with just "it's broken"</span>
+        </div>
+        <div class="ap-desc">Every ticket must include: the college name and code, the SIS platform, the number of students affected, steps to reproduce, and any error codes or Postman evidence. A ticket that says "enrollment issue" helps no one and will bounce back to you for more detail, wasting everyone's time.</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't use Basecamp Campfire for decisions</span>
+        </div>
+        <div class="ap-desc">Campfire is for quick, informal chats. Decisions belong on the Message Board where they are searchable, permanent, and organized by topic. If a Campfire conversation produces a decision, someone must post a summary on the Message Board. Otherwise it is lost in chat scroll within a week.</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't ignore the 409 Conflict (duplicate CCCID)</span>
+        </div>
+        <div class="ap-desc">A 409 means two identity records exist for one student. If you close the ticket without resolving the duplicate, it will cascade into Canvas sync failures, enrollment mismatches, and potentially financial aid issues. The duplicate must be merged. See Playbook 2 for the full process.</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't manually copy-paste OAuth tokens</span>
+        </div>
+        <div class="ap-desc">Use Postman pre-request scripts to auto-refresh tokens (see section 1.4). Manually pasting tokens leads to: expired tokens in shared collections, tokens accidentally committed to version history, and inconsistent auth state between team members. Automate it once and never think about it again.</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't let tickets sit in "In Progress" for 3+ days without an update</span>
+        </div>
+        <div class="ap-desc">Your SLA timer is running. Even if you are waiting for something, add a comment: "Still waiting on Riverside IT. Will follow up tomorrow AM." This tells your team lead you have not forgotten, prevents the automation reminder from firing, and gives anyone reviewing the queue context on where things stand.</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't respond to P1 emergencies on Basecamp</span>
+        </div>
+        <div class="ap-desc">Basecamp is async. P1 means "right now." Create the Jira P1 ticket, use Postman for rapid diagnostics, and communicate via phone or Slack (if your team uses it). Post the Basecamp update after the fire is under control. Basecamp is for coordination and documentation, not real-time incident response.</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-header">
+          <span class="ap-x">&#10007;</span>
+          <span class="ap-title">Don't forget to document the fix</span>
+        </div>
+        <div class="ap-desc">If the fix is not in the knowledge base, you (or a colleague) will solve the exact same problem again in 3 months and spend another hour on it. Every resolution that took more than 30 minutes to diagnose should be documented: what was wrong, how you found it, and what fixed it. Your future self will thank you.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ════════════ FOOTER ════════════ -->
 <footer class="site-footer">
   <div class="container">
@@ -1227,6 +2335,93 @@ component = Identity AND created >= -90d ORDER BY created DESC</code></pre>
 window.addEventListener('beforeprint', () => {
   document.querySelectorAll('details').forEach(d => d.open = true);
 });
+</script>
+
+<!-- ═══ Copy-to-clipboard for collection templates ═══ -->
+<script>
+function copyCollection(elementId, btn) {
+  var codeEl = document.getElementById(elementId);
+  if (!codeEl) return;
+  var text = codeEl.textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.classList.add('copied');
+    btn.innerHTML = '&#10003; Copied!';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      btn.innerHTML = '&#128203; Copy Collection JSON';
+    }, 2000);
+  });
+}
+</script>
+
+<!-- ═══ Learning Progress Tracker (localStorage) ═══ -->
+<script>
+(function() {
+  var STORAGE_KEY = 'cvc-tools-progress';
+
+  function loadProgress() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch(e) { return {}; }
+  }
+
+  function saveProgress(data) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+
+  function updateBars() {
+    var data = loadProgress();
+    var tools = {
+      postman: { prefix: 'pm-', total: 10, barId: 'bar-postman', pctId: 'pct-postman' },
+      jira:    { prefix: 'ji-', total: 10, barId: 'bar-jira',    pctId: 'pct-jira' },
+      basecamp:{ prefix: 'bc-', total: 10, barId: 'bar-basecamp', pctId: 'pct-basecamp' }
+    };
+
+    Object.keys(tools).forEach(function(toolName) {
+      var tool = tools[toolName];
+      var count = 0;
+      for (var i = 1; i <= tool.total; i++) {
+        if (data[tool.prefix + i]) count++;
+      }
+      var pct = Math.round((count / tool.total) * 100);
+      var bar = document.getElementById(tool.barId);
+      var pctEl = document.getElementById(tool.pctId);
+      if (bar) bar.style.width = pct + '%';
+      if (pctEl) pctEl.textContent = pct + '%';
+
+      // Update summary text in the details summary
+      var checklists = document.querySelectorAll('.progress-checklist[data-tool="' + toolName + '"]');
+      checklists.forEach(function(cl) {
+        var summary = cl.closest('details').querySelector('summary');
+        if (summary) {
+          var text = summary.textContent;
+          var toolLabel = toolName.charAt(0).toUpperCase() + toolName.slice(1);
+          summary.textContent = toolLabel + ' Concepts (' + count + '/' + tool.total + ' learned)';
+        }
+      });
+    });
+  }
+
+  // Initialize checkboxes from saved state
+  var data = loadProgress();
+  document.querySelectorAll('.progress-checklist input[type="checkbox"]').forEach(function(cb) {
+    var id = cb.getAttribute('data-id');
+    if (data[id]) cb.checked = true;
+
+    cb.addEventListener('change', function() {
+      var d = loadProgress();
+      if (this.checked) {
+        d[this.getAttribute('data-id')] = true;
+      } else {
+        delete d[this.getAttribute('data-id')];
+      }
+      saveProgress(d);
+      updateBars();
+    });
+  });
+
+  updateBars();
+})();
 </script>
 
 </body>
