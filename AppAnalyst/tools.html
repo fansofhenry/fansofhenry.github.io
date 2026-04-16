@@ -422,6 +422,106 @@ pre code { background: none; padding: 0; color: var(--text); }
 .pb-tool-badge.tb-jira { background: var(--blue-bg); color: var(--blue); }
 .pb-tool-badge.tb-basecamp { background: var(--green-bg); color: var(--green); }
 
+/* ── OAuth2 Flow Diagram ── */
+.oauth-flow {
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+  margin: 20px 0; padding: 24px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.oauth-flow .of-step {
+  display: flex; align-items: center; gap: 12px; width: 100%; max-width: 600px;
+  padding: 10px 16px; background: var(--surface-2); border: 1px solid var(--border-light);
+  border-radius: 6px; font-size: 13px;
+}
+.oauth-flow .of-step .of-num {
+  font-family: var(--mono); font-weight: 700; font-size: 14px;
+  color: var(--accent-light); min-width: 28px; text-align: center;
+}
+.oauth-flow .of-step .of-label { color: var(--text); font-weight: 600; }
+.oauth-flow .of-step .of-desc { color: var(--text-muted); font-size: 12px; margin-left: auto; font-family: var(--mono); }
+.oauth-flow .of-arrow { color: var(--text-dim); font-size: 18px; padding: 4px 0; }
+.oauth-flow .of-step.of-active { border-color: var(--accent); background: var(--accent-bg); }
+.oauth-flow .of-step.of-danger { border-color: var(--red); background: var(--red-bg); }
+
+/* ── Side-by-side comparison ── */
+.side-by-side { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+.side-by-side .side-bad { border: 1px solid var(--red); border-radius: var(--radius); padding: 16px; background: var(--red-bg); }
+.side-by-side .side-good { border: 1px solid var(--green); border-radius: var(--radius); padding: 16px; background: var(--green-bg); }
+.side-by-side h5 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+.side-by-side .side-bad h5 { color: var(--red); }
+.side-by-side .side-good h5 { color: var(--green); }
+.side-by-side p, .side-by-side pre { font-size: 12px; }
+@media (max-width: 640px) { .side-by-side { grid-template-columns: 1fr; } }
+
+/* ── SLA Tier Grid ── */
+.sla-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 16px 0; }
+.sla-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 18px;
+  display: flex; align-items: center; gap: 16px;
+}
+.sla-card .sla-badge { font-family: var(--mono); font-weight: 700; font-size: 14px; min-width: 48px; text-align: center; }
+.sla-card .sla-detail { flex: 1; }
+.sla-card .sla-detail .sla-title { font-weight: 600; font-size: 14px; color: var(--text); }
+.sla-card .sla-detail .sla-times { font-size: 12px; color: var(--text-muted); font-family: var(--mono); margin-top: 2px; }
+
+/* ── Calendar timeline ── */
+.cal-timeline { margin: 20px 0; padding-left: 18px; border-left: 3px solid var(--purple); }
+.cal-week {
+  position: relative; padding: 10px 0 10px 20px; font-size: 13px; color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+.cal-week:last-child { border-bottom: none; }
+.cal-week::before {
+  content: ''; position: absolute; left: -24px; top: 16px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--surface-2); border: 2px solid var(--purple);
+}
+.cal-week.cal-hot::before { background: var(--red); border-color: var(--red); }
+.cal-week.cal-warm::before { background: var(--orange); border-color: var(--orange); }
+.cal-week strong { color: var(--text); }
+.cal-week .cal-tag {
+  display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600;
+  padding: 1px 6px; border-radius: 3px; margin-left: 6px;
+}
+.cal-tag.tag-high { background: var(--red-bg); color: var(--red); }
+.cal-tag.tag-med { background: var(--orange-bg); color: var(--orange); }
+.cal-tag.tag-low { background: var(--blue-bg); color: var(--blue); }
+
+/* ── SIS Platform cards ── */
+.sis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+.sis-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px;
+}
+.sis-card h5 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.sis-card .sis-vendor { font-size: 11px; font-family: var(--mono); color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.sis-card ul { margin: 0 0 0 16px; }
+.sis-card li { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+@media (max-width: 640px) { .sis-grid { grid-template-columns: 1fr; } }
+
+/* ── Template block ── */
+.template-block {
+  background: var(--surface-2); border: 1px solid var(--border-light);
+  border-radius: var(--radius); padding: 18px; margin: 14px 0;
+  font-size: 13px; line-height: 1.7; color: var(--text-muted);
+}
+.template-block strong { color: var(--text); }
+.template-block .tpl-label {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  color: var(--accent-light); text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 10px; display: block;
+}
+
+/* ── Annotation callout (for JSON annotations) ── */
+.json-annotation {
+  display: flex; gap: 12px; margin: 6px 0; padding: 8px 12px;
+  background: var(--surface-2); border-left: 2px solid var(--accent);
+  border-radius: 0 4px 4px 0; font-size: 12px;
+}
+.json-annotation .ja-field { font-family: var(--mono); color: var(--accent-light); min-width: 140px; font-weight: 600; }
+.json-annotation .ja-desc { color: var(--text-muted); }
+
 /* ── Print ── */
 @media print {
   body { background: #fff; color: #111; font-size: 11px; }
@@ -462,6 +562,7 @@ pre code { background: none; padding: 0; color: var(--text); }
       <a href="#postman">Postman</a>
       <a href="#jira">Jira</a>
       <a href="#basecamp">Basecamp</a>
+      <a href="#cvc-domain">CVC Domain</a>
       <a href="#playbooks">Playbooks</a>
       <a href="#integration">Integration</a>
       <a href="#routines">Routines</a>
@@ -1347,6 +1448,411 @@ newman run HealthCheckSuite.postman_collection.json \
       </div>
     </details>
 
+    <!-- 1.10 API Response Analysis Patterns -->
+    <details>
+      <summary>1.10 &mdash; API Response Analysis Patterns</summary>
+      <div class="detail-body">
+        <p>Getting a status code is the first layer. Understanding what the response <em>means</em> in context is what separates a junior analyst from a senior one. These four patterns will cover 90% of your response analysis work.</p>
+
+        <h4>Pattern 1: Waterfall Diagnosis</h4>
+        <p>You get a <code>200 OK</code> but the data is wrong. The API did not fail &mdash; it returned stale, incomplete, or incorrect data. This is the hardest class of bug because there is no error to Google.</p>
+        <pre><code><span class="comment">// Student enrollment returned 200, but status is wrong</span>
+<span class="method">GET</span> {{base_url}}/api/enrollments/EN-88421
+
+<span class="comment">// Response: 200 OK</span>
+{
+  <span class="string">"data"</span>: {
+    <span class="string">"enrollmentId"</span>: <span class="string">"EN-88421"</span>,
+    <span class="string">"studentCccid"</span>: <span class="string">"AAA9012"</span>,
+    <span class="string">"status"</span>: <span class="string">"pending"</span>,          <span class="comment">// &larr; Should be "active" &mdash; enrolled 3 days ago</span>
+    <span class="string">"homeCollege"</span>: <span class="string">"042"</span>,
+    <span class="string">"teachingCollege"</span>: <span class="string">"014"</span>,
+    <span class="string">"createdAt"</span>: <span class="string">"2026-04-03T14:22:00Z"</span>,
+    <span class="string">"updatedAt"</span>: <span class="string">"2026-04-03T14:22:00Z"</span>,  <span class="comment">// &larr; Never updated after creation!</span>
+    <span class="string">"syncedAt"</span>: null                  <span class="comment">// &larr; Never synced to teaching college</span>
+  }
+}</code></pre>
+        <p><strong>The waterfall:</strong> Trace upstream. The enrollment was created but never updated and never synced. Next step: check the teaching college's adapter status. Then check the sync job scheduler. Then check the teaching college's SIS health. You follow the data flow backward until you find where it stopped.</p>
+
+        <h4>Pattern 2: Response Diffing</h4>
+        <p>Compare a working college's response against a broken one. Side-by-side comparison reveals structural differences that point to the root cause.</p>
+        <div class="side-by-side">
+          <div class="side-good">
+            <h5>Working College (Foothill, 014)</h5>
+            <pre><code>{
+  "status": "healthy",
+  "sisAdapter": "peoplesoft",
+  "lastSync": "2026-04-06T06:15:00Z",
+  "syncInterval": 900,
+  "pendingCount": 3,
+  "authStatus": "valid",
+  "authExpiry": "2026-04-06T18:00:00Z"
+}</code></pre>
+          </div>
+          <div class="side-bad">
+            <h5>Broken College (Sacramento City, 042)</h5>
+            <pre><code>{
+  "status": "degraded",
+  "sisAdapter": "banner-ethos",
+  "lastSync": "2026-04-04T22:00:00Z",
+  "syncInterval": 900,
+  "pendingCount": 47,
+  "authStatus": "expired",
+  "authExpiry": "2026-04-05T03:00:00Z"
+}</code></pre>
+          </div>
+        </div>
+        <p>Immediately visible: <code>authStatus</code> is <code>"expired"</code>, <code>lastSync</code> is 36 hours stale, and <code>pendingCount</code> is 47 (vs 3). The diff tells the whole story.</p>
+
+        <h4>Pattern 3: Timestamp Forensics</h4>
+        <p>Every record has timestamps that tell you exactly where in the pipeline data got stuck. Learn to read them like a flight recorder.</p>
+        <pre><code>{
+  <span class="string">"enrollmentId"</span>: <span class="string">"EN-88421"</span>,
+  <span class="string">"createdAt"</span>:  <span class="string">"2026-04-03T14:22:00Z"</span>,   <span class="comment">// When the Exchange created the record</span>
+  <span class="string">"updatedAt"</span>:  <span class="string">"2026-04-03T14:22:00Z"</span>,   <span class="comment">// Last time ANY field changed</span>
+  <span class="string">"syncedAt"</span>:   null,                        <span class="comment">// When teaching college acknowledged it</span>
+  <span class="string">"canvasAt"</span>:   null,                        <span class="comment">// When Canvas roster was updated</span>
+  <span class="string">"lastAttempt"</span>: <span class="string">"2026-04-03T14:25:00Z"</span>    <span class="comment">// Last sync attempt (may have failed)</span>
+}</code></pre>
+        <div class="json-annotation"><span class="ja-field">createdAt = updatedAt</span><span class="ja-desc">Record was never modified after creation. The processing pipeline never picked it up.</span></div>
+        <div class="json-annotation"><span class="ja-field">syncedAt = null</span><span class="ja-desc">Teaching college never received or acknowledged this enrollment. Problem is between Exchange and the teaching college SIS.</span></div>
+        <div class="json-annotation"><span class="ja-field">canvasAt = null</span><span class="ja-desc">Canvas was never notified. Expected &mdash; if syncedAt is null, Canvas sync cannot proceed.</span></div>
+        <div class="json-annotation"><span class="ja-field">lastAttempt exists</span><span class="ja-desc">The system tried to sync 3 minutes after creation, but something failed. Check adapter logs for that timestamp.</span></div>
+
+        <h4>Pattern 4: Correlation ID Tracing</h4>
+        <p>If the API returns <code>X-Request-ID</code> or a <code>trace_id</code> field, this is your golden thread across systems. Copy it and use it to trace the request through logs.</p>
+        <pre><code><span class="comment">// Response Headers</span>
+HTTP/1.1 500 Internal Server Error
+X-Request-ID: req-7f3a2b91-e4c8-4d1a-b5f0-9821abcd3456
+X-Trace-ID: trace-042-20260406-143022-7f3a
+
+<span class="comment">// Response Body</span>
+{
+  <span class="string">"error"</span>: <span class="string">"SIS_ADAPTER_TIMEOUT"</span>,
+  <span class="string">"traceId"</span>: <span class="string">"trace-042-20260406-143022-7f3a"</span>,
+  <span class="string">"message"</span>: <span class="string">"Banner adapter at college 042 did not respond within 30000ms"</span>
+}</code></pre>
+        <p>When you escalate to infrastructure or a vendor, always include the <code>traceId</code>. It allows them to find the exact request in their logs without guessing. Put it in your Jira ticket comment: <em>"Trace ID: trace-042-20260406-143022-7f3a &mdash; please check adapter logs for this request."</em></p>
+
+        <h4>Response Anatomy: Full Enrollment Record</h4>
+        <p>This is what a complete, healthy enrollment response looks like with every field annotated:</p>
+        <pre><code>{
+  <span class="string">"data"</span>: {
+    <span class="string">"enrollmentId"</span>: <span class="string">"EN-90234"</span>,            <span class="comment">// Exchange-generated unique ID</span>
+    <span class="string">"studentCccid"</span>: <span class="string">"CCC1234567"</span>,          <span class="comment">// Statewide student identifier</span>
+    <span class="string">"studentName"</span>: <span class="string">"Maria Rodriguez"</span>,      <span class="comment">// Display name (not authoritative)</span>
+    <span class="string">"homeCollegeId"</span>: <span class="string">"042"</span>,                <span class="comment">// Where the student "belongs"</span>
+    <span class="string">"teachingCollegeId"</span>: <span class="string">"014"</span>,            <span class="comment">// Where the course is taught</span>
+    <span class="string">"courseCrn"</span>: <span class="string">"CRN-78901"</span>,              <span class="comment">// Course Reference Number</span>
+    <span class="string">"termCode"</span>: <span class="string">"SP2026"</span>,                  <span class="comment">// Academic term</span>
+    <span class="string">"status"</span>: <span class="string">"active"</span>,                    <span class="comment">// pending | active | dropped | completed</span>
+    <span class="string">"canvasCourseId"</span>: <span class="string">"45678"</span>,             <span class="comment">// Canvas LMS course ID (null if not synced)</span>
+    <span class="string">"canvasSectionId"</span>: <span class="string">"SEC-112"</span>,           <span class="comment">// Canvas section (cross-list target)</span>
+    <span class="string">"createdAt"</span>: <span class="string">"2026-04-01T10:00:00Z"</span>,   <span class="comment">// Record creation</span>
+    <span class="string">"updatedAt"</span>: <span class="string">"2026-04-01T10:15:00Z"</span>,   <span class="comment">// Last modification</span>
+    <span class="string">"syncedAt"</span>: <span class="string">"2026-04-01T10:12:00Z"</span>,    <span class="comment">// Teaching college confirmed</span>
+    <span class="string">"canvasAt"</span>: <span class="string">"2026-04-01T10:15:00Z"</span>,    <span class="comment">// Canvas roster updated</span>
+    <span class="string">"gradePassback"</span>: <span class="keyword">true</span>,                <span class="comment">// Grade sync enabled?</span>
+    <span class="string">"consortiumAgreement"</span>: <span class="keyword">true</span>           <span class="comment">// Financial aid consortium valid?</span>
+  },
+  <span class="string">"meta"</span>: {
+    <span class="string">"requestId"</span>: <span class="string">"req-abc123"</span>,
+    <span class="string">"responseTime"</span>: 142                    <span class="comment">// ms &mdash; track for performance trending</span>
+  }
+}</code></pre>
+
+        <h4>Common Gotchas</h4>
+        <div class="callout warn">
+          <strong>Timezone mismatches (UTC vs Pacific)</strong>
+          All API timestamps are in UTC (the <code>Z</code> suffix). California is UTC-7 (PDT) or UTC-8 (PST). When a college coordinator says "it broke at 2 PM," they mean 2 PM Pacific = 9 PM or 10 PM UTC. If you search for records "created after 2 PM" using UTC, you will miss the records by 7-8 hours. Always convert.
+        </div>
+        <ul>
+          <li><strong><code>null</code> vs missing field:</strong> <code>"syncedAt": null</code> means "we know this field exists but it has no value yet" (never synced). If <code>syncedAt</code> is entirely absent from the response, the API version may not support that field &mdash; different problem.</li>
+          <li><strong>String vs integer IDs:</strong> Some SIS platforms return college IDs as strings (<code>"042"</code>) and others as integers (<code>42</code>). A strict equality check (<code>===</code>) will fail across types. Always normalize to string when comparing.</li>
+          <li><strong>Empty arrays vs null:</strong> <code>"enrollments": []</code> means "we queried and found nothing." <code>"enrollments": null</code> may mean "the query failed silently." Treat them differently in your diagnosis.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 1.11 OAuth2 Deep Dive -->
+    <details>
+      <summary>1.11 &mdash; OAuth2 Deep Dive: The Full Token Lifecycle</summary>
+      <div class="detail-body">
+        <p>Section 1.4 covered the basics. This section goes deep into the full token lifecycle, JWT internals, and a production-grade pre-request script that handles every edge case.</p>
+
+        <h4>The Complete Client Credentials Flow</h4>
+        <div class="oauth-flow">
+          <div class="of-step"><span class="of-num">1</span><span class="of-label">Application requests token</span><span class="of-desc">POST /oauth2/token</span></div>
+          <div class="of-arrow">&darr;</div>
+          <div class="of-step"><span class="of-num">2</span><span class="of-label">Auth server validates client_id + secret</span><span class="of-desc">Checks credentials DB</span></div>
+          <div class="of-arrow">&darr;</div>
+          <div class="of-step"><span class="of-num">3</span><span class="of-label">Auth server checks requested scopes</span><span class="of-desc">enrollments.read, etc.</span></div>
+          <div class="of-arrow">&darr;</div>
+          <div class="of-step of-active"><span class="of-num">4</span><span class="of-label">Token issued (JWT)</span><span class="of-desc">access_token + expires_in</span></div>
+          <div class="of-arrow">&darr;</div>
+          <div class="of-step"><span class="of-num">5</span><span class="of-label">Client stores token in memory/env var</span><span class="of-desc">pm.environment.set()</span></div>
+          <div class="of-arrow">&darr;</div>
+          <div class="of-step"><span class="of-num">6</span><span class="of-label">Client sends token with every API request</span><span class="of-desc">Authorization: Bearer ...</span></div>
+          <div class="of-arrow">&darr;</div>
+          <div class="of-step"><span class="of-num">7</span><span class="of-label">API validates token signature + expiry</span><span class="of-desc">Checks exp claim</span></div>
+          <div class="of-arrow">&darr;</div>
+          <div class="of-step of-danger"><span class="of-num">8</span><span class="of-label">Token expires &rarr; 401 Unauthorized</span><span class="of-desc">Go back to step 1</span></div>
+        </div>
+
+        <h4>What Is Inside a JWT (JSON Web Token)</h4>
+        <p>A JWT has three parts separated by dots: <code>header.payload.signature</code>. The payload contains claims that tell you exactly who the token belongs to, what it can do, and when it expires.</p>
+        <pre><code><span class="comment">// Raw JWT (truncated for readability)</span>
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdmMtZXhjaGFuZ2Utc3VwcG9ydCIs
+Imlzcy....<span class="comment">[signature]</span>
+
+<span class="comment">// DECODED HEADER</span>
+{
+  <span class="string">"alg"</span>: <span class="string">"RS256"</span>,      <span class="comment">// Signing algorithm (RSA + SHA-256)</span>
+  <span class="string">"typ"</span>: <span class="string">"JWT"</span>,        <span class="comment">// Token type</span>
+  <span class="string">"kid"</span>: <span class="string">"key-2026-q2"</span> <span class="comment">// Key ID &mdash; which signing key was used</span>
+}
+
+<span class="comment">// DECODED PAYLOAD (the important part)</span>
+{
+  <span class="string">"sub"</span>: <span class="string">"cvc-exchange-support"</span>,       <span class="comment">// Subject: who this token identifies</span>
+  <span class="string">"iss"</span>: <span class="string">"https://auth.cvc.edu"</span>,        <span class="comment">// Issuer: which auth server created it</span>
+  <span class="string">"aud"</span>: <span class="string">"https://api.cvc.edu"</span>,         <span class="comment">// Audience: which API accepts it</span>
+  <span class="string">"iat"</span>: 1743940800,                    <span class="comment">// Issued At: Unix timestamp (April 6, 2026 08:00 UTC)</span>
+  <span class="string">"exp"</span>: 1743955200,                    <span class="comment">// Expiry: Unix timestamp (April 6, 2026 12:00 UTC)</span>
+  <span class="string">"scope"</span>: <span class="string">"enrollments.read colleges.read canvas.read"</span>,
+  <span class="string">"client_id"</span>: <span class="string">"cvc-exchange-support"</span>,
+  <span class="string">"jti"</span>: <span class="string">"tok-8f2a-4c91-b3e7"</span>            <span class="comment">// JWT ID: unique token identifier for audit</span>
+}</code></pre>
+        <div class="json-annotation"><span class="ja-field">sub (Subject)</span><span class="ja-desc">The service account name. If this says "staging-support" and you are hitting production, the token will be rejected.</span></div>
+        <div class="json-annotation"><span class="ja-field">iss (Issuer)</span><span class="ja-desc">Must match the API's expected issuer. A token from staging-auth.cvc.edu will be rejected by the production API.</span></div>
+        <div class="json-annotation"><span class="ja-field">exp (Expiry)</span><span class="ja-desc">Unix timestamp in seconds. Convert with: new Date(exp * 1000). If current time > exp, the token is dead.</span></div>
+        <div class="json-annotation"><span class="ja-field">scope</span><span class="ja-desc">Space-separated permissions. If you need enrollments.write but only have enrollments.read, you will get a 403.</span></div>
+
+        <h4>How to Decode a JWT in Postman</h4>
+        <p>Paste this into the <strong>Tests</strong> tab of any request to decode and inspect the current token:</p>
+        <pre><code><span class="comment">// Decode JWT in the Tests tab</span>
+<span class="keyword">const</span> token = pm.environment.get(<span class="string">"auth_token"</span>);
+<span class="keyword">if</span> (token) {
+    <span class="keyword">const</span> parts = token.split(<span class="string">'.'</span>);
+    <span class="keyword">const</span> header = JSON.parse(atob(parts[0]));
+    <span class="keyword">const</span> payload = JSON.parse(atob(parts[1]));
+
+    console.log(<span class="string">'=== JWT HEADER ==='</span>);
+    console.log(JSON.stringify(header, null, 2));
+
+    console.log(<span class="string">'=== JWT PAYLOAD ==='</span>);
+    console.log(JSON.stringify(payload, null, 2));
+
+    <span class="comment">// Check expiry</span>
+    <span class="keyword">const</span> expDate = <span class="keyword">new</span> Date(payload.exp * 1000);
+    <span class="keyword">const</span> now = <span class="keyword">new</span> Date();
+    <span class="keyword">const</span> minutesLeft = Math.round((expDate - now) / 60000);
+
+    console.log(<span class="string">`Token expires: ${expDate.toISOString()}`</span>);
+    console.log(<span class="string">`Minutes remaining: ${minutesLeft}`</span>);
+    console.log(<span class="string">`Scopes: ${payload.scope}`</span>);
+    console.log(<span class="string">`Issuer: ${payload.iss}`</span>);
+
+    <span class="keyword">if</span> (minutesLeft < 5) {
+        console.warn(<span class="string">'TOKEN EXPIRING IN LESS THAN 5 MINUTES'</span>);
+    }
+    <span class="keyword">if</span> (minutesLeft < 0) {
+        console.error(<span class="string">'TOKEN IS EXPIRED'</span>);
+    }
+}</code></pre>
+
+        <h4>Production-Grade Pre-Request Script</h4>
+        <p>This script goes beyond the basic version in 1.4. It decodes the JWT, checks the actual <code>exp</code> claim, uses a 5-minute buffer, logs every action, and handles all error states:</p>
+        <pre><code><span class="comment">// COLLECTION-LEVEL Pre-request Script: Robust OAuth2 Token Management</span>
+<span class="comment">// Set this at the collection level so every request inherits it.</span>
+
+(<span class="keyword">function</span>() {
+    <span class="keyword">const</span> token = pm.environment.get(<span class="string">"auth_token"</span>);
+    <span class="keyword">const</span> BUFFER_MS = 5 * 60 * 1000; <span class="comment">// 5-minute safety buffer</span>
+
+    <span class="comment">// Step 1: Check if we have a token at all</span>
+    <span class="keyword">if</span> (!token) {
+        console.log(<span class="string">'[AUTH] No token found. Requesting new token...'</span>);
+        requestNewToken();
+        <span class="keyword">return</span>;
+    }
+
+    <span class="comment">// Step 2: Decode the JWT to check expiry</span>
+    <span class="keyword">try</span> {
+        <span class="keyword">const</span> payload = JSON.parse(atob(token.split(<span class="string">'.'</span>)[1]));
+        <span class="keyword">const</span> expiresAt = payload.exp * 1000; <span class="comment">// Convert to ms</span>
+        <span class="keyword">const</span> now = Date.now();
+        <span class="keyword">const</span> minutesLeft = Math.round((expiresAt - now) / 60000);
+
+        <span class="keyword">if</span> (now >= expiresAt) {
+            console.warn(<span class="string">`[AUTH] Token EXPIRED ${Math.abs(minutesLeft)} minutes ago. Refreshing...`</span>);
+            requestNewToken();
+        } <span class="keyword">else if</span> (now >= expiresAt - BUFFER_MS) {
+            console.warn(<span class="string">`[AUTH] Token expires in ${minutesLeft} min (within buffer). Refreshing...`</span>);
+            requestNewToken();
+        } <span class="keyword">else</span> {
+            console.log(<span class="string">`[AUTH] Token valid. Expires in ${minutesLeft} min. Subject: ${payload.sub}`</span>);
+        }
+    } <span class="keyword">catch</span> (e) {
+        console.error(<span class="string">'[AUTH] Failed to decode JWT. Requesting new token...'</span>, e.message);
+        requestNewToken();
+    }
+
+    <span class="keyword">function</span> requestNewToken() {
+        <span class="keyword">const</span> authUrl = pm.environment.get(<span class="string">"auth_url"</span>);
+        <span class="keyword">const</span> clientId = pm.environment.get(<span class="string">"client_id"</span>);
+        <span class="keyword">const</span> clientSecret = pm.environment.get(<span class="string">"client_secret"</span>);
+
+        <span class="keyword">if</span> (!authUrl || !clientId || !clientSecret) {
+            console.error(<span class="string">'[AUTH] Missing auth_url, client_id, or client_secret in environment!'</span>);
+            <span class="keyword">return</span>;
+        }
+
+        pm.sendRequest({
+            url: authUrl,
+            method: <span class="string">"POST"</span>,
+            header: { <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span> },
+            body: {
+                mode: <span class="string">"urlencoded"</span>,
+                urlencoded: [
+                    { key: <span class="string">"grant_type"</span>, value: <span class="string">"client_credentials"</span> },
+                    { key: <span class="string">"client_id"</span>, value: clientId },
+                    { key: <span class="string">"client_secret"</span>, value: clientSecret },
+                    { key: <span class="string">"scope"</span>, value: <span class="string">"enrollments.read colleges.read canvas.read"</span> }
+                ]
+            }
+        }, <span class="keyword">function</span>(err, res) {
+            <span class="keyword">if</span> (err) {
+                console.error(<span class="string">'[AUTH] Token request FAILED:'</span>, err);
+                <span class="keyword">return</span>;
+            }
+            <span class="keyword">if</span> (res.code !== 200) {
+                console.error(<span class="string">`[AUTH] Token request returned ${res.code}: ${res.text()}`</span>);
+                <span class="keyword">return</span>;
+            }
+            <span class="keyword">const</span> json = res.json();
+            pm.environment.set(<span class="string">"auth_token"</span>, json.access_token);
+            console.log(<span class="string">`[AUTH] New token acquired. Expires in ${json.expires_in}s.`</span>);
+        });
+    }
+})();</code></pre>
+
+        <h4>OAuth2 Failure Diagnosis Table</h4>
+        <table class="status-table">
+          <thead><tr><th>Symptom</th><th>Status</th><th>Error</th><th>Root Cause</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td class="code s4xx">401</td><td>Unauthorized</td><td class="context"><code>invalid_client</code></td><td class="context">Wrong <code>client_id</code></td><td class="context">Verify client_id in environment matches the auth server registration</td></tr>
+            <tr><td class="code s4xx">401</td><td>Unauthorized</td><td class="context"><code>invalid_client</code></td><td class="context">Wrong <code>client_secret</code></td><td class="context">Secret may have been rotated. Check with the team for current secret.</td></tr>
+            <tr><td class="code s4xx">400</td><td>Bad Request</td><td class="context"><code>unsupported_grant_type</code></td><td class="context">Typo in <code>grant_type</code> or using wrong flow</td><td class="context">Must be exactly <code>client_credentials</code> (not <code>authorization_code</code>)</td></tr>
+            <tr><td class="code s4xx">403</td><td>Forbidden</td><td class="context"><code>invalid_scope</code></td><td class="context">Requesting a scope the client is not authorized for</td><td class="context">Check which scopes are registered for your client_id. Remove the offending scope.</td></tr>
+            <tr><td class="code s4xx">401</td><td>Unauthorized</td><td class="context"><code>invalid_token</code></td><td class="context">Token used after expiry</td><td class="context">Pre-request script should catch this. If not, manually refresh.</td></tr>
+            <tr><td class="code s4xx">401</td><td>Unauthorized</td><td class="context"><code>invalid_token</code> + issuer mismatch</td><td class="context">Token from staging auth used against production API</td><td class="context">Check <code>iss</code> claim in decoded JWT. Switch to correct environment.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout warn">
+          <strong>Security: Never commit tokens to shared collections.</strong>
+          Tokens in Postman collection JSON files end up in team workspaces, Git repos, and export files. Always store tokens in <em>environment variables</em>, and make sure your environment file is not committed to version control. The pre-request script handles token lifecycle automatically &mdash; there is never a reason to hardcode a token.
+        </div>
+      </div>
+    </details>
+
+    <!-- 1.12 Monitoring Dashboard with Postman Monitors -->
+    <details>
+      <summary>1.12 &mdash; Building a Monitoring Dashboard with Postman Monitors</summary>
+      <div class="detail-body">
+        <p>Manual health checks are good for diagnosis. Automated monitors are what catch failures before colleges report them. This is the difference between reactive and proactive support.</p>
+
+        <h4>What Are Postman Monitors?</h4>
+        <p>Postman Monitors are scheduled collection runs that execute on Postman's cloud infrastructure. You configure a collection, a schedule, and alert rules. The monitor runs your requests on a timer, evaluates your test assertions, and notifies you when something fails.</p>
+
+        <h4>Setting Up the Morning Monitor</h4>
+        <ol>
+          <li>Open your <strong>CVC Morning Health Check</strong> collection (from section 1.8b)</li>
+          <li>Click the <strong>...</strong> menu next to the collection name &rarr; <strong>Monitor collection</strong></li>
+          <li>Configure:
+            <ul>
+              <li><strong>Name:</strong> "CVC Health Monitor &mdash; Every 30 min"</li>
+              <li><strong>Environment:</strong> Select your Production environment</li>
+              <li><strong>Schedule:</strong> Every 30 minutes, Monday through Friday, 6 AM to 8 PM Pacific</li>
+              <li><strong>Alerts:</strong> Email on failure. If Slack integration is available, add a Slack webhook.</li>
+            </ul>
+          </li>
+          <li>Click <strong>Create Monitor</strong></li>
+        </ol>
+
+        <h4>Alert Configuration</h4>
+        <p>Monitors trigger alerts when any <code>pm.test()</code> assertion fails. Structure your tests to produce actionable alerts:</p>
+        <pre><code><span class="comment">// In the Health Check collection, Tests tab:</span>
+pm.test(<span class="string">"All colleges healthy"</span>, <span class="keyword">function</span>() {
+    <span class="keyword">const</span> colleges = pm.response.json().data;
+    <span class="keyword">const</span> degraded = colleges.filter(c => c.status !== <span class="string">"healthy"</span>);
+
+    <span class="keyword">if</span> (degraded.length > 0) {
+        <span class="comment">// This message appears in the alert email</span>
+        console.error(<span class="string">"DEGRADED COLLEGES:"</span>, degraded.map(c =>
+            <span class="string">`${c.name} (${c.id}): ${c.status} | Last sync: ${c.lastSync}`</span>
+        ).join(<span class="string">"\n"</span>));
+    }
+
+    pm.expect(degraded.length, <span class="string">"Number of degraded colleges"</span>).to.equal(0);
+});
+
+pm.test(<span class="string">"No excessive pending enrollments"</span>, <span class="keyword">function</span>() {
+    <span class="keyword">const</span> count = pm.response.json().data.length;
+    <span class="comment">// If >500 pending in 24h, something is stuck</span>
+    pm.expect(count, <span class="string">"Pending enrollment count"</span>).to.be.below(500);
+});</code></pre>
+
+        <h4>Connecting to the CVC Morning Monitor Concept</h4>
+        <p>This ties directly into the morning routine from the <a href="/AppAnalyst/">main AppAnalyst site</a>. Instead of manually running the health check at 8:05 AM, the monitor has already run 16 times since 6 AM. When you open your dashboard, you are reviewing results, not generating them. This saves 10-15 minutes per day and catches overnight failures that manual checks would miss until morning.</p>
+
+        <h4>Monitor Limitations and Alternatives</h4>
+        <table class="status-table">
+          <thead><tr><th>Approach</th><th>Pros</th><th>Cons</th></tr></thead>
+          <tbody>
+            <tr><td class="code" style="color: var(--orange);">Postman Monitor</td><td class="context">No infrastructure needed, built-in alerts, dashboard UI</td><td class="context">Free tier: 1,000 runs/month. 30-min interval = ~720 runs/month for one monitor. Limited to 1-2 monitors on free tier.</td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">Newman + Cron</td><td class="context">Unlimited runs, full control, runs on your server, no Postman account needed</td><td class="context">Requires server access, cron job setup, and custom alerting (email/Slack webhook).</td></tr>
+            <tr><td class="code" style="color: var(--purple);">Newman + CI/CD</td><td class="context">Integrates with GitHub Actions, runs on schedule, free for public repos</td><td class="context">More complex setup, limited to CI/CD pipeline scheduling granularity.</td></tr>
+          </tbody>
+        </table>
+
+        <h4>The Canary Test Pattern</h4>
+        <p>A "canary test" is a synthetic request that mimics what a real student enrollment does. If the canary fails, you know the system is broken before any real student is affected.</p>
+        <pre><code><span class="comment">// Canary test: create and immediately verify a test enrollment</span>
+<span class="comment">// Use a designated test student CCCID that all 116 colleges recognize</span>
+<span class="comment">// This runs every 30 minutes via monitor</span>
+
+<span class="comment">// Request 1: Create test enrollment</span>
+<span class="method">POST</span> {{base_url}}/api/enrollments
+{
+  <span class="string">"studentCccid"</span>: <span class="string">"TEST-CANARY-001"</span>,
+  <span class="string">"homeCollegeId"</span>: <span class="string">"TEST"</span>,
+  <span class="string">"teachingCollegeId"</span>: <span class="string">"TEST"</span>,
+  <span class="string">"courseCrn"</span>: <span class="string">"CANARY-CRN"</span>,
+  <span class="string">"termCode"</span>: <span class="string">"TEST"</span>,
+  <span class="string">"isCanary"</span>: <span class="keyword">true</span>  <span class="comment">// Flag so the system knows to auto-delete</span>
+}
+
+<span class="comment">// Request 2 (5 seconds later): Verify it exists</span>
+<span class="method">GET</span> {{base_url}}/api/enrollments?studentCccid=TEST-CANARY-001&amp;isCanary=true
+
+<span class="comment">// Tests tab:</span>
+pm.test(<span class="string">"Canary enrollment created and retrievable"</span>, <span class="keyword">function</span>() {
+    <span class="keyword">const</span> data = pm.response.json().data;
+    pm.expect(data.length).to.be.above(0);
+    pm.expect(data[0].status).to.eql(<span class="string">"pending"</span>);
+});
+
+<span class="comment">// Request 3: Clean up the canary</span>
+<span class="method">DELETE</span> {{base_url}}/api/enrollments/{{canary_enrollment_id}}?isCanary=true</code></pre>
+
+        <div class="callout">
+          <strong>The goal:</strong> You should never learn about a failure from a college coordinator's email. By the time they notice, your monitor should have already flagged it, and you should already be diagnosing. That is the difference between a support team that fights fires and one that prevents them.
+        </div>
+      </div>
+    </details>
+
   </div>
 </section>
 
@@ -1600,6 +2106,321 @@ component = Identity AND created >= -90d ORDER BY created DESC</code></pre>
       </div>
     </details>
 
+    <!-- 2.10 Advanced JQL -->
+    <details>
+      <summary>2.10 &mdash; Advanced JQL: Building a Personal Analytics Engine</summary>
+      <div class="detail-body">
+        <p>Section 2.4 gave you the essentials. This section turns JQL into a personal analytics engine that gives you visibility into patterns, workload, and performance that most analysts never see.</p>
+
+        <h4>JQL Functions You Should Know</h4>
+        <table class="status-table">
+          <thead><tr><th>Function</th><th>Returns</th><th>Example Use</th></tr></thead>
+          <tbody>
+            <tr><td class="code" style="color: var(--accent-light);">currentUser()</td><td>Your username</td><td class="context">Filter results to your own tickets without hardcoding your name</td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">startOfWeek()</td><td>Monday 00:00 of current week</td><td class="context">Weekly reporting: <code>created >= startOfWeek()</code></td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">endOfWeek()</td><td>Sunday 23:59 of current week</td><td class="context">Less common; useful for scheduling queries</td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">startOfMonth()</td><td>1st of current month 00:00</td><td class="context">Monthly metrics: <code>resolved >= startOfMonth()</code></td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">startOfDay()</td><td>Today at 00:00</td><td class="context">Intra-day tracking: <code>created >= startOfDay()</code></td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">updatedDate</td><td>Date the ticket was last updated</td><td class="context">Stale ticket detection: <code>updatedDate < -3d</code></td></tr>
+          </tbody>
+        </table>
+
+        <h4>Complex Queries for Real-World Analysis</h4>
+        <pre><code><span class="comment">// Tickets where I was the resolver this month</span>
+status changed to Resolved by currentUser() after startOfMonth()
+
+<span class="comment">// Tickets that bounced back (reopened after resolution)</span>
+status changed from Resolved to "In Progress"
+<span class="comment">// These are YOUR quality metric &mdash; if tickets bounce back, your resolutions</span>
+<span class="comment">// may not be thorough enough. Track this monthly.</span>
+
+<span class="comment">// Tickets waiting on me for more than 24 hours</span>
+assignee = currentUser() AND status = "In Progress" AND updated < -1d
+<span class="comment">// If this returns results, you have work to do RIGHT NOW.</span>
+
+<span class="comment">// All tickets mentioning Sacramento City (search in text and summary)</span>
+text ~ "Sacramento City" OR summary ~ "SCC" OR summary ~ "042"
+
+<span class="comment">// P1/P2 tickets created outside business hours (indicates after-hours failures)</span>
+priority in (Critical, High) AND created >= -7d
+<span class="comment">// Note: Jira JQL cannot filter by hour-of-day natively.</span>
+<span class="comment">// Export results to CSV and filter in a spreadsheet for time-of-day analysis.</span>
+
+<span class="comment">// Unresolved tickets by SIS platform (trend analysis)</span>
+labels = banner AND status not in (Resolved, Closed) ORDER BY priority DESC
+
+<span class="comment">// My workload distribution by component</span>
+assignee = currentUser() AND status not in (Resolved, Closed) ORDER BY component ASC
+
+<span class="comment">// Tickets that have been in "Waiting on Vendor" for too long</span>
+status = "Waiting on Vendor" AND updated < -5d AND assignee = currentUser()
+<span class="comment">// Follow up with the vendor. If no response in 5 days, escalate.</span>
+
+<span class="comment">// Everything I touched this week (assigned, commented, transitioned)</span>
+(assignee was currentUser() OR assignee = currentUser()) AND updated >= startOfWeek()
+
+<span class="comment">// Seasonal analysis: all tickets from the last registration period</span>
+created >= "2026-01-05" AND created <= "2026-01-20" AND component = Enrollment
+ORDER BY created ASC</code></pre>
+
+        <h4>Saved Filter Naming Convention</h4>
+        <p>Without a naming convention, saved filters become an unsearchable mess within a month. Use this pattern:</p>
+        <pre><code><span class="comment">// Pattern: [Owner] - [Purpose] - [Frequency]</span>
+
+HFan - My Open Tickets - Daily
+HFan - Aging P2s - Daily
+HFan - Weekly Resolution Count - Friday
+HFan - Banner Trend (30d) - Monthly
+HFan - Reopened Tickets - Weekly
+Team - All P1 Active - Always
+Team - Unassigned Queue - Daily
+Team - SLA At Risk - Hourly</code></pre>
+
+        <h4>Sharing Filters with the Team</h4>
+        <ol>
+          <li>Open the filter in Jira</li>
+          <li>Click <strong>Details</strong> &rarr; <strong>Edit permissions</strong></li>
+          <li>Add your project or group (e.g., "CVC Exchange Support Team")</li>
+          <li>Team members can then add your shared filter to their own dashboards</li>
+        </ol>
+        <p>Shared filters are powerful because everyone sees the same data. When you say "the aging P2 filter has 7 tickets" in standup, everyone can verify it.</p>
+
+        <h4>Using JQL Results as Dashboard Gadgets</h4>
+        <ul>
+          <li><strong>Filter Results gadget:</strong> Displays JQL results as a table. Best for "My Open Tickets" or "P1 Active."</li>
+          <li><strong>Pie Chart gadget:</strong> Groups JQL results by a field (component, priority, assignee). Best for workload distribution.</li>
+          <li><strong>Two-Dimensional Filter Statistics:</strong> Cross-tabulates two fields (e.g., component vs. priority). Best for identifying hot spots &mdash; "Banner + P1 has 5 tickets."</li>
+          <li><strong>Created vs. Resolved Chart:</strong> Time series showing inflow vs. outflow. If created > resolved consistently, you are falling behind.</li>
+        </ul>
+
+        <h4>Exporting JQL Results to CSV</h4>
+        <p>For analysis that JQL cannot do (time-of-day patterns, pivot tables, charts for management):</p>
+        <ol>
+          <li>Run your JQL query in the Issue Navigator</li>
+          <li>Click <strong>Export</strong> (top right) &rarr; <strong>CSV (All fields)</strong></li>
+          <li>Open in Excel or Google Sheets</li>
+          <li>Use pivot tables to analyze by date, college, component, or resolution time</li>
+        </ol>
+
+        <div class="callout">
+          <strong>The analyst who can pull data is good. The analyst who can pull data AND tell a story with it is indispensable.</strong> JQL is the query language. The story comes from how you interpret the results and present them to leadership.
+        </div>
+      </div>
+    </details>
+
+    <!-- 2.11 SLA Management -->
+    <details>
+      <summary>2.11 &mdash; SLA Management: The Numbers That Matter</summary>
+      <div class="detail-body">
+        <p>SLA compliance is the single most visible metric for a support team. It is the number leadership reviews, the number that determines staffing, and the number that colleges use to evaluate whether the Exchange is meeting its obligations. Understanding SLA mechanics is not optional.</p>
+
+        <h4>What Is an SLA?</h4>
+        <p>A Service Level Agreement is a contractual commitment to respond to and resolve issues within defined timeframes, based on severity. The SLA is not a suggestion &mdash; it is a promise to 116 colleges that when something breaks, it will be addressed within a predictable window.</p>
+
+        <h4>CVC SLA Tiers</h4>
+        <div class="sla-grid">
+          <div class="sla-card">
+            <span class="sla-badge" style="color: var(--red);">P1</span>
+            <div class="sla-detail">
+              <div class="sla-title">Critical &mdash; Multiple colleges down or >100 students affected</div>
+              <div class="sla-times">Response: 30 min &nbsp;|&nbsp; Resolution: 4 hours</div>
+            </div>
+          </div>
+          <div class="sla-card">
+            <span class="sla-badge" style="color: var(--orange);">P2</span>
+            <div class="sla-detail">
+              <div class="sla-title">High &mdash; Single college degraded or <100 students affected</div>
+              <div class="sla-times">Response: 2 hours &nbsp;|&nbsp; Resolution: 8 hours</div>
+            </div>
+          </div>
+          <div class="sla-card">
+            <span class="sla-badge" style="color: var(--blue);">P3</span>
+            <div class="sla-detail">
+              <div class="sla-title">Medium &mdash; Individual student issues, isolated errors</div>
+              <div class="sla-times">Response: 4 hours &nbsp;|&nbsp; Resolution: 24 hours (1 business day)</div>
+            </div>
+          </div>
+          <div class="sla-card">
+            <span class="sla-badge" style="color: var(--text-dim);">P4</span>
+            <div class="sla-detail">
+              <div class="sla-title">Low &mdash; Enhancements, documentation, non-urgent cleanup</div>
+              <div class="sla-times">Response: 1 business day &nbsp;|&nbsp; Resolution: 5 business days</div>
+            </div>
+          </div>
+        </div>
+
+        <h4>How Jira Tracks SLA</h4>
+        <ul>
+          <li><strong>Time to First Response:</strong> Measured from ticket creation to the first comment or status change by the support team. This is your "response" SLA.</li>
+          <li><strong>Time to Resolution:</strong> Measured from ticket creation to transition to "Resolved." This is your "resolution" SLA.</li>
+          <li><strong>SLA clock pauses:</strong> The clock pauses when the ticket is in "Waiting on Reporter" or "Waiting on Vendor." This is why accurate state transitions matter &mdash; if you are waiting for a college to respond and forget to transition the ticket, the SLA clock keeps running against you.</li>
+        </ul>
+
+        <h4>SLA Clock Rules</h4>
+        <table class="status-table">
+          <thead><tr><th>Ticket Status</th><th>SLA Clock</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td class="code" style="color: var(--text);">Open</td><td style="color: var(--red); font-weight: 600;">RUNNING</td><td class="context">Nobody has acknowledged it yet. The college is waiting.</td></tr>
+            <tr><td class="code" style="color: var(--blue);">In Progress</td><td style="color: var(--red); font-weight: 600;">RUNNING</td><td class="context">You are actively working. Clock still counts against resolution target.</td></tr>
+            <tr><td class="code" style="color: var(--orange);">Waiting on Reporter</td><td style="color: var(--green); font-weight: 600;">PAUSED</td><td class="context">Ball is in their court. Not fair to count this against your resolution time.</td></tr>
+            <tr><td class="code" style="color: var(--orange);">Waiting on Vendor</td><td style="color: var(--green); font-weight: 600;">PAUSED</td><td class="context">Third party dependency. You cannot resolve what you do not control.</td></tr>
+            <tr><td class="code" style="color: var(--green);">Resolved</td><td style="color: var(--green); font-weight: 600;">STOPPED</td><td class="context">SLA calculation complete. Time from Open to Resolved = your resolution time.</td></tr>
+            <tr><td class="code" style="color: var(--text-dim);">Closed</td><td style="color: var(--text-dim);">N/A</td><td class="context">Post-resolution confirmation. SLA was already calculated at Resolved.</td></tr>
+          </tbody>
+        </table>
+
+        <h4>What to Do When SLA Is About to Breach</h4>
+        <ol>
+          <li><strong>15 minutes before breach:</strong> If you cannot resolve it in time, escalate. Post in the team Campfire: "CVC-XXXX P2 approaching 8-hour SLA. Need help with [specific blocker]."</li>
+          <li><strong>If waiting on a vendor:</strong> Make sure the ticket is in "Waiting on Vendor" (clock paused). If it is still "In Progress," transition it NOW.</li>
+          <li><strong>If you missed the SLA:</strong> Document why in the ticket. "SLA breached due to 6-hour wait for Riverside IT credential rotation. Recommendation: establish emergency contact protocol for after-hours credential issues."</li>
+          <li><strong>Pattern of breaches:</strong> If the same type of ticket consistently breaches SLA, it is a systemic issue. Raise it in Basecamp as a process improvement discussion.</li>
+        </ol>
+
+        <h4>Calculating Your Personal SLA Compliance</h4>
+        <pre><code><span class="comment">// JQL: All tickets you resolved this month</span>
+status changed to Resolved by currentUser() after startOfMonth()
+
+<span class="comment">// Export to CSV. For each ticket, check:</span>
+<span class="comment">//   Created date → Resolved date → Elapsed business hours</span>
+<span class="comment">//   Minus time in "Waiting" states = your actual resolution time</span>
+<span class="comment">//   Compare to SLA target based on priority</span>
+<span class="comment">//</span>
+<span class="comment">// Compliance rate = (tickets met SLA / total tickets) * 100</span>
+<span class="comment">//</span>
+<span class="comment">// Target: 95% for P1/P2, 90% for P3, 85% for P4</span></code></pre>
+
+        <h4>Monthly SLA Reporting</h4>
+        <p>What to include in your monthly SLA report for management:</p>
+        <ul>
+          <li><strong>Overall compliance rate</strong> by priority tier</li>
+          <li><strong>Trend line</strong> &mdash; are we improving or degrading month over month?</li>
+          <li><strong>Breach analysis</strong> &mdash; for every breached ticket, why did it breach and what would prevent it next time?</li>
+          <li><strong>Top offenders</strong> &mdash; which colleges or components generate the most SLA-breaching tickets?</li>
+          <li><strong>Recommendations</strong> &mdash; "If we had auto-alerting for Banner OAuth expiry, 3 of our 5 P2 breaches this month would not have occurred."</li>
+        </ul>
+
+        <h4>SLA Gaming: Why "Resolved" Matters</h4>
+        <div class="callout warn">
+          <strong>Do not game the SLA.</strong>
+          It is technically possible to move a ticket to "Resolved" prematurely to stop the clock, then reopen it later. This is dishonest, undermines the team's metrics, and will be caught in quality reviews. If a ticket is not truly resolved, it should not be in "Resolved" status. Period.
+        </div>
+
+        <h4>Negotiating SLA for Systemic Issues</h4>
+        <p>Sometimes the SLA target is unrealistic for a specific class of issue. Example: "Vendor X takes 48 hours to respond, but our P2 SLA says 8 hours." The correct approach:</p>
+        <ol>
+          <li>Document the pattern: collect 5+ tickets where this vendor's response time caused SLA breach</li>
+          <li>Calculate the impact: "We breached SLA 8 times this quarter due to Vendor X response times"</li>
+          <li>Propose a solution: "Create a separate SLA category for vendor-dependent issues with a 48-hour resolution target, OR escalate the vendor SLA in the next contract renewal"</li>
+          <li>Present to leadership with data, not opinions</li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 2.12 Ticket Writing Masterclass -->
+    <details>
+      <summary>2.12 &mdash; Ticket Writing Masterclass: The Art of Documentation</summary>
+      <div class="detail-body">
+        <p>The single biggest differentiator between a junior and senior support analyst is ticket quality. A well-written ticket saves hours of back-and-forth, enables knowledge transfer, and builds your professional reputation. A poorly-written ticket creates confusion, delays resolution, and makes you look unprepared.</p>
+
+        <h4>The STAR Format for Ticket Descriptions</h4>
+        <ul>
+          <li><strong>Situation:</strong> What is happening? Who is affected? What is the scope?</li>
+          <li><strong>Task:</strong> What needs to be done? What is the expected outcome?</li>
+          <li><strong>Action:</strong> What have you already done? What diagnostic steps were taken?</li>
+          <li><strong>Result:</strong> What was found? What is the current state? What is the next step?</li>
+        </ul>
+
+        <h4>Before vs After: The Ticket Rewrite</h4>
+        <div class="side-by-side">
+          <div class="side-bad">
+            <h5>Bad Ticket</h5>
+            <p><strong>Summary:</strong> Student can't access Canvas</p>
+            <p><strong>Description:</strong> A student at SCC called and said they can't get into their online class. Please fix.</p>
+            <p><strong>Priority:</strong> P3</p>
+            <p><strong>Component:</strong> (none)</p>
+            <p><strong>Labels:</strong> (none)</p>
+            <p style="margin-top: 10px; color: var(--red); font-size: 11px; font-family: var(--mono);">Problems: No college code, no CCCID, no SIS type, no steps taken, no error codes, no Postman evidence, no components/labels for trend analysis. The next analyst has nothing to work with.</p>
+          </div>
+          <div class="side-good">
+            <h5>Good Ticket</h5>
+            <p><strong>Summary:</strong> Canvas access denied &mdash; Sacramento City (042) &mdash; Banner &mdash; active enrollment but "not registered" in Canvas</p>
+            <p><strong>Description:</strong></p>
+            <p style="font-size: 11px;"><strong>Situation:</strong> Student Maria R. (CCCID: CCC1234567) is enrolled in CRN-78901 (MATH 101, SP2026) at SCC. SIS shows active enrollment. Canvas shows "You are not enrolled in this course."</p>
+            <p style="font-size: 11px;"><strong>Task:</strong> Restore Canvas access for this student.</p>
+            <p style="font-size: 11px;"><strong>Action:</strong> Postman diagnostic: enrollment status=active, syncedAt=April 3, canvasAt=null. SIS import for course 45678 shows "failed: invalid section ID." See attached CVC-4915-diag.json.</p>
+            <p style="font-size: 11px;"><strong>Result:</strong> Root cause: Canvas section ID mismatch. Waiting on Canvas admin to verify section mapping.</p>
+            <p><strong>Priority:</strong> P3 &nbsp;|&nbsp; <strong>Component:</strong> Canvas &nbsp;|&nbsp; <strong>Labels:</strong> banner, canvas-sync</p>
+          </div>
+        </div>
+
+        <h4>Writing Resolution Notes That Last</h4>
+        <p>The resolution note is the most important part of the ticket. It is what a new analyst will read 6 months from now when the same issue happens again.</p>
+        <pre><code><span class="keyword">## Resolution</span>
+<span class="string">Root Cause:</span> Canvas course sections for CRN-78901 were restructured by the
+instructor on April 2. The new section IDs did not match the Exchange's
+enrollment mapping table, causing the SIS import to Canvas to fail silently
+for all 12 cross-enrolled students.
+
+<span class="string">Fix Applied:</span>
+1. Canvas admin at De Anza updated section structure to match Exchange mapping
+2. Exchange team re-ran SIS import for course 45678
+3. All 12 students now appear in Canvas roster (verified via Postman at 11:05 AM)
+
+<span class="string">Prevention:</span>
+- Created P4 ticket CVC-4920: "Add section ID validation to pre-sync checks"
+- Notified De Anza Canvas admin to communicate section changes before implementing
+
+<span class="string">Time spent:</span> 2.5 hours (diagnosis: 30 min, waiting on Canvas admin: 1.5 hours,
+verification: 30 min)</code></pre>
+
+        <h4>Internal Comments vs Customer-Visible Comments</h4>
+        <ul>
+          <li><strong>Internal comments</strong> (visible only to your team): Technical details, Postman output, speculation about root cause, notes about vendor conversations. Use freely &mdash; more detail is always better internally.</li>
+          <li><strong>Customer-visible comments</strong> (visible to the college coordinator): Professional, jargon-free, action-oriented. "We've identified the issue as a section mapping mismatch in Canvas. We're working with your Canvas admin to correct it. ETA: 2 hours."</li>
+          <li><strong>Never put internal frustrations in customer-visible comments.</strong> "The SIS is terrible" or "this keeps happening because the vendor is slow" is inappropriate for customer-facing communication.</li>
+        </ul>
+
+        <h4>Using Code Blocks in Jira</h4>
+        <p>When pasting Postman responses or log snippets into Jira, always use code blocks. In Jira's editor:</p>
+        <pre><code><span class="comment">// In Jira's rich text editor, use the code block button</span>
+<span class="comment">// Or in markdown mode, use triple backticks:</span>
+
+```json
+{
+  "status": "degraded",
+  "lastSync": "2026-04-04T22:00:00Z",
+  "authStatus": "expired"
+}
+```
+
+<span class="comment">// This prevents the JSON from being reformatted as paragraph text,</span>
+<span class="comment">// preserves indentation, and makes it copyable.</span></code></pre>
+
+        <h4>Linking Related Tickets</h4>
+        <table class="status-table">
+          <thead><tr><th>Link Type</th><th>When to Use</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td class="code" style="color: var(--accent-light);">duplicates</td><td class="context">Same issue reported by different colleges</td><td class="context">CVC-4892 duplicates CVC-4895 (both are Banner OAuth at Riverside)</td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">is caused by</td><td class="context">Root cause ticket identified</td><td class="context">CVC-4915 (Canvas sync failure) is caused by CVC-4920 (section ID mismatch)</td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">is blocked by</td><td class="context">Cannot proceed until another ticket is resolved</td><td class="context">CVC-4901 (CCCID merge) is blocked by CVC-4899 (merge tool access request)</td></tr>
+            <tr><td class="code" style="color: var(--accent-light);">relates to</td><td class="context">Related but independent issues</td><td class="context">CVC-4930 (mass enrollment failure) relates to CVC-4935 (capacity planning)</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Sub-tasks vs New Tickets</h4>
+        <ul>
+          <li><strong>Create a sub-task</strong> when: the work is part of resolving the parent ticket and cannot exist independently. Example: "Verify Canvas roster after fix" is a sub-task of the main enrollment sync ticket.</li>
+          <li><strong>Create a new ticket</strong> when: the work is independent and has its own SLA. Example: discovering a CCCID duplicate while investigating an enrollment issue &mdash; the duplicate needs its own ticket because it has its own resolution path.</li>
+        </ul>
+
+        <h4>The "Friday Future Self" Test</h4>
+        <div class="callout">
+          <strong>Before closing any ticket, ask yourself:</strong> If I read this ticket on Monday morning with zero memory of what happened, would I understand the issue, the diagnosis, the fix, and why it worked? If the answer is no, add more detail to the resolution note. Your Friday self owes your Monday self a clear record.
+        </div>
+      </div>
+    </details>
+
   </div>
 </section>
 
@@ -1718,6 +2539,544 @@ component = Identity AND created >= -90d ORDER BY created DESC</code></pre>
           <li><strong>Post weekly updates in the team project.</strong> Even a brief "Here's what I worked on, here's what I learned, here's what I'm blocked on" post builds trust and visibility with your supervisor and team.</li>
           <li><strong>Bookmark the emergency project.</strong> This is the one project where speed matters more than polish. Know how to post there quickly when an incident unfolds.</li>
         </ul>
+      </div>
+    </details>
+
+    <!-- 3.7 Effective Basecamp Messages -->
+    <details>
+      <summary>3.7 &mdash; Writing Effective Basecamp Messages: A Communication Framework</summary>
+      <div class="detail-body">
+        <p>Knowing what to write in Basecamp is different from knowing how to write it. This section provides copy-paste-ready templates and a framework for communicating clearly to different audiences.</p>
+
+        <h4>The BLUF Principle (Bottom Line Up Front)</h4>
+        <p>Military communication doctrine, adopted by the best technical teams: put the conclusion in the first sentence. The reader should know the situation after reading one line. Details follow for those who need them.</p>
+        <ul>
+          <li><strong>Bad:</strong> "So earlier today around 2 PM, we started noticing some issues with a few colleges, and after some investigation, it looks like there might be a problem with the Colleague SIS instance that serves three colleges..."</li>
+          <li><strong>Good:</strong> "Three Colleague colleges (Canyons, AV, Citrus) are down due to unannounced SIS maintenance. ETA for restoration: 4 PM. 18 enrollments are delayed but no data is lost."</li>
+        </ul>
+
+        <h4>Template: Technical Update</h4>
+        <div class="template-block">
+          <span class="tpl-label">Message Board &mdash; Technical Update</span>
+          <strong>BLUF:</strong> [One sentence: what happened, what is the impact, what is the status]<br><br>
+          <strong>Context:</strong> [2-3 sentences of background for anyone not already aware]<br><br>
+          <strong>What we did:</strong><br>
+          &bull; [Action taken 1]<br>
+          &bull; [Action taken 2]<br>
+          &bull; [Action taken 3]<br><br>
+          <strong>Current status:</strong> [Resolved / In progress / Waiting on X]<br><br>
+          <strong>Next steps:</strong><br>
+          &bull; [Who] will [what] by [when]<br>
+          &bull; [Who] will [what] by [when]<br><br>
+          <strong>Jira ticket:</strong> CVC-XXXX
+        </div>
+
+        <h4>Template: Escalation Request</h4>
+        <div class="template-block">
+          <span class="tpl-label">Message Board &mdash; Escalation</span>
+          <strong>BLUF:</strong> I need help with [specific issue]. [Who] &mdash; can you [specific action] by [when]?<br><br>
+          <strong>Background:</strong> CVC-XXXX has been in progress since [date]. The issue is [description]. I have tried [what you already did].<br><br>
+          <strong>The blocker:</strong> [Exactly what is preventing you from resolving this alone]<br><br>
+          <strong>What I need:</strong><br>
+          &bull; @[Person]: [Specific ask]<br>
+          &bull; @[Person]: [Specific ask]<br><br>
+          <strong>SLA status:</strong> [X hours remaining before breach / Already breached by X hours]
+        </div>
+
+        <h4>Template: Knowledge Sharing</h4>
+        <div class="template-block">
+          <span class="tpl-label">Message Board &mdash; Knowledge Share</span>
+          <strong>TIL (Today I Learned):</strong> [One sentence summary]<br><br>
+          <strong>The situation:</strong> While working on CVC-XXXX, I discovered that [finding].<br><br>
+          <strong>Why it matters:</strong> [How this affects the team or future tickets]<br><br>
+          <strong>How to use this:</strong><br>
+          &bull; [Step 1]<br>
+          &bull; [Step 2]<br><br>
+          <strong>Evidence:</strong> [Link to Postman example or Jira ticket]<br><br>
+          <strong>Should we update the knowledge base?</strong> [Yes/No and where]
+        </div>
+
+        <h4>Template: Weekly Update</h4>
+        <div class="template-block">
+          <span class="tpl-label">Message Board &mdash; Weekly Update</span>
+          <strong>Week of [Date] &mdash; [Your Name] Support Summary</strong><br><br>
+          <strong>By the numbers:</strong><br>
+          &bull; Tickets resolved: X<br>
+          &bull; Tickets opened: X<br>
+          &bull; SLA compliance: X%<br>
+          &bull; Current queue depth: X<br><br>
+          <strong>Patterns observed:</strong><br>
+          &bull; [Trend 1: e.g., "3 Banner OAuth failures this week &mdash; systemic?"]<br>
+          &bull; [Trend 2]<br><br>
+          <strong>Blockers:</strong><br>
+          &bull; [What is preventing progress on open items]<br><br>
+          <strong>Next week focus:</strong><br>
+          &bull; [Priority 1]<br>
+          &bull; [Priority 2]
+        </div>
+
+        <h4>When to Use Message Board vs Campfire vs Email</h4>
+        <table class="status-table">
+          <thead><tr><th>Channel</th><th>Use For</th><th>Do Not Use For</th></tr></thead>
+          <tbody>
+            <tr><td class="code" style="color: var(--green);">Message Board</td><td class="context">Decisions, updates that need to be searchable, anything requiring action, knowledge sharing, weekly reports</td><td class="context">Quick questions, informal chat, real-time incident response</td></tr>
+            <tr><td class="code" style="color: var(--green);">Campfire</td><td class="context">"Hey, is anyone seeing X?" quick checks, social interaction, time-sensitive questions during business hours</td><td class="context">Decisions (they will be lost in scroll), detailed technical analysis</td></tr>
+            <tr><td class="code" style="color: var(--text-muted);">Email</td><td class="context">External communications with campus IT, formal escalations to vendors, anything requiring a paper trail outside the organization</td><td class="context">Internal team discussions (use Basecamp), quick questions (use Campfire)</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Writing to Different Audiences</h4>
+        <p>The same issue requires different language for different audiences:</p>
+        <pre><code><span class="comment">// To campus IT (technical peer):</span>
+<span class="string">"Your Banner Ethos adapter is returning 401 on the /oauth2/token endpoint.</span>
+<span class="string"> The client credentials for integration ID cvc-exchange-042 appear to have</span>
+<span class="string"> expired. Can you verify the client secret in your Ethos tenant?"</span>
+
+<span class="comment">// To a registrar (non-technical stakeholder):</span>
+<span class="string">"We've identified a credential issue between the CVC Exchange and your</span>
+<span class="string"> student information system. Your IT team needs to renew a security</span>
+<span class="string"> credential. We've contacted them with the specific steps. No student</span>
+<span class="string"> data was affected &mdash; enrollments are paused, not lost."</span>
+
+<span class="comment">// To a student (via college coordinator):</span>
+<span class="string">"We're aware of a temporary delay in course access for cross-enrolled</span>
+<span class="string"> students. Our technical team is working on it and we expect it to be</span>
+<span class="string"> resolved within 2 hours. You do not need to re-enroll."</span>
+
+<span class="comment">// To your manager (executive summary):</span>
+<span class="string">"Sacramento City (042) had an OAuth credential expiry affecting 32</span>
+<span class="string"> students for ~60 hours over the weekend. Resolved in 3 hours after</span>
+<span class="string"> detection Monday AM. Recommendation: implement credential expiry</span>
+<span class="string"> monitoring to catch this proactively."</span></code></pre>
+
+        <h4>The 4-Line Rule</h4>
+        <div class="callout">
+          <strong>If your Campfire message is longer than 4 lines, move it to the Message Board.</strong> Campfire is for quick exchanges. If you are writing a detailed update, analysis, or proposal, it belongs on the Message Board where it will be searchable, commentable, and permanent. Long Campfire messages get ignored because they break the flow of casual conversation.
+        </div>
+      </div>
+    </details>
+
+    <!-- 3.8 Emergency Communication Protocol -->
+    <details>
+      <summary>3.8 &mdash; Emergency Communication Protocol: When Things Go Down</summary>
+      <div class="detail-body">
+        <p>Based on the team's emergency protocol work (led by Andrea), this is the tiered communication framework for incidents of increasing severity. Know this before you need it &mdash; during an actual emergency you will not have time to look it up.</p>
+
+        <h4>Tiered Communication Framework</h4>
+        <div class="sla-grid">
+          <div class="sla-card" style="border-left: 3px solid var(--blue);">
+            <span class="sla-badge" style="color: var(--blue);">T1</span>
+            <div class="sla-detail">
+              <div class="sla-title">Internal Only &mdash; Issue Detected, Diagnostic In Progress</div>
+              <div class="sla-times">Channel: Basecamp Campfire &nbsp;|&nbsp; Audience: Support team only</div>
+            </div>
+          </div>
+          <div class="sla-card" style="border-left: 3px solid var(--orange);">
+            <span class="sla-badge" style="color: var(--orange);">T2</span>
+            <div class="sla-detail">
+              <div class="sla-title">Affected Colleges &mdash; Confirmed Impact, Targeted Notification</div>
+              <div class="sla-times">Channel: Basecamp Message Board + email to IT contacts &nbsp;|&nbsp; Audience: Affected colleges</div>
+            </div>
+          </div>
+          <div class="sla-card" style="border-left: 3px solid var(--red);">
+            <span class="sla-badge" style="color: var(--red);">T3</span>
+            <div class="sla-detail">
+              <div class="sla-title">All Colleges &mdash; Widespread Outage, Mass Notification</div>
+              <div class="sla-times">Channel: Mass email + Basecamp + status page &nbsp;|&nbsp; Audience: All 116 colleges</div>
+            </div>
+          </div>
+          <div class="sla-card" style="border-left: 3px solid var(--purple);">
+            <span class="sla-badge" style="color: var(--purple);">T4</span>
+            <div class="sla-detail">
+              <div class="sla-title">Public &mdash; Prolonged Outage, External Communication</div>
+              <div class="sla-times">Channel: Status page + social media (if applicable) &nbsp;|&nbsp; Audience: Public</div>
+            </div>
+          </div>
+        </div>
+
+        <h4>Tier 1 Template (Internal &mdash; Campfire)</h4>
+        <div class="template-block">
+          <span class="tpl-label">Campfire &mdash; Initial Detection</span>
+          <strong>INVESTIGATING:</strong> [College name(s)] returning [error code] on [endpoint]. Checking scope and impact now. Will update in 15 minutes. Jira: CVC-XXXX.
+        </div>
+
+        <h4>Tier 2 Template (Affected Colleges &mdash; Message Board + Email)</h4>
+        <div class="template-block">
+          <span class="tpl-label">Message Board + Email &mdash; Confirmed Impact</span>
+          <strong>Service Alert: [Brief description of issue]</strong><br><br>
+          <strong>Status:</strong> In Progress<br>
+          <strong>Impact:</strong> [Which colleges, approximate student count]<br>
+          <strong>Description:</strong> [2-3 sentence technical summary in plain language]<br>
+          <strong>What students should do:</strong> [Wait / retry in X minutes / contact coordinator]<br>
+          <strong>ETA for resolution:</strong> [Time estimate or "investigating"]<br>
+          <strong>Next update by:</strong> [Time]<br><br>
+          If you have questions, please reply to this thread or contact [name] at [email].
+        </div>
+
+        <h4>Tier 3 Template (All Colleges &mdash; Mass Email)</h4>
+        <div class="template-block">
+          <span class="tpl-label">Mass Email &mdash; Widespread Outage</span>
+          <strong>Subject: [SERVICE ALERT] CVC Exchange &mdash; [Brief description] &mdash; [Date]</strong><br><br>
+          Dear CVC Exchange Partners,<br><br>
+          We are currently experiencing [description of issue] affecting [scope]. Our technical team is actively working to restore service.<br><br>
+          <strong>Impact:</strong> [What is broken for students and colleges]<br>
+          <strong>Current status:</strong> [What we know and what we are doing]<br>
+          <strong>ETA:</strong> [Estimated resolution time]<br>
+          <strong>Student guidance:</strong> [What to tell students]<br><br>
+          We will send an update by [time]. For urgent questions, contact [name] at [email].<br><br>
+          CVC OEI Exchange Support Team
+        </div>
+
+        <h4>Approval Authority</h4>
+        <table class="status-table">
+          <thead><tr><th>Tier</th><th>Who Can Send</th><th>Who Must Approve</th></tr></thead>
+          <tbody>
+            <tr><td class="code" style="color: var(--blue);">Tier 1</td><td class="context">Any support analyst</td><td class="context">No approval needed &mdash; it is internal</td></tr>
+            <tr><td class="code" style="color: var(--orange);">Tier 2</td><td class="context">Support analyst drafts, team lead sends</td><td class="context">Andrea or Mike must review before sending to colleges</td></tr>
+            <tr><td class="code" style="color: var(--red);">Tier 3</td><td class="context">Andrea or Marina</td><td class="context">Executive approval (Marina) for mass email to all 116 colleges</td></tr>
+            <tr><td class="code" style="color: var(--purple);">Tier 4</td><td class="context">Marina only</td><td class="context">Public communication requires executive and potentially legal review</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Your Role as the New Analyst</h4>
+        <p>During an emergency, your role is:</p>
+        <ol>
+          <li><strong>Detect and diagnose</strong> using Postman (you may be the first to spot it via your morning health check)</li>
+          <li><strong>Create the Jira ticket</strong> with accurate severity and scope</li>
+          <li><strong>Post Tier 1</strong> (internal Campfire notification) immediately</li>
+          <li><strong>Draft Tier 2</strong> message for team lead review (you draft, they approve and send)</li>
+          <li><strong>Provide ongoing Postman diagnostics</strong> as the incident progresses</li>
+          <li><strong>Update the Jira ticket</strong> every 15-30 minutes with current state</li>
+          <li><strong>Draft the post-incident review</strong> after resolution</li>
+        </ol>
+        <p>You do NOT send Tier 2, 3, or 4 communications yourself during your first months. You draft them for approval. This protects both you and the organization from premature or inaccurate external communications.</p>
+
+        <h4>Tabletop Drill Protocol</h4>
+        <p>The team conducts periodic tabletop drills to practice incident response without a real incident. During a drill:</p>
+        <ul>
+          <li>A simulated scenario is announced (e.g., "5 Banner colleges are returning 500 errors starting at 8 AM")</li>
+          <li>You work through the response as if it were real: diagnose, ticket, communicate, resolve</li>
+          <li>The team reviews the response: what was fast, what was slow, where communication broke down</li>
+          <li>Action items are documented in Basecamp for process improvement</li>
+        </ul>
+
+        <h4>Post-Incident Review Template</h4>
+        <div class="template-block">
+          <span class="tpl-label">Message Board &mdash; Post-Incident Review</span>
+          <strong>Post-Incident Review: [Title]</strong><br><br>
+          <strong>Incident window:</strong> [Start time] to [End time] ([total duration])<br>
+          <strong>Impact:</strong> [Number of colleges affected, approximate student count]<br>
+          <strong>Root cause:</strong> [Technical explanation in 2-3 sentences]<br>
+          <strong>Detection time:</strong> [How long between failure start and first detection]<br>
+          <strong>Resolution time:</strong> [How long from detection to confirmed fix]<br><br>
+          <strong>Timeline:</strong><br>
+          &bull; [HH:MM] &mdash; [What happened]<br>
+          &bull; [HH:MM] &mdash; [What happened]<br>
+          &bull; [HH:MM] &mdash; [What happened]<br><br>
+          <strong>What went well:</strong><br>
+          &bull; [Positive outcome 1]<br>
+          &bull; [Positive outcome 2]<br><br>
+          <strong>What could improve:</strong><br>
+          &bull; [Gap or failure 1]<br>
+          &bull; [Gap or failure 2]<br><br>
+          <strong>Action items:</strong><br>
+          &bull; [ ] [Action] &mdash; @[Owner] &mdash; Due [Date]<br>
+          &bull; [ ] [Action] &mdash; @[Owner] &mdash; Due [Date]
+        </div>
+
+        <div class="callout">
+          <strong>The goal of post-incident reviews is improvement, not blame.</strong> The question is never "who messed up?" but always "what can we change so this class of failure does not happen again?" Document, learn, implement. That is the cycle.
+        </div>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     CVC-SPECIFIC TECHNICAL KNOWLEDGE
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="cvc-domain">
+  <div class="container">
+    <span class="section-badge badge-integration">Domain Knowledge</span>
+    <h3 class="section-title">CVC-Specific Technical Knowledge</h3>
+    <p class="section-lead">Not about the tools &mdash; about WHAT you are debugging. The domain knowledge that turns a generalist into a CVC Exchange specialist.</p>
+
+    <!-- 4.1 The Four SIS Platforms -->
+    <details>
+      <summary>4.1 &mdash; The Four SIS Platforms: What You Need to Know</summary>
+      <div class="detail-body">
+        <p>The California Community College system runs on four Student Information System (SIS) platforms. Every integration issue you debug will trace back to one of these. Recognizing which SIS a college uses from the error response is a core skill.</p>
+
+        <div class="sis-grid">
+          <div class="sis-card" style="border-left: 3px solid var(--orange);">
+            <h5>Banner (Ellucian)</h5>
+            <div class="sis-vendor">Ellucian &middot; ~40% of CCC colleges</div>
+            <ul>
+              <li><strong>Architecture:</strong> REST API in Banner 9+. Older installations may still use Banner 8 with SOAP/XML.</li>
+              <li><strong>Key tables:</strong> SFRSTCR (enrollment), SPRIDEN (identity/names), SGBSTDN (student general), SOBCURR (curriculum)</li>
+              <li><strong>Common issues:</strong> Job scheduler delays (nightly batch runs at 2 AM, but if the job hangs, nothing syncs until IT intervenes), OAuth credential expiry (the #1 Banner issue)</li>
+              <li><strong>API pattern:</strong> <code>/api/v1/students/{bannerId}/registrations</code></li>
+              <li><strong>How to recognize:</strong> Error responses reference "Banner," "BAN," or adapter type <code>"banner"</code> or <code>"banner-ethos"</code></li>
+            </ul>
+          </div>
+          <div class="sis-card" style="border-left: 3px solid var(--purple);">
+            <h5>Banner Ethos (Ellucian)</h5>
+            <div class="sis-vendor">Ellucian Ethos Integration &middot; Middleware layer</div>
+            <ul>
+              <li><strong>Architecture:</strong> Middleware that sits between Banner and external systems. Adds an abstraction layer with its own API, authentication, and message queue.</li>
+              <li><strong>Key concept:</strong> Ethos subscriptions define which data changes are broadcast to external consumers. If a subscription is misconfigured, changes in Banner do not propagate.</li>
+              <li><strong>Common issues:</strong> Ethos queue backlogs (thousands of unprocessed change notifications), expired Ethos API keys (different from Banner credentials), subscription config drift after upgrades</li>
+              <li><strong>How to recognize:</strong> Adapter type <code>"banner-ethos"</code>, errors reference "Ethos," "Change Notification," or "subscription"</li>
+              <li><strong>Key debugging:</strong> Ask college IT: "Is your Ethos Integration tenant healthy? Are change notification queues backing up?"</li>
+            </ul>
+          </div>
+          <div class="sis-card" style="border-left: 3px solid var(--blue);">
+            <h5>PeopleSoft (Oracle)</h5>
+            <div class="sis-vendor">Oracle &middot; Used by larger districts</div>
+            <ul>
+              <li><strong>Architecture:</strong> Integration Broker for messaging. Component Interfaces (CI) for direct data access. XML-based data exchange.</li>
+              <li><strong>Key record types:</strong> STDNT_ENRL (enrollment), PERSON (identity), CLASS_TBL (course sections)</li>
+              <li><strong>Common issues:</strong> Component Interface timeouts (complex queries exceed 30-second timeout), XML parsing errors (character encoding mismatches), record delimiter mismatches between PeopleSoft versions</li>
+              <li><strong>API pattern:</strong> Integration Broker publishes messages to subscribers. Not a traditional REST API.</li>
+              <li><strong>How to recognize:</strong> Adapter type <code>"peoplesoft"</code>, errors reference "Integration Broker," "CI timeout," or "PSFT"</li>
+            </ul>
+          </div>
+          <div class="sis-card" style="border-left: 3px solid var(--green);">
+            <h5>Colleague (Ellucian)</h5>
+            <div class="sis-vendor">Ellucian &middot; Older system, still in active use</div>
+            <ul>
+              <li><strong>Architecture:</strong> CXML-based API. Some colleges still use FTP-based batch file exchange for data sync.</li>
+              <li><strong>Key data:</strong> STUDENT.ACAD.CRED (enrollment), PERSON (identity), SECTIONS (course sections)</li>
+              <li><strong>Common issues:</strong> Character encoding (UTF-8 vs Latin-1 causes name corruption for students with accented characters), batch file processing delays (FTP drops, file format changes), CXML parsing failures</li>
+              <li><strong>API pattern:</strong> CXML requests/responses or flat-file batch exchange</li>
+              <li><strong>How to recognize:</strong> Adapter type <code>"colleague"</code>, errors reference "CXML," "Colleague," or "DMI" (Datatel Management Interface, legacy name)</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4>Quick Recognition Guide</h4>
+        <p>When you see an error response, the <code>sisAdapter</code> or <code>source</code> field tells you which platform you are dealing with:</p>
+        <pre><code><span class="comment">// From a health check or error response, look for:</span>
+<span class="string">"sisAdapter"</span>: <span class="string">"banner"</span>           <span class="comment">→ Banner REST API (direct)</span>
+<span class="string">"sisAdapter"</span>: <span class="string">"banner-ethos"</span>     <span class="comment">→ Banner via Ethos middleware</span>
+<span class="string">"sisAdapter"</span>: <span class="string">"peoplesoft"</span>       <span class="comment">→ PeopleSoft Integration Broker</span>
+<span class="string">"sisAdapter"</span>: <span class="string">"colleague"</span>        <span class="comment">→ Colleague CXML/batch</span>
+<span class="string">"sisAdapter"</span>: <span class="string">"colleague-ethos"</span>  <span class="comment">→ Colleague via Ethos (newer installs)</span></code></pre>
+
+        <h4>What to Ask the Campus IT Team (by Platform)</h4>
+        <table class="status-table">
+          <thead><tr><th>Platform</th><th>First Question</th><th>Second Question</th></tr></thead>
+          <tbody>
+            <tr><td class="code" style="color: var(--orange);">Banner</td><td class="context">"Is the Banner job scheduler running? When was the last successful SFRSTCR sync?"</td><td class="context">"Can you verify the OAuth client credentials for integration ID [X]?"</td></tr>
+            <tr><td class="code" style="color: var(--purple);">Ethos</td><td class="context">"Is the Ethos Integration tenant healthy? What's the change notification queue depth?"</td><td class="context">"Was the Ethos API key rotated recently? Our adapter is getting 401s."</td></tr>
+            <tr><td class="code" style="color: var(--blue);">PeopleSoft</td><td class="context">"Is the Integration Broker running and publishing messages?"</td><td class="context">"Are there any Component Interface errors in the application server logs?"</td></tr>
+            <tr><td class="code" style="color: var(--green);">Colleague</td><td class="context">"Is the CXML listener running? When was the last batch file successfully processed?"</td><td class="context">"Were there any DMI configuration changes or Colleague patches applied recently?"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- 4.2 The CCCID Problem -->
+    <details>
+      <summary>4.2 &mdash; The CCCID Problem: Identity Management in a 116-College System</summary>
+      <div class="detail-body">
+        <p>If there is one technical issue that defines the CVC Exchange support experience, it is duplicate CCCIDs. Understanding this problem deeply is arguably more important than understanding any single tool.</p>
+
+        <h4>What Is a CCCID?</h4>
+        <p>The <strong>California Community College ID</strong> is the statewide unique identifier assigned to every student in the CCC system. It is intended to be a single, persistent identity that follows a student across all 116 colleges. In theory, one student = one CCCID, forever.</p>
+
+        <h4>The CCCApply &rarr; CCCID Creation Pipeline</h4>
+        <div class="workflow">
+          <div class="workflow-step">Student fills out CCCApply application</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">CCCApply checks for existing CCCID (name, DOB, SSN match)</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">Match found? &rarr; Return existing CCCID</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">No match? &rarr; Generate new CCCID</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">CCCID pushed to home college SIS</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step critical">Cross-enrollment uses CCCID as the join key across systems</div>
+        </div>
+
+        <h4>How Duplicates Happen</h4>
+        <ul>
+          <li><strong>Name variation:</strong> Student applies as "Maria Rodriguez" at College A and "Maria L. Rodriguez-Garcia" at College B. The matching algorithm does not find a match, so a second CCCID is created.</li>
+          <li><strong>Timing:</strong> Student applies at two colleges within hours, before the first CCCID is propagated to the central system. Both applications generate new CCCIDs.</li>
+          <li><strong>SSN absence:</strong> If the student does not provide an SSN on both applications (which is their right), the matching algorithm has fewer fields to work with and may fail to match.</li>
+          <li><strong>Data entry errors:</strong> Typos in date of birth, transposed digits in SSN, or different email addresses prevent the system from recognizing the same person.</li>
+        </ul>
+
+        <h4>What Duplicate CCCIDs Break</h4>
+        <table class="status-table">
+          <thead><tr><th>System</th><th>Impact</th><th>Symptom</th></tr></thead>
+          <tbody>
+            <tr><td class="code" style="color: var(--orange);">Enrollment</td><td class="context">Records split across two identities. The Exchange creates the enrollment under CCCID-A, but the teaching college's SIS has the student under CCCID-B.</td><td class="context">Student enrolled but "not found" at teaching college. 404 on enrollment lookup.</td></tr>
+            <tr><td class="code" style="color: var(--blue);">Canvas LMS</td><td class="context">SSO login maps to CCCID-A, but the course enrollment is under CCCID-B. Canvas cannot match the student to the roster.</td><td class="context">"You are not enrolled in this course" error in Canvas.</td></tr>
+            <tr><td class="code" style="color: var(--green);">Financial Aid</td><td class="context">Consortium agreements require a single student identity. Two CCCIDs = two "students" and the consortium math breaks.</td><td class="context">Financial aid disbursement errors, consortium agreement rejection.</td></tr>
+            <tr><td class="code" style="color: var(--purple);">Grade Passback</td><td class="context">Grades are recorded under one CCCID but the student's transcript is under the other.</td><td class="context">Missing grades on transcript. Student must petition for grade correction.</td></tr>
+          </tbody>
+        </table>
+
+        <h4>How to Detect Duplicates in Postman</h4>
+        <pre><code><span class="comment">// Search by email (most reliable cross-reference)</span>
+<span class="method">GET</span> {{base_url}}/api/students?email=maria.rodriguez@gmail.com&amp;includeInactive=true
+
+<span class="comment">// If this returns 2+ records, you have a duplicate:</span>
+{
+  <span class="string">"data"</span>: [
+    {
+      <span class="string">"cccid"</span>: <span class="string">"AAA1234"</span>,
+      <span class="string">"name"</span>: <span class="string">"Maria Rodriguez"</span>,
+      <span class="string">"created"</span>: <span class="string">"2025-08-15"</span>,
+      <span class="string">"homeCollege"</span>: <span class="string">"042"</span>,
+      <span class="string">"enrollmentCount"</span>: 3,
+      <span class="string">"lastActivity"</span>: <span class="string">"2026-03-20"</span>
+    },
+    {
+      <span class="string">"cccid"</span>: <span class="string">"BBB5678"</span>,
+      <span class="string">"name"</span>: <span class="string">"Maria L. Rodriguez-Garcia"</span>,
+      <span class="string">"created"</span>: <span class="string">"2026-01-10"</span>,
+      <span class="string">"homeCollege"</span>: <span class="string">"014"</span>,
+      <span class="string">"enrollmentCount"</span>: 1,
+      <span class="string">"lastActivity"</span>: <span class="string">"2026-04-01"</span>
+    }
+  ]
+}
+
+<span class="comment">// Decision: keep AAA1234 (older, more enrollments, primary college).</span>
+<span class="comment">// Merge BBB5678 into AAA1234.</span></code></pre>
+
+        <h4>The Merge Process</h4>
+        <ol>
+          <li><strong>Identify the primary CCCID:</strong> Usually the older one with more enrollment history. Confirm with the student or college coordinator if unclear.</li>
+          <li><strong>Document in Jira:</strong> Create a ticket (or update the existing one) with both CCCIDs, evidence of the duplicate, and the recommended merge direction.</li>
+          <li><strong>Request the merge:</strong> CCCID merges are performed by the CCC Technology Center, not by the Exchange team. Submit a merge request through the established channel (varies &mdash; check with your team lead).</li>
+          <li><strong>Verify the merge:</strong> After the merge, use Postman to confirm only one CCCID exists and all enrollments are consolidated.</li>
+          <li><strong>Verify downstream:</strong> Check that Canvas access, enrollment records, and grade passback are all functioning under the merged CCCID.</li>
+        </ol>
+
+        <h4>Your Role</h4>
+        <div class="callout">
+          <strong>Detect, document, escalate, track.</strong> You are the detective, not the surgeon. Find the duplicate, prove it exists with Postman evidence, create the Jira ticket with full detail, request the merge through proper channels, and track it until all downstream systems are confirmed working. Do not attempt to merge records yourself unless you have been explicitly trained and authorized.
+        </div>
+      </div>
+    </details>
+
+    <!-- 4.3 Canvas LMS Integration -->
+    <details>
+      <summary>4.3 &mdash; Canvas LMS Integration: The Last Mile</summary>
+      <div class="detail-body">
+        <p>The enrollment is in the Exchange. The teaching college SIS has acknowledged it. But the student still cannot access their course. The "last mile" between the Exchange and Canvas is where a surprising number of issues live.</p>
+
+        <h4>How Exchange Enrollment Becomes Canvas Roster</h4>
+        <div class="workflow">
+          <div class="workflow-step">Exchange enrollment status = "active"</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">Exchange generates SIS Import CSV file</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">CSV pushed to Canvas via SIS Import API</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">Canvas processes CSV (batch job, may take 5-15 min)</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step critical">Student appears in Canvas course roster</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">SSO login grants student access to course content</div>
+        </div>
+
+        <h4>The SIS Import API</h4>
+        <p>Canvas uses the SIS Import API to bulk-create enrollments, courses, and sections from CSV files. This is not a per-student API call &mdash; it is a batch operation that processes hundreds of records at once.</p>
+        <pre><code><span class="comment">// The CSV that gets pushed to Canvas looks like:</span>
+course_id,user_id,role,section_id,status,limit_section_privileges
+CRN-78901,CCC1234567,student,SEC-112,active,true
+CRN-78901,CCC2345678,student,SEC-112,active,true
+CRN-78901,CCC3456789,student,SEC-113,active,true
+
+<span class="comment">// Key fields:</span>
+<span class="comment">// course_id → must match a Canvas course SIS ID</span>
+<span class="comment">// user_id → student's CCCID (used as SIS user ID in Canvas)</span>
+<span class="comment">// section_id → must match a Canvas section SIS ID</span>
+<span class="comment">// status → "active" to enroll, "deleted" to drop</span></code></pre>
+
+        <h4>Common Canvas Sync Failures</h4>
+        <table class="status-table">
+          <thead><tr><th>Symptom</th><th>Likely Cause</th><th>Diagnostic Step</th></tr></thead>
+          <tbody>
+            <tr><td class="context">Student in Exchange but not in Canvas</td><td class="context">SIS Import job failed or has not run yet</td><td class="context"><code>GET /api/canvas/courses/{id}/sis-import-status</code> &mdash; check <code>result</code> field</td></tr>
+            <tr><td class="context">Student in Canvas but "access denied"</td><td class="context">Enrollment state mismatch (Canvas has "inactive" or "concluded")</td><td class="context"><code>GET /api/canvas/courses/{id}/roster</code> &mdash; check student's <code>enrollmentState</code></td></tr>
+            <tr><td class="context">Student in wrong section</td><td class="context">Course cross-listing misconfigured, section ID mismatch</td><td class="context">Compare <code>canvasSectionId</code> in Exchange record vs actual Canvas section structure</td></tr>
+            <tr><td class="context">Grades not flowing back to home college</td><td class="context">Grade passback API timeout or disabled for this course</td><td class="context"><code>GET /api/enrollments/{id}</code> &mdash; check <code>gradePassback</code> field (true/false)</td></tr>
+            <tr><td class="context">"User not found" in Canvas SIS Import error</td><td class="context">Student's CCCID does not exist as a Canvas SIS user ID</td><td class="context">Check if the student account was provisioned in Canvas. May need Canvas admin to create the SIS user.</td></tr>
+            <tr><td class="context">Import succeeds but enrollment is "concluded"</td><td class="context">Canvas term dates have ended, auto-concluding all enrollments</td><td class="context">Check Canvas term configuration. The term end date may need extension.</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Canvas API Endpoints You Will Use</h4>
+        <pre><code><span class="comment">// Check SIS import status for a course</span>
+<span class="method">GET</span> {{base_url}}/api/canvas/courses/{{canvas_course_id}}/sis-import-status
+
+<span class="comment">// Get the Canvas course roster</span>
+<span class="method">GET</span> {{base_url}}/api/canvas/courses/{{canvas_course_id}}/roster
+
+<span class="comment">// Check a specific student's Canvas enrollment</span>
+<span class="method">GET</span> {{base_url}}/api/canvas/users/{{student_cccid}}/enrollments
+
+<span class="comment">// Check grade passback status</span>
+<span class="method">GET</span> {{base_url}}/api/canvas/courses/{{canvas_course_id}}/grade-passback-status
+
+<span class="comment">// Check Canvas course sections (for cross-listing issues)</span>
+<span class="method">GET</span> {{base_url}}/api/canvas/courses/{{canvas_course_id}}/sections</code></pre>
+
+        <div class="callout info">
+          <strong>Canvas admin access:</strong> If your team has Canvas admin access, you can also check the SIS Import log directly in Canvas at Admin &rarr; SIS Imports. This shows the raw CSV that was processed, any errors, and the processing time. If you do not have admin access, rely on the Exchange API endpoints above.
+        </div>
+      </div>
+    </details>
+
+    <!-- 4.4 The Academic Calendar -->
+    <details>
+      <summary>4.4 &mdash; The Academic Calendar: Why Timing Matters for Support</summary>
+      <div class="detail-body">
+        <p>Support ticket volume is not random. It follows the academic calendar with high predictability. Understanding this cycle lets you anticipate problems, pre-scale resources, and warn colleges before known pain points hit.</p>
+
+        <h4>The 16-Week Calendar and Ticket Volume</h4>
+        <div class="cal-timeline">
+          <div class="cal-week cal-hot"><strong>Weeks 1-2: Registration Opens</strong> <span class="cal-tag tag-high">HIGH VOLUME</span><br>Enrollment surge. API rate limits hit. Capacity issues. Duplicate CCCIDs spike as students apply to multiple colleges simultaneously. This is your highest-volume period. Expect 3-5x normal ticket volume.</div>
+          <div class="cal-week cal-warm"><strong>Week 3: Late Registration / Add</strong> <span class="cal-tag tag-med">ELEVATED</span><br>Students adding courses at the last minute. Enrollment creation errors. Canvas sync delays as batch sizes increase. Cross-enrollment between colleges that have different add deadlines creates timing conflicts.</div>
+          <div class="cal-week cal-hot"><strong>Week 4: Add/Drop Deadline</strong> <span class="cal-tag tag-high">HIGH VOLUME</span><br>Last-minute drops and enrollment status changes. Drop processing failures. Refund calculation errors. Financial aid recalculation triggers. Students panicking about access they are about to lose.</div>
+          <div class="cal-week cal-hot"><strong>Week 5: Census Date</strong> <span class="cal-tag tag-high">CRITICAL</span><br>Enrollment records are <em>locked</em> after census. Any sync failure that has not been resolved by census becomes a critical data integrity issue. Colleges must report accurate enrollment numbers. If the Exchange shows 50 students but the SIS shows 45, that is a crisis.</div>
+          <div class="cal-week"><strong>Weeks 6-10: Mid-Semester</strong> <span class="cal-tag tag-low">NORMAL</span><br>Lowest ticket volume. Use this time to work on P4 improvements, update knowledge base, build monitoring, and prepare for the end-of-term surge.</div>
+          <div class="cal-week cal-warm"><strong>Week 11: Financial Aid Disbursement</strong> <span class="cal-tag tag-med">ELEVATED</span><br>Consortium agreement errors spike. Financial aid verification requires accurate enrollment data across colleges. If a student has a duplicate CCCID, their consortium agreement will likely fail.</div>
+          <div class="cal-week"><strong>Weeks 12-14: Pre-Finals</strong> <span class="cal-tag tag-low">NORMAL</span><br>Moderate volume. Occasional grade passback configuration issues as instructors prepare gradebooks.</div>
+          <div class="cal-week cal-warm"><strong>Week 15-16: Finals and Grade Submission</strong> <span class="cal-tag tag-med">ELEVATED</span><br>Grade passback failures. Instructors submitting grades through Canvas, which must flow back to the home college SIS. Any grade passback API timeout or configuration error means students do not receive credit.</div>
+          <div class="cal-week cal-hot"><strong>Between Terms: Term Rollover</strong> <span class="cal-tag tag-high">HIGH VOLUME</span><br>Massive batch updates as SIS platforms create new terms, archive old courses, and reset enrollment records. Maintenance windows for SIS upgrades. Configuration changes that break integrations. This is the second-highest risk period after registration.</div>
+        </div>
+
+        <h4>Being Proactive: Using the Calendar</h4>
+        <ul>
+          <li><strong>1 week before registration:</strong> Run full health checks across all 116 colleges. Identify any degraded adapters. Alert colleges with expiring credentials. Verify API capacity with infrastructure team.</li>
+          <li><strong>1 week before census:</strong> Run a report of all pending enrollments older than 48 hours. These need urgent attention &mdash; if they are not synced by census, students may be reported as not enrolled.</li>
+          <li><strong>1 week before grade submission:</strong> Verify grade passback is configured and functioning for all courses with cross-enrolled students. Run the grade passback test endpoint for each college.</li>
+          <li><strong>During term rollover:</strong> Expect SIS maintenance windows. Proactively ask colleges for their maintenance schedules. Set up enhanced monitoring for the rollover period.</li>
+        </ul>
+
+        <h4>Calendar-Driven Communication</h4>
+        <p>Post a Basecamp message board update before each high-volume period:</p>
+        <div class="template-block">
+          <span class="tpl-label">Message Board &mdash; Calendar Advisory</span>
+          <strong>Heads-up: [Event] begins [Date]</strong><br><br>
+          <strong>Expected impact:</strong> [What types of tickets we expect to see]<br>
+          <strong>Preparation taken:</strong> [What we have already done to prepare]<br>
+          <strong>College advisory:</strong> [What colleges should check on their end]<br>
+          <strong>Monitoring plan:</strong> [Enhanced monitoring schedule for this period]<br><br>
+          If you see unusual patterns during [event], flag them in Campfire immediately.
+        </div>
+
+        <div class="callout">
+          <strong>The analyst who says "I expected this" is worth more than the analyst who says "I didn't see this coming."</strong> The academic calendar is your crystal ball. It will not predict every issue, but it will predict the <em>category</em> of issues with remarkable accuracy. Use it.
+        </div>
       </div>
     </details>
 
