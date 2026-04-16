@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operational Tooling Guide — CVC OEI Exchange</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0B0F19;
+  --surface: #141926;
+  --surface-2: #1A2035;
+  --border: #1E293B;
+  --border-light: #2D3A4F;
+  --text: #E2E8F0;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  --accent: #0D9488;
+  --accent-light: #14B8A6;
+  --accent-bg: rgba(13, 148, 136, 0.1);
+  --red: #EF4444;
+  --red-bg: rgba(239, 68, 68, 0.1);
+  --orange: #F59E0B;
+  --orange-bg: rgba(245, 158, 11, 0.1);
+  --blue: #3B82F6;
+  --blue-bg: rgba(59, 130, 246, 0.1);
+  --green: #22C55E;
+  --green-bg: rgba(34, 197, 94, 0.1);
+  --purple: #A78BFA;
+  --purple-bg: rgba(167, 139, 250, 0.1);
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius: 8px;
+  --max-w: 900px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: rgba(13, 148, 136, 0.3); }
+
+/* ── Layout ── */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+/* ── Header ── */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11, 15, 25, 0.92);
+  backdrop-filter: blur(12px);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.header-brand { display: flex; flex-direction: column; gap: 2px; }
+.header-brand h1 { font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+.header-brand .subtitle { font-size: 12px; color: var(--text-muted); font-family: var(--mono); }
+.header-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.header-nav a {
+  font-size: 12px; font-weight: 500; padding: 5px 12px;
+  border-radius: 6px; border: 1px solid var(--border);
+  color: var(--text-muted); transition: all 0.15s;
+}
+.header-nav a:hover, .header-nav a:focus {
+  color: var(--accent-light); border-color: var(--accent);
+  background: var(--accent-bg); text-decoration: none;
+}
+.back-link {
+  font-size: 13px; color: var(--text-dim); display: inline-flex;
+  align-items: center; gap: 4px; margin-bottom: 4px;
+}
+.back-link:hover { color: var(--accent-light); }
+
+/* ── Hero ── */
+.hero {
+  padding: 60px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+.hero h2 { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+.hero h2 span { color: var(--accent-light); }
+.hero p { font-size: 16px; color: var(--text-muted); max-width: 640px; }
+
+/* ── Section Styles ── */
+.tool-section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+.tool-section:last-of-type { border-bottom: none; }
+.section-badge {
+  display: inline-block; font-family: var(--mono); font-size: 11px;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
+  padding: 4px 10px; border-radius: 4px; margin-bottom: 16px;
+}
+.badge-postman { background: var(--orange-bg); color: var(--orange); }
+.badge-jira { background: var(--blue-bg); color: var(--blue); }
+.badge-basecamp { background: var(--green-bg); color: var(--green); }
+.badge-integration { background: var(--purple-bg); color: var(--purple); }
+.badge-ref { background: var(--accent-bg); color: var(--accent-light); }
+
+h3.section-title {
+  font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px;
+}
+.section-lead { font-size: 15px; color: var(--text-muted); margin-bottom: 32px; max-width: 640px; }
+
+/* ── Collapsible ── */
+details { margin-bottom: 12px; }
+details summary {
+  cursor: pointer; font-weight: 600; font-size: 16px;
+  padding: 14px 18px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  list-style: none; display: flex; align-items: center; gap: 10px;
+  transition: all 0.15s; user-select: none;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::before {
+  content: ''; display: inline-block; width: 0; height: 0;
+  border-left: 6px solid var(--text-muted); border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent; transition: transform 0.2s; flex-shrink: 0;
+}
+details[open] summary::before { transform: rotate(90deg); }
+details summary:hover { border-color: var(--border-light); background: var(--surface-2); }
+details[open] summary {
+  border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+  border-color: var(--border-light);
+}
+.detail-body {
+  padding: 20px 18px;
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--surface);
+}
+.detail-body h4 {
+  font-size: 14px; font-weight: 600; color: var(--accent-light);
+  margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.detail-body h4:first-child { margin-top: 0; }
+.detail-body p { margin-bottom: 12px; color: var(--text-muted); }
+.detail-body ul, .detail-body ol { margin: 0 0 14px 20px; color: var(--text-muted); }
+.detail-body li { margin-bottom: 6px; }
+.detail-body li strong { color: var(--text); }
+
+/* ── Code Blocks ── */
+code {
+  font-family: var(--mono); font-size: 13px;
+  background: rgba(30, 41, 59, 0.6); padding: 2px 6px;
+  border-radius: 4px; color: var(--accent-light);
+}
+pre {
+  background: #0D1117; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px;
+  overflow-x: auto; margin: 12px 0; font-size: 13px; line-height: 1.6;
+}
+pre code { background: none; padding: 0; color: var(--text); }
+.comment { color: var(--text-dim); }
+.keyword { color: var(--purple); }
+.string { color: var(--green); }
+.method { color: var(--orange); }
+.status { color: var(--accent-light); }
+
+/* ── Status Code Table ── */
+.status-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+.status-table th {
+  text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--border-light);
+  font-weight: 600; color: var(--text); font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.status-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.status-table tr:last-child td { border-bottom: none; }
+.status-table .code { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
+.status-table .code.s2xx { color: var(--green); }
+.status-table .code.s4xx { color: var(--orange); }
+.status-table .code.s5xx { color: var(--red); }
+.status-table .context { color: var(--text-muted); }
+
+/* ── Workflow Diagram ── */
+.workflow {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0; margin: 20px 0; padding: 24px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.workflow-step {
+  background: var(--surface-2); border: 1px solid var(--border-light);
+  border-radius: 6px; padding: 10px 24px;
+  font-size: 13px; font-weight: 600; text-align: center;
+  min-width: 260px;
+}
+.workflow-step.critical { border-color: var(--accent); color: var(--accent-light); }
+.workflow-arrow {
+  color: var(--text-dim); font-size: 18px; line-height: 1; padding: 4px 0;
+}
+
+/* ── Priority Badges ── */
+.priority { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 3px; }
+.p1 { background: rgba(239,68,68,0.15); color: var(--red); }
+.p2 { background: var(--orange-bg); color: var(--orange); }
+.p3 { background: var(--blue-bg); color: var(--blue); }
+.p4 { background: rgba(100,116,139,0.15); color: var(--text-dim); }
+
+/* ── Integration Map ── */
+.int-map {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px 24px; margin: 20px 0;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+}
+.int-map .node {
+  border: 2px solid var(--border-light); border-radius: 8px;
+  padding: 12px 28px; text-align: center; min-width: 300px;
+}
+.int-map .node-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+.int-map .node-desc { font-size: 12px; color: var(--text-muted); font-family: var(--mono); }
+.int-map .node.jira { border-color: var(--blue); }
+.int-map .node.postman { border-color: var(--orange); }
+.int-map .node.basecamp { border-color: var(--green); }
+.int-map .arrow { color: var(--text-dim); font-size: 20px; padding: 6px 0; }
+
+/* ── Quick Reference Cards ── */
+.ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+.ref-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+}
+.ref-card h5 {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px;
+  color: var(--accent-light); margin-bottom: 10px;
+}
+.ref-card ul { list-style: none; margin: 0; padding: 0; }
+.ref-card li {
+  font-size: 12px; font-family: var(--mono); color: var(--text-muted);
+  padding: 3px 0; border-bottom: 1px solid var(--border);
+}
+.ref-card li:last-child { border-bottom: none; }
+.ref-card li strong { color: var(--text); font-weight: 500; }
+
+/* ── Callout ── */
+.callout {
+  border-left: 3px solid var(--accent); background: var(--accent-bg);
+  padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 14px 0; font-size: 13px;
+}
+.callout.warn { border-color: var(--red); background: var(--red-bg); }
+.callout.info { border-color: var(--blue); background: var(--blue-bg); }
+.callout strong { display: block; margin-bottom: 4px; color: var(--text); }
+
+/* ── Footer ── */
+.site-footer {
+  border-top: 1px solid var(--border); padding: 32px 0;
+  text-align: center; font-size: 12px; color: var(--text-dim);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero h2 { font-size: 24px; }
+  .ref-grid { grid-template-columns: 1fr; }
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .int-map .node { min-width: unset; width: 100%; }
+  .workflow-step { min-width: unset; width: 100%; }
+}
+
+/* ── Print ── */
+@media print {
+  body { background: #fff; color: #111; font-size: 11px; }
+  .site-header { position: static; background: #fff; border-color: #ddd; }
+  .header-nav a { border-color: #ccc; color: #333; }
+  details { break-inside: avoid; }
+  details[open] summary, details summary { background: #f5f5f5; border-color: #ddd; color: #111; }
+  details summary::before { border-left-color: #333; }
+  .detail-body { background: #fafafa; border-color: #ddd; }
+  .detail-body p, .detail-body li { color: #333; }
+  pre { background: #f5f5f5; border-color: #ddd; }
+  pre code, code { color: #111; }
+  .workflow, .int-map, .ref-card { background: #fafafa; border-color: #ddd; }
+  .callout { background: #f0faf9; }
+  .callout.warn { background: #fef2f2; }
+  .callout.info { background: #eff6ff; }
+  a { color: #0D9488; }
+  .site-footer { border-color: #ddd; color: #666; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ HEADER ════════════ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="header-brand">
+      <a href="/AppAnalyst/" class="back-link">&larr; AppAnalyst Hub</a>
+      <h1>Operational Tooling Guide &mdash; CVC OEI Exchange</h1>
+      <span class="subtitle">Postman &middot; Jira &middot; Basecamp &mdash; Best Practices for Application Support</span>
+    </div>
+    <nav class="header-nav">
+      <a href="#postman">Postman</a>
+      <a href="#jira">Jira</a>
+      <a href="#basecamp">Basecamp</a>
+      <a href="#integration">Integration</a>
+      <a href="#reference">Quick Ref</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <div class="container">
+    <h2>Three tools. <span>One workflow.</span></h2>
+    <p>The CVC OEI Exchange connects 116 California community colleges through a complex web of SIS integrations, Canvas LMS syncs, and identity management APIs. When something breaks, students lose course access. This guide documents the three operational tools that keep the Exchange running &mdash; and how they work together.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     SECTION 1: POSTMAN
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="postman">
+  <div class="container">
+    <span class="section-badge badge-postman">Section 1</span>
+    <h3 class="section-title">Postman</h3>
+    <p class="section-lead">The primary diagnostic instrument for API-level troubleshooting across the Exchange's four-layer integration stack.</p>
+
+    <!-- 1.1 What & Why -->
+    <details open>
+      <summary>1.1 &mdash; What Is Postman &amp; Why We Use It</summary>
+      <div class="detail-body">
+        <p>Postman is an API testing and debugging platform. In the context of the CVC Exchange, it is how we inspect, reproduce, and diagnose failures in the integration pipeline that connects every community college in California to shared online courses.</p>
+        <h4>The Four-Layer Integration Stack</h4>
+        <p>Every cross-enrollment request passes through four systems:</p>
+        <pre><code><span class="comment">/* The CVC Exchange Integration Stack */</span>
+
+Home College SIS          CVC Exchange          Teaching College          Canvas LMS
+(Banner / PeopleSoft /    API Gateway &          SIS validates            Student gains
+ Colleague / Ethos)       enrollment engine      enrollment               course access
+       <span class="keyword">───────────►</span>           <span class="keyword">───────────►</span>           <span class="keyword">───────────►</span>
+  Student initiates       Exchange creates       Teaching college        Roster sync puts
+  cross-enrollment        enrollment record      accepts/rejects         student in course</code></pre>
+        <p>When a college reports "enrollments aren't syncing," the failure could be at any layer. Postman lets you test each layer independently, isolate the broken component, and document the failure with reproducible evidence that you attach directly to the Jira ticket.</p>
+
+        <div class="callout">
+          <strong>Why not just check logs?</strong>
+          Logs tell you what happened. Postman lets you reproduce what happened, test hypotheses, and verify the fix. It is active investigation, not passive observation.
+        </div>
+      </div>
+    </details>
+
+    <!-- 1.2 Core Concepts -->
+    <details>
+      <summary>1.2 &mdash; Core Concepts (HTTP Methods, Status Codes, Headers)</summary>
+      <div class="detail-body">
+        <h4>HTTP Methods in CVC Context</h4>
+        <pre><code><span class="method">GET</span>  /api/enrollments?studentId=12345          <span class="comment">// Check enrollment status</span>
+<span class="method">GET</span>  /api/colleges/115/status                  <span class="comment">// Check college health</span>
+<span class="method">POST</span> /api/enrollments                           <span class="comment">// Create a cross-enrollment</span>
+<span class="method">PUT</span>  /api/enrollments/67890                     <span class="comment">// Replace enrollment record</span>
+<span class="method">PATCH</span> /api/enrollments/67890                    <span class="comment">// Update enrollment fields</span>
+<span class="method">DELETE</span> /api/enrollments/67890                   <span class="comment">// Cancel enrollment (CAUTION)</span></code></pre>
+
+        <h4>Status Codes &mdash; What They Mean at CVC</h4>
+        <table class="status-table">
+          <thead><tr><th>Code</th><th>Meaning</th><th>CVC Context</th></tr></thead>
+          <tbody>
+            <tr><td class="code s2xx">200</td><td>OK</td><td class="context">Request succeeded. Enrollment data returned.</td></tr>
+            <tr><td class="code s2xx">201</td><td>Created</td><td class="context">New enrollment record created in Exchange.</td></tr>
+            <tr><td class="code s2xx">204</td><td>No Content</td><td class="context">Successful delete/update, no body returned.</td></tr>
+            <tr><td class="code s4xx">400</td><td>Bad Request</td><td class="context">Malformed enrollment payload. Check required fields (CCCID, term, CRN).</td></tr>
+            <tr><td class="code s4xx">401</td><td>Unauthorized</td><td class="context"><strong>Expired credentials &mdash; the #1 issue.</strong> Sacramento City College incident was caused by this. Always check token expiry first.</td></tr>
+            <tr><td class="code s4xx">403</td><td>Forbidden</td><td class="context">Valid token but wrong scope. The credential works but lacks the specific permission for this endpoint.</td></tr>
+            <tr><td class="code s4xx">404</td><td>Not Found</td><td class="context">Student or course does not exist in the Exchange. Possibly not yet synced from the home college SIS.</td></tr>
+            <tr><td class="code s4xx">409</td><td>Conflict</td><td class="context">Duplicate CCCID detected. The identity management pain point &mdash; two records exist for one student.</td></tr>
+            <tr><td class="code s4xx">422</td><td>Unprocessable</td><td class="context">Data validation failed. Fields are present but values are invalid (e.g., enrollment date in the past).</td></tr>
+            <tr><td class="code s4xx">429</td><td>Too Many Requests</td><td class="context">Rate limiting triggered. Back off and retry with exponential delay. Common during peak registration.</td></tr>
+            <tr><td class="code s5xx">500</td><td>Internal Server Error</td><td class="context">Their SIS threw an unhandled exception. Escalate to the college's IT contact.</td></tr>
+            <tr><td class="code s5xx">502</td><td>Bad Gateway</td><td class="context">Proxy or middleware failure between Exchange and the SIS. Check Ethos layer if applicable.</td></tr>
+            <tr><td class="code s5xx">503</td><td>Service Unavailable</td><td class="context">Scheduled maintenance or overload. Check the maintenance calendar in Basecamp.</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Headers You Will Use Constantly</h4>
+        <pre><code><span class="comment">// Authentication (every request)</span>
+Authorization: Bearer eyJhbGciOiJSUzI1NiIs...
+
+<span class="comment">// Content negotiation</span>
+Content-Type: application/json
+Accept: application/json
+
+<span class="comment">// Correlation tracking (if supported)</span>
+X-Request-ID: jira-CVC-4521-diag-01</code></pre>
+
+        <h4>Reading Nested JSON Responses</h4>
+        <p>Exchange API responses are deeply nested. The error message you need is rarely at the top level:</p>
+        <pre><code>{
+  <span class="string">"status"</span>: <span class="string">"error"</span>,
+  <span class="string">"data"</span>: {
+    <span class="string">"enrollment"</span>: null,
+    <span class="string">"errors"</span>: [
+      {
+        <span class="string">"code"</span>: <span class="string">"SIS_AUTH_EXPIRED"</span>,
+        <span class="string">"message"</span>: <span class="string">"OAuth token for college 042 expired at 2026-04-05T03:00:00Z"</span>,
+        <span class="string">"source"</span>: <span class="string">"banner-adapter"</span>  <span class="comment">// &larr; This tells you which layer failed</span>
+      }
+    ]
+  }
+}</code></pre>
+      </div>
+    </details>
+
+    <!-- 1.3 Workspace Organization -->
+    <details>
+      <summary>1.3 &mdash; Workspace Organization</summary>
+      <div class="detail-body">
+        <h4>Collections (Organized by Function)</h4>
+        <ul>
+          <li><strong>Enrollment</strong> &mdash; CRUD operations, status checks, lifecycle transitions</li>
+          <li><strong>Student / Identity</strong> &mdash; CCCID lookups, merge detection, profile sync</li>
+          <li><strong>College</strong> &mdash; Health checks, configuration, SIS adapter status</li>
+          <li><strong>Canvas Integration</strong> &mdash; Roster sync, course access, grade passback</li>
+          <li><strong>Health Check Suite</strong> &mdash; Automated checks across all 116 colleges</li>
+        </ul>
+
+        <h4>Environments: Staging vs Production</h4>
+        <div class="callout warn">
+          <strong>CRITICAL: Never run destructive operations (POST/PUT/DELETE) on Production without explicit approval.</strong>
+          Your default environment should always be Staging. Switching to Production should be a deliberate, conscious act.
+        </div>
+        <pre><code><span class="comment">// Staging Environment</span>
+{
+  <span class="string">"base_url"</span>: <span class="string">"https://staging-api.cvc.edu"</span>,
+  <span class="string">"auth_url"</span>: <span class="string">"https://staging-auth.cvc.edu/oauth2/token"</span>,
+  <span class="string">"auth_token"</span>: <span class="string">""</span>,   <span class="comment">// populated by pre-request script</span>
+  <span class="string">"college_id"</span>: <span class="string">"042"</span>
+}
+
+<span class="comment">// Production Environment</span>
+{
+  <span class="string">"base_url"</span>: <span class="string">"https://api.cvc.edu"</span>,
+  <span class="string">"auth_url"</span>: <span class="string">"https://auth.cvc.edu/oauth2/token"</span>,
+  <span class="string">"auth_token"</span>: <span class="string">""</span>,
+  <span class="string">"college_id"</span>: <span class="string">""</span>      <span class="comment">// intentionally blank — forces you to specify</span>
+}</code></pre>
+
+        <h4>Variable Naming Conventions</h4>
+        <p>Use double-brace syntax in your requests: <code>{{base_url}}/api/enrollments?collegeId={{college_id}}</code>. This means changing environments automatically switches every request between staging and production without editing URLs.</p>
+        <ul>
+          <li><code>{{base_url}}</code> &mdash; API root</li>
+          <li><code>{{auth_token}}</code> &mdash; current Bearer token</li>
+          <li><code>{{college_id}}</code> &mdash; target college code</li>
+          <li><code>{{student_cccid}}</code> &mdash; test student identifier</li>
+          <li><code>{{enrollment_id}}</code> &mdash; current enrollment being investigated</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 1.4 Authentication & OAuth2 -->
+    <details>
+      <summary>1.4 &mdash; Authentication &amp; OAuth2</summary>
+      <div class="detail-body">
+        <h4>OAuth2 Client Credentials Flow</h4>
+        <p>The Exchange uses the <code>client_credentials</code> grant type for service-to-service communication. There is no user login involved &mdash; the application authenticates itself with a client ID and secret.</p>
+        <pre><code><span class="method">POST</span> {{auth_url}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&amp;client_id=cvc-exchange-support
+&amp;client_secret={{client_secret}}
+&amp;scope=enrollments.read colleges.read canvas.read</code></pre>
+
+        <p>Tokens typically expire in <strong>1 to 4 hours</strong>. The response includes <code>expires_in</code> (seconds). Hitting a 401 mid-diagnosis usually means your token expired while you were investigating.</p>
+
+        <h4>Pre-request Script for Auto-refresh</h4>
+        <pre><code><span class="comment">// Set this at the COLLECTION level so every request inherits it</span>
+<span class="keyword">const</span> tokenExpiry = pm.environment.get(<span class="string">"token_expiry"</span>);
+<span class="keyword">const</span> now = Date.now();
+
+<span class="keyword">if</span> (!tokenExpiry || now > parseInt(tokenExpiry)) {
+    pm.sendRequest({
+        url: pm.environment.get(<span class="string">"auth_url"</span>),
+        method: <span class="string">"POST"</span>,
+        header: { <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span> },
+        body: {
+            mode: <span class="string">"urlencoded"</span>,
+            urlencoded: [
+                { key: <span class="string">"grant_type"</span>, value: <span class="string">"client_credentials"</span> },
+                { key: <span class="string">"client_id"</span>, value: pm.environment.get(<span class="string">"client_id"</span>) },
+                { key: <span class="string">"client_secret"</span>, value: pm.environment.get(<span class="string">"client_secret"</span>) },
+                { key: <span class="string">"scope"</span>, value: <span class="string">"enrollments.read colleges.read canvas.read"</span> }
+            ]
+        }
+    }, <span class="keyword">function</span>(err, res) {
+        <span class="keyword">if</span> (!err) {
+            <span class="keyword">const</span> json = res.json();
+            pm.environment.set(<span class="string">"auth_token"</span>, json.access_token);
+            pm.environment.set(<span class="string">"token_expiry"</span>, now + (json.expires_in * 1000) - 60000);
+            <span class="comment">// subtract 60s buffer to avoid edge-case expiry</span>
+        }
+    });
+}</code></pre>
+
+        <h4>Setting Up OAuth2 in the Authorization Tab</h4>
+        <ol>
+          <li>At the collection level, go to <strong>Authorization &rarr; Type: OAuth 2.0</strong></li>
+          <li>Grant Type: <strong>Client Credentials</strong></li>
+          <li>Access Token URL: <code>{{auth_url}}</code></li>
+          <li>Client ID and Secret from your environment variables</li>
+          <li>Scope: <code>enrollments.read colleges.read canvas.read</code></li>
+          <li>Click <strong>Get New Access Token</strong> &rarr; <strong>Use Token</strong></li>
+        </ol>
+
+        <div class="callout">
+          <strong>The Expired Credential Diagnostic</strong>
+          When you see a 401 on ANY request, your first action should be: check when the token was issued, calculate if it's expired, and refresh. This single check resolves roughly 30-40% of "API isn't working" reports.
+        </div>
+      </div>
+    </details>
+
+    <!-- 1.5 Daily Diagnostic Workflow -->
+    <details>
+      <summary>1.5 &mdash; Daily Diagnostic Workflow</summary>
+      <div class="detail-body">
+        <h4>Scenario: "Enrollments aren't syncing at Sacramento City College"</h4>
+        <p>This is the most common type of support request. Here is the step-by-step diagnostic using Postman:</p>
+
+        <p><strong>Step 1 &mdash; Check college health</strong></p>
+        <pre><code><span class="method">GET</span> {{base_url}}/api/colleges/scc/health
+
+<span class="comment">// Look for:</span>
+<span class="comment">//   "status": "healthy" vs "degraded" vs "offline"</span>
+<span class="comment">//   "lastSync": timestamp — how stale is the data?</span>
+<span class="comment">//   "sisAdapter": "banner" — which integration layer?</span></code></pre>
+
+        <p><strong>Step 2 &mdash; Verify your OAuth token is valid</strong></p>
+        <pre><code><span class="method">GET</span> {{base_url}}/api/auth/introspect
+Authorization: Bearer {{auth_token}}
+
+<span class="comment">// If 401 → refresh token first, then continue</span>
+<span class="comment">// Check "exp" field to see exact expiry time</span></code></pre>
+
+        <p><strong>Step 3 &mdash; Look up pending enrollments</strong></p>
+        <pre><code><span class="method">GET</span> {{base_url}}/api/enrollments?collegeId=scc&amp;status=pending
+
+<span class="comment">// How many are stuck? When were they created?</span>
+<span class="comment">// A large batch at the same timestamp = bulk sync failure</span>
+<span class="comment">// Scattered timestamps = intermittent connectivity issue</span></code></pre>
+
+        <p><strong>Step 4 &mdash; Check Canvas roster sync</strong></p>
+        <pre><code><span class="method">GET</span> {{base_url}}/api/canvas/courses/98765/roster
+
+<span class="comment">// Compare this list against the enrollment records</span>
+<span class="comment">// Students in the enrollment but NOT in the roster = sync failure</span></code></pre>
+
+        <p><strong>Step 5 &mdash; Compare timestamps</strong></p>
+        <p>Cross-reference the <code>createdAt</code> timestamp on the enrollment record with the <code>lastSync</code> from the health endpoint. If the enrollment was created after the last successful sync, the data simply hasn't been pushed yet. If the enrollment is older than the last sync, the sync ran but skipped this record &mdash; that's a data-level issue.</p>
+
+        <p><strong>Step 6 &mdash; Document and attach to Jira</strong></p>
+        <p>Save the response as an example in your Postman collection. Screenshot the full request/response (including headers and timing). Attach both to the Jira ticket with a summary of findings.</p>
+
+        <div class="callout info">
+          <strong>Pro tip:</strong> Name your saved examples with the Jira ticket ID. Example: <code>CVC-4521 — SCC pending enrollments (2026-04-06)</code>. This creates a searchable diagnostic history.
+        </div>
+      </div>
+    </details>
+
+    <!-- 1.6 Pre-request Scripts & Tests -->
+    <details>
+      <summary>1.6 &mdash; Pre-request Scripts &amp; Tests</summary>
+      <div class="detail-body">
+        <h4>Auto-set Authorization Header</h4>
+        <pre><code><span class="comment">// Pre-request Script (collection level)</span>
+pm.request.headers.add({
+    key: <span class="string">"Authorization"</span>,
+    value: <span class="string">"Bearer "</span> + pm.environment.get(<span class="string">"auth_token"</span>)
+});</code></pre>
+
+        <h4>Auto-log Response Time for SLA Tracking</h4>
+        <pre><code><span class="comment">// Tests tab</span>
+pm.test(<span class="string">"Response time is under 2000ms"</span>, <span class="keyword">function</span>() {
+    pm.expect(pm.response.responseTime).to.be.below(2000);
+});
+
+<span class="comment">// Log to console for trend tracking</span>
+console.log(<span class="string">`[${new Date().toISOString()}] ${pm.info.requestName}: ${pm.response.responseTime}ms`</span>);</code></pre>
+
+        <h4>Standard Assertion Suite</h4>
+        <pre><code><span class="comment">// Paste this in the Tests tab of critical requests</span>
+
+<span class="comment">// 1. Status code check</span>
+pm.test(<span class="string">"Status code is 200"</span>, <span class="keyword">function</span>() {
+    pm.response.to.have.status(200);
+});
+
+<span class="comment">// 2. Response time SLA</span>
+pm.test(<span class="string">"Response time under 2s"</span>, <span class="keyword">function</span>() {
+    pm.expect(pm.response.responseTime).to.be.below(2000);
+});
+
+<span class="comment">// 3. Required fields present</span>
+pm.test(<span class="string">"Response has required enrollment fields"</span>, <span class="keyword">function</span>() {
+    <span class="keyword">const</span> json = pm.response.json();
+    pm.expect(json.data).to.have.property(<span class="string">"enrollmentId"</span>);
+    pm.expect(json.data).to.have.property(<span class="string">"studentCccid"</span>);
+    pm.expect(json.data).to.have.property(<span class="string">"status"</span>);
+    pm.expect(json.data).to.have.property(<span class="string">"collegeId"</span>);
+});
+
+<span class="comment">// 4. No error object in success response</span>
+pm.test(<span class="string">"No errors in response"</span>, <span class="keyword">function</span>() {
+    <span class="keyword">const</span> json = pm.response.json();
+    pm.expect(json.errors).to.be.undefined;
+});</code></pre>
+      </div>
+    </details>
+
+    <!-- 1.7 Collections to Build -->
+    <details>
+      <summary>1.7 &mdash; Collections to Build in Your First Month</summary>
+      <div class="detail-body">
+        <h4>1. Health Check Suite</h4>
+        <p>A collection that hits the health endpoint for all 116 colleges. Organize into folders by region or SIS platform. Use the Collection Runner to execute all at once. Any non-200 response gets flagged immediately.</p>
+
+        <h4>2. Enrollment Lifecycle</h4>
+        <p>A collection that walks through the complete enrollment lifecycle:</p>
+        <ol>
+          <li><strong>Create</strong> &mdash; POST a new cross-enrollment</li>
+          <li><strong>Verify</strong> &mdash; GET the enrollment, confirm it's <code>pending</code></li>
+          <li><strong>Sync</strong> &mdash; Trigger or wait for the sync cycle</li>
+          <li><strong>Confirm</strong> &mdash; GET again, confirm <code>active</code> status</li>
+          <li><strong>Canvas Check</strong> &mdash; Verify student appears in the course roster</li>
+        </ol>
+
+        <h4>3. Identity Resolution</h4>
+        <ul>
+          <li>Lookup student by CCCID</li>
+          <li>Search for potential duplicate CCCIDs</li>
+          <li>Check merge history for a given identity</li>
+          <li>Validate CCCID format and cross-reference with CCCApply</li>
+        </ul>
+
+        <h4>4. Canvas Integration</h4>
+        <ul>
+          <li>Course roster retrieval</li>
+          <li>Student access verification</li>
+          <li>Grade passback status</li>
+          <li>SIS import status for a given course</li>
+        </ul>
+
+        <h4>5. Error Reproduction Library</h4>
+        <p>Save one example for each error type you encounter (401, 404, 409, 422, 500, 502). Include the full request, response, and a note about the root cause. This becomes an invaluable reference when the same error surfaces again.</p>
+      </div>
+    </details>
+
+    <!-- 1.8 Newman & Automation -->
+    <details>
+      <summary>1.8 &mdash; Newman &amp; Automation (Advanced)</summary>
+      <div class="detail-body">
+        <h4>Running Collections from the CLI</h4>
+        <pre><code><span class="comment"># Install Newman globally</span>
+npm install -g newman
+
+<span class="comment"># Run the Health Check Suite against staging</span>
+newman run HealthCheckSuite.postman_collection.json \
+  -e staging.postman_environment.json \
+  --reporters cli,htmlextra \
+  --reporter-htmlextra-export ./reports/health-$(date +%Y%m%d).html</code></pre>
+
+        <h4>Scheduling Health Checks</h4>
+        <pre><code><span class="comment"># Cron job: run health checks every 30 minutes during business hours</span>
+<span class="comment"># crontab -e</span>
+*/30 8-17 * * 1-5 /usr/local/bin/newman run /opt/cvc/HealthCheckSuite.json \
+  -e /opt/cvc/production.json \
+  --reporters cli,htmlextra \
+  --reporter-htmlextra-export /var/www/reports/health-latest.html 2>&1 | \
+  mail -s "CVC Health Check" support@cvc.edu</code></pre>
+
+        <h4>CI/CD Integration</h4>
+        <p>Newman integrates with Jenkins, GitHub Actions, and other CI/CD pipelines. After a deployment, automatically run the Enrollment Lifecycle collection against staging to catch regressions before they reach production.</p>
+
+        <h4>HTML Report Generation</h4>
+        <p>The <code>htmlextra</code> reporter generates rich, shareable HTML reports with pass/fail summary, response times, and detailed request/response bodies. Share these in Basecamp for team visibility during incidents.</p>
+      </div>
+    </details>
+
+    <!-- 1.9 Common Pitfalls -->
+    <details>
+      <summary>1.9 &mdash; Common Pitfalls</summary>
+      <div class="detail-body">
+        <div class="callout warn">
+          <strong>Never POST, PUT, or DELETE on production without explicit approval.</strong>
+          This cannot be overstated. A misfire against production can create phantom enrollments, drop students from courses, or corrupt identity records. If you need to test write operations, use staging exclusively.
+        </div>
+        <ul>
+          <li><strong>Always save responses as examples</strong> &mdash; Your diagnostic work is only valuable if the team can reference it later. Save every significant response with a descriptive name and the Jira ticket ID.</li>
+          <li><strong>Use collection-level auth, not per-request</strong> &mdash; Setting authentication at the collection level means every request inherits it. Per-request auth leads to inconsistency and forgotten tokens.</li>
+          <li><strong>Keep environments synced with the team workspace</strong> &mdash; If someone updates the staging URL, everyone should get the change. Use Postman's team workspace, not personal copies.</li>
+          <li><strong>Never hardcode tokens</strong> &mdash; Tokens go in environment variables, never pasted directly into the Authorization header. Hardcoded tokens end up in shared collections and version history.</li>
+          <li><strong>Check the console</strong> &mdash; Postman's built-in console (View &rarr; Show Postman Console) shows the actual HTTP traffic, including redirects, retries, and certificate errors that the UI might hide.</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     SECTION 2: JIRA
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="jira">
+  <div class="container">
+    <span class="section-badge badge-jira">Section 2</span>
+    <h3 class="section-title">Jira</h3>
+    <p class="section-lead">The single source of truth for every support request from 116 colleges. Ticket states drive SLA metrics, reporting, and accountability.</p>
+
+    <!-- 2.1 What & How -->
+    <details open>
+      <summary>2.1 &mdash; What Is Jira &amp; How CVC Uses It</summary>
+      <div class="detail-body">
+        <p>Jira is the ticket-tracking system where the entire support workflow lives. Every student issue, college outage, API failure, and enhancement request flows through Jira. It is not optional tooling &mdash; it is the operational record.</p>
+        <p>Key principles:</p>
+        <ul>
+          <li><strong>If it's not in Jira, it didn't happen.</strong> Phone calls, Slack messages, and hallway conversations mean nothing unless they're documented in a ticket.</li>
+          <li><strong>SLA metrics are computed from ticket state transitions.</strong> How you move tickets through the workflow directly affects the team's SLA compliance numbers that leadership reviews.</li>
+          <li><strong>Tickets are read by people who weren't there.</strong> Write every ticket as if the next person to read it has zero context. Future you is one of those people.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 2.2 Ticket Lifecycle -->
+    <details>
+      <summary>2.2 &mdash; Ticket Lifecycle (THE Critical Workflow)</summary>
+      <div class="detail-body">
+        <div class="workflow">
+          <div class="workflow-step">Open</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">In Progress</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">Waiting on Reporter</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">Waiting on Vendor</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step critical">Resolved &nbsp;&larr;&nbsp; USE THIS, not Closed</div>
+          <div class="workflow-arrow">&darr;</div>
+          <div class="workflow-step">Closed</div>
+        </div>
+
+        <div class="callout warn">
+          <strong>CRITICAL: Use "Resolved" not "Closed" to mark tickets as done.</strong>
+          SLA metrics are calculated based on the time from <code>Open</code> to <code>Resolved</code>. If you skip to <code>Closed</code>, the SLA clock behaves differently and can distort reporting. "Closed" happens after the reporter confirms the resolution or after an auto-close timer. Let the workflow handle it.
+        </div>
+
+        <h4>When to Use Each Transition</h4>
+        <ul>
+          <li><strong>Open &rarr; In Progress:</strong> When you begin active investigation. Do this immediately when you pick up a ticket.</li>
+          <li><strong>In Progress &rarr; Waiting on Reporter:</strong> When you need information from the college. Include exactly what you need in your comment &mdash; do not make them guess.</li>
+          <li><strong>In Progress &rarr; Waiting on Vendor:</strong> When the issue is in the SIS vendor's hands (Ellucian for Banner, Oracle for PeopleSoft). Log the vendor ticket/case number.</li>
+          <li><strong>Any &rarr; Resolved:</strong> When the issue is fixed and verified. Include a resolution summary that a new analyst could follow to understand what was wrong and what fixed it.</li>
+          <li><strong>Resolved &rarr; Closed:</strong> Reporter confirms fix OR auto-close after defined period. You typically do not close tickets manually.</li>
+        </ul>
+
+        <h4>How Transitions Affect SLA</h4>
+        <p>The SLA clock <strong>pauses</strong> when the ticket is in "Waiting on Reporter" or "Waiting on Vendor." This means: transition accurately. If you're waiting for a college to respond, move the ticket to "Waiting on Reporter" immediately so your SLA isn't penalized for their response time.</p>
+      </div>
+    </details>
+
+    <!-- 2.3 Ticket Anatomy -->
+    <details>
+      <summary>2.3 &mdash; Ticket Anatomy</summary>
+      <div class="detail-body">
+        <h4>Summary (Title)</h4>
+        <p>Concise and searchable. Include the failure type, the affected college, and the SIS platform when known.</p>
+        <pre><code><span class="string">Good:</span>  "Banner SSO failure — Sacramento City College — 401 on token refresh"
+<span class="string">Good:</span>  "CCCID merge conflict — Foothill College — duplicate student records"
+<span class="comment">Bad:</span>   "Enrollment issue"
+<span class="comment">Bad:</span>   "Not working"</code></pre>
+
+        <h4>Description Template</h4>
+        <pre><code><span class="keyword">## College</span>
+Sacramento City College (042) — Banner
+
+<span class="keyword">## Students Affected</span>
+~45 students with pending enrollments since 2026-04-05 14:00 PT
+
+<span class="keyword">## Expected Behavior</span>
+Cross-enrollments should sync to Canvas within 15 minutes of creation.
+
+<span class="keyword">## Actual Behavior</span>
+Enrollments created after 14:00 PT on April 5 are stuck in "pending" status.
+Canvas roster does not include these students.
+
+<span class="keyword">## Steps to Reproduce</span>
+1. GET /api/enrollments?collegeId=042&status=pending
+2. Note: 45 records, all created after 2026-04-05T21:00:00Z
+3. GET /api/colleges/042/health → returns {"status": "degraded"}
+
+<span class="keyword">## Evidence</span>
+- [Postman screenshot attached: CVC-4521-diag-01.png]
+- [Health check response: CVC-4521-health.json]
+
+<span class="keyword">## Timeline</span>
+- 14:00 PT — First report from college coordinator
+- 14:15 PT — Confirmed via Postman: health endpoint shows "degraded"
+- 14:30 PT — Identified: OAuth token refresh failing (401 from Banner adapter)</code></pre>
+
+        <h4>Priority Levels</h4>
+        <ul>
+          <li><span class="priority p1">P1 CRITICAL</span> &mdash; Multiple colleges down OR >100 students affected. Immediate response required. All hands on deck. Notify via Basecamp emergency project.</li>
+          <li><span class="priority p2">P2 HIGH</span> &mdash; Single college degraded OR <100 students affected. 2-hour response SLA. Begin diagnosis immediately.</li>
+          <li><span class="priority p3">P3 MEDIUM</span> &mdash; Individual student issues, isolated errors. 1-business-day SLA. Queue for next available slot.</li>
+          <li><span class="priority p4">P4 LOW</span> &mdash; Enhancement requests, documentation updates, non-urgent cleanup. Address in next sprint or when bandwidth allows.</li>
+        </ul>
+
+        <h4>Components</h4>
+        <p>Tag every ticket with the appropriate component: <code>Enrollment</code>, <code>Canvas</code>, <code>SSO/Auth</code>, <code>Financial Aid</code>, <code>Data Sync</code>, <code>Identity</code></p>
+
+        <h4>Labels</h4>
+        <p>Always tag with the SIS platform: <code>banner</code>, <code>peoplesoft</code>, <code>colleague</code>, <code>ethos</code>. This enables trend analysis across platforms.</p>
+      </div>
+    </details>
+
+    <!-- 2.4 JQL -->
+    <details>
+      <summary>2.4 &mdash; JQL (Jira Query Language) &mdash; Power User Commands</summary>
+      <div class="detail-body">
+        <h4>Essential Queries</h4>
+        <pre><code><span class="comment">// Your open tickets</span>
+assignee = currentUser() AND status != Closed
+
+<span class="comment">// P1 tickets created this week</span>
+priority = Critical AND created >= startOfWeek()
+
+<span class="comment">// Tickets for a specific college</span>
+text ~ "Sacramento City" AND status != Closed
+
+<span class="comment">// Aging tickets (no updates in 3+ days)</span>
+status = "In Progress" AND updated < -3d
+
+<span class="comment">// Tickets waiting on reporter for 5+ days (may need follow-up or auto-close)</span>
+status = "Waiting on Reporter" AND updated < -5d
+
+<span class="comment">// SLA at risk: high-priority tickets in progress for 4+ hours</span>
+priority in (Critical, High) AND status = "In Progress" AND created < -4h
+
+<span class="comment">// Banner/Ethos issues in the last 30 days (trend analysis)</span>
+labels in (banner, ethos) AND created >= -30d ORDER BY created DESC
+
+<span class="comment">// Unassigned tickets (grab these during slow periods)</span>
+assignee is EMPTY AND status = Open ORDER BY priority DESC, created ASC
+
+<span class="comment">// Your resolved tickets this month (for standup/reporting)</span>
+assignee = currentUser() AND status = Resolved AND resolved >= startOfMonth()
+
+<span class="comment">// Cross-query: identity/merge issues that keep recurring</span>
+component = Identity AND created >= -90d ORDER BY created DESC</code></pre>
+
+        <div class="callout">
+          <strong>Save these as filters.</strong> Each query above should be a saved filter in your Jira account. You can then use these saved filters in dashboards, subscriptions (email alerts), and quick links.
+        </div>
+      </div>
+    </details>
+
+    <!-- 2.5 Dashboards -->
+    <details>
+      <summary>2.5 &mdash; Dashboards &amp; Gadgets</summary>
+      <div class="detail-body">
+        <h4>Personal Dashboard: "My CVC Workspace"</h4>
+        <ul>
+          <li><strong>My Open Tickets</strong> (Filter Results gadget) &mdash; Your current workload at a glance</li>
+          <li><strong>P1/P2 Active Monitor</strong> (Filter Results) &mdash; All critical and high tickets currently open, regardless of assignee</li>
+          <li><strong>Resolution Trend</strong> (Pie Chart) &mdash; Your tickets by status over the past 30 days</li>
+          <li><strong>SLA Compliance</strong> (Time Tracking gadget) &mdash; How often tickets are resolved within SLA targets</li>
+          <li><strong>College Heatmap</strong> (Two-Dimensional Filter Statistics) &mdash; Which colleges generate the most tickets, broken down by component. Reveals systemic issues.</li>
+        </ul>
+
+        <h4>Team Dashboard: "CVC Daily Standup"</h4>
+        <ul>
+          <li><strong>All Open P1/P2s</strong> &mdash; Top of the dashboard, always visible</li>
+          <li><strong>Ticket Distribution by Assignee</strong> &mdash; Load balancing visibility</li>
+          <li><strong>Created vs Resolved (last 7 days)</strong> &mdash; Are we keeping up with inflow?</li>
+          <li><strong>Tickets by SIS Platform</strong> &mdash; Which platform is causing the most pain this week?</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 2.6 Automation -->
+    <details>
+      <summary>2.6 &mdash; Automation Rules</summary>
+      <div class="detail-body">
+        <p>Jira automation reduces manual overhead and prevents tickets from falling through cracks. Key rules to set up or be aware of:</p>
+        <ul>
+          <li><strong>Auto-assign based on component:</strong> If <code>component = Canvas</code>, assign to the Canvas specialist. If <code>component = SSO/Auth</code>, assign to the auth lead.</li>
+          <li><strong>Auto-notify on P1 creation:</strong> When a ticket is created with priority = Critical, immediately notify the team lead and post to the Basecamp emergency project.</li>
+          <li><strong>Auto-close after no response:</strong> If a ticket is in "Waiting on Reporter" for 7+ days with no update, add a comment warning the reporter, then auto-resolve after 10 days. This prevents ticket graveyards.</li>
+          <li><strong>SLA escalation:</strong> If a P2 ticket has been "In Progress" for 4+ hours without an update, notify the team lead. For P1, this threshold drops to 1 hour.</li>
+          <li><strong>Reminder for aging tickets:</strong> If any ticket is "In Progress" with no comment in 3 days, send the assignee a reminder notification.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 2.7 Linking Jira + Postman -->
+    <details>
+      <summary>2.7 &mdash; Linking Jira + Postman</summary>
+      <div class="detail-body">
+        <p>The diagnostic evidence from Postman should flow directly into Jira tickets:</p>
+        <ul>
+          <li><strong>Attach response screenshots:</strong> In Postman, use the built-in screenshot button or export the response body. Attach as an image or JSON file to the Jira ticket.</li>
+          <li><strong>Reference collection/request names:</strong> In your Jira comment, write: <em>"Diagnosed via Postman: Enrollment Lifecycle &rarr; Check Pending Enrollments. See attached response CVC-4521-diag-01.json"</em></li>
+          <li><strong>Name Postman examples with Jira IDs:</strong> This creates bidirectional traceability. From the ticket you can find the Postman evidence; from Postman you can find the ticket.</li>
+          <li><strong>Include response timing:</strong> "The enrollment lookup endpoint responded in 4,200ms (SLA target: 2,000ms). This confirms the latency issue reported by the college."</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 2.8 Best Practices -->
+    <details>
+      <summary>2.8 &mdash; Best Practices</summary>
+      <div class="detail-body">
+        <ul>
+          <li><strong>Update tickets before you leave for the day.</strong> Even a one-line note: "Waiting for Banner adapter team to investigate timeout. Will follow up tomorrow AM." Your future self and any on-call colleague will thank you.</li>
+          <li><strong>Always log time spent</strong> &mdash; even rough estimates. This data drives staffing decisions and helps justify headcount when ticket volume exceeds capacity.</li>
+          <li><strong>Tag every ticket with the SIS platform.</strong> Without labels, trend analysis is impossible and you cannot answer "are Banner colleges having more issues than PeopleSoft colleges?"</li>
+          <li><strong>Write resolution notes for a NEW analyst.</strong> Imagine someone who started yesterday reading your resolution. Would they understand what happened and why the fix works?</li>
+          <li><strong>Use @mentions sparingly but effectively.</strong> @mention someone when they need to take action or are directly relevant. Do not @mention the entire team on a P4.</li>
+          <li><strong>Create saved filters for your common queries.</strong> You should never be typing the same JQL twice. Save it, name it clearly, and pin it to your dashboard.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 2.9 First Week -->
+    <details>
+      <summary>2.9 &mdash; Your First Week in Jira</summary>
+      <div class="detail-body">
+        <h4>Day 1-2: Orientation</h4>
+        <ol>
+          <li>Set up your personal dashboard ("My CVC Workspace") with the gadgets listed in section 2.5</li>
+          <li>Create and save the 5 most important JQL filters from section 2.4</li>
+          <li>Familiarize yourself with board view vs list view &mdash; board view for workflow visualization, list view for bulk analysis</li>
+        </ol>
+
+        <h4>Day 3-4: Observation</h4>
+        <ol>
+          <li>Find and read the team's knowledge base (likely linked from a Confluence space or a pinned Basecamp doc)</li>
+          <li>Shadow 3 existing tickets from Open through Resolved. Read every comment. Understand the pacing and communication style.</li>
+          <li>Note the team's naming conventions for ticket summaries, labels, and components</li>
+        </ol>
+
+        <h4>Day 5: First Solo Tickets</h4>
+        <ol>
+          <li>Pick up a P3 or P4 ticket from the queue</li>
+          <li>Follow the workflow precisely: transition states, log time, tag with SIS platform</li>
+          <li>Write your first resolution note as if a brand-new analyst will read it next month</li>
+        </ol>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     SECTION 3: BASECAMP
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="basecamp">
+  <div class="container">
+    <span class="section-badge badge-basecamp">Section 3</span>
+    <h3 class="section-title">Basecamp</h3>
+    <p class="section-lead">The project management and async communication layer where strategy is discussed, decisions are documented, and project-level coordination happens.</p>
+
+    <!-- 3.1 What & How -->
+    <details open>
+      <summary>3.1 &mdash; What Is Basecamp &amp; How CVC Uses It</summary>
+      <div class="detail-body">
+        <p>Basecamp is the team's project management and communication platform. It replaced email chains for project-level discussions, providing structured, searchable, and persistent communication that does not get lost in inboxes or chat scroll.</p>
+        <p>At CVC, Basecamp serves three distinct purposes:</p>
+        <ul>
+          <li><strong>Project coordination</strong> &mdash; Tracking multi-week initiatives like "CCCID Merge Fix" or "CRM Overhaul" with to-do lists, milestones, and shared files.</li>
+          <li><strong>Async team communication</strong> &mdash; Discussions that need to be permanent and searchable. Unlike Slack messages that scroll away, Basecamp message board posts are easy to find months later.</li>
+          <li><strong>Decision documentation</strong> &mdash; When a team makes a decision (e.g., "we will handle CCCID duplicates by always preferring the newer record"), it lives on the Basecamp message board, not in someone's memory.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 3.2 Core Concepts -->
+    <details>
+      <summary>3.2 &mdash; Core Concepts</summary>
+      <div class="detail-body">
+        <h4>Projects</h4>
+        <p>Each major initiative has its own Basecamp project. Examples: "CCCID Merge Fix," "Emergency Protocol," "CRM Overhaul," "Onboarding." Each project contains all of the tools below.</p>
+
+        <h4>Message Board</h4>
+        <p>The async discussion hub. Think of it like Slack threads, but designed for permanence. Posts are organized by topic, can be categorized, and are fully searchable. Use this for discussions that need a lasting record.</p>
+
+        <h4>To-dos</h4>
+        <p>Task lists within each project. Assign to individuals, set due dates, add notes. Unlike Jira tickets (which track external support requests), Basecamp to-dos track internal project work.</p>
+
+        <h4>Campfire</h4>
+        <p>Real-time chat within a project. Use for quick, informal questions that don't need to be permanent. If a Campfire conversation produces a decision, post the decision summary on the Message Board.</p>
+
+        <h4>Schedule</h4>
+        <p>Project milestones and deadlines. Maintenance windows, release dates, and review checkpoints live here.</p>
+
+        <h4>Docs &amp; Files</h4>
+        <p>Shared documents, SOPs, runbooks, and reference materials. This is where the team's operational knowledge base lives outside of Confluence/Jira.</p>
+
+        <h4>Automatic Check-ins</h4>
+        <p>Recurring questions posed to the team on a schedule. Examples: "What did you work on today?" (daily), "What's your plan for this week?" (Monday). Responses create a lightweight standup record without requiring meetings.</p>
+      </div>
+    </details>
+
+    <!-- 3.3 Communication -->
+    <details>
+      <summary>3.3 &mdash; Communication Best Practices</summary>
+      <div class="detail-body">
+        <ul>
+          <li><strong>Write for skimmers.</strong> Bold the key information. Use bullet points. Put the most important thing in the first sentence, not the last. Most people will scan, not read.</li>
+          <li><strong>One topic per message.</strong> If you need to discuss the CCCID merge strategy AND the upcoming maintenance window, write two separate posts. Combined posts get confused responses.</li>
+          <li><strong>@mention only people who need to act.</strong> "FYI" mentions create noise. If someone doesn't need to do anything, don't @mention them &mdash; they'll see the post in the project feed.</li>
+          <li><strong>Message Board for decisions, Campfire for questions.</strong> "Should we change the SLA for P3 tickets?" goes on the Message Board. "Hey, does anyone remember the staging URL?" goes in Campfire.</li>
+          <li><strong>Pin important messages.</strong> If a post contains a decision, a critical reference, or a process change, pin it so newcomers find it immediately.</li>
+          <li><strong>Set notification preferences.</strong> Basecamp can generate a lot of noise. Configure it so you get immediate notifications only for @mentions and posts in projects you're actively working on. Digest mode for everything else.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 3.4 Tool Integration -->
+    <details>
+      <summary>3.4 &mdash; How Basecamp + Jira + Postman Work Together</summary>
+      <div class="detail-body">
+        <p>The three tools occupy distinct roles. Understanding when to use each one prevents confusion and duplication:</p>
+        <ul>
+          <li><strong>Basecamp</strong> = WHERE you discuss strategy, coordinate projects, and document decisions</li>
+          <li><strong>Jira</strong> = WHERE individual support tickets and technical issues are tracked</li>
+          <li><strong>Postman</strong> = HOW you diagnose technical problems at the API level</li>
+        </ul>
+
+        <h4>Example Workflow: Pattern Detection</h4>
+        <ol>
+          <li>You notice via your Jira dashboard that 5 tickets this week involve Banner 401 errors across different colleges</li>
+          <li>You create a <strong>Basecamp message board post</strong>: "Pattern: Banner OAuth failures across 5 colleges this week &mdash; systemic issue?"</li>
+          <li>Team discusses in the thread; decides to investigate the shared OAuth infrastructure</li>
+          <li>Individual <strong>Jira tickets</strong> are linked to a parent "Epic" for the systemic issue</li>
+          <li>You use <strong>Postman</strong> to test the OAuth token endpoint across all Banner colleges</li>
+          <li>Findings from Postman are attached to the Jira epic and summarized in the Basecamp thread</li>
+          <li>Resolution is implemented, verified via Postman, individual Jira tickets resolved, Basecamp thread updated with outcome</li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 3.5 Setup -->
+    <details>
+      <summary>3.5 &mdash; Setting Up Your Basecamp</summary>
+      <div class="detail-body">
+        <h4>First Day Checklist</h4>
+        <ol>
+          <li><strong>Read all pinned messages in every project.</strong> These contain the decisions, ground rules, and context that govern how the team operates. Do not skip this.</li>
+          <li><strong>Identify active vs archived projects.</strong> Archived projects are historical reference. Focus your attention on active projects. Note which projects have recent activity.</li>
+          <li><strong>Find the emergency communications project.</strong> Andrea's emergency protocol project is where critical incidents are coordinated. Know where it is and how to post there before you need to.</li>
+          <li><strong>Set up Automatic Check-in responses.</strong> When the daily or weekly check-in prompt arrives, respond to it. This builds visibility and trust during your onboarding period.</li>
+          <li><strong>Set notification schedule.</strong> Configure notifications for 8 AM &ndash; 5 PM Pacific only. You should not receive Basecamp pings outside work hours unless it's an @mention in the emergency project.</li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 3.6 Best Practices -->
+    <details>
+      <summary>3.6 &mdash; Best Practices</summary>
+      <div class="detail-body">
+        <ul>
+          <li><strong>Check Basecamp BEFORE Slack or email.</strong> Decisions and project updates live in Basecamp. If you only check Slack, you will miss important context. Make Basecamp your first tab of the day.</li>
+          <li><strong>Search before asking.</strong> Basecamp's search is powerful. Before posting a question, search for it. There's a good chance someone asked and answered it in the last 6 months.</li>
+          <li><strong>Use To-do lists for your own work tracking.</strong> Create a personal to-do list in your onboarding project. Track your own ramp-up tasks, training completions, and goals.</li>
+          <li><strong>Post weekly updates in the team project.</strong> Even a brief "Here's what I worked on, here's what I learned, here's what I'm blocked on" post builds trust and visibility with your supervisor and team.</li>
+          <li><strong>Bookmark the emergency project.</strong> This is the one project where speed matters more than polish. Know how to post there quickly when an incident unfolds.</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     SECTION 4: TOOL INTEGRATION MAP
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="integration">
+  <div class="container">
+    <span class="section-badge badge-integration">Section 4</span>
+    <h3 class="section-title">Tool Integration Map</h3>
+    <p class="section-lead">How Postman, Jira, and Basecamp connect into a single incident response workflow.</p>
+
+    <div class="int-map">
+      <div class="node">
+        <div class="node-title">Student or College Reports Issue</div>
+        <div class="node-desc">Phone, email, or self-service portal</div>
+      </div>
+      <div class="arrow">&darr;</div>
+      <div class="node jira">
+        <div class="node-title">Jira Ticket Created</div>
+        <div class="node-desc">P1 / P2 / P3 / P4 &mdash; assigned, prioritized, SLA clock starts</div>
+      </div>
+      <div class="arrow">&darr;</div>
+      <div class="node postman">
+        <div class="node-title">Postman Diagnostic</div>
+        <div class="node-desc">Reproduce &rarr; isolate layer &rarr; identify root cause</div>
+      </div>
+      <div class="arrow">&darr;</div>
+      <div class="node jira">
+        <div class="node-title">Jira Updated with Findings</div>
+        <div class="node-desc">Attach evidence, update status, log time spent</div>
+      </div>
+      <div class="arrow">&darr;</div>
+      <div class="node basecamp">
+        <div class="node-title">Basecamp Discussion (if systemic)</div>
+        <div class="node-desc">Pattern detected? Coordinate cross-team response</div>
+      </div>
+      <div class="arrow">&darr;</div>
+      <div class="node jira" style="border-color: var(--green);">
+        <div class="node-title">Jira Resolved &mdash; SLA Met</div>
+        <div class="node-desc">Resolution documented, knowledge base updated</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>The key principle:</strong> Jira is the spine. Everything connects back to the ticket. Postman evidence goes into the ticket. Basecamp strategy discussions reference the ticket. If a supervisor asks "what happened with that Sacramento City issue?", the answer is always: "Here's the ticket."
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     SECTION 5: QUICK REFERENCE CARD
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="tool-section" id="reference">
+  <div class="container">
+    <span class="section-badge badge-ref">Section 5</span>
+    <h3 class="section-title">Quick Reference Card</h3>
+    <p class="section-lead">A printable summary of the essentials. Use Ctrl+P / Cmd+P with this section visible.</p>
+
+    <div class="ref-grid">
+      <div class="ref-card">
+        <h5>Postman Shortcuts</h5>
+        <ul>
+          <li><strong>Ctrl+Enter</strong> &mdash; Send request</li>
+          <li><strong>Ctrl+S</strong> &mdash; Save request</li>
+          <li><strong>Ctrl+N</strong> &mdash; New request tab</li>
+          <li><strong>Ctrl+E</strong> &mdash; Select environment</li>
+          <li><strong>Ctrl+Alt+C</strong> &mdash; Open console</li>
+          <li><strong>Ctrl+/</strong> &mdash; Toggle sidebar</li>
+          <li><strong>Ctrl+Shift+F</strong> &mdash; Search collections</li>
+        </ul>
+      </div>
+
+      <div class="ref-card">
+        <h5>Essential JQL Queries</h5>
+        <ul>
+          <li><strong>My open:</strong> assignee=currentUser() AND status!=Closed</li>
+          <li><strong>P1 this week:</strong> priority=Critical AND created>=startOfWeek()</li>
+          <li><strong>Aging:</strong> status="In Progress" AND updated<-3d</li>
+          <li><strong>SLA risk:</strong> priority in (Critical,High) AND created<-4h</li>
+          <li><strong>Unassigned:</strong> assignee is EMPTY AND status=Open</li>
+          <li><strong>My resolved:</strong> assignee=currentUser() AND resolved>=startOfMonth()</li>
+        </ul>
+      </div>
+
+      <div class="ref-card">
+        <h5>HTTP Status Codes</h5>
+        <ul>
+          <li><strong>200</strong> OK &mdash; success</li>
+          <li><strong>201</strong> Created &mdash; new record</li>
+          <li><strong>400</strong> Bad Request &mdash; check payload</li>
+          <li><strong>401</strong> Unauthorized &mdash; CHECK TOKEN FIRST</li>
+          <li><strong>403</strong> Forbidden &mdash; wrong scope</li>
+          <li><strong>404</strong> Not Found &mdash; missing resource</li>
+          <li><strong>409</strong> Conflict &mdash; duplicate CCCID</li>
+          <li><strong>422</strong> Unprocessable &mdash; validation fail</li>
+          <li><strong>429</strong> Too Many Requests &mdash; rate limit</li>
+          <li><strong>500</strong> Server Error &mdash; their SIS</li>
+          <li><strong>502</strong> Bad Gateway &mdash; middleware</li>
+          <li><strong>503</strong> Unavailable &mdash; maintenance</li>
+        </ul>
+      </div>
+
+      <div class="ref-card">
+        <h5>Basecamp Quick Tips</h5>
+        <ul>
+          <li><strong>First tab:</strong> Check Basecamp before Slack</li>
+          <li><strong>Decisions:</strong> Message Board, not Campfire</li>
+          <li><strong>@mention:</strong> Only when action needed</li>
+          <li><strong>Search first:</strong> Before posting questions</li>
+          <li><strong>Notifications:</strong> 8AM-5PM, @mention only</li>
+          <li><strong>Emergency:</strong> Bookmark Andrea's project</li>
+          <li><strong>Check-ins:</strong> Always respond promptly</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Ticket Lifecycle Mini-Diagram -->
+    <div class="ref-card" style="margin-top: 14px;">
+      <h5>Ticket Lifecycle</h5>
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--text-muted); text-align: center; padding: 12px 0;">
+        <span style="color: var(--text);">Open</span>
+        &nbsp;&rarr;&nbsp;
+        <span style="color: var(--blue);">In Progress</span>
+        &nbsp;&rarr;&nbsp;
+        <span style="color: var(--orange);">Waiting on Reporter / Vendor</span>
+        &nbsp;&rarr;&nbsp;
+        <span style="color: var(--green); font-weight: 600;">Resolved</span>
+        &nbsp;&rarr;&nbsp;
+        <span style="color: var(--text-dim);">Closed</span>
+        <br><br>
+        <span style="color: var(--red); font-size: 11px;">SLA clock pauses on "Waiting" states &nbsp;|&nbsp; Use "Resolved" not "Closed" for SLA credit</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <p>Operational Tooling Guide &mdash; CVC OEI Exchange &mdash; Application Support</p>
+    <p style="margin-top: 6px;">Henry Fan &middot; Last updated: April 2026</p>
+    <p style="margin-top: 6px;"><a href="/AppAnalyst/">&larr; Back to AppAnalyst Hub</a></p>
+  </div>
+</footer>
+
+<!-- ═══ Make all details open by default on print ═══ -->
+<script>
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('details').forEach(d => d.open = true);
+});
+</script>
+
+</body>
+</html>
